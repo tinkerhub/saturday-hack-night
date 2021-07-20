@@ -2,6 +2,7 @@
 
 {
   const endTime = new Date("Jul  21, 2021 17:00:00").getTime();
+  window.end_timer_now = false;
 
   const timeDisplay = 
   [
