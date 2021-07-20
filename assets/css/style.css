@@ -168,7 +168,11 @@
     }
     
 }
-
+.btn{
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  background-color: #070550;
+  color: whitesmoke;
+}
 .demo {
     color: #333;
     margin: 0 auto;
