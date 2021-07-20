@@ -6,7 +6,7 @@
           hour = minute * 60,
           day = hour * 24;
   
-    let register = "Jul  21, 2021 00:00:00",
+    let register = "Jul  21, 2021 17:00:00",
         countDown = new Date(register).getTime(),
         x = setInterval(function() {    
   
