@@ -14,6 +14,7 @@
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
@@ -69,29 +70,25 @@
           <h1 class="heading">Saturday Hack Night</h1>
           <h2>Hey Folks !
             Thought of a Hackathon around an API? Join us now for the most awaited event! </h2>
-          <div><a href="#demo" class="btn-get-started scrollto">Register Now</a></div>
+          <div class="timer-end" hidden><a href="" class="btn-get-started scrollto">Register Now</a></div>
         </div>
        
-        <!-- <img src="assets\img\graphics.gif" alt="" > -->
-        <div class="col-xl-4 col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="150">
+        <div class="col-xl-4 col-lg-6 order-1 order-lg-2 hero-img timer-end" data-aos="zoom-in" data-aos-delay="150" hidden>
           <div class="card" >
-            <img class="card-img-top" src="data:image/png;base64,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" alt="Card image cap">
-            <div class="card-body">
+            <img class="card-img-top" src="https://s3.amazonaws.com/coursesity-blog/2019/09/ivrpowers-post-04.024.jpeg" alt="Card image cap">
+            <div class="card-body" style="background-color: wheat;">
               <h5 class="card-title">Dialogflow API</h5>
-              <p class="card-text">Dialogflow is a natural language understanding platform that makes it easy to design and integrate a conversational user interface into your mobile app, web application, device, bot, interactive voice response system, and so on. Using Dialogflow, you can provide new and engaging ways 
-                for users to interact with your product.</p>
+              <p class="card-text">Ever thought how Google Assistant, Siri, Alexa etc work; Dialogeflow is the answer, well amlost. Dialoge flow 
+                is a cutting edge ML API from Google using which you too can do fancy stuff like NLP and Speech synthasis.</p>
+
+                <button class="doc" onclick="location.href='https://cloud.google.com/dialogflow/docs'">API Docs</button> 
             </div>
             <!-- <ul class="list-group list-group-flush">
               <li class="list-group-item">Cras justo odio</li>
               <li class="list-group-item">Dapibus ac facilisis in</li>
               <li class="list-group-item">Vestibulum at eros</li>
             </ul> -->
-            <div class="card-body">
-              <button class="doc" onclick="location.href='https://cloud.google.com/dialogflow/docs'">API Documentation</button> 
-              <button class="doc" onclick="location.href='https://cloud.google.com/dialogflow/docs'">Public Repo</button> 
-            </div>
           </div>
-          <!-- <img src="assets/img/logo.png" class="img-fluid animated" width="257px" alt="Punarjani Logo"> -->
         </div>
       </div>
     </div>
@@ -361,32 +358,70 @@
 
           </div>
           <div class="" data-aos="fade-right">
-            <h4> What is Saturday Hack Night ? </h4><br>
-            <p style="font-size:1rem; color: rgb(8, 8, 66);"> 
-            Saturday Hack Night is not just your regular hackathon. Here, you will be building solutions/applications 
-          via API integration in each alternate Saturdays. Learn and explore.The needed resources, the respective 
-          API and documentation will be shared with you once you register. All you have to do is brainstorm and come up with a 
-          solution for your problem with the given API.
-             
-            </p>
-            <h4> Who can participate ? </h4><br>
-            <p style="font-size:1rem; color: rgb(8, 8, 66);"> 
-            Open to everyone.
-             
-            </p>
-            <h4> Can I register as an individual ? </h4><br>
-            <p style="font-size:1rem; color: rgb(8, 8, 66);"> 
-            Yes, of course. You can resgister either as an individual or as a team of 2 or 3.
-             
-            </p>
-            <h4> Is Saturday Hack Night a recurring program ? </h4><br>
-            <p style="font-size:1rem; color: rgb(8, 8, 66);"> 
-           Yes. This program will be conducted in every alternative Saturdays.  
-            </p>
-            <h4> When is the program scheduled ? </h4><br>
-            <p style="font-size:1rem; color: rgb(8, 8, 66);"> 
-           Saturday from 6-11 PM.  
-            </p>
+            <div class="accordion" id="accordionExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <i class="bi bi-question-circle">&nbsp;</i>What is Saturday Hack Night ?
+                  </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <strong>Saturday Hack Night</strong> 
+                    is a biweekly hackathon organised by TinkerHub. The focus of the event is to provide learners the opporturnity to explore a unique API and build exciting projects. 
+                    TinkerHub will provide any credits or mentroship needed while you only have to think of one thing, Build!
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <i class="bi bi-question-circle">&nbsp;</i>Who can participate ?
+                  </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <strong>You.</strong> Are you passionate about tech ? do you like to build something unique ? are you that qurious cat who loves to explore uncharted teritory ? Then this is your opporturnity.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    <i class="bi bi-question-circle">&nbsp;</i>What should the team size be ?
+                  </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <strong>Individual or maximum 3 members.</strong> You can participitate on your own or team-up with your friends, the more the merrier right !
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFour">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    <i class="bi bi-question-circle">&nbsp;</i>What is the schedule of the program ?
+                  </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <strong>Saturday evening 6 PM to 11 PM</strong> Every odd saturday you will be able to take part in the program. Yes it is a recuring event and Yes you are welcome every time.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFive">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                    <i class="bi bi-question-circle">&nbsp;</i>Still have questions ?
+                  </button>
+                </h2>
+                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <strong>Contact our core team</strong> You can get in tough with us on our discord channel ( you will be added on registrtion ) or ping us directly.
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -416,8 +451,6 @@
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Development Tools</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="https://nodejs.org">node js</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="https://discord.js.org">Discord js</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="https://code.visualstudio.com/">Visual studio code</a>
               </li>
             </ul>
