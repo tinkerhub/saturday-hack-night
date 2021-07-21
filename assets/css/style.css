@@ -39,8 +39,8 @@ body{
     #hero .animated{animation:up-down 2s ease-in-out infinite alternate-reverse both}
     @media (min-width:1200px){
         #hero{background-attachment:fixed}}@media (max-width:991px){#hero{text-align:center}#hero .container,#hero 
-    .container-fluid{padding-top:68px}#hero .animated{-webkit-animation:none;animation:none}#hero .hero-img{text-align:center}#hero .hero-img img{width:50%}}@media (max-width:768px){#hero h1{font-size:26px;line-height:36px}#hero h2{font-size:18px;line-height:24px}
-    #hero .hero-img img{width:60%}}@media (max-width:575px){#hero .hero-img img{width:80%}}
+    .container-fluid{padding-top:68px}#hero .animated{-webkit-animation:none;animation:none}#hero .hero-img{text-align:center}#hero .hero-img {width:50%}}@media (max-width:768px){#hero h1{font-size:26px;line-height:36px}#hero h2{font-size:18px;line-height:24px}
+    #hero .hero-img {width:60%}}@media (max-width:575px){#hero .hero-img {width:80%}}
     @media (max-width:575px),(max-height:600px){#hero{height:auto}}@-webkit-keyframes up-down{0%{transform:translateY(10px)}100%{transform:translateY(-10px)}}@keyframes up-down{0%{transform:translateY(10px)}100%{transform:translateY(-10px)}}section{padding:100px 0;overflow:hidden}.section-bg{background-color:#f9f8ff}.section-title{text-align:center;padding-bottom:30px}
     .section-title h2{font-size:32px;font-weight:700;text-transform:uppercase;margin-bottom:20px;padding-bottom:20px;position:relative}
     .section-title h2::after{content:'';position:absolute;display:block;width:50px;height:3px;background:#140c58;bottom:0;left:calc(50% - 25px)}.section-title p{margin-bottom:0}
