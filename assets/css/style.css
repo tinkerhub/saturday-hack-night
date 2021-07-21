@@ -173,7 +173,19 @@ body{
       font-size: 30px;
     } 
 }
+@media screen and (max-width:400px) {
+  .heading{
+    font-size: 30px;
+  } 
+  .card{
+    align-items: center;
+    /* margin-left: 40px; */
+    padding-left: 30px;
+  }
+  }
+
 .card{
+  /* align-content: center; */
   background: transparent;
   position: relative;
   size: 18px;
