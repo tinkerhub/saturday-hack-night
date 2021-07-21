@@ -1,6 +1,8 @@
 @font-face{font-family:bootstrap-icons;src:url(../fonts/bootstrap-icons.woff2) format("woff2")}@font-face{font-family:boxicons;font-weight:400;font-style:normal;src:url(../fonts/boxicons.woff2) format('woff2')}[class*=" bi-"]::before,[class^=bi-]::before{display:inline-block;font-family:bootstrap-icons!important;font-style:normal;font-weight:400!important;font-variant:normal;text-transform:none;line-height:1;vertical-align:-.125em;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 .bi-x::before{content:"\f62a"}.bx{font-family:boxicons!important;font-weight:400;font-style:normal;font-variant:normal;line-height:1;display:inline-block;text-transform:none;speak:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-
+body{
+  background-color: rgb(241, 247, 247);
+}
 .bi-arrow-up-short::before{
     content:"\f145"}
     .bi-list::before{content:"\f479"}
@@ -126,12 +128,13 @@
     #footer .social-links a:hover{background:rgba(255,255,255,.2);color:#fff;text-decoration:none}.link{color:#fff;text-decoration:none}.link:hover{color:#887ee2}
 
 .heading{
-    /* text-shadow: #FC0 1px 0 10px; */
-    /* text-shadow: 1px 1px 2px red, 0 0 1em blue, 0 0 0.2em blue; */
     text-shadow: 2px 2px #FF0000;
 }
 .main-section{
     background-image: url('download (1).jpg');
+    max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 .doc{
@@ -153,10 +156,6 @@
 }
 
 
-/* 
-.sub-heading{
-    font-size:2px
-} */
 @media screen and (min-width: 1200px){
     .sub-heading{
         font-size: 22px
@@ -168,7 +167,7 @@
     }   
 }
 .card{
-  background-color: transparent;
+  background: transparent;
   position: relative;
   size: 18px;
   width: 18rem; 
@@ -176,8 +175,30 @@
   
 }
 .card-title{
-  font-size: medium;
+  text-shadow: 0 0 10px #fff,
+0 0 20px #fff,
+0 0 30px #fff,
+0 0 40px #ff00de,
+0 0 70px #ff00de,
+0 0 80px #ff00de,
+0 0 100px #ff00de,
+0 0 150px #ff00de;
+  font-size: x-large;
+  font-weight: bolder;
   color: #070550;
+}
+.card-head{
+  font-weight: bolder;
+  color: #070550
+}
+.card-img-top{
+  background-size: cover;
+  /* width: 100px;
+  height: 100px; */
+}
+.card-text{
+  color: black;
+  font-weight: 500;
 }
 .btn{
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -224,7 +245,10 @@
   
   @media all and (max-width: 400px) {
     .heading {
-      font-size: 0.5rem;
+      font-size: 1.5rem;
+    }
+    .card-img-top{
+      background-size: contain;
     }
     
     li {
@@ -242,16 +266,3 @@
     }
   }
 
-/* .container{
-    background: url('download (1).jpg');
-}
-
-.features{
-    background: url('download (1).jpg');
-    background-image: url('download (1).jpg');
-    background-image: image('download (1).jpg');
-    z-index: 1;
-}
-.sub-heading{
-    background-image: url('download (1).jpg');
-} */
