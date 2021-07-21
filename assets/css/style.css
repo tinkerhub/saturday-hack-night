@@ -194,17 +194,11 @@ body{
   
 }
 .card-title{
-  text-shadow: 0 0 10px #fff,
-0 0 20px #fff,
-0 0 30px #fff,
-0 0 40px #ff00de,
-0 0 70px #ff00de,
-0 0 80px #ff00de,
-0 0 100px #ff00de,
-0 0 150px #ff00de;
+  color: #1e043b;
+  text-shadow: 2px 2px #dd1e7e;
   font-size: x-large;
   font-weight: bolder;
-  color: #070550;
+
 }
 .card-head{
   font-weight: bolder;
