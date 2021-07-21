@@ -1,6 +1,7 @@
-@font-face{font-family:bootstrap-icons;src:url(../fonts/bootstrap-icons.woff2) format("woff2")}@font-face{font-family:boxicons;font-weight:400;font-style:normal;src:url(../fonts/boxicons.woff2) format('woff2')}[class*=" bi-"]::before,[class^=bi-]::before{display:inline-block;font-family:bootstrap-icons!important;font-style:normal;font-weight:400!important;font-variant:normal;text-transform:none;line-height:1;vertical-align:-.125em;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+@font-face{font-family:'Times New Roman', Times, serif;src:url(../fonts/bootstrap-icons.woff2) format("woff2")}@font-face{font-family:boxicons;font-weight:400;font-style:normal;src:url(../fonts/boxicons.woff2) format('woff2')}[class*=" bi-"]::before,[class^=bi-]::before{display:inline-block;font-family:bootstrap-icons!important;font-style:normal;font-weight:400!important;font-variant:normal;text-transform:none;line-height:1;vertical-align:-.125em;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 .bi-x::before{content:"\f62a"}.bx{font-family:boxicons!important;font-weight:400;font-style:normal;font-variant:normal;line-height:1;display:inline-block;text-transform:none;speak:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 body{
+  font-family: 'Times New Roman', Times, serif;
   background-color: rgb(241, 247, 247);
 }
 .bi-arrow-up-short::before{
@@ -44,7 +45,7 @@ body{
     @media (max-width:575px),(max-height:600px){#hero{height:auto}}@-webkit-keyframes up-down{0%{transform:translateY(10px)}100%{transform:translateY(-10px)}}@keyframes up-down{0%{transform:translateY(10px)}100%{transform:translateY(-10px)}}section{padding:100px 0;overflow:hidden}.section-bg{background-color:#f9f8ff}.section-title{text-align:center;padding-bottom:30px}
     .section-title h2{font-size:32px;font-weight:700;text-transform:uppercase;margin-bottom:20px;padding-bottom:20px;position:relative}
     .section-title h2::after{content:'';position:absolute;display:block;width:50px;height:3px;background:#140c58;bottom:0;left:calc(50% - 25px)}.section-title p{margin-bottom:0}
-    .about{padding:120px 0}
+    .about{padding:120px 0;font-family: 'Times New Roman', Times, serif;}
     .about .content h3{font-weight:600;font-size:32px;color:#2c4964}
     .about-title h2{font-size:32px;font-weight:700;text-transform:uppercase;margin-bottom:20px;padding-bottom:20px;position:relative}
     .about .content ul{list-style:none;padding:0}
@@ -52,7 +53,7 @@ body{
     .about .content ul i{font-size:20px;padding-right:4px;color:#5846f9}
     .about .content p:last-child{margin-bottom:0}
     .about-title h2::after{content:'';position:absolute;display:block;width:50px;height:3px;background:#5846f9;bottom:0;left:calc(50% - 25px)}
-    .about .content .read-more{font-family:Poppins,sans-serif;font-weight:500;font-size:16px;letter-spacing:1px;display:inline-block;padding:10px 50px 10px 28px;border-radius:5px;transition:.5s;color:#fff;background:linear-gradient(45deg,#5846f9 0,#7b27d8 100%);position:relative}
+    .about .content .read-more{font-family: 'Times New Roman', Times, serif;;font-weight:500;font-size:16px;letter-spacing:1px;display:inline-block;padding:10px 50px 10px 28px;border-radius:5px;transition:.5s;color:#fff;background:linear-gradient(45deg,#5846f9 0,#7b27d8 100%);position:relative}
     .about .content .read-more:hover{background:linear-gradient(180deg,#5846f9 0,#7b27d8 100%)}
     .about .content .read-more i{font-size:22px;position:absolute;right:20px;top:12px}
     .counts{background:linear-gradient(90deg,rgba(88,70,249,.5) 0,rgba(123,39,216,.5) 100%),url(../img/counts-bg.png) center center no-repeat;padding:80px 0 60px 0}
@@ -80,7 +81,7 @@ body{
     .services .iconbox-yellow:hover .icon i{color:#fff}.services .iconbox-yellow:hover .icon path{fill:#ffbb2c}.services .iconbox-red i{color:#ff5828}.services .iconbox-red:hover .icon i{color:#fff}.services .iconbox-red:hover .icon path{fill:#ff5828}.services .iconbox-teal i{color:#11dbcf}.services .iconbox-teal:hover .icon i{color:#fff}.services .iconbox-teal:hover .icon path{fill:#11dbcf}
     .features .icon-box h4{font-size:20px;font-weight:700;margin:5px 0 10px 60px}
     .features .icon-box i{font-size:48px;float:left;color:#5846f9}
-    .features .icon-box p{font-size:15px;color:#848484;margin-left:60px}
+    .features .icon-box p{font-size:17px;color:#06495e;margin-left:60px}
     .features .image{background-position:center center;background-repeat:no-repeat;background-size:cover;min-height:400px}
     .testimonials .testimonial-item{box-sizing:content-box;min-height:320px}
     .testimonials .testimonial-item .testimonial-img{width:90px;border-radius:50%;margin:-40px 0 0 40px;position:relative;z-index:2;border:6px solid #fff;box-shadow:0 2px 15px rgba(0,0,0,.1)}
@@ -136,7 +137,12 @@ body{
   height: auto;
   display: block;
 }
-
+.sub-heading{
+  font-family: 'Times New Roman', Times, serif;
+  letter-spacing: 1px;
+  word-spacing: 3px;
+  
+}
 .doc{
   background-color: #281264; /* Green */
   border: none;
@@ -162,9 +168,10 @@ body{
     }
     
 }
-@media screen and (min-width:600px) {
-    .main-section{  
-    }   
+@media screen and (min-width:350px) {
+    .heading{
+      font-size: 30px;
+    } 
 }
 .card{
   background: transparent;
@@ -191,6 +198,11 @@ body{
   font-weight: bolder;
   color: #070550
 }
+.row-text{
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+  color: black;
+}
 .card-img-top{
   background-size: cover;
   /* width: 100px;
@@ -201,7 +213,7 @@ body{
   font-weight: 500;
 }
 .btn{
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: '''Times New Roman', Times, serif;
   background-color: #070550;
   /* color: whitesmoke; */
 }
@@ -215,7 +227,8 @@ body{
       color: #070550;
     font-weight: normal;
     letter-spacing: .125rem;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Times New Roman', Times, serif;
+   
     
   }
   
