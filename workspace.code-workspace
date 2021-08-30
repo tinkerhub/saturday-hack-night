@@ -19,7 +19,7 @@
 			"build": true,
 			"webpack": true,
 			"yarn-error.log": true,
-			"tsconfig.json": true,
+			"**/tsconfig.json": true,
 			"setupTests.js": true,
 			"__tests__/__snapshots__":true,
 			"functions/yarn.lock":true,
