@@ -25,7 +25,44 @@
     "import"
   ],
   "rules": {
-    "quotes": ["error", "double"],
-    "max-len": [2, 115, 4]
+    "indent": [
+      "error",
+      "tab"
+    ],
+    "no-tabs": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error"
+    ],
+    "@typescript-eslint/no-var-requires": "off",
+    "react/prop-types": "off",
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "double"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "curly": [
+      "warn",
+      "multi"
+    ],
+    "comma-spacing": "warn",
+    "eol-last": "warn",
+    "eqeqeq": "error",
+    "no-bitwise": "error",
+    "prefer-const": "error",
+    "brace-style": [
+      "error",
+      "allman"
+    ]
   }
 }

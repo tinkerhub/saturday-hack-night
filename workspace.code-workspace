@@ -5,6 +5,8 @@
 	"settings": {
 		"editor.snippetSuggestions": "inline",
 		"files.exclude": {
+			"**/*.log": true,
+			"functions/lib": true,
 			".github": true,
 			"**/.git": true,
 			"**/.gitignore": true,
