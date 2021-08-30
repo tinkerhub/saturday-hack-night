@@ -1,0 +1,81 @@
+{
+	"folders": [{
+		"path": "."
+	}],
+	"settings": {
+		"editor.snippetSuggestions": "inline",
+		"files.exclude": {
+			".github": true,
+			"**/.git": true,
+			"**/.gitignore": true,
+			"**/.eslintrc.js*": true,
+			".vscode": true,
+			"**/node_modules": true,
+			"LICENSE": true,
+			".firebaserc": true,
+			"firebase.json": true,
+			".babelrc": true,
+			"yarn.lock": true,
+			"build": true,
+			"webpack": true,
+			"yarn-error.log": true,
+			"tsconfig.json": true,
+			"setupTests.js": true,
+			"__tests__/__snapshots__":true,
+			"functions/yarn.lock":true,
+			"README.md": true,
+			"**/.env": true
+		},
+		"eslint.validate": ["typescript", "javascript", "javascriptreact", "typescriptreact"],
+		"editor.codeActionsOnSave": {
+			"source.fixAll.eslint": true
+		},
+		"cSpell.words": [
+			"AGPL",
+			"Cacheable",
+			"PHNO",
+			"Sunith",
+			"Vishwas",
+			"affero",
+			"algo",
+			"allman",
+			"anseki",
+			"dbaeumer",
+			"ecmel",
+			"eqeqeq",
+			"firebaserc",
+			"firestore",
+			"general",
+			"giphy",
+			"gnu",
+			"gramup",
+			"kohler",
+			"license",
+			"linebreak",
+			"mtproto",
+			"pmmmwh",
+			"precache",
+			"precaching",
+			"predeploy",
+			"public",
+			"serviceworker",
+			"v",
+			"webfonts",
+			"webm",
+			"webp",
+			"wojtekmaj"
+		],
+		"editor.formatOnSaveMode": "modifications",
+		"diffEditor.codeLens": false,
+		"editor.minimap.enabled": false
+	},
+	"extensions": {
+		"recommendations": [
+			"anseki.vscode-color",
+			"christian-kohler.npm-intellisense",
+			"dbaeumer.vscode-eslint",
+			"ecmel.vscode-html-css",
+			"streetsidesoftware.code-spell-checker"
+		]
+	}
+}
