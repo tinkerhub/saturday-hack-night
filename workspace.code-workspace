@@ -5,6 +5,8 @@
 	"settings": {
 		"editor.snippetSuggestions": "inline",
 		"files.exclude": {
+			"test-data": true,
+			"functions/.runtimeconfig.json": true,
 			"**/*.log": true,
 			"functions/lib": true,
 			".github": true,
