@@ -66,3 +66,7 @@ node_modules/
 .env
 
 tsconfig.json
+
+# Emulator data
+.runtimeconfig.json
+test-data/
