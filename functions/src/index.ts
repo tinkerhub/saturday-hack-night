@@ -1,6 +1,8 @@
 import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
 
+import fetch from "node-fetch";
+
 const app = admin.initializeApp();
 const firestore = app.firestore();
 
@@ -22,21 +24,51 @@ export const onTeamCreated = functions.firestore.document("/events/{eventID}/tea
 		const bulk = firestore.bulkWriter();
 		const membersRef = snapshot.ref.collection("members");
 
-		bulk.create(firestore.doc(`users/${snapshot.get("lead")}/teams/${context.params.teamID}`), {
+		bulk.create(firestore.doc(`users/${snapshot.get("lead")}/teams/${context.params.eventID}`), {
 			teamID: context.params.teamID,
-			eventID: context.params.teamID,
-			name: snapshot.get("name") || null,
-			repo: snapshot.get("repo") || null,
+			eventID: context.params.eventID,
+			name: snapshot.get("name"),
+			repo: snapshot.get("repo"),
 			lead: true,
 		});
 
-		for (const uid of snapshot.get("members"))
-			bulk.create(membersRef.doc(uid),
+		if (snapshot.get("members"))
+			for (const uid of snapshot.get("members"))
+				bulk.create(membersRef.doc(uid),
+					{
+						uid,
+						inviteSent: false,
+						accepted: false,
+					});
+
+		const token = functions.config().github.token;
+
+		const event = await firestore.doc(`events/${context.params.eventID}`).get();
+		const repo = `${event.get("org")}/${event.get("repoName")}`;
+
+		const response =
+		await fetch(`https://api.github.com/repos/${repo}/actions/workflows/add-project.yml/dispatches`,
+			{
+				headers:
 				{
-					uid,
-					inviteSent: false,
-					accepted: false,
-				});
+					"Accept": "application/vnd.github.v3+json",
+					"Authorization": `Bearer ${token}`,
+					"Content-Type": "application/json",
+				},
+				method: "POST",
+				body: JSON.stringify(
+					{
+						ref: "main",
+						inputs: {
+							"repo_url": snapshot.get("repo"),
+							"folder_name": `${snapshot.get("name")} | ${context.params.teamID}`,
+						},
+					}),
+			})
+			.then((res) => res.text());
+
+		if (response)
+			console.error(response);
 
 		return bulk.flush();
 	});
@@ -53,12 +85,9 @@ export const joinTeam = functions.https.onCall(async (data, context)=>
 	if (!data.eventID)
 		throw new functions.https.HttpsError("invalid-argument", "eventID is required.");
 
-	const registration = await firestore.collection(`users/${context.auth.uid}/teams`)
-		.where("eventID", "==", data.eventID)
-		.limit(1)
-		.get();
+	const registration = await firestore.doc(`users/${context.auth.uid}/teams/${data.eventID}`).get();
 
-	if (!registration.empty || registration.docs[0]?.exists)
+	if (registration.exists)
 		throw new functions.https.HttpsError("already-exists", "User already in a team for this event");
 
 	const batch = firestore.batch();
