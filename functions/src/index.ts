@@ -38,7 +38,7 @@ async function setUpGitRepo(eventID: string, teamID:string, repoUrl:string, name
 		console.error(response);
 }
 
-async function queueMails(bulk: FirebaseFirestore.Transaction, eventID: string, teamID:string,
+async function queueMails(bulk: FirebaseFirestore.WriteBatch, eventID: string, teamID:string,
 	lead: string, members: Array<string>, teamName: string, repo: string)
 {
 	const mails = firestore.collection(`/events/${eventID}/teams/${teamID}/mails`);
@@ -93,40 +93,37 @@ export const onNewUser = functions.auth.user().onCreate((user) =>
 export const onTeamCreated = functions.firestore.document("/events/{eventID}/teams/{teamID}")
 	.onCreate(async (snapshot, context) =>
 	{
-		return firestore.runTransaction(async (bulk) =>
-		{
-			const membersRef = snapshot.ref.collection("members");
+		const bulk = firestore.batch();
+		const membersRef = snapshot.ref.collection("members");
 
-			bulk.create(firestore.doc(`users/${snapshot.get("lead")}/teams/${context.params.eventID}`), {
-				teamID: context.params.teamID,
-				eventID: context.params.eventID,
-				name: snapshot.get("name"),
-				repo: snapshot.get("repo"),
-				lead: true,
-			});
-
-			if (snapshot.get("members"))
-				for (const uid of snapshot.get("members"))
-					bulk.create(membersRef.doc(uid),
-						{
-							uid,
-							accepted: false,
-						});
-
-			await setUpGitRepo(context.params.eventID, context.params.teamID,
-				snapshot.get("repo"), snapshot.get("name"));
-
-			await queueMails(bulk, context.params.eventID, context.params.teamID,
-				snapshot.get("lead"), snapshot.get("members"), snapshot.get("name"), snapshot.get("repo"));
+		bulk.create(firestore.doc(`users/${snapshot.get("lead")}/teams/${context.params.eventID}`), {
+			teamID: context.params.teamID,
+			eventID: context.params.eventID,
+			name: snapshot.get("name"),
+			repo: snapshot.get("repo"),
+			lead: true,
 		});
+
+		if (snapshot.get("members"))
+			for (const uid of snapshot.get("members"))
+				bulk.create(membersRef.doc(uid),
+					{
+						uid,
+						accepted: false,
+					});
+
+		await setUpGitRepo(context.params.eventID, context.params.teamID,
+			snapshot.get("repo"), snapshot.get("name"));
+
+		await queueMails(bulk, context.params.eventID, context.params.teamID,
+			snapshot.get("lead"), snapshot.get("members"), snapshot.get("name"), snapshot.get("repo"));
+
+		return bulk.commit().catch((err) => console.error(err, `Team ID => ${context.params.teamID}`));
 	});
 
 
 export const joinTeam = functions.https.onCall(async (data, context)=>
 {
-	if (!context.app)
-		throw new functions.https.HttpsError("failed-precondition", "App check failed");
-
 	if (!context.auth?.uid)
 		throw new functions.https.HttpsError("unauthenticated", "User not authenticated");
 
