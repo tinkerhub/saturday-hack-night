@@ -3,12 +3,14 @@ rules_version = '2';
 service cloud.firestore {
 	match /databases/{database}/documents {   
 
-		function checkTeam(data,auth,eventID){
+		function checkTeam(data,auth,eventID) {
 			let valid = auth != null && data != null && data.lead == auth.uid && 
-			data.name != null && data.repo != null; 
+				data.name.matches("^[a-zA-Z0-9]*$") && data.repo.matches("^https://github.com/[^/]*/[^/]*$") &&
+				(!("members" in request.resource.data) || request.resource.data.members is list); 
 
 			return valid && 
-			get(/databases/$(database)/documents/events/$(eventID)).data.time > request.time;
+				get(/databases/$(database)/documents/events/$(eventID)).data.time > request.time &&
+				!exists(/databases/$(database)/documents/users/$(auth.uid)/teams/$(eventID));
 		}
 
 		match /users/{doc} {
@@ -16,16 +18,16 @@ service cloud.firestore {
 			allow read: if request.auth != null;
 		}
 
-		match /events/{eventID}{
+		match /events/{eventID} {
 			allow read: if true;
 
-			match /teams/{teamID}{
+			match /teams/{teamID} {
 				allow read: if request.auth != null;
 				allow write: if checkTeam(request.resource.data, request.auth,eventID);
 			}
 		}
 
-		match /{doc=**}{
+		match /{doc=**} {
 			allow read, write: if request.auth != null && 
 			request.auth.token != null &&
 			request.auth.token.admin;
