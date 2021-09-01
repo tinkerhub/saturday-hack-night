@@ -67,6 +67,7 @@
     "max-len": [
       "error",
       115
-    ]
+    ],
+    "require-jsdoc": "off"
   }
 }
