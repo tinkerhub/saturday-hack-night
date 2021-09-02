@@ -140,7 +140,7 @@ export const joinTeam = functions.https.onCall(async (data, context)=>
 
 	const batch = firestore.batch();
 
-	const member = firestore.doc(`events/${data.eventID}/${data.teamID}/members/${context.auth?.uid}`);
+	const member = firestore.doc(`events/${data.eventID}/teams/${data.teamID}/members/${context.auth?.uid}`);
 	const team = firestore.doc(`users/${context.auth?.uid}/teams/${data.teamID}`);
 
 	batch.update(member, {accepted: true})
@@ -148,12 +148,12 @@ export const joinTeam = functions.https.onCall(async (data, context)=>
 
 	await batch.commit().catch((error) =>
 	{
-		if (error.code === "not-found")
-			throw new functions.https.HttpsError("permission-denied", "User not invited");
-		if (error.code === "already-exists")
+		if (error.code === 5)
+			throw new functions.https.HttpsError("permission-denied", "User not invited or team does exist.");
+		if (error.code === 6)
 			throw new functions.https.HttpsError("aborted", "User already joined this team");
 
-		console.error(error);
+		console.error(error.code);
 
 		throw new functions.https.HttpsError("unknown", "Something went wrong.");
 	});
