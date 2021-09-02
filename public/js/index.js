@@ -5,23 +5,23 @@ const uiConfig = {
     callbacks: {
         signInSuccessWithAuthResult: function (authResult, redirectUrl)
         {
-            if (authResult.user.metadata.creationTime === authResult.user.metadata.lastSignInTime)
-            {
-                const userRef = firebase.firestore().collection("users").doc(authResult.user.uid);
+            if (!authResult.additionalUserInfo.isNewUser)
+                return true;
 
-                userRef.set({
+            const userRef = firebase.firestore().collection("users").doc(authResult.user.uid);
+
+            userRef.set(
+                {
                     phno: null,
                     campusName: null,
                     campusID: null,
-                    githubID: authResult.user.reloadUserInfo?.screenName || "unknown",
+                    githubID: authResult.additionalUserInfo.profile.login || null,
+                    accessToken: authResult.credential.accessToken || null
                 }, 
                 { merge: true })
                     .then(() => window.location.href = "events");
 
-                return false;
-            }
-
-            return true;
+            return false;
         },
         uiShown: function ()
         {
