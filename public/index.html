@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Saturday Hack Night</title>
+
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/9.0.1/firebase-app-compat.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/9.0.1/firebase-auth-compat.js"></script>
+  <script defer src="/__/firebase/9.0.1/firebase-firestore-compat.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+  <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+  <script defer src="/__/firebase/init.js?useEmulator=false"></script>
+
+  <script defer src="js/index.js"></script>
+
+  <style media="screen">
+    body {
+      background: #ECEFF1;
+      color: rgba(0, 0, 0, 0.87);
+      font-family: Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body style="padding: 1rem;">
+  <h1 id="saturday-hack-night-dialogflow">Saturday Hack Night GitHub API</h1>
+  <p>You are looking at this page, this could mean one of two things.</p>
+  <ol>
+    <li>You Are A Participant</li>
+    <li>You Are too curious to see what others have built</li>
+  </ol>
+  <p>Here I will address the first group, if you came to explore feel free to look around ( you might be able to find
+    something 😉 ) !</p>
+  <h2 id="getting-started" style="display: inline-block;">Getting Started</h2>
+  <div style="display: inline-block;">
+    <div id="firebaseui-auth-container"></div>
+    <div id="loader">Loading...</div>
+  </div>
+  <p>To participate in this Hacknight all you have to do is build something cool using GitHub API. Here are some
+    ideas to get your creativity flowing,</p>
+  <ul>
+    <li><strong>CV Maker</strong> - This is a webpage where people can get their CV generated using data from their
+      github profile. You can stop there or add some crazy features and blow us away!
+    </li>
+    <li><strong>Follow The Tree</strong> - Simply put this is a webpage where people come to feel
+      <code>not</code>lonely. Users should be able to generate a tree of their follower by entering in their username.
+    </li>
+    <li><strong>Random Repo</strong> - This is a page for those who like to explore. The idea is each time you refresh
+      the page you will be show a list of random repos to explore. </li>
+  </ul>
+  <h2 id="submitting-your-creations">Submitting Your Creations</h2>
+  <p>You all must be used to submitting something after you are done building, but here it is the other way around (
+    twist... twist ! ).</p>
+  <p>Here is what to do,</p>
+  <h3 id="step-1">Step 1</h3>
+  <p><strong>Create a repo</strong> This shouldn&#39;t need any more explanation but still, the team lead should create
+    a repo in which you will be building the project.</p>
+  <h3 id="step-2">Step 2</h3>
+  <p><strong>Create or Join a Team</strong> If you are the team lead, you should create a team here and add members to
+    the team. The team members will get an invite to their mail once the team is created.</p>
+  <h3 id="step-3">Step 3</h3>
+  <p><strong>Start Codding</strong> Finally! You can start making your dream project. At this point, our team will be
+    monitoring your progress and giving you timely updates. Try to commit code frequently so that we can get back to you
+    in case of any error.</p>
+  <h2 id="for-further-queries">For Further Queries</h2>
+  <p>If you still have something unclear you can ping us on Discord or ask away in the Saturday Hack Night Channel.</p>
+  <p>Our core team on discord,</p>
+  <ul>
+    <li>@kurian#1209</li>
+    <li>@Rohit T P#8866</li>
+    <li>@Femi#5109 </li>
+  </ul>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

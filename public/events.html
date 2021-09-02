@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcomming Events</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/9.0.1/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/9.0.1/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/9.0.1/firebase-firestore-compat.js"></script>
+
+    <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+    <script defer src="/__/firebase/init.js?useEmulator=false"></script>
+
+    <script defer src="js/events.js"></script>
+
+
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                Hack Nights
+            </a>
+        </div>
+    </nav>
+    <div class="card" style="width: 18rem; margin: 1rem;">
+        <img src="https://repository-images.githubusercontent.com/124369770/d12e6800-b47a-11e9-85a3-5fe53e198d49"
+            class="card-img-top" alt="github logo">
+        <div class="card-body">
+            <h5 class="card-title">GitHub API</h5>
+            <p class="card-text">You can use the GitHub REST API to create calls to get the data you need to integrate
+                with GitHub. Now the question is can you build something cool using it ?
+            </p>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">
+                Create Team
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Info -->
+    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalToggleLabel">Wait !!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>If you are trying to join a team please check your email of an invite link or contact your team
+                        lead.</p>
+                    <p>If you are the team lead, please goto GitHub and create a repo to which you will be pushing code
+                        today. You can name the repo anything you like.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancle</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="showForm()">Repo
+                        Created</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Registration -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form class="modal-content" id="registerForm">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row form-group">
+                            <label>Team Name</label>
+                            <input id="teamName" class="col-md-12 ms-auto" type="text" pattern="[a-zA-Z0-9]+" required
+                                placeholder="MyTeam">
+                        </div>
+                        <br>
+                        <div class="row form-group">
+                            <label>Repo URL</label>
+                            <input id="repoURL" class="col-md-12 ms-auto" type="url"
+                                pattern="https:\/\/github.com\/[^\/]*\/[^\/]+" required
+                                placeholder="https://github.com/username/reponame">
+                        </div>
+                        <br>
+                        <div class="row form-group">
+                            <label>Members GitHub IDs ( Seperated by comma )</label>
+                            <input id="members" class="col-md-12 ms-auto" type="text"
+                                placeholder="Leave blank if none">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancle</button>
+                    <button type="submit" class="btn btn-primary">Create Team</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

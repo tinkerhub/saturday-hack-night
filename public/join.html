@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join Team</title>
+
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/9.0.1/firebase-app-compat.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/9.0.1/firebase-auth-compat.js"></script>
+  <script defer src="/__/firebase/9.0.1/firebase-functions-compat.js"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+  <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+  <script defer src="/__/firebase/init.js?useEmulator=false"></script>
+
+  <script defer src="js/join.js"></script>
+</head>
+
+<body>
+  <br><br><br>
+  <div class="d-flex justify-content-center" id="loader">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Joining Team...</span>
+    </div>
+  </div>
+</body>
+
+</html>
