@@ -28,7 +28,11 @@
 			"__tests__/__snapshots__":true,
 			"functions/yarn.lock":true,
 			"README.md": true,
-			"**/.env": true
+			"**/.env": true,
+			"vue.config.js": true,
+			"tailwind.config.js": true,
+			"postcss.config.js": true,
+			"babel.config.js": true
 		},
 		"eslint.validate": ["typescript", "javascript", "javascriptreact", "typescriptreact"],
 		"editor.codeActionsOnSave": {
