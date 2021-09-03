@@ -5,23 +5,7 @@ const uiConfig = {
     callbacks: {
         signInSuccessWithAuthResult: function (authResult, redirectUrl)
         {
-            if (!authResult.additionalUserInfo.isNewUser)
-                return true;
-
-            const userRef = firebase.firestore().collection("users").doc(authResult.user.uid);
-
-            userRef.set(
-                {
-                    phno: null,
-                    campusName: null,
-                    campusID: null,
-                    githubID: authResult.additionalUserInfo.profile.login || null,
-                    accessToken: authResult.credential.accessToken || null
-                }, 
-                { merge: true })
-                    .then(() => window.location.href = "events");
-
-            return false;
+            return true;
         },
         uiShown: function ()
         {
