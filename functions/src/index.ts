@@ -39,24 +39,25 @@ async function setUpGitRepo(eventID: string, teamID:string, repoUrl:string, name
 }
 
 async function queueMails(bulk: FirebaseFirestore.WriteBatch, eventID: string, teamID:string,
-	lead: string, members: Array<string>, teamName: string, repo: string)
+	lead: string, members: Array<string>, teamName: string, repo: string, isUpdate: boolean)
 {
 	const mails = firestore.collection(`/events/${eventID}/teams/${teamID}/mails`);
 	const leadUser = await firestore.doc(`users/${lead}`).get();
 
-	bulk.create(mails.doc(lead), {
-		to: [leadUser.get("email")],
-		template: {
-			name: "create",
-			data: {
-				name: leadUser.get("name"),
-				teamName,
-				repo,
-				eventID,
-				teamID,
+	if (!isUpdate)
+		bulk.create(mails.doc(lead), {
+			to: [leadUser.get("email")],
+			template: {
+				name: "create",
+				data: {
+					name: leadUser.get("name"),
+					teamName,
+					repo,
+					eventID,
+					teamID,
+				},
 			},
-		},
-	});
+		});
 
 	for (const member of members || [])
 	{
@@ -78,13 +79,20 @@ async function queueMails(bulk: FirebaseFirestore.WriteBatch, eventID: string, t
 	}
 }
 
-export const onNewUser = functions.auth.user().onCreate((user) =>
+export const onNewUser = functions.auth.user().onCreate(async (user) =>
 {
+	const parts = user.photoURL?.split("/") as unknown as string;
+	const idNo = parts[parts.length - 1].split("?")[0];
+
+	const github = await fetch(`https://api.github.com/user/${idNo}`).then((response) => response.json());
+
 	const data = {
 		name: user.displayName,
 		uid: user.uid,
 		email: user.email,
 		avatar: user.photoURL,
+		githubID: github.login,
+		repos: github.repos_url || null,
 	};
 
 	return firestore.collection("users").doc(user.uid).set(data, {merge: true});
@@ -116,7 +124,35 @@ export const onTeamCreated = functions.firestore.document("/events/{eventID}/tea
 			snapshot.get("repo"), snapshot.get("name"));
 
 		await queueMails(bulk, context.params.eventID, context.params.teamID,
-			snapshot.get("lead"), snapshot.get("members"), snapshot.get("name"), snapshot.get("repo"));
+			snapshot.get("lead"), snapshot.get("members"), snapshot.get("name"), snapshot.get("repo"), false);
+
+		return bulk.commit().catch((err) => console.error(err, `Team ID => ${context.params.teamID}`));
+	});
+
+export const onTeamEdited = functions.firestore.document("/events/{eventID}/teams/{teamID}")
+	.onUpdate(async (change, context) =>
+	{
+		const bulk = firestore.batch();
+		const membersRef = change.after.ref.collection("members");
+
+		const newMembers = change.after.get("members");
+		const oldMember = change.before.get("members");
+
+		const added = newMembers.filter((x:string) => !oldMember.includes(x));
+		const removed = oldMember.filter((x:string) => !newMembers.includes(x));
+
+		for (const uid of added)
+			bulk.create(membersRef.doc(uid),
+				{
+					uid,
+					accepted: false,
+				});
+
+		for (const uid of removed)
+			bulk.delete(membersRef.doc(uid));
+
+		await queueMails(bulk, context.params.eventID, context.params.teamID,
+			change.after.get("lead"), added, change.after.get("name"), change.after.get("repo"), true);
 
 		return bulk.commit().catch((err) => console.error(err, `Team ID => ${context.params.teamID}`));
 	});
