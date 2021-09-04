@@ -58,3 +58,9 @@ document.getElementById("registerForm").addEventListener("submit", async (e) =>
 
     new bootstrap.Modal(document.getElementById("staticBackdrop"), {}).hide();
 });
+
+if (new Date().getTime() > new Date("September 4, 2021 4:00:00 PM UTC+5:30").getTime())
+{
+    document.getElementById("eventCard").hidden = true;
+    document.getElementById("noEvents").hidden = false;
+}
