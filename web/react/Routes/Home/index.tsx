@@ -1,4 +1,28 @@
-export function Home()
+import { useHistory } from "react-router-dom";
+import { getAuth, signInWithPopup, GithubAuthProvider } from "firebase/auth";
+
+/**
+ * This function handles clicking on register button.
+ */
+function register() 
+{
+    const auth = getAuth();
+    const provider = new GithubAuthProvider();
+
+    signInWithPopup(auth, provider)
+        .then(() => useHistory().push("/events"))
+        .catch((error) => console.log(error));
+
+    return true;
+}
+
+/**
+ * The home page component.
+ * 
+ * @author Rohit T P
+ * @returns { JSX.Element } index Component
+ */
+function Home(): JSX.Element
 {
     return (
         <>
@@ -11,21 +35,23 @@ export function Home()
                 <h1 className="abt-head">About</h1> 
                 <hr className="line1"></hr>
                 <p className="subhead1">TinkerHub brings you Saturday Hack Night!</p>
-                <p className="p1"> Saturday Hack Night is not just your regular hackathon. Here, you will be building solutions/applications via API integration on every third Sunday of the month.<br/>
-The needed resources, the respective API and documentation will be shared with you once you register.<br/> All you have to do is brainstorm and come up with a solution for your problem with the given API. <br/>
-Once you are done with referring the documentation provided, team up (or even go solo!) and join the Discord server to take part in an exhilarating evening. The problem statement will be published on Saturday evening and you will have the whole night to build.
-Stay tuned on TinkerHub Discord channels and Instagram page for the latest information and clues!
+                <p className="p1"> 
+                    Saturday Hack Night is not just your regular hackathon. Here, you will be building solutions/applications via API integration on every third Sunday of the month.<br/>
+                    The needed resources, the respective API and documentation will be shared with you once you register.<br/> All you have to do is brainstorm and come up with a solution for your problem with the given API. <br/>
+                    Once you are done with referring the documentation provided, team up (or even go solo!) and join the Discord server to take part in an exhilarating evening. 
+                    The problem statement will be published on Saturday evening and you will have the whole night to build.
+                    Stay tuned on TinkerHub Discord channels and Instagram page for the latest information and clues!
                 </p>   
             </div>
             <div className="register">
                 <h1 className="abt-head"> Are You Ready? Join Us now!</h1> <p className="p1">To participate in this Hacknight all you have to do is build something cool using GitHub API. Here are some ideas to get your creativity flowing,</p>   <br/>
-                <button className="bn632-hover bn18">Register Here</button>
+                <button className="bn632-hover bn18" onClick={register}>Register Here</button>
                 <h3 className="abt-head">Submitting Your Creations</h3> 
                 <p>
                     <button className="bn33">1. Click on the massive button above to register!</button><br/><br/>
                     <button className="bn33">2. Create a repo by the team lead with Readme</button><br/><br/>
                     <button className="bn33">3. Create or Join a Team(If team, add your members)</button> <br/><br/>
-                    <button className="bn33">4. You are ready to go.Start Codding Finally!</button>
+                    <button className="bn33">4. Start Codding!</button>
                 </p>
             </div>
             <div className="faq">
@@ -47,15 +73,16 @@ Stay tuned on TinkerHub Discord channels and Instagram page for the latest infor
             </div>
             <div className="footer">
                 <h1 className="headline">For Further Queries</h1> 
-If you still have something unclear you can ping us on Discord or ask away in the Saturday Hack Night Channel.
+                    If you still have something unclear you can ping us on Discord or ask away in the Saturday Hack Night Channel.
 
-Our core team on discord,
+                    Our core team on discord,
 
-@kurian#1209
-@Rohit T P#8866
-@Femi#5109
-
+                    @kurian#1209
+                    @Rohit T P#8866
+                    @Femi#5109
             </div>
         </>
     );
 }
+
+export default Home;
