@@ -6,10 +6,10 @@ service cloud.firestore {
 		function checkTeam(data,auth,eventID) {
 			let valid = auth != null && data != null && data.lead == auth.uid && 
 				data.name.matches("^[a-zA-Z0-9]*$") && data.repo.matches("^https://github.com/[^/]*/[^/]*$") &&
-				request.resource.data.members is list; 
+				(!("members" in request.resource.data) || request.resource.data.members is list); 
 
 			return valid && 
-				get(/databases/$(database)/documents/events/$(eventID)).data.registration == true &&
+				get(/databases/$(database)/documents/events/$(eventID)).data.time > request.time &&
 				!exists(/databases/$(database)/documents/users/$(auth.uid)/teams/$(eventID));
 		}
 
