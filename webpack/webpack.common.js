@@ -6,7 +6,7 @@ const WebpackPwaManifest = require("webpack-pwa-manifest");
 const CopyPlugin = require("copy-webpack-plugin");
 const {InjectManifest} = require("workbox-webpack-plugin");
 
-const buildFolder = path.resolve(__dirname, "..", "./build");
+const buildFolder = path.resolve(__dirname, "..", "./public");
 
 module.exports = (env) => ({
     entry: path.resolve(__dirname, "..", "./web/react/index.tsx"),

@@ -6,6 +6,7 @@ module.exports = {
     devServer: {
         hot: true,
         open: false,
+        port: 3000
     },
     plugins: [
         new ReactRefreshWebpackPlugin()
