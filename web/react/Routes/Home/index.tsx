@@ -1,19 +1,26 @@
 import { useHistory } from "react-router-dom";
-import { getAuth, signInWithPopup, GithubAuthProvider } from "firebase/auth";
+import { signInWithPopup, GithubAuthProvider, Auth } from "firebase/auth";
 
 /**
  * This function handles clicking on register button.
  */
-function register() 
+function RegisterButton({auth}:{auth: Auth}) 
 {
-    const auth = getAuth();
     const provider = new GithubAuthProvider();
+    const history = useHistory();
 
-    signInWithPopup(auth, provider)
-        .then(() => useHistory().push("/events"))
-        .catch((error) => console.log(error));
-
-    return true;
+    return (
+        <button  
+            className="bn632-hover bn18" 
+            onClick={
+                () => signInWithPopup(auth, provider)
+                    .then(() => history.push("/event"))
+                    .catch((error) => console.log(error))
+            } 
+        >
+            Register Here
+        </button>
+    );
 }
 
 /**
@@ -22,7 +29,7 @@ function register()
  * @author Rohit T P
  * @returns { JSX.Element } index Component
  */
-function Home(): JSX.Element
+function Home({auth}:{auth: Auth}): JSX.Element
 {
     return (
         <>
@@ -45,7 +52,7 @@ function Home(): JSX.Element
             </div>
             <div className="register">
                 <h1 className="abt-head"> Are You Ready? Join Us now!</h1> <p className="p1">To participate in this Hacknight all you have to do is build something cool using GitHub API. Here are some ideas to get your creativity flowing,</p>   <br/>
-                <button className="bn632-hover bn18" onClick={register}>Register Here</button>
+                <RegisterButton auth={auth} />
                 <h3 className="abt-head">Submitting Your Creations</h3> 
                 <p>
                     <button className="bn33">1. Click on the massive button above to register!</button><br/><br/>
@@ -70,16 +77,6 @@ function Home(): JSX.Element
                 <p className="p2">Saturday evening 6 PM to 11 PM every odd saturday you will be able to take part in the program. Yes it is a recurring event and yes, you are welcome every time. </p>
                 <h3 className="p1">Still have questions?</h3>
                 <p className="p2">Contact our core team - you can get in tough with us on our Discord channel (you will be added on registration) or ping us directly.</p>
-            </div>
-            <div className="footer">
-                <h1 className="headline">For Further Queries</h1> 
-                    If you still have something unclear you can ping us on Discord or ask away in the Saturday Hack Night Channel.
-
-                    Our core team on discord,
-
-                    @kurian#1209
-                    @Rohit T P#8866
-                    @Femi#5109
             </div>
         </>
     );

@@ -19,6 +19,6 @@ const app = initializeApp(firebaseConfig);
 
 ReactDOM.render(<App wb={wb} app={app} />, document.getElementById("root"));
 
-if ("serviceWorker" in navigator && location.host !== "localhost") 
+if ("serviceWorker" in navigator && location.hostname !== "localhost") 
     wb.register();
     
