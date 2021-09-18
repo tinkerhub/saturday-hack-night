@@ -2,8 +2,8 @@ import "./App.css";
 
 import { Workbox } from "workbox-window";
 import { FirebaseApp } from "firebase/app";
-import { getAuth, connectAuthEmulator } from "firebase/auth";
-import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { getFirestore} from "firebase/firestore";
 
 import {
     BrowserRouter as Router,
