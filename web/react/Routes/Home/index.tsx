@@ -51,7 +51,7 @@ function Home({auth}:{auth: Auth}): JSX.Element
                 </p>   
             </div>
             <div className="register">
-                <h1 className="abt-head"> Are You Ready? Join Us now!</h1> <p className="p1">To participate in this Hacknight all you have to do is build something cool using GitHub API. Here are some ideas to get your creativity flowing,</p>   <br/>
+                <h1 className="abt-head"> Are You Ready? Join Us now!</h1> <p className="p1">To participate in this Hacknight all you have to do is build something cool using <b>Telegram </b>API. You can either come up with super exciting bots or make a fantasy with your own brainstorming ideas</p>   <br/>
                 <RegisterButton auth={auth} />
                 <h3 className="abt-head">Submitting Your Creations</h3> 
                 <p>
