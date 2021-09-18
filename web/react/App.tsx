@@ -28,10 +28,10 @@ const darkTheme = createTheme({
 export const App = ({wb, app}: { wb: Workbox; app: FirebaseApp}) => 
 {
     const auth = getAuth(app);
-    connectAuthEmulator(auth, "http://localhost:9099");
+    // connectAuthEmulator(auth, "http://localhost:9099");
 
     const db = getFirestore(app);
-    connectFirestoreEmulator(db, "localhost", 8080);
+    // connectFirestoreEmulator(db, "localhost", 8080);
 
     return (
         <Router>
