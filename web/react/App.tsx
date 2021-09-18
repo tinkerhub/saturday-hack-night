@@ -39,7 +39,7 @@ export const App = ({wb, app}: { wb: Workbox; app: FirebaseApp}) =>
                 <HandleAppState wb={wb} /> 
                 <Switch>
                     <Route path="/join/:eventId/:teamId">
-                    Not ready
+                    	Please Send Your Team ID and GitHub ID to Femi.
                     </Route>
                     <Route path="/event">
                         <Event db={db} />
