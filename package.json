@@ -7,6 +7,9 @@
   "scripts": {
     "start": "webpack serve --config webpack/webpack.config.js --env env=dev",
     "build": "webpack --config webpack/webpack.config.js --env env=prod",
+    "ci": "yarn ci:web && yarn ci:functions",
+    "ci:web": "yarn install --prefer-offline --frozen-lockfile",
+    "ci:functions": "cd functions && yarn install --prefer-offline --frozen-lockfile",
     "lint": "yarn lint:web && yarn lint:functions",
     "lint:web": "eslint --fix \"web/**/*.{js,jsx,ts,tsx,json}\"",
     "lint:functions": "eslint --fix \"functions/src/**/*.{js,ts,json}\"",
