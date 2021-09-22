@@ -2,8 +2,8 @@ import "./App.css";
 
 import { Workbox } from "workbox-window";
 import { FirebaseApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore} from "firebase/firestore";
+import { getAuth, connectAuthEmulator } from "firebase/auth";
+import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 
 import {
     BrowserRouter as Router,
@@ -28,10 +28,13 @@ const darkTheme = createTheme({
 export const App = ({wb, app}: { wb: Workbox; app: FirebaseApp}) => 
 {
     const auth = getAuth(app);
-    // connectAuthEmulator(auth, "http://localhost:9099");
-
     const db = getFirestore(app);
-    // connectFirestoreEmulator(db, "localhost", 8080);
+
+    if(location.hostname === "localhost")
+    {
+        connectAuthEmulator(auth, "http://localhost:9099");
+        connectFirestoreEmulator(db, "localhost", 8080);
+    }
 
     return (
         <Router>
@@ -42,7 +45,7 @@ export const App = ({wb, app}: { wb: Workbox; app: FirebaseApp}) =>
                     	Please Send Your Team ID and GitHub ID to Femi.
                     </Route>
                     <Route path="/event">
-                        <Event db={db} />
+                        <Event db={db} auth={auth} />
                     </Route>
                     <Route path="/">
                         <Home auth={auth} />

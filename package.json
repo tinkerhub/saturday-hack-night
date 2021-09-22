@@ -5,7 +5,7 @@
   "theme-color": "#000000",
   "background-color": "#ffffff",
   "scripts": {
-    "start": "webpack serve --config webpack/webpack.config.js --env env=dev",
+    "start": "webpack --config webpack/webpack.config.js --env env=dev",
     "build": "webpack --config webpack/webpack.config.js --env env=prod",
     "ci": "yarn ci:web && yarn ci:functions",
     "ci:web": "yarn install --prefer-offline --frozen-lockfile",
@@ -55,7 +55,6 @@
     "@babel/preset-react": "^7.12.13",
     "@babel/preset-typescript": "^7.12.16",
     "@babel/runtime": "^7.13.10",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
     "@types/enzyme": "^3.10.8",
     "@types/jest": "^26.0.23",
     "@types/react": "^17.0.2",
