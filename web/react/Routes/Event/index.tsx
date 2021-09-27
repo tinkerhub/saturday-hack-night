@@ -68,7 +68,7 @@ function ActionAreaCard({doc, db, user}: CardProps)
  * Component to show the events page.
  *
  * @author Rohit T P
- * @returns { JSX.Element } index Component
+ * @returns { JSX.Element } Event route
  */
 function Event({db, auth}: { db: Firestore, auth: Auth }): JSX.Element
 {

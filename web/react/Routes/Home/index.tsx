@@ -2,7 +2,10 @@ import { useHistory } from "react-router-dom";
 import { signInWithPopup, GithubAuthProvider, Auth } from "firebase/auth";
 
 /**
- * This function handles clicking on register button.
+ * Component to show the home page.
+ *
+ * @author Rohit T P
+ * @returns { JSX.Element } /home route
  */
 function RegisterButton({auth}:{auth: Auth}) 
 {
