@@ -25,21 +25,21 @@ const darkTheme = createTheme({
 
 
 
-export const App = ({wb, app}: { wb: Workbox; app: FirebaseApp}) => 
+export const App = ({wb, app}: { wb: Workbox; app: FirebaseApp}) =>
 {
     const auth = getAuth(app);
     const db = getFirestore(app);
 
     if(location.hostname === "localhost")
     {
-        connectAuthEmulator(auth, "http://localhost:9099");
-        connectFirestoreEmulator(db, "localhost", 8080);
+        connectAuthEmulator(auth, "http://10.147.19.203:9099");
+        connectFirestoreEmulator(db, "10.147.19.203", 8080);
     }
 
     return (
         <Router>
             <ThemeProvider theme={darkTheme}>
-                <HandleAppState wb={wb} /> 
+                <HandleAppState wb={wb} />
                 <Switch>
                     <Route path="/join/:eventId/:teamId">
                     	Please Send Your Team ID and GitHub ID to Femi.
