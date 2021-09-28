@@ -47,10 +47,10 @@ export const App = ({wb, app}: { wb: Workbox; app: FirebaseApp }) =>
                 <HandleAppState wb={wb}/>
                 <Header auth={auth}/>
                 <Switch>
-                    <Route path="/join/:eventId/:teamId">
+                    <Route path="/join" exact>
                         <Join functions={functions} auth={auth}/>
                     </Route>
-                    <Route path="/event">
+                    <Route path="/event" exact>
                         <Event db={db} auth={auth}/>
                     </Route>
                     <Route path="/">

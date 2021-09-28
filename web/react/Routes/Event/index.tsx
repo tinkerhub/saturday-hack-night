@@ -56,8 +56,9 @@ function ActionAreaCard({doc, db, user, auth}: CardProps)
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        <Button size="small" onClick={() => user ? setOpen(true) : signInWithPopup(auth, provider)}>Create
-                            Team</Button>
+                        <Button size="small" onClick={() => user ? setOpen(true) : signInWithPopup(auth, provider)}>
+                            Create Team
+                        </Button>
                     </CardActions>
                 </CardActionArea>
             </Card>
