@@ -90,8 +90,8 @@ export const onNewUser = functions.auth.user().onCreate(async (user) =>
         name: user.displayName,
         uid: user.uid,
         email: user.email,
-        avatar: user.photoURL,
-        githubID: github.login,
+        avatar: user.photoURL || null,
+        githubID: github.login || null,
         repos: github.repos_url || null,
     };
 

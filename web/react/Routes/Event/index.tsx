@@ -7,11 +7,9 @@ import {
     QueryDocumentSnapshot,
     DocumentData,
 } from "firebase/firestore";
-import {Auth, onAuthStateChanged} from "firebase/auth";
-import Firebase from "firebase/compat";
+import {Auth, GithubAuthProvider, onAuthStateChanged, signInWithPopup, User} from "firebase/auth";
 
 import React, {useState} from "react";
-import {useHistory} from "react-router-dom";
 
 import RegistrationModal from "./RegistrationModal";
 import noImage from "../../../assets/fallbacks/no-image.png";
@@ -29,16 +27,18 @@ interface CardProps
 {
     doc: QueryDocumentSnapshot<DocumentData>;
     db: Firestore;
-    user: Promise<Firebase.User>;
+    user: User | null;
+    auth: Auth;
 }
 
-function ActionAreaCard({doc, db, user}: CardProps)
+function ActionAreaCard({doc, db, user, auth}: CardProps)
 {
     const [open, setOpen] = useState(false);
+    const provider = new GithubAuthProvider();
 
     return (
         <>
-            <RegistrationModal open={open} setOpen={setOpen} id={doc.id} user={user} db={db}/>
+            {user && <RegistrationModal open={open} setOpen={setOpen} id={doc.id} user={user} db={db}/>}
             <Card sx={{width: 300, margin: "1rem"}}>
                 <CardActionArea>
                     <CardMedia
@@ -56,7 +56,8 @@ function ActionAreaCard({doc, db, user}: CardProps)
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        <Button size="small" onClick={() => setOpen(true)}>Create Team</Button>
+                        <Button size="small" onClick={() => user ? setOpen(true) : signInWithPopup(auth, provider)}>Create
+                            Team</Button>
                     </CardActions>
                 </CardActionArea>
             </Card>
@@ -72,27 +73,19 @@ function ActionAreaCard({doc, db, user}: CardProps)
  */
 function Event({db, auth}: { db: Firestore, auth: Auth }): JSX.Element
 {
-    const history = useHistory();
     const [events, setEvents] = useState<Array<QueryDocumentSnapshot<DocumentData>>>([]);
+    const [user, setUser] = useState<User | null>(null);
 
-    const user = new Promise<Firebase.User>((resolve) =>
-        onAuthStateChanged(auth, (user) => user ? resolve(user as Firebase.User) : history.replace("/")));
+    onAuthStateChanged(auth, setUser);
 
     getDocs(query(collection(db, "events"), where("registration", "==", true)))
         .then((snapshot) => setEvents(snapshot.docs))
         .catch((error) => console.error(error));
 
     return (
-        <>
-            <div className="navbar">
-                <h1 className="headline">Saturday Hack Night</h1>
-                <hr className="line"/>
-                <p className="subhead">Upcoming Events</p>
-            </div>
-            <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
-                {events.map((doc, i) => <ActionAreaCard key={i} doc={doc} db={db} user={user}/>)}
-            </div>
-        </>
+        <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
+            {events.map((doc, i) => <ActionAreaCard key={i} doc={doc} db={db} user={user} auth={auth}/>)}
+        </div>
     );
 }
 

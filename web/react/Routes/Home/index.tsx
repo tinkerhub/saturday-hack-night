@@ -1,30 +1,4 @@
 import { useHistory } from "react-router-dom";
-import { signInWithPopup, GithubAuthProvider, Auth } from "firebase/auth";
-
-/**
- * Component to show the home page.
- *
- * @author Rohit T P
- * @returns { JSX.Element } /home route
- */
-function RegisterButton({auth}:{auth: Auth}) 
-{
-    const provider = new GithubAuthProvider();
-    const history = useHistory();
-
-    return (
-        <button  
-            className="bn632-hover bn18" 
-            onClick={
-                () => signInWithPopup(auth, provider)
-                    .then(() => history.push("/event"))
-                    .catch((error) => console.log(error))
-            } 
-        >
-            Register Here
-        </button>
-    );
-}
 
 /**
  * The home page component.
@@ -32,18 +6,15 @@ function RegisterButton({auth}:{auth: Auth})
  * @author Rohit T P
  * @returns { JSX.Element } index Component
  */
-function Home({auth}:{auth: Auth}): JSX.Element
+function Home(): JSX.Element
 {
+    const history = useHistory();
+
     return (
         <>
-            <div className="navbar">
-                <h1 className="headline">Saturday Hack Night</h1> 
-                <hr className="line"></hr>
-                <p className="subhead">Hey folks! Thought of a Hackathon around an API? Join us now for the most awaited event!</p>
-            </div>
             <div className="about">
                 <h1 className="abt-head">About</h1> 
-                <hr className="line1"></hr>
+                <hr className="line1" />
                 <p className="subhead1">TinkerHub brings you Saturday Hack Night!</p>
                 <p className="p1"> 
                     Saturday Hack Night is not just your regular hackathon. Here, you will be building solutions/applications via API integration on every third Sunday of the month.<br/>
@@ -55,7 +26,12 @@ function Home({auth}:{auth: Auth}): JSX.Element
             </div>
             <div className="register">
                 <h1 className="abt-head"> Are You Ready? Join Us now!</h1> <p className="p1">To participate in this Hacknight all you have to do is build something cool using <b>Telegram </b>API. You can either come up with super exciting bots or make a fantasy with your own brainstorming ideas</p>   <br/>
-                <RegisterButton auth={auth} />
+                <button
+                    className="bn632-hover bn18"
+                    onClick={() =>  history.push("/event")}
+                >
+                    Register Here
+                </button>
                 <h3 className="abt-head">Submitting Your Creations</h3> 
                 <p>
                     <button className="bn33">1. Click on the massive button above to register!</button><br/><br/>

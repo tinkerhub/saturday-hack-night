@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import {addDoc, collection, Firestore} from "firebase/firestore";
+import { User } from "firebase/auth";
+
 import Dialog from "@mui/material/Dialog";
 import Alert from "@mui/material/Alert";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -7,7 +9,6 @@ import DialogContent from "@mui/material/DialogContent";
 import {TextField} from "@mui/material";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
-import Firebase from "firebase/compat";
 import MemberChips from "./MemberChips";
 
 interface ModalProps
@@ -15,7 +16,7 @@ interface ModalProps
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
     id: string;
-    user: Promise<Firebase.User>;
+    user: User;
     db: Firestore;
 }
 
@@ -45,14 +46,13 @@ function RegistrationModal({open, setOpen, id, user, db}: ModalProps)
 
         try
         {
-            const lead = (await user).uid;
-            members.delete(lead);
+            members.delete(user.uid);
 
             await addDoc(collection(db, `events/${id}/teams`), {
                 name: data.name,
                 repo: data.repo,
                 members: Array.from(members),
-                lead
+                lead: user.uid
             });
 
             setStatus(1);
@@ -85,7 +85,7 @@ function RegistrationModal({open, setOpen, id, user, db}: ModalProps)
                     onChange={({target}) => setData((data) => ({...data, repo: target.value}))}
                 />
                 <MemberChips db={db}
-                    onChange={(uid, add) => setMembers((members) => (add ? members.add(uid) : members.delete(uid), members))}/>
+                    onChange={(uid, add) => setMembers((members) => (add ? members.add(uid) : members.delete(uid)) ? members : members)}/>
 
             </DialogContent>
             <DialogActions>
