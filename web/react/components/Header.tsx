@@ -19,7 +19,7 @@ import {List, ListItemIcon, ListItemText, SwipeableDrawer} from "@mui/material";
 
 
 const TITLES: { [key: string]: string } = {
-    "/": "Home",
+    "/": "Saturday Hack Night",
     "/event": "Upcoming Events",
     "/join": "Join Team"
 };
@@ -81,7 +81,7 @@ function Header({auth}: { auth: Auth })
     const history = useHistory();
     const provider = new GithubAuthProvider();
 
-    onAuthStateChanged(auth, setUser);
+    useEffect(() => onAuthStateChanged(auth, setUser), [auth]);
 
     useEffect(() => setTitle(TITLES[history.location.pathname]), [history.location.pathname]);
 

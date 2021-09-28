@@ -9,7 +9,7 @@ import {
 } from "firebase/firestore";
 import {Auth, GithubAuthProvider, onAuthStateChanged, signInWithPopup, User} from "firebase/auth";
 
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 import RegistrationModal from "./RegistrationModal";
 import noImage from "../../../assets/fallbacks/no-image.png";
@@ -77,7 +77,7 @@ function Event({db, auth}: { db: Firestore, auth: Auth }): JSX.Element
     const [events, setEvents] = useState<Array<QueryDocumentSnapshot<DocumentData>>>([]);
     const [user, setUser] = useState<User | null>(null);
 
-    onAuthStateChanged(auth, setUser);
+    useEffect(() => onAuthStateChanged(auth, setUser), [auth]);
 
     getDocs(query(collection(db, "events"), where("registration", "==", true)))
         .then((snapshot) => setEvents(snapshot.docs))

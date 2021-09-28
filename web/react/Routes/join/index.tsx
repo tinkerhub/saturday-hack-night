@@ -34,12 +34,14 @@ function Join({functions, auth}: { functions: Functions, auth: Auth })
     const [status, setStatus] = useState({state: 0, message: ""});
     const [user, setUser] = useState<User | null | undefined>(undefined);
 
-    onAuthStateChanged(auth, setUser);
+    useEffect(() => onAuthStateChanged(auth, setUser), [auth]);
 
     useEffect(
         () =>
         {
-            if (status.state === 0 && user !== undefined)
+            if (!eventID || !teamID)
+                setStatus({state: -1, message: "TeamID and EventID are required."});
+            else if (status.state === 0 && user !== undefined)
                 if (user)
                     httpsCallable(functions, "joinTeam")({teamID, eventID})
                         .then(() => setStatus({state: 1, message: "Done"}))

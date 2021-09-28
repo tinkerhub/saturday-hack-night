@@ -3,6 +3,9 @@ import { App } from "./App";
 
 import { Workbox } from "workbox-window";
 import { initializeApp } from "firebase/app";
+import {connectAuthEmulator, getAuth } from "firebase/auth";
+import {connectFunctionsEmulator, getFunctions } from "firebase/functions";
+import {connectFirestoreEmulator, getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCLIjetLAJ_ApQIIwmVByTdVcgx7sSZV1o",
@@ -17,8 +20,17 @@ const firebaseConfig = {
 const wb = new Workbox("sw.js");
 const app = initializeApp(firebaseConfig);
 
-ReactDOM.render(<App wb={wb} app={app} />, document.getElementById("root"));
+const auth = getAuth(app);
+const db = getFirestore(app);
+const functions = getFunctions(app);
 
 if ("serviceWorker" in navigator && location.hostname !== "localhost") 
-    wb.register();
-    
+    wb.register().catch((error) => console.error(error));
+else
+{
+    connectAuthEmulator(auth, "http://10.147.19.203:9099");
+    connectFirestoreEmulator(db, "10.147.19.203", 8080);
+    connectFunctionsEmulator(functions, "10.147.19.203", 5001);
+}
+
+ReactDOM.render(<App wb={wb} auth={auth} db={db} functions={functions} />, document.getElementById("root"));
