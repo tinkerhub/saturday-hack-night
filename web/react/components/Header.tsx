@@ -1,4 +1,5 @@
-import {Auth, GithubAuthProvider, onAuthStateChanged, signInWithPopup, User, signOut} from "firebase/auth";
+import {Auth, GithubAuthProvider, onAuthStateChanged, signInWithPopup, signOut, User} from "firebase/auth";
+
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 
@@ -15,13 +16,15 @@ import Avatar from "@material-ui/core/Avatar";
 import ListItem from "@material-ui/core/ListItem";
 import EventIcon from "@mui/icons-material/Event";
 import HomeIcon from "@mui/icons-material/Home";
+import PersonIcon from "@mui/icons-material/Person";
 import {List, ListItemIcon, ListItemText, SwipeableDrawer} from "@mui/material";
 
 
 const TITLES: { [key: string]: string } = {
     "/": "Saturday Hack Night",
     "/event": "Upcoming Events",
-    "/join": "Join Team"
+    "/join": "Join Team",
+    "/profile": "Profile"
 };
 
 function SideDrawer({drawer, setDrawer}: { drawer: boolean, setDrawer: Dispatch<SetStateAction<boolean>> })
@@ -59,6 +62,12 @@ function SideDrawer({drawer, setDrawer}: { drawer: boolean, setDrawer: Dispatch<
                         </ListItemIcon>
                         <ListItemText primary={"Events"}/>
                     </ListItem>
+                    <ListItem button onClick={() => closeAndGo("/profile")}>
+                        <ListItemIcon>
+                            <PersonIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary={"Profile"}/>
+                    </ListItem>
                 </List>
             </Box>
         </SwipeableDrawer>
@@ -82,7 +91,6 @@ function Header({auth}: { auth: Auth })
     const provider = new GithubAuthProvider();
 
     useEffect(() => onAuthStateChanged(auth, setUser), [auth]);
-
     useEffect(() => setTitle(TITLES[history.location.pathname]), [history.location.pathname]);
 
     return (

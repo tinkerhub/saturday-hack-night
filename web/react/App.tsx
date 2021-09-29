@@ -14,6 +14,7 @@ import {
 import {HandleAppState} from "./components/HandleAppState";
 import Header from "./components/Header";
 
+import Profile from "./Routes/Profile";
 import Home from "./Routes/Home";
 import Event from "./Routes/Event";
 import Join from "./Routes/join";
@@ -34,7 +35,7 @@ interface AppProps
     functions: Functions;
 }
 
-export const App = ({wb, auth, db, functions, }: AppProps) =>
+export const App = ({wb, auth, db, functions}: AppProps) =>
 {
     return (
         <Router>
@@ -42,6 +43,9 @@ export const App = ({wb, auth, db, functions, }: AppProps) =>
                 <HandleAppState wb={wb}/>
                 <Header auth={auth}/>
                 <Switch>
+                    <Route path="/profile" exact>
+                        <Profile auth={auth} db={db}/>
+                    </Route>
                     <Route path="/join" exact>
                         <Join functions={functions} auth={auth}/>
                     </Route>

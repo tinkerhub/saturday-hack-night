@@ -3,23 +3,12 @@ import {Functions, httpsCallable} from "firebase/functions";
 
 import {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
+import {getParams} from "../../utils";
 
 import ErrorIcon from "@mui/icons-material/Error";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@mui/material/Typography";
-
-function getParams(params: string)
-{
-    const rawParams = params.replace("?", "").split("&");
-    const extractedParams: { [key: string]: string } = {};
-    rawParams.forEach((item) =>
-    {
-        const items = item.split("=");
-        extractedParams[items[0]] = items[1];
-    });
-    return extractedParams;
-}
 
 
 /**

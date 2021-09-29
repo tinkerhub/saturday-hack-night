@@ -5,7 +5,7 @@ import {
     query,
     where,
     QueryDocumentSnapshot,
-    DocumentData,
+    DocumentData, getDoc, doc,
 } from "firebase/firestore";
 import {Auth, GithubAuthProvider, onAuthStateChanged, signInWithPopup, User} from "firebase/auth";
 
@@ -21,6 +21,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardActions from "@mui/material/CardActions";
+import {useHistory} from "react-router-dom";
 
 
 interface CardProps
@@ -77,7 +78,19 @@ function Event({db, auth}: { db: Firestore, auth: Auth }): JSX.Element
     const [events, setEvents] = useState<Array<QueryDocumentSnapshot<DocumentData>>>([]);
     const [user, setUser] = useState<User | null>(null);
 
-    useEffect(() => onAuthStateChanged(auth, setUser), [auth]);
+    const history = useHistory();
+
+    useEffect(() =>
+        onAuthStateChanged(auth, async (authUser) =>
+        {
+            setUser(authUser);
+            if (authUser)
+            {
+                const snap = await getDoc(doc(db, `users/${authUser.uid}`));
+                if (!snap.get("phno") || !snap.get("email"))
+                    history.replace("/profile?back=event");
+            }
+        }), [auth, db, history]);
 
     getDocs(query(collection(db, "events"), where("registration", "==", true)))
         .then((snapshot) => setEvents(snapshot.docs))
