@@ -1,5 +1,5 @@
 const path = require("path");
-const package = require("../package.json");
+const packageJSON = require("../package.json");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
@@ -63,13 +63,13 @@ module.exports = (env) => ({
     plugins: [
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, "..", "./web/index.html"),
-            title: package.name,
+            title: packageJSON.name,
             favicon: path.resolve(__dirname, "..", "./web/assets/icons/favicon.ico"),
             meta: {
-                author: package.author,
-                description: package.description,
-                keyword: package.keyword,
-                "theme-color": package["theme-color"]
+                author: packageJSON.author,
+                description: packageJSON.description,
+                keyword: packageJSON.keyword,
+                "theme-color": packageJSON["theme-color"]
             }
         }),
         new HtmlWebpackPlugin({
@@ -79,12 +79,12 @@ module.exports = (env) => ({
             inject: false
         }),
         new WebpackPwaManifest({
-            name: package.name,
-            short_name: package.name,
-            description: package.description,
-            background_color: package["background-color"],
+            name: packageJSON.name,
+            short_name: packageJSON.name,
+            description: packageJSON.description,
+            background_color: packageJSON["background-color"],
             orientation: "any",
-            theme_color: package["theme-color"],
+            theme_color: packageJSON["theme-color"],
             publicPath: "/",
             icons: [
                 {

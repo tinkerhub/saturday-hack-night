@@ -1,7 +1,7 @@
 {
-  "name": "react-typescript-webpack-starter",
+  "name": "saturday-hacknight",
   "version": "1.0.0",
-  "description": "A starter template for React with Typescript using Webpack 5",
+  "description": "The official website for saturday hacknight.",
   "theme-color": "#000000",
   "background-color": "#ffffff",
   "scripts": {
@@ -19,13 +19,11 @@
     "test:watch": "jest --watch"
   },
   "keywords": [
-    "React",
-    "TypeScript",
-    "Webpack 5",
-    "Starter Template",
-    "Boilerplate"
+    "Tinkerhub",
+    "Saturday Hacknight",
+    "Hackathon"
   ],
-  "author": "Vishwas",
+  "author": "Rohit T P",
   "license": "MIT",
   "dependencies": {
     "@emotion/react": "^11.4.1",

@@ -121,7 +121,7 @@ export const onTeamCreated = functions.firestore.document("/events/{eventID}/tea
                     });
 
         await setUpGitRepo(context.params.eventID, context.params.teamID,
-            snapshot.get("repo"), snapshot.get("name"));
+            snapshot.get("repo"), snapshot.get("name")).catch((error) => console.error(error));
 
         await queueMails(bulk, context.params.eventID, context.params.teamID,
             snapshot.get("lead"), snapshot.get("members"), snapshot.get("name"), snapshot.get("repo"), false);
