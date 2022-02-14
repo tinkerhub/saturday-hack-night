@@ -1,7 +1,8 @@
 import SideNavbar from "../../components/SideNavbar/SideNavbar";
-import { Outlet } from 'react-router-dom';
-import './dashboard.css'
-function Dashboard() {
+import { Outlet } from "react-router-dom";
+import "./dashboard.css";
+function Dashboard() 
+{
     return(
         <div className="dashboard">
             <SideNavbar/>
@@ -9,6 +10,6 @@ function Dashboard() {
                 <Outlet/>
             </div>
         </div>
-    )
+    );
 }
 export default Dashboard;

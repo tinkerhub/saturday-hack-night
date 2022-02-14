@@ -1,20 +1,22 @@
-import React, {Fragment} from 'react';
+import React, {Fragment} from "react";
 import {BrowserRouter as Router, Navigate, Outlet, Route, Routes} from "react-router-dom";
-import { auth } from './firebase';
-import Dashboard from './routes/Dashboard/Dashboard';
-import Events from './routes/Dashboard/Events/Events';
-import Leaderboard from './routes/Dashboard/Leaderboard/Leaderboard';
-import Profile from './routes/Dashboard/Profile/Profile';
-import Home from './routes/Home/home'
-import Join from './routes/Join/Join';
+import { auth } from "./firebase";
+import Dashboard from "./routes/Dashboard/Dashboard";
+import Events from "./routes/Dashboard/Events/Events";
+import Leaderboard from "./routes/Dashboard/Leaderboard/Leaderboard";
+import Profile from "./routes/Dashboard/Profile/Profile";
+import Home from "./routes/Home/home";
+import Join from "./routes/Join/Join";
 
 const NotFound = () => <h1>Error 404</h1>;
-function PrivateRoute() {
+function PrivateRoute() 
+{
     const isLoggedIn = true;
     return isLoggedIn ? <Outlet/> : <Navigate to="/"/>;
 }
 
-const CustomRouter = () => {
+const CustomRouter = () => 
+{
     return (
         <Router>
             <Fragment>

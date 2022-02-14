@@ -1,11 +1,12 @@
 import "./Leaderboard.css";
-function Leaderboard(){
+function Leaderboard()
+{
     return(
         <>
             <div className="leaderBoardHeader">
                 Leaderboard
             </div>
         </>
-    )
+    );
 }
-export default Leaderboard
+export default Leaderboard;

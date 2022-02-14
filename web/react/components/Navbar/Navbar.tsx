@@ -1,28 +1,35 @@
-import './Navbar.css'
-import logo from '../../../assets/logo.png';
-import fallbackAvatar from '../../../assets/fallbacks/user.png'
-import { auth } from '../../firebase'
-import { useEffect, useState } from 'react';
-import { onAuthStateChanged, User, signInWithPopup, GithubAuthProvider, signOut } from 'firebase/auth';
+import "./Navbar.css";
+import logo from "../../../assets/logo.png";
+import fallbackAvatar from "../../../assets/fallbacks/user.png";
+import { auth } from "../../firebase";
+import { useEffect, useState } from "react";
+import { onAuthStateChanged, User, signInWithPopup, GithubAuthProvider, signOut } from "firebase/auth";
 import { Link } from "react-scroll";
 import { NavLink, useNavigate } from "react-router-dom";
-function Navbar() {
+function Navbar() 
+{
     const [user, setUser] = useState<User | null>(null);
     const [userAvatar, setuserAvatar] = useState(fallbackAvatar);
     const navigate = useNavigate();
     const provider = new GithubAuthProvider();
-    useEffect(()=>{
-        onAuthStateChanged(auth,async (authUser) => {
-            if(authUser){
+    useEffect(()=>
+    {
+        onAuthStateChanged(auth, async (authUser) => 
+        {
+            if(authUser)
+            {
                 setUser(authUser);
-                if (authUser.photoURL) {
+                if (authUser.photoURL) 
+                
                     setuserAvatar(authUser.photoURL);
-                }
-            }else {
-                setUser(null);
+                
             }
-        })
-    },[]);
+            else 
+            
+                setUser(null);
+            
+        });
+    }, []);
 
     return(
         <>
@@ -36,16 +43,21 @@ function Navbar() {
                 <div className="userStatus">
                     {
                         user?
-                        <img src={ userAvatar } alt="user.displayName" className="userAvatar" onClick={()=>{
-                            signOut(auth);
-                            setUser(null);
-                        }}/>
-                        :
-                        <button className='loginBtn' onClick={()=>{ signInWithPopup(auth, provider).then(()=>{
-                            navigate('/dashboard')
-                        }) }}>
+                            <img src={ userAvatar } alt="user.displayName" className="userAvatar" onClick={()=>
+                            {
+                                signOut(auth);
+                                setUser(null);
+                            }}/>
+                            :
+                            <button className='loginBtn' onClick={()=>
+                            {
+                                signInWithPopup(auth, provider).then(()=>
+                                {
+                                    navigate("/dashboard");
+                                }); 
+                            }}>
                             LOGIN
-                        </button>
+                            </button>
                     }
                 </div>
                 <div className='navLinks'>
@@ -64,7 +76,7 @@ function Navbar() {
                 </div>
             </div>
         </>
-    )
+    );
 }
 
 export default Navbar;

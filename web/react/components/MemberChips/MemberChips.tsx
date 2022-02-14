@@ -10,19 +10,21 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 interface MemberChipProps {
     onChange: (uid: string, add: boolean) => void | undefined;
 }
-function MemberChips({ onChange }: MemberChipProps) {
+function MemberChips({ onChange }: MemberChipProps) 
+{
     const [users, setUsers] = useState<string>("");
     const [chips, setChips] = useState<{ [key: string]: { uid?: string, avatar?: string } }>({});
     library.add(faTimes);
-    useEffect(()=>{
+    useEffect(()=>
+    {
 
-    },[chips])
+    }, [chips]);
     function deleteItem (chips: { [key: string]: { uid?: string, avatar?: string } }, gid: string):any
     {
         if (chips[gid].uid && chips[gid].uid !== "invalid")
         {
-            onChange(chips[gid].uid || '', false);
-            console.log('Chip Removed')
+            onChange(chips[gid].uid || "", false);
+            console.log("Chip Removed");
         } 
         delete chips[gid];
         return chips;
@@ -30,7 +32,7 @@ function MemberChips({ onChange }: MemberChipProps) {
 
     async function addUser()
     {
-        const gitHubIds = users.replaceAll(/\s/g,"").split(" ");
+        const gitHubIds = users.replaceAll(/\s/g, "").split(" ");
         const newChips: { [key: string]: { uid?: string, avatar?: string } } = {};
 
         setUsers("");
@@ -41,7 +43,8 @@ function MemberChips({ onChange }: MemberChipProps) {
 
         setChips((chips) => ({...chips, ...newChips}));
 
-        for (const gid in newChips){
+        for (const gid in newChips)
+        
             getDocs(query(collection(db, "users"), where("githubID", "==", gid))).then((snap) =>
             {
                 let user: { uid: string; avatar?: string; };
@@ -55,33 +58,39 @@ function MemberChips({ onChange }: MemberChipProps) {
 
                 setChips((chips) => ({...chips, [gid]: user}));
             });
-        }
+        
     }
     return(
         <>
             <input type="name" placeholder="Members" className="modalInput" onKeyUp={
-                (event)=>{
-                    if(event.key === 'Enter' || event.key === ','){
-                        addUser()
-                    }
+                (event)=>
+                {
+                    if(event.key === "Enter" || event.key === ",")
+                    
+                        addUser();
+                    
                 }
-            } onChange={(event)=>{setUsers(event.target.value)}}/>
+            } onChange={(event)=>
+            {
+                setUsers(event.target.value);
+            }}/>
             <div className="chipContainer">
                 {
-                    Object.keys(chips).map((gid)=>{
+                    Object.keys(chips).map((gid)=>
+                    {
                         return(
-                            <div key={gid} className={chips[gid].uid === 'invalid'? 'invalid chip' : 'valid chip'}>
+                            <div key={gid} className={chips[gid].uid === "invalid"? "invalid chip" : "valid chip"}>
                                 <img src={chips[gid].avatar? chips.gId.avatar :userIcon } alt="avatar" className="avatar"/>
                                 <span className="chipText">{gid}</span>
                                 <span className="chipClose" onClick={()=>setChips(deleteItem(chips, gid))}>
                                     <FontAwesomeIcon className="icon" icon="times"/>
                                 </span>
                             </div>
-                        )
+                        );
                     })
                 }
             </div>
         </>
-    )
+    );
 }
 export default MemberChips;

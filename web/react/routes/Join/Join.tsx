@@ -4,17 +4,18 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { auth, functions } from "../../firebase";
 import { getParams } from "../../utils/index";
-import { RotateCircleLoading } from 'react-loadingg';
+import { RotateCircleLoading } from "react-loadingg";
 import "./Join.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faCheckCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-function Join(){
+function Join()
+{
 
     const {eventID, teamID} = getParams(useLocation().search);
     const [status, setStatus] = useState({state: 0, message: ""});
     const [user, setUser] = useState<User | null | undefined>(undefined);
-    library.add(faCheckCircle, faTimes)
+    library.add(faCheckCircle, faTimes);
     useEffect(() => onAuthStateChanged(auth, setUser), []);
 
     useEffect(

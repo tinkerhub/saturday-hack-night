@@ -10,24 +10,25 @@ interface CardProps{
     auth: Auth;
 }
 
-function Card({doc,user,auth}:CardProps) {
+function Card({doc, user, auth}:CardProps) 
+{
     const [open, setOpen] = useState(false);
     const provider = new GithubAuthProvider();
     return(
         <>
-        <RegistrationModal id={doc.id} setOpen={setOpen} open={open} user={user}/>
-        <div className="eventCard">
-            <img src={doc.get("image") || eventImage} alt="event" className="eventImage"/>
-            <div className="eventInfo">
-                <div className="eventTitle">
-                    {doc.get("name")}
-                </div>
-                <button className="eventButton" onClick={()=>user ? setOpen(true) : signInWithPopup(auth,provider)}>
+            <RegistrationModal id={doc.id} setOpen={setOpen} open={open} user={user}/>
+            <div className="eventCard">
+                <img src={doc.get("image") || eventImage} alt="event" className="eventImage"/>
+                <div className="eventInfo">
+                    <div className="eventTitle">
+                        {doc.get("name")}
+                    </div>
+                    <button className="eventButton" onClick={()=>user ? setOpen(true) : signInWithPopup(auth, provider)}>
                     Create Team
-                </button>
+                    </button>
+                </div>
             </div>
-        </div>
         </>
-    )
+    );
 }
 export default Card;
