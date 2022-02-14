@@ -43,11 +43,16 @@ function Navbar()
                 <div className="userStatus">
                     {
                         user?
-                            <img src={ userAvatar } alt="user.displayName" className="userAvatar" onClick={()=>
+                            <img src={ userAvatar } role="presentation" alt="user.displayName" className="userAvatar" onClick={()=>
                             {
                                 signOut(auth);
                                 setUser(null);
-                            }}/>
+                            }} onKeyUp={()=>
+                            {
+                                signOut(auth);
+                                setUser(null);
+                            }
+                            }/>
                             :
                             <button className='loginBtn' onClick={()=>
                             {

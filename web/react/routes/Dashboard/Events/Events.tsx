@@ -30,7 +30,7 @@ function Events()
             .then((snapshot) => setEvents(snapshot.docs))
             .catch((error) => console.error(error));
 
-    }, []);
+    }, [navigate]);
     return(
         <>
             <div className="eventHeader">

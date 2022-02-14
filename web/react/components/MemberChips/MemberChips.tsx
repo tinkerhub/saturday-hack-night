@@ -1,5 +1,5 @@
 import { getDocs, query, collection, where } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { db } from "../../firebase";
 import "./MemberChips.css";
 import userIcon from "../../../assets/fallbacks/user.png";
@@ -15,11 +15,7 @@ function MemberChips({ onChange }: MemberChipProps)
     const [users, setUsers] = useState<string>("");
     const [chips, setChips] = useState<{ [key: string]: { uid?: string, avatar?: string } }>({});
     library.add(faTimes);
-    useEffect(()=>
-    {
-
-    }, [chips]);
-    function deleteItem (chips: { [key: string]: { uid?: string, avatar?: string } }, gid: string):any
+    function deleteItem (chips: { [key: string]: { uid?: string, avatar?: string } }, gid: string)
     {
         if (chips[gid].uid && chips[gid].uid !== "invalid")
         {
@@ -82,9 +78,9 @@ function MemberChips({ onChange }: MemberChipProps)
                             <div key={gid} className={chips[gid].uid === "invalid"? "invalid chip" : "valid chip"}>
                                 <img src={chips[gid].avatar? chips.gId.avatar :userIcon } alt="avatar" className="avatar"/>
                                 <span className="chipText">{gid}</span>
-                                <span className="chipClose" onClick={()=>setChips(deleteItem(chips, gid))}>
+                                <div role="button" tabIndex={0} className="chipClose" onClick={()=>setChips(deleteItem(chips, gid))} onKeyDown={()=>setChips(deleteItem(chips, gid))}>
                                     <FontAwesomeIcon className="icon" icon="times"/>
-                                </span>
+                                </div>
                             </div>
                         );
                     })

@@ -19,6 +19,7 @@ function Home()
             <Navbar/>
             <section className="container" id="home">
                 <img src={homeTitle} className="homeTitleImg" alt="Saturday Hack Night"/>
+                 
                 <br/>
                 <img src={homeSubTitle} className="homeSubTitleImg" alt="NOT A HACKATHON"/>
                 <br/>

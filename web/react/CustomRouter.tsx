@@ -11,7 +11,7 @@ import Join from "./routes/Join/Join";
 const NotFound = () => <h1>Error 404</h1>;
 function PrivateRoute() 
 {
-    const isLoggedIn = true;
+    const isLoggedIn = auth.currentUser;
     return isLoggedIn ? <Outlet/> : <Navigate to="/"/>;
 }
 

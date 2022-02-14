@@ -35,13 +35,13 @@ function RegistrationModal({id, setOpen, open, user}:RegistrationModalProps)
             return;
         }
 
-        members.delete(user!.uid);
+        members.delete(user.uid);
         
         await addDoc(collection(db, `events/${id}/teams`), {
             name: data.name,
             repo: data.repo,
             members: Array.from(members),
-            lead: user!.uid
+            lead: user.uid
         }).then(()=>
         {
             toast.success("Team Created Successfully");
@@ -80,7 +80,7 @@ function RegistrationModal({id, setOpen, open, user}:RegistrationModalProps)
                         padding: "20px"
                     }
                 }
-            } parentSelector={()=>document.querySelector("#root")!} isOpen={open} onRequestClose={()=>setOpen(false)} shouldCloseOnOverlayClick={true}>
+            } parentSelector={()=>document.querySelector("#root")} isOpen={open} onRequestClose={()=>setOpen(false)} shouldCloseOnOverlayClick={true}>
                 <h1 className="modelHead">Create Team</h1>
                 <div className="modelBody">
                     <input type="text" placeholder="Team Name" className="modalInput" onChange={({target}) => setData((data) => ({...data, name: target.value}))}/>
