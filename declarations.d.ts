@@ -1,18 +1,7 @@
-interface image 
-{
-  src: string | undefined,
-  srcSet: string | undefined,
-  width: string | number | undefined,
-  height: string | number | undefined
-}
-
-const imageContent: image
-
-declare module "*.png" { export default imageContent; }
-declare module "*.jpg" { export default imageContent; }
-declare module "*.jpeg" { export default imageContent; }
-declare module "*.webp" { export default imageContent; }
-
+declare module "*.png"
+declare module "*.jpg"
+declare module "*.jpeg"
+declare module "*.webp"
 declare module "*.gif"
 
 declare module "*.svg" {

@@ -44,7 +44,7 @@ function RegistrationModal({id, setOpen, open, user}:RegistrationModalProps)
             lead: user!.uid
         }).then(()=>
         {
-            toast.success("Team Created Succesfully");
+            toast.success("Team Created Successfully");
         }).catch(()=>
         {
             toast.error("Team Creation Failed");
