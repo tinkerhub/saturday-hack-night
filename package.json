@@ -13,7 +13,7 @@
     "ci:web": "yarn install --prefer-offline --frozen-lockfile",
     "ci:functions": "cd functions && yarn install --prefer-offline --frozen-lockfile",
     "lint": "yarn lint:web && yarn lint:functions",
-    "lint:web": "eslint --fix \"web/**/*.{js,jsx,ts,tsx,json}\"",
+    "lint:web": "eslint --fix \"web/**/*.{js,jsx,ts,tsx}\"",
     "lint:functions": "eslint --fix \"functions/src/**/*.{js,ts,json}\"",
     "test": "jest",
     "test:watch": "jest --watch"
