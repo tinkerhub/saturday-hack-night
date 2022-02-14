@@ -90,11 +90,6 @@ module.exports = (env) => ({
                 {
                     src: path.resolve(__dirname, "..", "web/assets/icons/logo512.png"),
                     sizes: [96, 128, 192, 256, 384, 512]
-                },
-                {
-                    src: path.resolve(__dirname, "..", "web/assets/icons/maskable512.png"),
-                    sizes: [96, 128, 192, 256, 384, 512],
-                    purpose: "maskable"
                 }
             ]
         }),
