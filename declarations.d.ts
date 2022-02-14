@@ -4,9 +4,9 @@ interface image
   srcSet: string | undefined,
   width: string | number | undefined,
   height: string | number | undefined
-};
+}
 
-const imageContent: image;
+const imageContent: image
 
 declare module "*.png" { export default imageContent; }
 declare module "*.jpg" { export default imageContent; }
