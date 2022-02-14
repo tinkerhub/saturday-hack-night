@@ -1,0 +1,50 @@
+.profileHeader{
+    margin-top: 12px;
+    margin-left: 10px;
+    font-size: 36px;
+    padding: 4px;
+}
+.profileContainer{
+    padding-block: 18px;
+    text-align: center;
+    transform: translate(0,20%);
+    padding-inline: 12px;
+}
+.profileContainer .btnSave{
+    border: none;
+    font-size: 15px;
+    box-shadow: 0.1px 0.2px grey;
+    color: white;
+    border-radius: 8px;
+    background: linear-gradient(36deg,#e206a8,#600f8f);
+    padding-inline: 24px;
+    padding-block: 12px;
+}
+.profileContainer .btnSave:hover{
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+.profileContainer .userAvatar{
+    width: 128px;
+    height: 128px;
+}
+.profileContainer .inputField{
+    border: none;
+    width:240px;
+    margin-block: 6px;
+    height: 36px;
+    box-shadow: 0.1px 0.2px grey;
+    padding-inline: 12px;
+    padding-block: 4px;
+    border-radius: 8px;
+}
+.profileContainer .inputField:focus{
+    outline: none;
+}
+.profileDetails{
+    text-align: center;
+    bottom: 50%;
+}
+li{
+    list-style: none;
+}

@@ -1,0 +1,9 @@
+.join-container{
+    display: flex;
+    margin-top: 36px;
+    font-size: 24px;
+    height: 100vh;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}

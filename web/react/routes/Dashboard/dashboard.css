@@ -1,0 +1,13 @@
+.outlet{
+    position: absolute;
+    width: calc(100% - 68px);
+    left:68px;
+    transition: all 0.3s ease;
+}
+.sidebar.active ~ .outlet{
+    width: calc(100%-268px);
+    left: 268px;
+}
+.dashboard{
+    overflow-x: hidden;
+}

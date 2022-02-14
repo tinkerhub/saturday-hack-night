@@ -1,0 +1,77 @@
+.navbar{
+    position: sticky;
+    display: inline-block;
+    width: 100%;
+    background: linear-gradient(rgba(18, 18, 18, 0.2), rgba(18,18,18,0.1));
+    border-radius: 4px;
+}
+.brand{
+    padding: 12px;
+    display: inline-flex;
+    flex-direction: row;
+    margin: 0px;
+    flex-grow: 1;
+    font-size: large;
+    align-items: center;
+    font-weight: 400;
+
+}
+.brandName{
+    font-weight: 500;
+    color: white;
+}
+.brandLogo{
+    width: 56px;
+    height: 56px;
+}
+.navLinks{
+    padding: 14px;
+    float: right;
+    display: flex;
+}
+.navLink{
+    font-weight: lighter;
+    font-size: normal;
+    padding-block: 10px;
+    padding-inline: 12px;
+    margin-inline-end: 10px;
+    color: black;
+    text-decoration: none;
+    text-align: center;
+    background-color: white;
+    border-radius: 7px;
+    transition: 0.3s;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.navLink:hover { 
+    background: linear-gradient(36deg,#e206a8,#b7089f);
+    color: white;
+}
+.userAvatar{
+    width: 40px;
+    height: 40px;
+}
+.loginBtn{
+    padding-block: 10px;
+    font-weight: 100;
+    font-size: 16px;
+    border-width: 0px;
+    padding-inline: 12px;
+    border-radius: 7px;
+
+}
+.loginBtn:hover{
+    background: linear-gradient(36deg,#e206a8,#b7089f);
+    color: white;
+}
+.userStatus{
+    padding-right: 14px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    float: right;
+}
+@media only screen and (max-width:830px){
+    .navLinks{
+        display: none;
+    }
+}

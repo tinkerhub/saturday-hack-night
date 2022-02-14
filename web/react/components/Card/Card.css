@@ -1,0 +1,32 @@
+.eventImage{
+    width:250px;
+    height: 175px;
+}
+.eventCard{
+    margin-block: 18px;
+}
+.eventTitle{
+    font-size: 24px;
+    margin-top: 2px;
+}
+.eventInfo{
+    width: 250px;
+    margin-block: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-between;
+}
+.eventButton{
+    padding-inline: 10px;
+    padding-block: 5px;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    background: linear-gradient(36deg,#e206a8,#600f8f);
+}
+.eventButton:hover{
+    transform: scale(1.01);
+}

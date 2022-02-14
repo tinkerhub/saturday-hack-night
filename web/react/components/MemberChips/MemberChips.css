@@ -1,0 +1,49 @@
+.modalInput{
+    width: 90%;
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 0 10px;
+    margin-inline: 12px;
+    margin-bottom: 10px;
+  }
+  .chipContainer{
+    margin-bottom: 8px;
+    display: flex;
+    margin-inline-start: 16px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: max-content;
+    justify-content: center;
+    margin-top: 10px;
+  }
+.chip{
+
+  border: none;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  margin-inline-end: 3px;
+  padding: 2px;
+}
+  .invalid{
+    color: red;
+    background:linear-gradient(36deg,#e206a8,#600f8f);
+  }
+  .valid{
+    color: white;
+    background:linear-gradient(36deg,#e206a8,#600f8f);
+  }
+  .chip .avatar{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-inline-end: 5px;
+  }
+  .chip .icon{
+    width: 20px;
+    height: 20px;
+    margin-top: 3px;
+    padding: 2px;
+    margin-inline: 5px;
+  }

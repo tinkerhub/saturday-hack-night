@@ -1,0 +1,48 @@
+.modelHead{
+  margin-inline: 18px;
+  margin-bottom: 36px;
+}
+.modelBody{
+  text-align: center;
+  margin-top: 18px;
+}
+
+.modalInput{
+  width: 90%;
+  height: 50px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 0 10px;
+  margin-inline: 12px;
+  margin-bottom: 10px;
+}
+
+.modalContainer{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(256,256,256,0.5);
+}
+.modalFooter{
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-inline-end: 7px;
+  flex-direction: row-reverse;
+  align-content: center;
+}
+.modalButton{
+  color: white;
+  background: linear-gradient(36deg,#e206a8,#600f8f);
+  border: none;
+  border-radius: 4px;
+  margin-inline: 8px;
+  padding-inline: 8px;
+  padding-block: 5px;
+  transition: all 0.3s ease;
+}
+.modalButton:hover{
+  transform: scale(1.01);
+}
