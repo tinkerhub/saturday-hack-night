@@ -32,7 +32,6 @@
 .navLink{
     font-weight: lighter;
     font-size: normal;
-    cursor: pointer;
     padding-block: 10px;
     padding-inline: 12px;
     margin-inline-end: 10px;
@@ -66,13 +65,39 @@
     color: white;
 }
 .userStatus{
+    color: white;
     padding-right: 14px;
     padding-top: 14px;
     padding-bottom: 14px;
     float: right;
 }
+.navIconCon{
+    display:none;
+    align-content: center;
+    align-items: center;
+    margin-inline-end: 15px;
+    margin-top: 15px;
+    padding-top: 4px;
+    float: right;
+}
+.navIcon{
+    color: white;
+    height: 35px;
+    width: 35px;
+}
 @media only screen and (max-width:830px){
+    .navLinksActive{
+        display: flex;
+        flex-direction: column;
+    }
     .navLinks{
         display: none;
+    }
+    .navLink{
+        margin-inline-end: 2px;
+        margin-block-end: 12px;
+    }
+    .navIconCon{
+        display: block;
     }
 }
