@@ -45,6 +45,8 @@ function RegistrationModal({id, setOpen, open, user}:RegistrationModalProps)
         }).then(()=>
         {
             toast.success("Team Created Successfully");
+            setMembers(null);
+            setData({name:"", repo:""});
         }).catch(()=>
         {
             toast.error("Team Creation Failed");

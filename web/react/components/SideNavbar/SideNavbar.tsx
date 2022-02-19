@@ -50,7 +50,7 @@ function SideNavbar()
                         <span className="tooltip">Events</span>
                     </li>
                     <li>
-                        <NavLink to="leaderboard" className="sideNavItem">
+                        <NavLink to="" className="disabled">
                             <FontAwesomeIcon className="icon" icon="trophy"/>
                             <span className="links_name">
                             Leaderboard

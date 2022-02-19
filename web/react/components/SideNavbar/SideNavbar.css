@@ -78,6 +78,26 @@
     color: #600f8f;
     background-color: white;
 }
+.sidebar ul li .disabled .icon{
+    height: 25px;
+    text-align: center;
+    min-width: 25px;
+    margin-right: 12px;
+    border-radius: 12px;
+}
+.sidebar ul li .disabled {
+    
+    margin-top: 8px;
+    color: rgb(201, 201, 201);
+    border-radius: 4px;
+    padding: 4px 10px;
+    cursor: default;
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
 .sidebar ul li .sideNavItem .icon{
     height: 25px;
     text-align: center;
