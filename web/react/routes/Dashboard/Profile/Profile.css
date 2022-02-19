@@ -16,13 +16,14 @@
     box-shadow: 0.1px 0.2px grey;
     color: white;
     border-radius: 8px;
-    background: linear-gradient(36deg,#e206a8,#600f8f);
-    padding-inline: 24px;
-    padding-block: 12px;
+    background: linear-gradient(36deg,#e206a8,#b7089f);
+    padding-inline: 18px;
+    margin-top: 4px;
+    padding-block: 5px;
+    transition: all 0.3s ease;
 }
 .profileContainer .btnSave:hover{
-    background-color: #fff;
-    transition: all 0.3s ease;
+    transform: scale(1.01);
 }
 .profileContainer .userAvatar{
     width: 128px;
@@ -48,3 +49,4 @@
 li{
     list-style: none;
 }
+
