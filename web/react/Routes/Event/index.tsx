@@ -3,7 +3,6 @@ import {
     collection,
     getDocs,
     query,
-    where,
     QueryDocumentSnapshot,
     DocumentData, getDoc, doc,
 } from "firebase/firestore";
@@ -22,6 +21,7 @@ import CardMedia from "@mui/material/CardMedia";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardActions from "@mui/material/CardActions";
 import {useNavigate} from "react-router-dom";
+import ResultsModal from "./ResultsModal";
 
 
 interface CardProps
@@ -34,12 +34,14 @@ interface CardProps
 
 function ActionAreaCard({doc, db, user, auth}: CardProps)
 {
-    const [open, setOpen] = useState(false);
+    const [openRegistrations, setOpenRegistrations] = useState(false);
+    const [openResults, setOpenResults] = useState(false);
     const provider = new GithubAuthProvider();
 
     return (
         <>
-            {user && <RegistrationModal open={open} setOpen={setOpen} id={doc.id} user={user} db={db}/>}
+            {user && <RegistrationModal open={openRegistrations} setOpen={setOpenRegistrations} id={doc.id} user={user} db={db}/>}
+            <ResultsModal open={openResults} setOpen={setOpenResults} id={doc.id} db={db}/>
             <Card sx={{width: 300, margin: "1rem"}}>
                 <CardActionArea>
                     <CardMedia
@@ -57,9 +59,17 @@ function ActionAreaCard({doc, db, user, auth}: CardProps)
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        <Button size="small" onClick={() => user ? setOpen(true) : signInWithPopup(auth, provider)}>
-                            Create Team
-                        </Button>
+                        {
+                            doc.get("registration") && <Button size="small" onClick={() => user ? setOpenRegistrations(true) : signInWithPopup(auth, provider)}>
+                                Create Team
+                            </Button>
+                        }
+                        {
+                            doc.get("results") && <Button size="small" onClick={() => setOpenResults(true)}>
+                                Results
+                            </Button>
+                        }
+                        
                     </CardActions>
                 </CardActionArea>
             </Card>
@@ -92,7 +102,7 @@ function Event({db, auth}: { db: Firestore, auth: Auth }): JSX.Element
             }
         }), [auth, db, navigate]);
 
-    getDocs(query(collection(db, "events"), where("registration", "==", true)))
+    getDocs(query(collection(db, "events")))
         .then((snapshot) => setEvents(snapshot.docs))
         .catch((error) => console.error(error));
 
