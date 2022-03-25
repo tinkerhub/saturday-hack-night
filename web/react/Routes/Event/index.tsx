@@ -21,7 +21,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardActions from "@mui/material/CardActions";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 
 interface CardProps
@@ -78,7 +78,7 @@ function Event({db, auth}: { db: Firestore, auth: Auth }): JSX.Element
     const [events, setEvents] = useState<Array<QueryDocumentSnapshot<DocumentData>>>([]);
     const [user, setUser] = useState<User | null>(null);
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     useEffect(() =>
         onAuthStateChanged(auth, async (authUser) =>
@@ -88,9 +88,9 @@ function Event({db, auth}: { db: Firestore, auth: Auth }): JSX.Element
             {
                 const snap = await getDoc(doc(db, `users/${authUser.uid}`));
                 if (!snap.get("phno") || !snap.get("email"))
-                    history.replace("/profile?back=event");
+                    navigate("/profile?back=event");
             }
-        }), [auth, db, history]);
+        }), [auth, db, navigate]);
 
     getDocs(query(collection(db, "events"), where("registration", "==", true)))
         .then((snapshot) => setEvents(snapshot.docs))

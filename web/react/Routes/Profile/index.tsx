@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import Paper from "@mui/material/Paper";
 import {getParams} from "../../utils";
-import {useHistory, useLocation} from "react-router-dom";
+import {useNavigate, useLocation} from "react-router-dom";
 
 
 interface ProfileProps
@@ -32,7 +32,7 @@ function Profile({auth, db}: ProfileProps): JSX.Element
     const [status, setStatus] = useState(0);
 
     const {back} = getParams(useLocation().search);
-    const history = useHistory();
+    const navigate = useNavigate();
 
     useEffect(() =>
     {
@@ -65,7 +65,7 @@ function Profile({auth, db}: ProfileProps): JSX.Element
 
         updateDoc(user.ref, data)
             .then(() => setStatus(1))
-            .then(() => back && history.push(back))
+            .then(() => back && navigate(back))
             .catch(() => setStatus(-1));
     }
 

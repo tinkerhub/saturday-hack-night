@@ -1,4 +1,4 @@
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -47,7 +47,7 @@ const FAQS = [
  */
 function Home(): JSX.Element
 {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     return (
         <>
@@ -72,7 +72,7 @@ function Home(): JSX.Element
                     team for one of the upcoming events.</p>
                 <button
                     className="bn632-hover bn18"
-                    onClick={() => history.push("/event")}
+                    onClick={() => navigate("/event")}
                 >
                     Goto Events Page
                 </button>
