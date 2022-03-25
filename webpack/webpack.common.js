@@ -58,7 +58,7 @@ module.exports = (env) => ({
     },
     output: {
         path: buildFolder,
-        filename: "bundle.js",
+        filename: "bundle.[contenthash].js",
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -105,7 +105,8 @@ module.exports = (env) => ({
         }),
         new InjectManifest({
             swSrc: path.resolve(__dirname, "..", "web/sw.ts"),
-            exclude: [ /\.map$/, /^manifest.*\.js(?:on)?$/, /\.(jpe?g|png|webp)$/i ]
+            exclude: [ /\.map$/, /^manifest.*\.js(?:on)?$/, /\.(jpe?g|png|webp)$/i ],
+            maximumFileSizeToCacheInBytes: 12*1024*1024
         })
     ],
     stats: "errors-only"
