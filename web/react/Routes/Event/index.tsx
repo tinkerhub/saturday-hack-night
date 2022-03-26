@@ -4,7 +4,7 @@ import {
     getDocs,
     query,
     QueryDocumentSnapshot,
-    DocumentData, getDoc, doc,
+    DocumentData, getDoc, doc, orderBy,
 } from "firebase/firestore";
 import {Auth, GithubAuthProvider, onAuthStateChanged, signInWithPopup, User} from "firebase/auth";
 
@@ -104,7 +104,7 @@ function Event({db, auth}: { db: Firestore, auth: Auth }): JSX.Element
                     navigate("/profile?back=event");
             }
         });
-        getDocs(query(collection(db, "events")))
+        getDocs(query(collection(db, "events"), orderBy("time", "desc")))
             .then((snapshot) => setEvents(snapshot.docs))
             .catch((error) => console.error(error)); 
     }
