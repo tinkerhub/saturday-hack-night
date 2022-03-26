@@ -41,7 +41,8 @@ function ActionAreaCard({doc, db, user, auth}: CardProps)
     return (
         <>
             {user && <RegistrationModal open={openRegistrations} setOpen={setOpenRegistrations} id={doc.id} user={user} db={db}/>}
-            <ResultsModal open={openResults} setOpen={setOpenResults} id={doc.id} db={db}/>
+            <ResultsModal open={openResults} setOpenResults={setOpenResults} id={doc.id} db={db}/>
+
             <Card sx={{width: 300, margin: "1rem"}}>
                 <CardActionArea>
                     <CardMedia
@@ -69,7 +70,7 @@ function ActionAreaCard({doc, db, user, auth}: CardProps)
                                 Results
                             </Button>
                         }
-                        
+
                     </CardActions>
                 </CardActionArea>
             </Card>
@@ -91,6 +92,8 @@ function Event({db, auth}: { db: Firestore, auth: Auth }): JSX.Element
     const navigate = useNavigate();
 
     useEffect(() =>
+    {
+
         onAuthStateChanged(auth, async (authUser) =>
         {
             setUser(authUser);
@@ -100,11 +103,12 @@ function Event({db, auth}: { db: Firestore, auth: Auth }): JSX.Element
                 if (!snap.get("phno") || !snap.get("email"))
                     navigate("/profile?back=event");
             }
-        }), [auth, db, navigate]);
-
-    getDocs(query(collection(db, "events")))
-        .then((snapshot) => setEvents(snapshot.docs))
-        .catch((error) => console.error(error));
+        });
+        getDocs(query(collection(db, "events")))
+            .then((snapshot) => setEvents(snapshot.docs))
+            .catch((error) => console.error(error)); 
+    }
+    , [auth, db, navigate]);
 
     return (
         <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
