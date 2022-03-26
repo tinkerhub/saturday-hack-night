@@ -1,7 +1,7 @@
 import { collection, Firestore, getDocs, query, where, getDoc, doc } from "firebase/firestore";
 import { useEffect, useState, Dispatch } from "react";
-import { Dialog, DialogTitle, DialogContent, DialogActions, Typography, TableContainer, Paper, TableBody, TableHead, TableRow, TableCell, Link, Button, Chip, Avatar, Stack, Table } from "@mui/material";
-
+import { Dialog, Accordion, AccordionDetails, AccordionSummary, DialogTitle, DialogContent, DialogActions, Typography, TableContainer, Paper, TableBody, TableHead, TableRow, TableCell, Link, Button, Chip, Avatar, Stack, Table } from "@mui/material";
+import  ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 interface ResultsModalProps{
     open: boolean;
     setOpenResults: Dispatch<React.SetStateAction<boolean>>;
@@ -58,13 +58,14 @@ function ResultsModal({open, setOpenResults, id, db}: ResultsModalProps)
                     {
                         const project = projects.filter((item) => item.projectStatus === value.code);
                         {
-                            return ((project.length > 0) && <ResultsTable key={value.code} projects={project} projectStatus={value.status} />);
+                            return ((project.length > 0) && <ResultsAccordion key={value.code} projects={project} projectStatus={value.status}/>);
                         }
+
                     })
                 }
             </DialogContent>
             <DialogActions>
-                <Button variant="contained" color="primary" onClick={() => setOpenResults(false)}>Cancel</Button>
+                <Button variant="contained" color="primary" onClick={() => setOpenResults(false)}>Close</Button>
             </DialogActions>
         </Dialog>
     );
@@ -72,54 +73,55 @@ function ResultsModal({open, setOpenResults, id, db}: ResultsModalProps)
 
 export default ResultsModal;
 
-const ResultsTable = ({projects, projectStatus}) => 
+const ResultsAccordion = ({projects, projectStatus}) => 
 {
-    return(
-        <>
-            <Typography variant="h7">
-                {projectStatus}
-            </Typography>
-            <TableContainer component={Paper} sx={{my:2 }}>
-                <Table>
-
-                    <TableHead>
-                        <TableRow style={{ width:"100%" }}>
-                            <TableCell align="center">Team Name</TableCell>
-                            <TableCell align="center">Project Link</TableCell>
-                            <TableCell align="center">Team Members</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {
-                            projects.map((value) => 
+    return (
+        <Accordion>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+                <Typography>{projectStatus}</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+                <TableContainer component={Paper} sx={{my:2 }}>
+                    <Table>
+                        <TableHead>
+                            <TableRow style={{ width:"100%" }}>
+                                <TableCell align="center">Team Name</TableCell>
+                                <TableCell align="center">Project Link</TableCell>
+                                <TableCell align="center">Team Members</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
                             {
-                                return (
-                                    <TableRow key={value.name}>
-                                        <TableCell align="center">
-                                            {value.name}
-                                        </TableCell>
-                                        <TableCell align="center">
-                                            <Link href={value.repo}>Project Repo</Link>
-                                        </TableCell>
-                                        <TableCell align="center">
-                                            <Stack direction="row" spacing={1} alignContent="center">
-                                                {
-                                                    value.members.map((item, key) => 
+                                projects.map((value) =>
+                                {
+                                    return (
+                                        <TableRow key={value.name}>
+                                            <TableCell align="center">
+                                                {value.name}
+                                            </TableCell>
+                                            <TableCell align="center">
+                                                <Link href={value.repo}>Project Repo</Link>
+                                            </TableCell>
+                                            <TableCell align="center">
+                                                <Stack direction="row" spacing={1} alignContent="center">
                                                     {
-                                                        return (
-                                                            <Chip key={key} component="a" href={`https://github.com/${item.github}`} clickable label={item.github} avatar={<Avatar alt={item.github} src={item.avatar}/> } />
-                                                        );
-                                                    })
-                                                }
-                                            </Stack>
-                                        </TableCell>
-                                    </TableRow>
-                                );
-                            })
-                        }
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </>
+                                                        value.members.map((item, key) =>
+                                                        {
+                                                            return (
+                                                                <Chip key={key} component="a" href={`https://github.com/${item.github}`} clickable label={item.github} avatar={<Avatar alt={item.github} src={item.avatar}/> } />
+                                                            );
+                                                        })
+                                                    }
+                                                </Stack>
+                                            </TableCell>
+                                        </TableRow>
+                                    );
+                                })
+                            }
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </AccordionDetails>
+        </Accordion>
     );
 };
