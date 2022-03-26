@@ -107,7 +107,7 @@ const ResultsTable = ({projects, projectStatus}) =>
                                                     value.members.map((item, key) => 
                                                     {
                                                         return (
-                                                            <Chip key={key} label={item.github} avatar={<Avatar alt={item.github} src={item.avatar}/> } />
+                                                            <Chip key={key} component="a" href={`https://github.com/${item.github}`} clickable label={item.github} avatar={<Avatar alt={item.github} src={item.avatar}/> } />
                                                         );
                                                     })
                                                 }
