@@ -16,10 +16,10 @@ interface ProjectData{
 }
 
 const ProjectStatus = [
-    {code:50, status:"Completed Projects"},
-    {code:100, status:"Best Individual Project"},
     {code:101, status:"Best Overall Project"},
-    {code:102, status:"Best Group Project"}
+    {code:102, status:"Best Group Projects"},
+    {code:100, status:"Best Individual Projects"},
+    {code:50, status:"Completed Projects"}
 ];
 
 function ResultsModal({open, setOpenResults, id, db}: ResultsModalProps) 
@@ -50,7 +50,7 @@ function ResultsModal({open, setOpenResults, id, db}: ResultsModalProps)
     }, [id, db]);
 
     return(
-        <Dialog open={open} onClose={() => setOpenResults(false)}>
+        <Dialog maxWidth="md" fullWidth open={open} onClose={() => setOpenResults(false)}>
             <DialogTitle>Results</DialogTitle>
             <DialogContent>
                 {
@@ -86,7 +86,7 @@ const ResultsTable = ({projects, projectStatus}) =>
                         <TableRow style={{ width:"100%" }}>
                             <TableCell align="center">Team Name</TableCell>
                             <TableCell align="center">Project Link</TableCell>
-                            <TableCell align="center" width={150}>Team Members</TableCell>
+                            <TableCell align="center">Team Members</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -101,8 +101,8 @@ const ResultsTable = ({projects, projectStatus}) =>
                                         <TableCell align="center">
                                             <Link href={value.repo}>Project Repo</Link>
                                         </TableCell>
-                                        <TableCell align="center" sx={{maxWidth:150}}>
-                                            <Stack direction="column" spacing={1} flexWrap="wrap" alignContent="center">
+                                        <TableCell align="center">
+                                            <Stack direction="row" spacing={1} alignContent="center">
                                                 {
                                                     value.members.map((item, key) => 
                                                     {
