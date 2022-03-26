@@ -47,7 +47,7 @@ function ResultsModal({open, setOpenResults, id, db}: ResultsModalProps)
                 setProjects((projects) => [...projects, {name: value.get("name"), repo: value.get("repo"), projectStatus: value.get("projectStatus"), members:members} ]);
             });
         }).catch(err => console.log(err));
-    }, [id]);
+    }, [id, db]);
 
     return(
         <Dialog open={open} onClose={() => setOpenResults(false)}>
@@ -107,7 +107,7 @@ const ResultsTable = ({projects, projectStatus}) =>
                                                     value.members.map((item, key) => 
                                                     {
                                                         return (
-                                                            <Chip label={item.github} avatar={<Avatar alt={item.github} src={item.avatar}/> } />
+                                                            <Chip key={key} label={item.github} avatar={<Avatar alt={item.github} src={item.avatar}/> } />
                                                         );
                                                     })
                                                 }
