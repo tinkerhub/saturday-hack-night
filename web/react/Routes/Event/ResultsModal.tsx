@@ -22,7 +22,14 @@ const ProjectStatus = [
     {code:50, status:"Completed Projects"}
 ];
 
-function ResultsModal({open, setOpenResults, id, db}: ResultsModalProps) 
+/**
+ * Component to show the results modal.
+ *
+ * @author N Anbarasu
+ * @returns { JSX.Element } index Component
+ */
+
+function ResultsModal({open, setOpenResults, id, db}: ResultsModalProps) : JSX.Element
 {
     const [projects, setProjects] = useState<Array<ProjectData>>([]);
 
@@ -57,10 +64,7 @@ function ResultsModal({open, setOpenResults, id, db}: ResultsModalProps)
                     ProjectStatus.map((value) => 
                     {
                         const project = projects.filter((item) => item.projectStatus === value.code);
-                        {
-                            return ((project.length > 0) && <ResultsAccordion key={value.code} projects={project} projectStatus={value.status}/>);
-                        }
-
+                        return ((project.length > 0) && <ResultsAccordion key={value.code} projects={project} projectStatus={value.status}/>);
                     })
                 }
             </DialogContent>
@@ -73,7 +77,7 @@ function ResultsModal({open, setOpenResults, id, db}: ResultsModalProps)
 
 export default ResultsModal;
 
-const ResultsAccordion = ({projects, projectStatus}) => 
+function ResultsAccordion({projects, projectStatus}) : JSX.Element
 {
     return (
         <Accordion>
@@ -106,11 +110,8 @@ const ResultsAccordion = ({projects, projectStatus}) =>
                                                 <Stack direction="row" spacing={1} alignContent="center">
                                                     {
                                                         value.members.map((item, key) =>
-                                                        {
-                                                            return (
-                                                                <Chip key={key} component="a" href={`https://github.com/${item.github}`} clickable label={item.github} avatar={<Avatar alt={item.github} src={item.avatar}/> } />
-                                                            );
-                                                        })
+                                                            (<Chip key={key} component="a" href={`https://github.com/${item.github}`} clickable label={item.github} avatar={<Avatar alt={item.github} src={item.avatar}/> } />)
+                                                        )
                                                     }
                                                 </Stack>
                                             </TableCell>
@@ -124,4 +125,4 @@ const ResultsAccordion = ({projects, projectStatus}) =>
             </AccordionDetails>
         </Accordion>
     );
-};
+}

@@ -1,29 +1,11 @@
-import {
-    Firestore,
-    collection,
-    getDocs,
-    query,
-    QueryDocumentSnapshot,
-    DocumentData, getDoc, doc, orderBy,
-} from "firebase/firestore";
-import {Auth, GithubAuthProvider, onAuthStateChanged, signInWithPopup, User} from "firebase/auth";
-
 import React, {useEffect, useState} from "react";
-
+import {Firestore, collection, getDocs, query, QueryDocumentSnapshot, DocumentData, getDoc, doc, orderBy, where} from "firebase/firestore";
+import {Auth, GithubAuthProvider, onAuthStateChanged, signInWithPopup, User} from "firebase/auth";
+import {Button, Typography, Card, CardContent, CardMedia, CardActionArea, CardActions, Container} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 import RegistrationModal from "./RegistrationModal";
 import noImage from "../../../assets/fallbacks/no-image.png";
-
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import CardActionArea from "@mui/material/CardActionArea";
-import CardActions from "@mui/material/CardActions";
-import {useNavigate} from "react-router-dom";
 import ResultsModal from "./ResultsModal";
-
-
 interface CardProps
 {
     doc: QueryDocumentSnapshot<DocumentData>;
@@ -41,7 +23,7 @@ function ActionAreaCard({doc, db, user, auth}: CardProps)
     return (
         <>
             {user && <RegistrationModal open={openRegistrations} setOpen={setOpenRegistrations} id={doc.id} user={user} db={db}/>}
-            <ResultsModal open={openResults} setOpenResults={setOpenResults} id={doc.id} db={db}/>
+            {openResults && <ResultsModal open={openResults} setOpenResults={setOpenResults} id={doc.id} db={db}/>}
 
             <Card sx={{width: 300, margin: "1rem"}}>
                 <CardActionArea>
@@ -86,7 +68,8 @@ function ActionAreaCard({doc, db, user, auth}: CardProps)
  */
 function Event({db, auth}: { db: Firestore, auth: Auth }): JSX.Element
 {
-    const [events, setEvents] = useState<Array<QueryDocumentSnapshot<DocumentData>>>([]);
+    const [onGoingEvents, setOnGoingEvents] = useState<Array<QueryDocumentSnapshot<DocumentData>>>([]);
+    const [pastEvents, setPastEvents] = useState<Array<QueryDocumentSnapshot<DocumentData>>>([]);
     const [user, setUser] = useState<User | null>(null);
 
     const navigate = useNavigate();
@@ -104,16 +87,34 @@ function Event({db, auth}: { db: Firestore, auth: Auth }): JSX.Element
                     navigate("/profile?back=event");
             }
         });
-        getDocs(query(collection(db, "events"), orderBy("time", "desc")))
-            .then((snapshot) => setEvents(snapshot.docs))
-            .catch((error) => console.error(error)); 
+        getDocs(query(collection(db, "events"), where("registration", "==", true )))
+            .then((snapshot) => setOnGoingEvents(snapshot.docs))
+            .catch((error) => console.error(error));
+        
+        getDocs(query(collection(db, "events"), orderBy("time", "asc"), where("registration", "==", false )))
+            .then((snapshot) => setPastEvents(snapshot.docs))
+            .catch((error) => console.error(error));
+        
     }
     , [auth, db, navigate]);
 
     return (
-        <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
-            {events.map((doc, i) => <ActionAreaCard key={i} doc={doc} db={db} user={user} auth={auth}/>)}
-        </div>
+        <Container maxWidth="lg" style={{display:"flex", flexDirection:"column", alignItems:"flex-start"}}>
+            
+            {
+                onGoingEvents.length > 0 && <div>
+                    <Typography style={{marginLeft:"1rem"}} color="white" component="h3" variant="h4">Ongoing Events</Typography>
+                    <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
+                        {onGoingEvents.map((doc, i) => <ActionAreaCard key={i} doc={doc} db={db} user={user} auth={auth}/>)}
+                    </div>
+                </div>
+            }
+            <br/>
+            <Typography style={{marginLeft:"1rem"}} color="white" component="h3" variant="h4">Past Events</Typography>
+            <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
+                {pastEvents.map((doc, i) => <ActionAreaCard key={i} doc={doc} db={db} user={user} auth={auth}/>)}
+            </div>
+        </Container>
     );
 }
 
