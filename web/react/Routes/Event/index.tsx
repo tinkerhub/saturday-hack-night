@@ -91,7 +91,7 @@ function Event({db, auth}: { db: Firestore, auth: Auth }): JSX.Element
             .then((snapshot) => setOnGoingEvents(snapshot.docs))
             .catch((error) => console.error(error));
         
-        getDocs(query(collection(db, "events"), orderBy("time", "asc"), where("registration", "==", false )))
+        getDocs(query(collection(db, "events"), orderBy("time", "desc"), where("registration", "==", false )))
             .then((snapshot) => setPastEvents(snapshot.docs))
             .catch((error) => console.error(error));
         
