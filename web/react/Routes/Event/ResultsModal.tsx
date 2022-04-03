@@ -1,18 +1,13 @@
 import { collection, Firestore, getDocs, query, where, getDoc, doc } from "firebase/firestore";
-import { useEffect, useState, Dispatch } from "react";
+import { useEffect, useState, Dispatch, SetStateAction } from "react";
 import { Dialog, Accordion, AccordionDetails, AccordionSummary, DialogTitle, DialogContent, DialogActions, Typography, TableContainer, Paper, TableBody, TableHead, TableRow, TableCell, Link, Button, Chip, Avatar, Stack, Table } from "@mui/material";
 import  ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
 interface ResultsModalProps{
     open: boolean;
-    setOpenResults: Dispatch<React.SetStateAction<boolean>>;
+    setOpenResults: Dispatch<SetStateAction<boolean>>;
     id: string;
     db: Firestore;
-}
-interface ProjectData{
-    name: string;
-    repo: string;
-    projectStatus: number;
-    members: Array<string>;
 }
 
 const ProjectStatus = [
@@ -31,7 +26,7 @@ const ProjectStatus = [
 
 function ResultsModal({open, setOpenResults, id, db}: ResultsModalProps) : JSX.Element
 {
-    const [projects, setProjects] = useState<Array<ProjectData>>([]);
+    const [projects, setProjects] = useState([]);
 
     useEffect(() => 
     {
@@ -39,19 +34,9 @@ function ResultsModal({open, setOpenResults, id, db}: ResultsModalProps) : JSX.E
         {
             snapshot.docs.map((value) => 
             {
-                const members = [];
                 let memberList = value.get("members").concat([value.get("lead")]);
                 memberList = [...new Set(memberList)];                
-                memberList.map((value) => 
-                {
-                    getDoc(doc(db, `users/${value}`)).then((snap) => 
-                    {
-                        const member = {name:snap.get("name"), avatar:snap.get("avatar"), github:snap.get("githubID")};
-                        members.push(member);
-                    }).catch((err)=>console.log(err));
-                });
-
-                setProjects((projects) => [...projects, {name: value.get("name"), repo: value.get("repo"), projectStatus: value.get("projectStatus"), members:members} ]);
+                setProjects((projects) => [...projects, {name: value.get("name"), repo: value.get("repo"), projectStatus: value.get("projectStatus"), members:memberList} ]);
             });
         }).catch(err => console.log(err));
     }, [id, db]);
@@ -64,7 +49,7 @@ function ResultsModal({open, setOpenResults, id, db}: ResultsModalProps) : JSX.E
                     ProjectStatus.map((value) => 
                     {
                         const project = projects.filter((item) => item.projectStatus === value.code);
-                        return ((project.length > 0) && <ResultsAccordion key={value.code} projects={project} projectStatus={value.status}/>);
+                        return ((project.length > 0) && <ResultsAccordion key={value.code} db={db} projects={project} projectStatus={value.status}/>);
                     })
                 }
             </DialogContent>
@@ -77,7 +62,7 @@ function ResultsModal({open, setOpenResults, id, db}: ResultsModalProps) : JSX.E
 
 export default ResultsModal;
 
-function ResultsAccordion({projects, projectStatus}) : JSX.Element
+function ResultsAccordion({projects, projectStatus, db}) : JSX.Element
 {
     return (
         <Accordion>
@@ -107,13 +92,7 @@ function ResultsAccordion({projects, projectStatus}) : JSX.Element
                                                 <Link href={value.repo}>Project Repo</Link>
                                             </TableCell>
                                             <TableCell align="center">
-                                                <Stack direction="row" spacing={1} alignContent="center">
-                                                    {
-                                                        value.members.map((item, key) =>
-                                                            (<Chip key={key} component="a" href={`https://github.com/${item.github}`} clickable label={item.github} avatar={<Avatar alt={item.github} src={item.avatar}/> } />)
-                                                        )
-                                                    }
-                                                </Stack>
+                                                <MemberStack db={db} members={value.members} />
                                             </TableCell>
                                         </TableRow>
                                     );
@@ -124,5 +103,30 @@ function ResultsAccordion({projects, projectStatus}) : JSX.Element
                 </TableContainer>
             </AccordionDetails>
         </Accordion>
+    );
+}
+
+function MemberStack({members, db}) :JSX.Element
+{
+    const [users, setUsers] = useState([]);
+    useEffect(()=>
+    {
+        members.map((value) => 
+        {
+            getDoc(doc(db, `users/${value}`)).then((snap) => 
+            {
+                const member = {name:snap.get("name"), avatar:snap.get("avatar"), github:snap.get("githubID")};
+                setUsers((users) => [...users, member]);
+            }).catch((err)=>console.log(err));
+        });
+    }, [db, members]);
+    return(
+        <Stack direction="row" spacing={1} alignContent="center">
+            {
+                users.map((item, key) =>
+                    (<Chip key={key} component="a" href={`https://github.com/${item.github}`} clickable label={item.github} avatar={<Avatar alt={item.github} src={item.avatar}/> } />)
+                )
+            }
+        </Stack>
     );
 }
