@@ -11,7 +11,11 @@ interface MemberChipsProps
     db: Firestore;
     onChange: (uid: string, add: boolean) => void | undefined;
 }
-
+interface userData{
+    gId: string;
+    avatar?: string | null;
+    uid: string;
+}
 /**
  * Component input member id and verify their existence.
  *
@@ -20,47 +24,41 @@ interface MemberChipsProps
  */
 function MemberChips({db, onChange}: MemberChipsProps)
 {
-    const [users, setUsers] = useState("");
-    const [chips, setChips] = useState<{ [key: string]: { uid?: string, avatar?: string } }>({});
-
-    function deleteItem(chips: { [key: string]: { uid?: string, avatar?: string } }, gid: string)
+    const [users, setUsers] = useState<string>("");
+    const [chips, setChips] = useState<Array<userData>> ([]);
+    function deleteItem (gid: string, chips:Array<userData>):Array<userData>
     {
-        if (chips[gid].uid && chips[gid].uid !== "invalid")
-            onChange(chips[gid].uid, false);
-
-        delete chips[gid];
+        const item = chips.filter((value) => value.gId === gid)[0];
+        if(item && item.gId !== null)
+            onChange(item.uid, false);
+        chips = chips.filter((value)=> value.gId !== gid);
         return chips;
     }
-
     async function addUser()
     {
         const gitHubIds = users.replaceAll(/\s/g, "").split(",");
-        const newChips: { [key: string]: { uid?: string, avatar?: string } } = {};
-
+        const newChips: Array<userData> = [];
         setUsers("");
-
         for (const gid of gitHubIds)
-            if (!(gid in chips) && gid !== "")
-                newChips[gid] = {};
-
-        setChips((chips) => ({...chips, ...newChips}));
-
-        for (const gid in newChips)
-            getDocs(query(collection(db, "users"), where("githubID", "==", gid))).then((snap) =>
+            if(!(chips.filter((item) => item.gId === gid).length > 0) && gid !== "")
+                newChips.push({gId: gid, avatar:"", uid:""});
+        setChips(chips.concat(newChips));
+        newChips.forEach((item) =>
+        {
+            getDocs(query(collection(db, "users"), where("githubID", "==", item.gId))).then((snap) =>
             {
-                let user: { uid: string; avatar?: string; };
-                if (!snap.empty && snap.docs[0] && snap.docs[0].id)
+                let user: userData;
+                if (snap.docs.length !== 0)
                 {
-                    user = {uid: snap.docs[0].id, avatar: snap.docs[0].get("avatar")};
+                    user = {gId: item.gId, uid: snap.docs[0].id, avatar: snap.docs[0].get("avatar")};
                     onChange(snap.docs[0].id, true);
                 }
                 else
-                    user = {uid: "invalid"};
-
-                setChips((chips) => ({...chips, [gid]: user}));
+                    user = {gId:item.gId, uid: "invalid"};
+                setChips(chips.concat(user));
             });
+        });
     }
-
     return (
         <>
             <TextField
@@ -70,15 +68,15 @@ function MemberChips({db, onChange}: MemberChipsProps)
                 onKeyUp={({key}) => (key === "Enter" || key === ",") && addUser()}
             />
             <Stack direction="row" spacing={1} flexWrap="wrap">
-                {Object.keys(chips).map((gid) =>
-                    <Tooltip title={chips[gid].uid === "invalid" ? "Not Found" : ""} key={gid}>
+                {chips.map((user, key) =>
+                    <Tooltip title={user.uid === "invalid" ? "Not Found" : ""} key={key}>
                         <Chip
                             style={{marginTop: "1rem"}}
-                            avatar={chips[gid].avatar ? <Avatar alt={gid} src={chips[gid].avatar}/> :
-                                <Avatar>{gid.charAt(0)}</Avatar>}
-                            color={chips[gid].uid === "invalid" ? "secondary" : chips[gid].uid ? "primary" : undefined}
-                            label={gid}
-                            onDelete={() => setChips((chips) => deleteItem(chips, gid))}
+                            avatar={user.avatar ? <Avatar alt={user.gId} src={user.avatar}/> :
+                                <Avatar>{user.gId.charAt(0)}</Avatar>}
+                            color={user.uid === "invalid" ? "secondary" : user.uid ? "primary" : undefined}
+                            label={user.gId}
+                            onDelete={() => setChips((chips) => deleteItem(user.gId, chips))}
                         />
                     </Tooltip>
                 )}
