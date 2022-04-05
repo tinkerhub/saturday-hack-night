@@ -103,17 +103,22 @@ function Event({db, auth}: { db: Firestore, auth: Auth }): JSX.Element
             
             {
                 onGoingEvents.length > 0 && <div>
+                    <br/>
                     <Typography style={{marginLeft:"1rem"}} color="white" component="h3" variant="h4">Ongoing Events</Typography>
                     <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
                         {onGoingEvents.map((doc, i) => <ActionAreaCard key={i} doc={doc} db={db} user={user} auth={auth}/>)}
                     </div>
                 </div>
             }
-            <br/>
-            <Typography style={{marginLeft:"1rem"}} color="white" component="h3" variant="h4">Past Events</Typography>
-            <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
-                {pastEvents.map((doc, i) => <ActionAreaCard key={i} doc={doc} db={db} user={user} auth={auth}/>)}
-            </div>
+            {
+                pastEvents.length > 0 && <div>
+                    <br/>
+                    <Typography style={{marginLeft:"1rem"}} color="white" component="h3" variant="h4">Past Events</Typography>
+                    <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
+                        {pastEvents.map((doc, i) => <ActionAreaCard key={i} doc={doc} db={db} user={user} auth={auth}/>)}
+                    </div>
+                </div>
+            }
         </Container>
     );
 }
