@@ -1,7 +1,7 @@
 import {Auth, GithubAuthProvider, onAuthStateChanged, signInWithPopup, signOut, User} from "firebase/auth";
 
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
-import {useHistory} from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -22,19 +22,18 @@ import {List, ListItemIcon, ListItemText, SwipeableDrawer} from "@mui/material";
 
 const TITLES: { [key: string]: string } = {
     "/": "Saturday Hack Night",
-    "/event": "Upcoming Events",
+    "/event": "Events",
     "/join": "Join Team",
     "/profile": "Profile"
 };
 
 function SideDrawer({drawer, setDrawer}: { drawer: boolean, setDrawer: Dispatch<SetStateAction<boolean>> })
 {
-    const history = useHistory();
-
+    const navigate = useNavigate();
     function closeAndGo(path: string)
     {
         setDrawer(false);
-        history.push(path);
+        navigate(path);
     }
 
     return (
@@ -87,11 +86,10 @@ function Header({auth}: { auth: Auth })
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [drawer, setDrawer] = useState(false);
 
-    const history = useHistory();
+    const location = useLocation();    
     const provider = new GithubAuthProvider();
-
     useEffect(() => onAuthStateChanged(auth, setUser), [auth]);
-    useEffect(() => setTitle(TITLES[history.location.pathname]), [history.location.pathname]);
+    useEffect(() => setTitle(TITLES[location.pathname]), [location.pathname]);
 
     return (
         <Box sx={{flexGrow: 1}}>

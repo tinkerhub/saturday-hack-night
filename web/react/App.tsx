@@ -7,7 +7,7 @@ import {Auth} from "firebase/auth";
 
 import {
     BrowserRouter as Router,
-    Switch,
+    Routes,
     Route,
 } from "react-router-dom";
 
@@ -42,20 +42,12 @@ export const App = ({wb, auth, db, functions}: AppProps) =>
             <ThemeProvider theme={darkTheme}>
                 <HandleAppState wb={wb}/>
                 <Header auth={auth}/>
-                <Switch>
-                    <Route path="/profile" exact>
-                        <Profile auth={auth} db={db}/>
-                    </Route>
-                    <Route path="/join" exact>
-                        <Join functions={functions} auth={auth}/>
-                    </Route>
-                    <Route path="/event" exact>
-                        <Event db={db} auth={auth}/>
-                    </Route>
-                    <Route path="/">
-                        <Home/>
-                    </Route>
-                </Switch>
+                <Routes>
+                    <Route path="/profile" element={<Profile auth={auth} db={db}/>}/>
+                    <Route path="/join" element={ <Join functions={functions} auth={auth}/> }/>
+                    <Route path="/event" element={ <Event db={db} auth={auth}/>}/>
+                    <Route path="/" element={ <Home/> }/>
+                </Routes>
             </ThemeProvider>
         </Router>
     );

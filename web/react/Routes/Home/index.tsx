@@ -1,4 +1,4 @@
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -47,7 +47,7 @@ const FAQS = [
  */
 function Home(): JSX.Element
 {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     return (
         <>
@@ -55,7 +55,7 @@ function Home(): JSX.Element
                 <h1 className="abt-head">What is SHN ?</h1>
                 <p className="p1">
                     Saturday Hack Night is not just your regular hackathon. Here, you will be building
-                    solutions/applications via API integration on every third Sunday of the month.<br/>
+                    solutions/applications via API integration on every first and third Saturday of the month.<br/>
                     The needed resources, the respective API and documentation will be shared with you once you
                     register.<br/> All you have to do is brainstorm and come up with a solution for your problem with
                     the given API. <br/>
@@ -72,9 +72,9 @@ function Home(): JSX.Element
                     team for one of the upcoming events.</p>
                 <button
                     className="bn632-hover bn18"
-                    onClick={() => history.push("/event")}
+                    onClick={() => navigate("/event")}
                 >
-                    Goto Events Page
+                    Register Now
                 </button>
                 <h3 className="abt-head">Submitting Your Creations</h3>
                 <p>
