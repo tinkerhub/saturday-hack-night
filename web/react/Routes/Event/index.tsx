@@ -52,6 +52,9 @@ function ActionAreaCard({doc, db, user, auth}: CardProps)
                                 Results
                             </Button>
                         }
+                        {
+                            doc.get("moreInfo") && <Button size="small" onClick={() => window.open(doc.get("moreInfo"), "_blank")}>More Info</Button>
+                        }
 
                     </CardActions>
                 </CardActionArea>

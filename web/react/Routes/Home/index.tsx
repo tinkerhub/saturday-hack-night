@@ -55,7 +55,7 @@ function Home(): JSX.Element
                 <h1 className="abt-head">What is SHN ?</h1>
                 <p className="p1">
                     Saturday Hack Night is not just your regular hackathon. Here, you will be building
-                    solutions/applications via API integration on every third Sunday of the month.<br/>
+                    solutions/applications via API integration on every first and third Saturday of the month.<br/>
                     The needed resources, the respective API and documentation will be shared with you once you
                     register.<br/> All you have to do is brainstorm and come up with a solution for your problem with
                     the given API. <br/>
@@ -74,7 +74,7 @@ function Home(): JSX.Element
                     className="bn632-hover bn18"
                     onClick={() => navigate("/event")}
                 >
-                    Goto Events Page
+                    Register Now
                 </button>
                 <h3 className="abt-head">Submitting Your Creations</h3>
                 <p>
