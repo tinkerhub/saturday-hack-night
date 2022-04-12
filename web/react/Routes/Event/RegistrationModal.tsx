@@ -38,7 +38,7 @@ function RegistrationModal({open, setOpen, id, user, db}: ModalProps)
     {
         setError({name: false, repo: false});
 
-        if (!data.name.match(/^[a-z|1-9]+$/gi))
+        if (!data.name.match(/^[a-z|0-9]+$/gi))
             return setError((error) => ({...error, name: true}));
 
 
