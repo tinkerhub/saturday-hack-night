@@ -4,8 +4,9 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
+    "source": "app/web",
     "predeploy": "yarn build",
-    "public": "public",
+    "public": "apps/web/build",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -23,7 +24,7 @@
     "predeploy": [
       "npm --prefix \"$RESOURCE_DIR\" run build"
     ],
-    "source": "functions"
+    "source": "apps/functions"
   },
   "emulators": {
     "auth": {
