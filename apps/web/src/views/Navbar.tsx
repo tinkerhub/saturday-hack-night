@@ -31,17 +31,19 @@ const Navbar = () => {
     return (
         <Flex
             as="nav"
+            position="absolute"
             marginBlockStart="4"
             fontFamily="Poppins"
             background="#E2DAD4"
             width="95%"
+            color="#000"
             justifyContent="space-between"
-            paddingInline="2"
+            paddingInline={{ base: 2, md: 5 }}
             alignItems="center"
             fontSize="18px"
             borderRadius="15px"
         >
-            <HStack spacing={{ base: '2', sm: '5' }} fontSize="18px" paddingBlock="24px">
+            <HStack spacing={{ base: '2', sm: '5' }} paddingBlock="24px">
                 <NavLink to="/">HOME</NavLink>
                 <NavLink to="/">EVENTS</NavLink>
                 <NavLink to="/">LEADERBOARD</NavLink>
