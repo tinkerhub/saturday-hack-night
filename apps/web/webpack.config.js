@@ -7,15 +7,17 @@ const config = {
     entry: './src/index.tsx',
     output: {
         path: path.resolve(__dirname, 'build'),
+        filename: 'bundle.[contenthash].js',
     },
     devServer: {
         open: true,
+        port: 3000,
         host: 'localhost',
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: 'src/index.html',
-            favicon: path.resolve(__dirname, 'src/assets/favicon.svg'),
+            favicon: path.resolve(__dirname, 'assets/favicon.svg'),
             minify: {
                 removeAttributeQuotes: true,
                 collapseWhitespace: true,
@@ -26,9 +28,13 @@ const config = {
     module: {
         rules: [
             {
-                test: /\.(ts|js)x?$/,
-                loader: 'babel-loader',
+                test: /\.(ts|tsx)$/i,
+                loader: 'ts-loader',
                 exclude: ['/node_modules/'],
+            },
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
             },
             {
                 test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,

@@ -1,7 +1,6 @@
 {
     "$schema": "https://json.schemastore.org/tsconfig",
     "compilerOptions": {
-      "jsx": "react",
       "target": "ES6",
       "lib": ["dom", "dom.iterable", "esnext"],
       "allowJs": false,
@@ -17,5 +16,5 @@
       "noUnusedParameters": true,
       "removeComments": true
     },
-    "exclude": ["node_modules", "apps/**/lib", "apps/**/dist"]
+    "exclude": ["node_modules", "apps/**/lib", "apps/**/build"]
 }
