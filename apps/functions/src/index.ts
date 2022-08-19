@@ -84,8 +84,7 @@ export const onNewUser = functions.auth.user().onCreate(async (user) =>
     const parts = user.photoURL?.split("/") as unknown as string;
     const idNo = parts[parts.length - 1].split("?")[0];
 
-    const github = await fetch(`https://api.github.com/user/${idNo}`).then((response) => response.json());
-
+    const github:any = await fetch(`https://api.github.com/user/${idNo}`).then((response) => response.json());
     const data = {
         name: user.displayName,
         uid: user.uid,
