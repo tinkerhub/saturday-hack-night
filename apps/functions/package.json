@@ -1,7 +1,7 @@
 {
   "name": "functions",
   "scripts": {
-    "format": "prettier --write 'src/**/*.{ts}'",
+    "format": "prettier --write 'src/*.ts'",
     "lint": "eslint --ext .ts src",
     "build": "tsc",
     "serve": "yarn build && firebase emulators:start --only functions",

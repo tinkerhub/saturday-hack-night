@@ -4,7 +4,7 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "source": "app/web",
+    "source": "apps/web",
     "predeploy": "yarn build",
     "public": "apps/web/build",
     "ignore": [
