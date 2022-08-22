@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavBar } from '../components';
+import { Footer, NavBar } from '../components';
 import { Layout } from '../layout';
 import { Home, How, Queries, Why } from '../views/Landing';
 
@@ -10,6 +10,7 @@ const Landing = () => (
         <Why />
         <How />
         <Queries />
+        <Footer />
     </Layout>
 );
 
