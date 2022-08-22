@@ -1,7 +1,7 @@
 import { Button as CButton, Box } from '@chakra-ui/react';
 import React from 'react';
 
-const Button = ({ label, marginBlockStart }: ButtonProps) => (
+const Button = ({ label, marginBlockStart, onClick }: ButtonProps) => (
     <Box paddingBlockStart={marginBlockStart}>
         <CButton
             variant="solid"
@@ -11,6 +11,7 @@ const Button = ({ label, marginBlockStart }: ButtonProps) => (
             border="solid 1px #2A1437"
             color="#2A1437"
             size="lg"
+            onClick={onClick}
             _hover={{
                 background: '#2A1437',
                 color: '#E2DAD4',
@@ -26,4 +27,5 @@ export default Button;
 export interface ButtonProps {
     label: string;
     marginBlockStart?: string;
+    onClick?: () => void;
 }
