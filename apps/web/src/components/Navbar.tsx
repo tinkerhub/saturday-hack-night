@@ -9,7 +9,7 @@ import {
     signOut,
     User,
 } from 'firebase/auth';
-import { useFirebase } from '../firebase';
+import { useFirebase } from '../context/firebase';
 
 const Navbar = () => {
     const { auth } = useFirebase();
@@ -35,7 +35,7 @@ const Navbar = () => {
             marginBlockStart="4"
             fontFamily="Poppins"
             background="#E2DAD4"
-            width="95%"
+            width={{ base: '95%', '2xl': '1368px' }}
             color="#000"
             justifyContent="space-between"
             paddingInline={{ base: 2, md: 5 }}

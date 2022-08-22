@@ -4,8 +4,8 @@ import React from 'react';
 import { connectAuthEmulator } from 'firebase/auth';
 import { connectFirestoreEmulator } from 'firebase/firestore';
 import { connectFunctionsEmulator } from 'firebase/functions';
-import { useFirebase } from './firebase';
-import Home from './routes/Home';
+import { useFirebase } from './context/firebase';
+import Landing from './routes/Landing';
 
 const App = () => {
     const { auth, db, functions } = useFirebase();
@@ -20,7 +20,7 @@ const App = () => {
         <ChakraProvider>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Home />} />
+                    <Route path="/" element={<Landing />} />
                 </Routes>
             </BrowserRouter>
         </ChakraProvider>
