@@ -3,10 +3,9 @@ import { Heading, VStack, Text, Flex, Input, Textarea } from '@chakra-ui/react';
 import { Button } from '../../components';
 
 const Queries = () => (
-    <VStack height={{ lg: '100vh' }}>
+    <VStack height={{ lg: '100vh' }} justifyContent="center">
         <Heading
             fontWeight="700"
-            marginBlockStart="1rem"
             color="#2A1437"
             textAlign="center"
             marginBlockEnd="40px"

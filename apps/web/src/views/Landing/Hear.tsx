@@ -34,7 +34,7 @@ const Hear = () => {
         },
     ];
     return (
-        <VStack height={{ md: '100vh' }}>
+        <VStack height={{ md: '100vh' }} justifyContent="center">
             <Heading
                 fontWeight="700"
                 marginBlockStart="2rem"
@@ -51,7 +51,7 @@ const Hear = () => {
                     <ParallaxView baseVelocity={baseVelocity}>
                         <HStack marginBlock="5px">
                             <Avatar src={avatar} />
-                            <Text>{feedback}</Text>
+                            <Text fontSize="20px">{feedback}</Text>
                         </HStack>
                     </ParallaxView>
                 ))}

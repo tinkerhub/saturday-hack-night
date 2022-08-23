@@ -27,10 +27,9 @@ const How = () => {
     ];
 
     return (
-        <VStack height={{ md: '100vh' }}>
+        <VStack height={{ md: '100vh' }} justifyContent="center">
             <Heading
                 fontWeight="700"
-                marginBlockStart="3rem"
                 color="#2A1437"
                 textAlign="center"
                 marginBlockEnd="40px"
