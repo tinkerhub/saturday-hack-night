@@ -9,10 +9,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 const FAQS = [
     {
         question: "What is Saturday Hack Night?",
-        answer: `Saturday Hack Night is a biweekly hackathon organized by TinkerHub. The focus of the
-                    event is to provide learners the opportunity to explore a unique API and build exciting projects.
-                    TinkerHub will provide any credits or mentorship needed while you only have to think of one thing,
-                    Build!`
+        answer: `A bi-weekly hackathon that gives tech-savvy learners an opportunity to explore all the latest 
+        technology related concepts including APIs, frameworks and build some cool projects.`
     },
     {
         question: "Who can participate?",
@@ -54,11 +52,10 @@ function Home(): JSX.Element
             <div className="content">
                 <h1 className="abt-head">What is SHN ?</h1>
                 <p className="p1">
-                    Saturday Hack Night is not just your regular hackathon. Here, you will be building
-                    solutions/applications via API integration on every first and third Saturday of the month.<br/>
-                    The needed resources, the respective API and documentation will be shared with you once you
-                    register.<br/> All you have to do is brainstorm and come up with a solution for your problem with
-                    the given API. <br/>
+                    A bi-weekly hackathon that gives tech-savvy learners an opportunity to explore all the latest 
+                    technology related concepts including APIs, frameworks and build some cool projects.<br/>
+                    The needed resources, the documentation will be shared with you once you register.<br/>
+                    All you have to do is brainstorm and come up with a solution for your problem. <br/>
                     Once you are done with referring the documentation provided, team up (or even go solo!) and join the
                     Discord server to take part in an exhilarating evening.
                     The problem statement will be published on Saturday evening and you will have the whole night to
