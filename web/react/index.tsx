@@ -6,6 +6,7 @@ import { initializeApp } from "firebase/app";
 import {connectAuthEmulator, getAuth } from "firebase/auth";
 import {connectFunctionsEmulator, getFunctions } from "firebase/functions";
 import {connectFirestoreEmulator, getFirestore } from "firebase/firestore";
+import React from "react";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCLIjetLAJ_ApQIIwmVByTdVcgx7sSZV1o",
@@ -28,9 +29,9 @@ if ("serviceWorker" in navigator && location.hostname !== "localhost")
     wb.register().catch((error) => console.error(error));
 else
 {
-    connectAuthEmulator(auth, "http://10.147.19.203:9099");
-    connectFirestoreEmulator(db, "10.147.19.203", 8080);
-    connectFunctionsEmulator(functions, "10.147.19.203", 5001);
+    connectAuthEmulator(auth, "http://localhost:9099");
+    connectFirestoreEmulator(db, "localhost", 8080);
+    connectFunctionsEmulator(functions, "localhost", 5001);
 }
 
 ReactDOM.render(<App wb={wb} auth={auth} db={db} functions={functions} />, document.getElementById("root"));
