@@ -62,7 +62,7 @@ function MemberChips({db, onChange}: MemberChipsProps)
     return (
         <>
             <TextField
-                label="Members" fullWidth
+                label="Members Github IDs" fullWidth
                 value={users}
                 onChange={({target}) => setUsers(target.value)}
                 onKeyUp={({key}) => (key === "Enter" || key === ",") && addUser()}
