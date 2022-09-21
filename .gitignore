@@ -2,3 +2,5 @@ node_modules
 .turbo
 *.log
 build
+.firebase
+.vscode
