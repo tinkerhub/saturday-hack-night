@@ -31,11 +31,10 @@ const Navbar = () => {
     return (
         <Flex
             as="nav"
-            position="absolute"
             marginBlockStart="4"
             fontFamily="Poppins"
-            background="#E2DAD4"
-            width={{ base: '95%', '2xl': '1368px' }}
+            width={{ base: 'full', lg: 'container.xl' }}
+            background="#F9D857"
             color="#000"
             justifyContent="space-between"
             paddingInline={{ base: 2, md: 5 }}

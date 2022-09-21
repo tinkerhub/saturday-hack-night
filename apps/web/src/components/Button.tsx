@@ -5,17 +5,18 @@ const Button = ({ label, marginBlockStart, onClick }: ButtonProps) => (
     <Box paddingBlockStart={marginBlockStart}>
         <CButton
             variant="solid"
-            borderRadius="11"
-            padding="7"
-            background="#E2DAD4"
-            border="solid 1px #2A1437"
-            color="#2A1437"
+            borderRadius="8px"
+            paddingInline="64px"
+            paddingBlock="24px"
+            background="#F9D857"
+            boxShadow="0px 4px 4px rgba(0, 0, 0, 0.4)"
             size="lg"
+            transition=".3s"
             onClick={onClick}
             _hover={{
-                background: '#2A1437',
-                color: '#E2DAD4',
-                border: 'solid 1px #E2DAD4',
+                borderRadius: '16px',
+                background: '#F9D857',
+                boxShadow: '4px 4px rgba(0, 0, 0, 1)',
             }}
         >
             {label}

@@ -7,7 +7,8 @@ const chats = [
         profileUrl: 'https://www.github.com/appukurian.png',
         name: 'Kurian Jacob',
         org: 'TinkerHub Foundation',
-        position: '-150px',
+        position: '-200px',
+        color: '#5B9E7D',
         message: 'My self confidence & optimism increased as i was able to build my own project..',
     },
     {
@@ -15,6 +16,7 @@ const chats = [
         name: 'Anbarasu',
         org: 'TinkerHub Foundation',
         position: '150px',
+        color: '#9747FF',
         message:
             'SHN helps me to explore & experience new APIs & connect more with the emerging industrial concepts.',
     },
@@ -23,6 +25,7 @@ const chats = [
         name: 'Fathima Niswa',
         org: 'TinkerHub Foundation',
         position: '-125px',
+        color: '#FFA300',
         message:
             'This is a beginner friendly hackathon as a team project. So it lend me a hand to learn & understand new things in a comfortable environment.',
     },
@@ -32,11 +35,16 @@ const Why = () => (
     <VStack>
         <Heading
             fontWeight="700"
-            color="#2A1437"
+            color="#000000"
             textAlign="center"
-            marginBlockEnd="40px"
-            fontSize={{ base: '45px', md: '74px' }}
-            textShadow="1px 1px #fff, 1px -1px #fff, -1px 1px #fff, -1px -1px #fff"
+            marginBlockStart="40px"
+            letterSpacing="4px"
+            fontSize={{
+                base: '2rem',
+                md: '3.5rem',
+            }}
+            textShadow="2px 2px #fff, 2px -2px #fff, -2px 2px #fff, -2px -2px #fff
+                    ,3px 3px #951BF4, 3px -3px #951BF4, -3px 3px #951BF4, -3px -3px #951BF4"
         >
             WHY SATURDAY HACKNIGHT?
         </Heading>

@@ -1,21 +1,29 @@
 import { HStack, VStack, Text, Avatar } from '@chakra-ui/react';
 import React from 'react';
 
-const Chat = ({ profileUrl, name, org, message }: ChatProps) => (
+const Chat = ({ profileUrl, name, org, message, color }: ChatProps) => (
     <VStack width={{ base: '350px', sm: '460px' }}>
         <HStack
             marginInlineStart={{ base: '-50px', sm: '-150px' }}
             zIndex="1"
-            background="#E2DAD4"
+            background={color}
             borderRadius="26px"
             paddingInlineEnd="15px"
             border="1px solid #000"
         >
-            <Avatar width="50px" height="50px" src={profileUrl} />
-            <VStack>
-                <Text color="#000" fontWeight="600" fontSize="18px">
+            <Avatar size="lg" src={profileUrl} />
+            <VStack alignItems="flex-start">
+                <Text color="#fff" fontWeight="600" fontSize="18px">
                     {name}
-                    <br />
+                </Text>
+                <Text
+                    color="#eeeeee"
+                    fontWeight="400"
+                    fontSize="16px"
+                    style={{
+                        marginBlockStart: '0px',
+                    }}
+                >
                     {org}
                 </Text>
             </VStack>
@@ -24,13 +32,14 @@ const Chat = ({ profileUrl, name, org, message }: ChatProps) => (
             zIndex="0"
             position="relative"
             top="-30px"
-            color="#000"
+            color="#fff"
             borderRadius="21px"
-            fontSize="20px"
+            fontSize="16px"
             border="1px solid #000"
             paddingInline="18px"
-            paddingBlock="25px"
-            backgroundColor="#E2DAD4"
+            paddingBlockStart="20px"
+            paddingBlockEnd="10px"
+            background={color}
         >
             {message}
         </Text>
@@ -43,4 +52,5 @@ export interface ChatProps {
     name: string;
     org: string;
     message: string;
+    color: string;
 }
