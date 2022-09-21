@@ -1,61 +1,53 @@
 import React from 'react';
-import { Heading, VStack, Text, Flex, Input, Textarea } from '@chakra-ui/react';
-import { Button } from '../../components';
+import { Heading, VStack, Text, Flex } from '@chakra-ui/react';
 
 const Queries = () => (
-    <VStack height={{ lg: '100vh' }} justifyContent="center">
+    <VStack maxWidth={{ base: '100%', lg: 'container.lg' }}>
         <Heading
             fontWeight="700"
-            color="#2A1437"
+            color="#000000"
             textAlign="center"
-            marginBlockEnd="40px"
-            fontSize={{ base: '45px', md: '74px' }}
-            textShadow="1px 1px #fff, 1px -1px #fff, -1px 1px #fff, -1px -1px #fff"
+            marginBlock="20px"
+            letterSpacing="4px"
+            fontSize={{
+                base: '2rem',
+                md: '3.5rem',
+            }}
+            textShadow="2px 2px #fff, 2px -2px #fff, -2px 2px #fff, -2px -2px #fff
+                    ,3px 3px #951BF4, 3px -3px #951BF4, -3px 3px #951BF4, -3px -3px #951BF4"
         >
-            STILL QUERIES?
+            CONTACT US{' '}
         </Heading>
-        <Flex columnGap="150px" rowGap="50px" flexDirection={{ base: 'column', lg: 'row' }}>
-            <VStack spacing="10px">
-                <Heading width="100%" textAlign="left">
-                    Email Us
-                </Heading>
-                <Input
-                    height="55px"
-                    variant="solid"
-                    width="350px"
-                    color="#323232"
-                    borderRadius="8px"
-                    placeholder="Name"
-                />
-                <Input
-                    height="55px"
-                    variant="solid"
-                    color="#323232"
-                    borderRadius="8px"
-                    width="350px"
-                    placeholder="Email"
-                />
-                <Textarea
-                    variant="solid"
-                    color="#323232"
-                    width="350px"
-                    borderRadius="8px"
-                    placeholder="Message"
-                />
-                <Button label="Submit" marginBlockStart="0px" />
-            </VStack>
-            <VStack background="#3C1F4E" height="350px" padding="25px" borderRadius="15px">
-                <Heading width="100%" textAlign="left">
-                    Ping Us
-                    <br />
-                    <br />
-                </Heading>
-                <Text>
-                    Fathim Niswa : wa.me/+919846119108 <br />N Anbarasu : wa.me/+918592990572
-                    <br />
-                    <br />
+        <Flex
+            justifyContent="space-evenly"
+            width={{ base: 'full', lg: 'container.lg' }}
+            alignItems="center"
+            flexWrap="wrap"
+            background="#69003F"
+            color="#fff"
+            borderRadius="8px"
+            paddingInline="16px"
+            paddingBlock="16px"
+        >
+            <Heading
+                fontWeight="700"
+                color="#fff"
+                textAlign="center"
+                marginBlock="20px"
+                letterSpacing="4px"
+                fontSize={{
+                    base: '2rem',
+                    md: '3.5rem',
+                }}
+                textShadow="2px 1px #951BF4"
+            >
+                STILL QUERIES?
+            </Heading>
+            <VStack>
+                <Text fontSize="16px">
+                    Fathim Niswa : wa.me/+919846119108
+                    <br />N Anbarasu :wa.me/+918592990572
                 </Text>
-                <Text>We will get you back soon!!</Text>
             </VStack>
         </Flex>
     </VStack>
