@@ -1,39 +1,35 @@
 import { HStack, VStack, Text } from '@chakra-ui/react';
 import React from 'react';
 
-const Card = ({ num, heading, text }: CardProps) => (
+const Card = ({ num, heading, text, color }: CardProps) => (
     <HStack
         height="150px"
         width="350px"
         padding="18px"
-        border="1px solid #FFE3D3"
-        color="#2A1437"
-        background="#FFE3D3"
-        borderRadius="21px"
+        border="1px solid #000"
+        color="#fff"
+        background={color}
+        borderRadius="8px"
+        transition="all 0.3s ease-in"
         _hover={{
-            background: '#2A1437',
-            color: '#FFE3D3',
-            border: '1px solid #FFE3D3',
+            border: '1px solid #EADADA',
         }}
     >
         <Text
             fontWeight="500"
             fontSize="20px"
             borderRadius="50%"
-            border="1.5px solid #2A1437"
+            border="1.5px solid #000"
             paddingInline="8px"
             paddingBlock="3px"
-            _groupHover={{
-                border: '1px solid #2A1437',
-            }}
         >
             {num}
         </Text>
         <VStack paddingInlineStart="15" alignItems="flex-start">
-            <Text fontSize="22px" fontWeight="500">
+            <Text fontSize="24px" fontWeight="500">
                 {heading}
             </Text>
-            <Text fontSize="20px">{text}</Text>
+            <Text fontSize="16px">{text}</Text>
         </VStack>
     </HStack>
 );
@@ -44,4 +40,5 @@ export interface CardProps {
     num: string;
     heading: string;
     text: string;
+    color: string;
 }

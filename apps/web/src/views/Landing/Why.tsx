@@ -37,7 +37,7 @@ const Why = () => (
             fontWeight="700"
             color="#000000"
             textAlign="center"
-            marginBlockStart="40px"
+            marginBlock="20px"
             letterSpacing="4px"
             fontSize={{
                 base: '2rem',
