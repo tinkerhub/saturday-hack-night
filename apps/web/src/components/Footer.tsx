@@ -5,7 +5,7 @@ import thLogo from '../../assets/TH.svg';
 
 const Footer = () => (
     <HStack width="95%" paddingInline="5px" paddingBlock="18px" justifyContent="space-between">
-        <Image width="150px" src={thLogo} alt="TinkerHub Logo" />
+        <Image width={{ base: '100px', lg: '150px' }} src={thLogo} alt="TinkerHub Logo" />
         <Text fontSize="16px">tinkerhub.org</Text>
     </HStack>
 );

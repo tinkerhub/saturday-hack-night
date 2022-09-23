@@ -27,7 +27,7 @@ const Queries = () => (
             color="#fff"
             borderRadius="8px"
             paddingInline="16px"
-            paddingBlock="16px"
+            paddingBlock="32px"
         >
             <Heading
                 fontWeight="700"
@@ -45,8 +45,8 @@ const Queries = () => (
             </Heading>
             <VStack>
                 <Text fontSize="16px">
-                    Fathim Niswa : wa.me/+919846119108
-                    <br />N Anbarasu :wa.me/+918592990572
+                    Fathim Niswa : &nbsp; wa.me/+919846119108
+                    <br />N Anbarasu : &nbsp; wa.me/+918592990572
                 </Text>
             </VStack>
         </Flex>
