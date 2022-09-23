@@ -76,7 +76,7 @@ function Home(): JSX.Element
                 <h3 className="abt-head">Submitting Your Creations</h3>
                 <p>
                     <button className="bn33">1. Create a repo and initialise it with a README</button>
-                    <button className="bn33">2. Go to events page and create a team ( only team lead )</button>
+                    <button className="bn33">2. Go to events page and create a team ( only Team Lead )</button>
                     <button className="bn33">3. If you are a team member accept team invite by clicking on the email
                         link.
                     </button>
