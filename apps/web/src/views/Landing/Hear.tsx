@@ -6,51 +6,57 @@ const Feedback = [
     {
         avatar: 'https://github.com/mellofordev.png',
         feedback: 'Every time I register for HackNight, I get to learn something new',
-        baseVelocity: 5,
+        color: '#527D77',
     },
     {
         avatar: 'https://github.com/AnanyaSreeram.png',
         feedback:
             'My self confidence and optimism increased as I was  able to build my own project',
-        baseVelocity: -2,
+        color: '#F985C4',
     },
     {
         avatar: 'https://github.com/sreehari2003.png',
         feedback:
             'SHN helped me develop my skills quickly and increase my knowledge as a programmer',
-        baseVelocity: 3,
+        color: '#FFA300',
     },
     {
         avatar: 'https://github.com/DarkPhoenix2704.png',
         feedback:
             'SHN is a fun filled event where we develop a project that may change the career path of us',
-        baseVelocity: -1,
+        color: '#C193FF',
     },
     {
         avatar: 'https://github.com/Gopps95.png',
         feedback: 'SHN has increased my confidence to start a project on my own',
-        baseVelocity: 5,
+        color: '#039BE5',
     },
 ];
 const Hear = () => (
-    <VStack height={{ md: '100vh' }} justifyContent="center">
+    <VStack justifyContent="center">
         <Heading
             fontWeight="700"
-            marginBlockStart="2rem"
-            color="#2A1437"
+            color="#000000"
             textAlign="center"
-            marginBlockEnd="40px"
-            fontSize={{ base: '45px', md: '74px' }}
-            textShadow="1px 1px #fff, 1px -1px #fff, -1px 1px #fff, -1px -1px #fff"
+            marginBlock="20px"
+            letterSpacing="4px"
+            fontSize={{
+                base: '2rem',
+                md: '3.5rem',
+            }}
+            textShadow="2px 2px #fff, 2px -2px #fff, -2px 2px #fff, -2px -2px #fff
+                    ,3px 3px #951BF4, 3px -3px #951BF4, -3px 3px #951BF4, -3px -3px #951BF4"
         >
             HEAR FROM PEOPLE
         </Heading>
         <VStack rowGap="10px">
-            {Feedback.map(({ avatar, feedback, baseVelocity }) => (
-                <ParallaxView baseVelocity={baseVelocity}>
+            {Feedback.map(({ avatar, feedback, color }) => (
+                <ParallaxView color={color}>
                     <HStack marginBlock="5px">
                         <Avatar src={avatar} />
-                        <Text fontSize="20px">{feedback}</Text>
+                        <Text textColor="#D9D9D9" fontSize="16px">
+                            {feedback}
+                        </Text>
                     </HStack>
                 </ParallaxView>
             ))}
