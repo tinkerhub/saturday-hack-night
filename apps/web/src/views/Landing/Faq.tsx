@@ -15,7 +15,7 @@ const faqs = [
     },
     {
         question: 'What should be the team size?',
-        answer: 'You can work individually or in a team of 2-3 members.',
+        answer: 'You can work individually or in a team of 2-4 members.',
         color: '#FFCE51',
     },
     {
