@@ -5,7 +5,7 @@
   },
   "hosting": {
     "source": "apps/web",
-    "predeploy": "yarn build",
+    "predeploy": "yarn build:web",
     "public": "apps/web/build",
     "ignore": [
       "firebase.json",

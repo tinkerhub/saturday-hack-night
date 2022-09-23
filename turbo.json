@@ -11,7 +11,7 @@
       "format": {
         "outputs": []
       },
-      "serve": {
+      "dev": {
         "outputs": []
       },
       "deploy": {

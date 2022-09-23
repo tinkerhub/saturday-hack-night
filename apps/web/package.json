@@ -7,7 +7,7 @@
   "scripts": {
     "build": "webpack --mode=production --node-env=production",
     "watch": "webpack --watch",
-    "serve": "webpack-dev-server",
+    "dev": "webpack-dev-server",
     "lint": "eslint src/**/*.tsx"
   },
   "devDependencies": {

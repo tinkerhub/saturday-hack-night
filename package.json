@@ -4,7 +4,9 @@
 	"description": "Saturday HackNight Platform",
 	"scripts": {
 		"build": "turbo run build",
-		"serve": "turbo run serve",
+		"build:web": "turbo run build --filter=web",
+		"build:functions": "turbo run build --filter=functions",
+		"dev": "turbo run dev",
 		"test": "turbo run test",
 		"lint": "turbo run lint",
 		"prepack": "husky install",
