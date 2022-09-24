@@ -7,7 +7,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
             display="flex"
             flexDirection="column"
             alignItems="center"
-            justifyContent="center"
+            minHeight="100vh"
             maxWidth={{ base: 'full', lg: 'container.xl' }}
         >
             {children}

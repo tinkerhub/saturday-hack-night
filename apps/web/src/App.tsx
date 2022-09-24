@@ -6,6 +6,7 @@ import { connectFirestoreEmulator } from 'firebase/firestore';
 import { connectFunctionsEmulator } from 'firebase/functions';
 import { useFirebase } from './context/firebase';
 import Landing from './routes/Landing';
+import Events from './routes/Events';
 
 const App = () => {
     const { auth, db, functions } = useFirebase();
@@ -21,6 +22,7 @@ const App = () => {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Landing />} />
+                    <Route path="/events" element={<Events />} />
                 </Routes>
             </BrowserRouter>
         </ChakraProvider>

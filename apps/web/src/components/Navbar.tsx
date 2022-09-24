@@ -44,7 +44,7 @@ const Navbar = () => {
         >
             <HStack spacing={{ base: '2', sm: '5' }} paddingBlock="24px">
                 <NavLink to="/">HOME</NavLink>
-                <NavLink to="/">EVENTS</NavLink>
+                <NavLink to="/events">EVENTS</NavLink>
                 <NavLink to="/">LEADERBOARD</NavLink>
                 <Box display={{ base: 'none', md: 'block' }}>
                     <NavLink to="/">DASHBOARD</NavLink>
