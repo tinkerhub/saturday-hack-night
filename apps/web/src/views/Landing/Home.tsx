@@ -27,7 +27,7 @@ const Home = () => {
                 letterSpacing="5px"
                 fontFamily="Bungee"
                 marginTop="20px"
-                fontSize={{ base: '3.5rem', md: '6rem' }}
+                fontSize={{ base: '3rem', md: '6rem' }}
                 color="#FF781E"
                 textShadow="2px 2px #fff, 2px -2px #fff, -2px 2px #fff, -2px -2px #fff, -6px 3px #000"
             >
