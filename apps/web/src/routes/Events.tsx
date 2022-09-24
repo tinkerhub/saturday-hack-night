@@ -79,6 +79,8 @@ const Events = () => {
                                     image={event.get('image')}
                                     title={event.get('name')}
                                     description={event.get('about')}
+                                    registration={event.get('registration')}
+                                    results={event.get('results')}
                                 />
                             ))}
                         </SimpleGrid>
@@ -109,6 +111,8 @@ const Events = () => {
                                     key={event.id}
                                     image={event.get('image')}
                                     title={event.get('name')}
+                                    registration={event.get('registration')}
+                                    results={event.get('results')}
                                     description={event.get('about')}
                                 />
                             ))}

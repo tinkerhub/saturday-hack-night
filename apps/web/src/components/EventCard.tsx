@@ -1,7 +1,7 @@
 import { Heading, Text, Image, VStack, Button, Flex } from '@chakra-ui/react';
 import React from 'react';
 
-const EventCard = ({ image, title, description }: EventCardProps) => (
+const EventCard = ({ image, title, description, registration, results }: EventCardProps) => (
     <Flex
         flexDirection="column"
         bg="#5B9E7D"
@@ -21,8 +21,35 @@ const EventCard = ({ image, title, description }: EventCardProps) => (
             <Heading>{title}</Heading>
             <Text fontSize="16px">{description}</Text>
         </VStack>
-        <Flex marginInline="10px" marginBlockEnd="5px" marginTop="auto" justifyContent="flex-end">
-            <Button>Register</Button>
+        <Flex
+            columnGap="10px"
+            marginInline="10px"
+            marginBlockEnd="5px"
+            marginTop="auto"
+            justifyContent="flex-end"
+        >
+            {results && (
+                <Button
+                    color="#5B9E7D"
+                    variant="solid"
+                    _focus={{
+                        backgroundColor: '#fff',
+                    }}
+                >
+                    Results
+                </Button>
+            )}
+            {registration && (
+                <Button
+                    color="#5B9E7D"
+                    variant="solid"
+                    _focus={{
+                        backgroundColor: '#fff',
+                    }}
+                >
+                    Register
+                </Button>
+            )}
         </Flex>
     </Flex>
 );
@@ -31,5 +58,7 @@ interface EventCardProps {
     title: string;
     image: string;
     description: string;
+    registration: boolean;
+    results: boolean;
 }
 export default EventCard;
