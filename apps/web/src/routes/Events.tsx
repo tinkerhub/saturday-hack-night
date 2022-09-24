@@ -9,7 +9,7 @@ import {
     orderBy,
 } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { NavBar, EventCard } from '../components';
+import { NavBar, EventCard, Footer } from '../components';
 import { useFirebase } from '../context/firebase';
 import { Layout } from '../layout';
 import { getColor } from '../utils/color';
@@ -118,6 +118,7 @@ const Events = () => {
                                 />
                             ))}
                         </SimpleGrid>
+                        <Footer />
                     </>
                 )}
             </VStack>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Flex, HStack, Box } from '@chakra-ui/layout';
 import { NavLink } from 'react-router-dom';
-import { Avatar } from '@chakra-ui/react';
+import { Avatar, Tooltip } from '@chakra-ui/react';
 import {
     GithubAuthProvider,
     signInWithPopup,
@@ -39,19 +39,20 @@ const Navbar = () => {
             justifyContent="space-between"
             paddingInline={{ base: 2, md: 5 }}
             alignItems="center"
-            fontSize="18px"
+            fontSize="16px"
             borderRadius="15px"
         >
-            <HStack spacing={{ base: '2', sm: '5' }} paddingBlock="24px">
+            <HStack spacing={{ base: '2', sm: '5' }} paddingBlock="18px">
                 <NavLink to="/">HOME</NavLink>
                 <NavLink to="/events">EVENTS</NavLink>
-                <NavLink to="/">LEADERBOARD</NavLink>
                 <Box display={{ base: 'none', md: 'block' }}>
                     <NavLink to="/">DASHBOARD</NavLink>
                 </Box>
             </HStack>
             {user ? (
-                <Avatar src={user.photoURL!} name={user.displayName!} onClick={logout} />
+                <Tooltip label="Logout">
+                    <Avatar src={user.photoURL!} name={user.displayName!} onClick={logout} />
+                </Tooltip>
             ) : (
                 <Box onClick={login}>LOGIN</Box>
             )}

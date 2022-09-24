@@ -18,7 +18,6 @@ import {
     Spinner,
     Avatar,
     Table,
-    TableContainer,
     Tbody,
     Td,
     Thead,
@@ -35,7 +34,48 @@ const ProjectStatus = [
     { code: 100, status: 'Best Individual Projects' },
     { code: 50, status: 'Completed Projects' },
 ];
-
+const Items = ({ status, filteredResults }: ItemsProps) => (
+    <AccordionItem key={status.code}>
+        <AccordionButton>
+            <Box flex="1" textAlign="left">
+                {status.status}
+            </Box>
+            <AccordionIcon />
+        </AccordionButton>
+        <AccordionPanel pb={4}>
+            <Table size="md" textAlign="center" fontSize="14px">
+                <Thead>
+                    <Tr>
+                        <Td>Team</Td>
+                        <Td>Members</Td>
+                        <Td>Repo</Td>
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    {filteredResults.map((result) => (
+                        <Tr key={result.name}>
+                            <Td>{result.name}</Td>
+                            <Td>
+                                <AvatarGroup size="sm" max={2}>
+                                    {result.members.map((member) => (
+                                        <Avatar
+                                            key={member.uid}
+                                            src={member.avatar}
+                                            name={member.githubID}
+                                        />
+                                    ))}
+                                </AvatarGroup>
+                            </Td>
+                            <Td>
+                                <Link href={result.repo}>Visit</Link>
+                            </Td>
+                        </Tr>
+                    ))}
+                </Tbody>
+            </Table>
+        </AccordionPanel>
+    </AccordionItem>
+);
 const ResultsModal = ({ id, onClose, isOpen }: ResultsModalProps) => {
     const [results, setResults] = useState<Array<Results>>([]);
     const [loading, setLoading] = useState(true);
@@ -70,7 +110,7 @@ const ResultsModal = ({ id, onClose, isOpen }: ResultsModalProps) => {
         };
     }, [db, id]);
     return (
-        <Modal size="xl" onClose={onClose} isOpen={isOpen} isCentered>
+        <Modal size={{ base: 'sm', lg: 'xl' }} onClose={onClose} isOpen={isOpen} isCentered>
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>Results</ModalHeader>
@@ -86,60 +126,10 @@ const ResultsModal = ({ id, onClose, isOpen }: ResultsModalProps) => {
                                     );
                                     return (
                                         filteredResults.length > 0 && (
-                                            <AccordionItem key={status.code}>
-                                                <AccordionButton>
-                                                    <Box flex="1" textAlign="left">
-                                                        {status.status}
-                                                    </Box>
-                                                    <AccordionIcon />
-                                                </AccordionButton>
-                                                <AccordionPanel pb={4}>
-                                                    <TableContainer>
-                                                        <Table size="md">
-                                                            <Thead>
-                                                                <Tr>
-                                                                    <Td>Team Name</Td>
-                                                                    <Td>Members</Td>
-                                                                    <Td>Repo</Td>
-                                                                </Tr>
-                                                            </Thead>
-                                                            <Tbody>
-                                                                {filteredResults.map((result) => (
-                                                                    <Tr key={result.name}>
-                                                                        <Td>{result.name}</Td>
-                                                                        <Td>
-                                                                            <AvatarGroup>
-                                                                                {result.members.map(
-                                                                                    (member) => (
-                                                                                        <Avatar
-                                                                                            key={
-                                                                                                member.uid
-                                                                                            }
-                                                                                            src={
-                                                                                                member.avatar
-                                                                                            }
-                                                                                            name={
-                                                                                                member.githubID
-                                                                                            }
-                                                                                        />
-                                                                                    )
-                                                                                )}
-                                                                            </AvatarGroup>
-                                                                        </Td>
-                                                                        <Td>
-                                                                            <Link
-                                                                                href={result.repo}
-                                                                            >
-                                                                                Click Here
-                                                                            </Link>
-                                                                        </Td>
-                                                                    </Tr>
-                                                                ))}
-                                                            </Tbody>
-                                                        </Table>
-                                                    </TableContainer>
-                                                </AccordionPanel>
-                                            </AccordionItem>
+                                            <Items
+                                                status={status}
+                                                filteredResults={filteredResults}
+                                            />
                                         )
                                     );
                                 })}
@@ -165,5 +155,9 @@ interface Results {
     repo: string;
     projectStatus: number;
     members: Array<any>;
+}
+interface ItemsProps {
+    status: { code: number; status: string };
+    filteredResults: Array<Results>;
 }
 export default ResultsModal;
