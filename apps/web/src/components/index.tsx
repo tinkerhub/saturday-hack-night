@@ -4,6 +4,7 @@ import Chat from './Chat';
 import Card from './Card';
 import Footer from './Footer';
 import ParallaxView from './ParallaxView';
+import EventCard from './EventCard';
 import Accordion from './Accordion';
 
-export { Button, NavBar, Chat, Card, Footer, ParallaxView, Accordion };
+export { Button, NavBar, Chat, Card, Footer, ParallaxView, Accordion, EventCard };

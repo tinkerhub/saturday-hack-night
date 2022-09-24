@@ -9,8 +9,7 @@ import {
     orderBy,
 } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { NavBar } from '../components';
-import EventCard from '../components/EventCard';
+import { NavBar, EventCard } from '../components';
 import { useFirebase } from '../context/firebase';
 import { Layout } from '../layout';
 import { getColor } from '../utils/color';
@@ -75,6 +74,7 @@ const Events = () => {
                         <SimpleGrid columns={{ base: 1, sm: 2, xl: 4 }} gap={15}>
                             {currentEvents.map((event) => (
                                 <EventCard
+                                    id={event.id}
                                     key={event.id}
                                     image={event.get('image')}
                                     title={event.get('name')}
@@ -108,6 +108,7 @@ const Events = () => {
                         <SimpleGrid columns={{ base: 1, sm: 2, xl: 4 }} gap={15}>
                             {exploredEvents.map((event) => (
                                 <EventCard
+                                    id={event.id}
                                     key={event.id}
                                     image={event.get('image')}
                                     title={event.get('name')}
