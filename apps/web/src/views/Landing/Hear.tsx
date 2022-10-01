@@ -17,7 +17,7 @@ const Feedback = [
     {
         avatar: 'https://github.com/sreehari2003.png',
         feedback:
-            'SHN helped me develop my skills quickly and increase my knowledge as a programmer',
+            'SHN helped me develop my skills quickly and increase my knowledge as a Programmer',
         color: '#FFA300',
     },
     {
