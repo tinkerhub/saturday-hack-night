@@ -5,7 +5,7 @@ import {
     AccordionPanel,
     AccordionIcon,
     Accordion as ChakraAccordion,
-    Box,
+    Box
 } from '@chakra-ui/react';
 
 const Accordion = ({ content }: AccordionProps) => (

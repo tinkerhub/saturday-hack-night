@@ -28,8 +28,6 @@
     "@chakra-ui/react": "^2.2.8",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
-    "@fontsource/bungee": "^4.5.8",
-    "@fontsource/poppins": "^4.5.9",
     "firebase": "^9.9.3",
     "framer-motion": "^7.2.0",
     "react": "^18.2.0",

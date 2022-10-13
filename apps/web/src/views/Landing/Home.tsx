@@ -1,9 +1,9 @@
-import { VStack, Heading, Text } from '@chakra-ui/react';
+import { VStack, Heading, Text, Container, Button } from '@chakra-ui/react';
 import { signInWithPopup, GithubAuthProvider } from 'firebase/auth';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '../../components/Button';
 import { useFirebase } from '../../context/firebase';
+import bg from '../../../assets/bg01.png';
 
 const Home = () => {
     const { auth } = useFirebase();
@@ -21,28 +21,54 @@ const Home = () => {
         }
     };
     return (
-        <VStack rowGap="20px" width={{ base: 'full', lg: 'container.md' }}>
+        <VStack
+            marginTop="72px"
+            rowGap="20px"
+            width="full"
+            fontFamily="Clash Display"
+            backgroundImage={`
+                linear-gradient(180deg, rgba(12, 15, 23, 0) 67.85%, #0C0F17 100%),
+                linear-gradient(180deg, #0C0F17 0%, rgba(12, 15, 23, 0.8) 100%),
+                url(${bg}) `}
+        >
             <Heading
+                fontSize="100px"
+                fontWeight="bold"
+                fontFamily="Clash Display"
                 textAlign="center"
-                letterSpacing="5px"
-                fontFamily="Bungee"
-                marginTop="20px"
-                fontSize={{ base: '3rem', md: '6rem' }}
-                color="#FF781E"
-                textShadow="2px 2px #fff, 2px -2px #fff, -2px 2px #fff, -2px -2px #fff, -6px 3px #000"
+                textColor="white"
             >
-                SATURDAY HACKNIGHT
+                SATURDAY
+                <br />
+                <span style={{ color: '#DBF72C' }}>HACKNIGHT</span>
             </Heading>
-            <Text
-                textAlign="center"
-                textColor="#951BF4"
-                fontSize={{ base: '1.2rem', md: '1.5rem' }}
+            <Container maxW="720px">
+                <Text textAlign="center" textColor="#E9E5E1" fontSize="24px">
+                    It’s a bi weekly hackathon that gives tech-savvy learners an oppurtunity to
+                    explore all the latest technology related concepts including APIs, frameworks
+                    and build some cool projects.
+                </Text>
+            </Container>
+            <Button
+                width="250px"
+                backgroundColor="white"
+                fontSize="18px"
+                fontWeight="medium"
+                transition=".5s all ease"
+                _hover={{
+                    boxShadow: '0px 8px 16px rgba(255, 255, 255, 0.15)',
+                    backgroundColor: '#DBF72C',
+                }}
+                _active={{
+                    textColor: '#DBF72C',
+                    background: 'rgba(219, 247, 44, 0.15)',
+                    boxShadow: '0px 8px 16px rgba(219, 247, 44, 0.15)',
+                    backdropFilter: 'blur(25px)',
+                }}
+                onClick={register}
             >
-                It’s a bi weekly hackathon that gives tech-savvy learners an oppurtunity to explore
-                all the latest technology related concepts including APIs, frameworks and build some
-                cool projects.
-            </Text>
-            <Button label="Register Now" marginBlockStart="1rem" onClick={register} />
+                REGISTER NOW
+            </Button>
         </VStack>
     );
 };

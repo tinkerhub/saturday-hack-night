@@ -16,7 +16,7 @@ const Button = ({ label, marginBlockStart, onClick }: ButtonProps) => (
             _hover={{
                 borderRadius: '16px',
                 background: '#F9D857',
-                boxShadow: '4px 4px rgba(0, 0, 0, 1)',
+                boxShadow: '4px 4px rgba(0, 0, 0, 1)'
             }}
         >
             {label}

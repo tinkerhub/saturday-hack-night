@@ -2,13 +2,11 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import { FirebaseProvider } from './context/firebase';
-import '@fontsource/poppins';
-import '@fontsource/bungee';
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
 root.render(
     <FirebaseProvider>
         <App />
-    </FirebaseProvider>
+    </FirebaseProvider>,
 );

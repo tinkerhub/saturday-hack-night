@@ -2,13 +2,13 @@ import React from 'react';
 import { Container, VStack } from '@chakra-ui/react';
 
 const Layout = ({ children }: { children: React.ReactNode }) => (
-    <VStack background="#EADADA">
+    <VStack background="#0C0F17">
         <Container
             display="flex"
             flexDirection="column"
             alignItems="center"
             minHeight="100vh"
-            maxWidth={{ base: 'full', lg: 'container.xl' }}
+            maxWidth="full"
         >
             {children}
         </Container>

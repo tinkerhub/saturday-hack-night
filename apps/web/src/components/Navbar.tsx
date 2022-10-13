@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Flex, HStack, Box } from '@chakra-ui/layout';
+import { Flex, HStack, VStack, Text, Image, Avatar, Button } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
-import { Avatar, Tooltip } from '@chakra-ui/react';
 import {
     GithubAuthProvider,
     signInWithPopup,
@@ -9,6 +8,8 @@ import {
     signOut,
     User,
 } from 'firebase/auth';
+import logo from '../../assets/logo.svg';
+
 import { useFirebase } from '../context/firebase';
 
 const Navbar = () => {
@@ -30,32 +31,76 @@ const Navbar = () => {
 
     return (
         <Flex
+            paddingBlock="16px"
             as="nav"
-            marginBlockStart="4"
-            fontFamily="Poppins"
-            width={{ base: 'full', lg: 'container.xl' }}
-            background="#F9D857"
-            color="#000"
+            fontFamily="Clash Display"
+            position="fixed"
             justifyContent="space-between"
             paddingInline={{ base: 2, md: 5 }}
+            width="full"
             alignItems="center"
-            fontSize="16px"
-            borderRadius="15px"
+            style={{
+                backdropFilter: 'blur(10px)',
+            }}
         >
-            <HStack spacing={{ base: '2', sm: '5' }} paddingBlock="18px">
-                <NavLink to="/">HOME</NavLink>
-                <NavLink to="/events">EVENTS</NavLink>
-                <Box display={{ base: 'none', md: 'block' }}>
-                    <NavLink to="/">DASHBOARD</NavLink>
-                </Box>
+            <Image src={logo} height="32px" transition="all 0.2s ease-in-out" />
+            <HStack spacing="32px">
+                <NavLink to="/">
+                    <Text
+                        as="span"
+                        fontSize="18px"
+                        color="white"
+                        transition="all 0.2s  ease-in-out"
+                        _hover={{
+                            color: '#DBF72C',
+                        }}
+                    >
+                        HOME
+                    </Text>
+                </NavLink>
+                <NavLink to="/events">
+                    <Text
+                        as="span"
+                        fontSize="18px"
+                        color="white"
+                        transition="all 0.2s  ease-in-out"
+                        _hover={{
+                            color: '#DBF72C',
+                        }}
+                    >
+                        EVENT
+                    </Text>
+                </NavLink>
+                <HStack>
+                    {user ? (
+                        <HStack>
+                            <Avatar
+                                src={user.photoURL!}
+                                border="2px solid #DBF72C"
+                                onClick={logout}
+                            />
+                            <VStack alignItems="flex-start">
+                                <Text as="span" fontSize="16px" fontWeight="bold" color="white">
+                                    {user.displayName}
+                                </Text>
+                                <Text
+                                    as="span"
+                                    fontSize="14px"
+                                    color="#DBF72C"
+                                    fontWeight="medium"
+                                    style={{
+                                        marginTop: '0px',
+                                    }}
+                                >
+                                    view profile
+                                </Text>
+                            </VStack>
+                        </HStack>
+                    ) : (
+                        <Button onClick={login}>LOGIN</Button>
+                    )}
+                </HStack>
             </HStack>
-            {user ? (
-                <Tooltip label="Logout">
-                    <Avatar src={user.photoURL!} name={user.displayName!} onClick={logout} />
-                </Tooltip>
-            ) : (
-                <Box onClick={login}>LOGIN</Box>
-            )}
         </Flex>
     );
 };
