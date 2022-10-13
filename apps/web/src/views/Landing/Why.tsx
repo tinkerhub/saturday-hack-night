@@ -1,59 +1,67 @@
-import { Heading, VStack, Box } from '@chakra-ui/react';
+import { Heading, VStack, Text, HStack, Image } from '@chakra-ui/react';
 import React from 'react';
-import { Chat } from '../../components';
-
-const chats = [
-    {
-        profileUrl: 'https://www.github.com/appukurian.png',
-        name: 'Kurian Jacob',
-        org: 'TinkerHub Foundation',
-        position: '-200px',
-        color: '#5B9E7D',
-        message: 'My self confidence & optimism increased as i was able to build my own project..',
-    },
-    {
-        profileUrl: 'https://www.github.com/DarkPhoenix2704.png',
-        name: 'Anbarasu',
-        org: 'TinkerHub Foundation',
-        position: '150px',
-        color: '#9747FF',
-        message:
-            'SHN helps me to explore & experience new APIs & connect more with the emerging industrial concepts.',
-    },
-    {
-        profileUrl: 'https://github.com/fathimaniswa.png',
-        name: 'Fathima Niswa',
-        org: 'TinkerHub Foundation',
-        position: '-125px',
-        color: '#FFA300',
-        message:
-            'This is a beginner friendly hackathon as a team project. So it lend me a hand to learn & understand new things in a comfortable environment.',
-    },
-];
+import physicalhack from '../../../assets/physicalHack.png';
+import neon from '../../../assets/neon01.svg';
 
 const Why = () => (
-    <VStack>
-        <Heading
-            fontWeight="700"
-            color="#000000"
-            textAlign="center"
-            marginBlock="20px"
-            letterSpacing="4px"
-            fontSize={{
-                base: '2rem',
-                md: '3.5rem',
-            }}
-            textShadow="2px 2px #fff, 2px -2px #fff, -2px 2px #fff, -2px -2px #fff
-                    ,3px 3px #951BF4, 3px -3px #951BF4, -3px 3px #951BF4, -3px -3px #951BF4"
+    <>
+        <Image top="500px" position="absolute" src={neon} right="0" zIndex="0" />
+        <VStack
+            marginTop="36px"
+            paddingInline="36px"
+            fontFamily="Clash Display"
+            width="100vw"
+            alignItems="flex-start"
         >
-            WHY SATURDAY HACKNIGHT?
-        </Heading>
-        {chats.map((chat) => (
-            <Box position="relative" left={{ lg: chat.position }}>
-                <Chat {...chat} />
-            </Box>
-        ))}
-    </VStack>
+            <Heading textColor="white" fontSize="40px" textAlign="left">
+                WHY{' '}
+                <span
+                    style={{
+                        color: '#DBF72C',
+                    }}
+                >
+                    SATURDAY HACKNIGHT &nbsp;
+                </span>
+                ?
+            </Heading>
+            <HStack alignItems="flex-start">
+                <VStack alignItems="flex-start">
+                    <Text fontSize="24px" textColor="white">
+                        Saturday Hack Night is not just your regular hackathon. Here, you will be
+                        building solutions/applications via API integration on every first and third
+                        Saturday of the month.
+                    </Text>
+                    <Text
+                        marginBlockStart="18px"
+                        textColor="#E9E5E1"
+                        fontSize="16px"
+                        textAlign="left"
+                    >
+                        The needed resources, the respective API and documentation will be shared
+                        with you once you register.
+                        <br />
+                        <br />
+                        All you have to do is brainstorm and come up with a solution for your
+                        problem with the given API.
+                        <br />
+                        <br />
+                        Once you are done with referring the documentation provided, team up (or
+                        even go solo!) and join the Discord server to take part in an exhilarating
+                        evening.
+                        <br />
+                        <br />
+                        The problem statement will be published on Saturday evening and you will
+                        have the whole night to build.
+                        <br />
+                        <br />
+                        Stay tuned on TinkerHub Discord channels and Instagram page for the latest
+                        information and clues!
+                    </Text>
+                </VStack>
+                <Image zIndex="1" height="100%" width="100%" src={physicalhack} />
+            </HStack>
+        </VStack>
+    </>
 );
 
 export default Why;

@@ -24,7 +24,7 @@ const Home = () => {
         <VStack
             marginTop="72px"
             rowGap="20px"
-            width="full"
+            width="100vw"
             fontFamily="Clash Display"
             backgroundImage={`
                 linear-gradient(180deg, rgba(12, 15, 23, 0) 67.85%, #0C0F17 100%),
