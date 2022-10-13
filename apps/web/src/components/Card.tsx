@@ -6,7 +6,7 @@ const Card = ({ num, heading, text }: CardProps) => (
         borderRadius="10px"
         padding="18px"
         background="rgba(255, 255, 255, 0.15)"
-        maxWidth="400px"
+        maxWidth="360px"
         border="1px solid rgba(255, 255, 255, 0.15)"
         fontFamily="Clash Display"
         transition="all 0.3s ease-out"

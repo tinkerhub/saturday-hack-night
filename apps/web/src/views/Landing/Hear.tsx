@@ -9,7 +9,7 @@ const Hear = () => (
             textColor="white"
             textAlign="left"
             width="100vw"
-            paddingInline="36px"
+            paddingInline={{ base: '18px', lg: '36px' }}
             fontSize="40px"
         >
             HEAR FROM{' '}

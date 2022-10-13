@@ -1,4 +1,4 @@
-import { Heading, VStack, Text, HStack, Image } from '@chakra-ui/react';
+import { Heading, VStack, Text, Flex, Image } from '@chakra-ui/react';
 import React from 'react';
 import physicalhack from '../../../assets/physicalHack.png';
 import neon from '../../../assets/neon01.svg';
@@ -8,12 +8,18 @@ const Why = () => (
         <Image top="500px" position="absolute" src={neon} right="0" zIndex="0" />
         <VStack
             marginTop="36px"
-            paddingInline="36px"
+            paddingInline={{ base: '18px', lg: '36px' }}
             fontFamily="Clash Display"
             width="100vw"
             alignItems="flex-start"
         >
-            <Heading fontFamily="Clash Display" textColor="white" fontSize="40px" textAlign="left">
+            <Heading
+                fontFamily="Clash Display"
+                textColor="white"
+                fontSize="40px"
+                textAlign="left"
+                zIndex="1"
+            >
                 WHY{' '}
                 <span
                     style={{
@@ -24,18 +30,28 @@ const Why = () => (
                 </span>
                 ?
             </Heading>
-            <HStack alignItems="flex-start">
+            <Flex
+                alignItems="flex-start"
+                flexDirection={{
+                    base: 'column-reverse',
+                    lg: 'row',
+                }}
+            >
                 <VStack alignItems="flex-start">
-                    <Text fontSize="24px" textColor="white">
+                    <Text
+                        fontSize={{ base: '18px', lg: '24px' }}
+                        textColor="white"
+                        marginBlockStart="36px"
+                        marginBlockEnd="18px"
+                    >
                         Saturday Hack Night is not just your regular hackathon. Here, you will be
                         building solutions/applications via API integration on every first and third
                         Saturday of the month.
                     </Text>
                     <Text
-                        marginBlockStart="18px"
                         textColor="#E9E5E1"
-                        fontSize="16px"
                         textAlign="left"
+                        fontSize={{ base: '16px', lg: '18px' }}
                     >
                         The needed resources, the respective API and documentation will be shared
                         with you once you register.
@@ -59,7 +75,7 @@ const Why = () => (
                     </Text>
                 </VStack>
                 <Image zIndex="1" height="100%" width="100%" src={physicalhack} />
-            </HStack>
+            </Flex>
         </VStack>
     </>
 );

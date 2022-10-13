@@ -13,11 +13,16 @@ const Accordion = ({ content }: AccordionProps) => (
         {content.map((item) => (
             <AccordionItem
                 borderRadius="10px"
-                width={{ base: 'full', lg: 'container.lg' }}
                 fontFamily="Clash Display"
+                marginBlock="9px"
+                key={item.question}
+                transition="all 0.2s ease-in"
+                width={{
+                    base: '100%',
+                    lg: 'container.lg',
+                }}
                 border="1px solid #0C0F17"
                 textColor="white"
-                padding="15px"
                 _hover={{
                     color: '#DBF72C',
                     backgroundColor: 'rgba(255, 255, 255, 0.15)',
@@ -25,12 +30,22 @@ const Accordion = ({ content }: AccordionProps) => (
                 }}
             >
                 <AccordionButton>
-                    <Text flex="1" textAlign="left" fontSize="32px" fontWeight="bold">
+                    <Text
+                        flex="1"
+                        textAlign="left"
+                        fontSize={{ base: '24px', lg: '36px' }}
+                        fontWeight="bold"
+                    >
                         {item.question}
                     </Text>
                     <AccordionIcon />
                 </AccordionButton>
-                <AccordionPanel fontSize="24px" pb={4}>
+                <AccordionPanel
+                    fontSize={{
+                        base: '18px',
+                        lg: '22px',
+                    }}
+                >
                     {item.answer}
                 </AccordionPanel>
             </AccordionItem>

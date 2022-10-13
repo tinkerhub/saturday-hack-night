@@ -10,7 +10,7 @@ interface ParallaxProps {
 const ParallaxView = ({ text, duration }: ParallaxProps) => {
     const marqueeVariants = {
         animate: {
-            x: ['-100vw', '100vw'],
+            x: ['-1200px', '100px'],
             transition: {
                 x: {
                     duration,

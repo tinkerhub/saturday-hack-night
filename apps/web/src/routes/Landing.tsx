@@ -6,7 +6,6 @@ import { Faq, Hear, Home, How, Queries, Why } from '../views/Landing';
 const Landing = () => (
     <Layout>
         <NavBar />
-
         <Home />
         <Why />
         <How />

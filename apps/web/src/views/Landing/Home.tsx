@@ -32,7 +32,7 @@ const Home = () => {
                 url(${bg}) `}
         >
             <Heading
-                fontSize="100px"
+                fontSize={{ base: '48px', lg: '100px' }}
                 fontWeight="bold"
                 fontFamily="Clash Display"
                 textAlign="center"
@@ -43,7 +43,14 @@ const Home = () => {
                 <span style={{ color: '#DBF72C' }}>HACKNIGHT</span>
             </Heading>
             <Container maxW="720px">
-                <Text textAlign="center" textColor="#E9E5E1" fontSize="24px">
+                <Text
+                    textAlign="center"
+                    textColor="#E9E5E1"
+                    fontSize={{
+                        base: '18px',
+                        lg: '24px',
+                    }}
+                >
                     It’s a bi weekly hackathon that gives tech-savvy learners an oppurtunity to
                     explore all the latest technology related concepts including APIs, frameworks
                     and build some cool projects.
