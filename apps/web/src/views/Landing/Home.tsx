@@ -54,6 +54,7 @@ const Home = () => {
                 backgroundColor="white"
                 fontSize="18px"
                 fontWeight="medium"
+                height="45px"
                 transition=".5s all ease"
                 _hover={{
                     boxShadow: '0px 8px 16px rgba(255, 255, 255, 0.15)',

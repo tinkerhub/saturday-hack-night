@@ -13,7 +13,7 @@ const Why = () => (
             width="100vw"
             alignItems="flex-start"
         >
-            <Heading textColor="white" fontSize="40px" textAlign="left">
+            <Heading fontFamily="Clash Display" textColor="white" fontSize="40px" textAlign="left">
                 WHY{' '}
                 <span
                     style={{

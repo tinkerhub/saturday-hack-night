@@ -97,7 +97,21 @@ const Navbar = () => {
                             </VStack>
                         </HStack>
                     ) : (
-                        <Button onClick={login}>LOGIN</Button>
+                        <Button
+                            _hover={{
+                                boxShadow: '0px 8px 16px rgba(255, 255, 255, 0.15)',
+                                backgroundColor: '#DBF72C',
+                            }}
+                            _active={{
+                                textColor: '#DBF72C',
+                                background: 'rgba(219, 247, 44, 0.15)',
+                                boxShadow: '0px 8px 16px rgba(219, 247, 44, 0.15)',
+                                backdropFilter: 'blur(25px)',
+                            }}
+                            onClick={login}
+                        >
+                            LOGIN
+                        </Button>
                     )}
                 </HStack>
             </HStack>
