@@ -2,21 +2,17 @@ import React from 'react';
 import { Heading, VStack, Text, Flex } from '@chakra-ui/react';
 
 const Queries = () => (
-    <VStack maxWidth={{ base: '100%', lg: 'container.lg' }}>
+    <VStack marginBlock="32px">
         <Heading
-            fontWeight="700"
-            color="#000000"
-            textAlign="center"
-            marginBlock="20px"
-            letterSpacing="4px"
-            fontSize={{
-                base: '2rem',
-                md: '3.5rem',
-            }}
-            textShadow="2px 2px #fff, 2px -2px #fff, -2px 2px #fff, -2px -2px #fff
-                    ,3px 3px #951BF4, 3px -3px #951BF4, -3px 3px #951BF4, -3px -3px #951BF4"
+            fontFamily="Clash Display"
+            textColor="#DBF72C"
+            textAlign="left"
+            width="100vw"
+            paddingInline="36px"
+            fontSize="40px"
+            marginBlockEnd="36px"
         >
-            CONTACT US{' '}
+            Contact us 📲
         </Heading>
         <Flex
             justifyContent="space-evenly"

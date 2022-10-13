@@ -39,6 +39,7 @@ const Navbar = () => {
             paddingInline={{ base: 2, md: 5 }}
             width="full"
             alignItems="center"
+            zIndex="3"
             style={{
                 backdropFilter: 'blur(10px)',
             }}

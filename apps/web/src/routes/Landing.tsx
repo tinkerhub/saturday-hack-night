@@ -10,11 +10,10 @@ const Landing = () => (
         <Home />
         <Why />
         <How />
-        {/*
-        <Faq />
         <Hear />
+        <Faq />
         <Queries />
-        <Footer /> */}
+        <Footer />
     </Layout>
 );
 

@@ -1,65 +1,39 @@
-import { Heading, HStack, VStack, Text, Avatar } from '@chakra-ui/react';
+import { Heading, VStack } from '@chakra-ui/react';
 import React from 'react';
 import { ParallaxView } from '../../components';
 
-const Feedback = [
-    {
-        avatar: 'https://github.com/mellofordev.png',
-        feedback: 'Every time I register for HackNight, I get to learn something new',
-        color: '#527D77',
-    },
-    {
-        avatar: 'https://github.com/AnanyaSreeram.png',
-        feedback:
-            'My self confidence and optimism increased as I was  able to build my own project',
-        color: '#F985C4',
-    },
-    {
-        avatar: 'https://github.com/sreehari2003.png',
-        feedback:
-            'SHN helped me develop my skills quickly and increase my knowledge as a Programmer',
-        color: '#FFA300',
-    },
-    {
-        avatar: 'https://github.com/DarkPhoenix2704.png',
-        feedback:
-            'SHN is a fun filled event where we develop a project that may change the career path of us',
-        color: '#C193FF',
-    },
-    {
-        avatar: 'https://github.com/Gopps95.png',
-        feedback: 'SHN has increased my confidence to start a project on my own',
-        color: '#039BE5',
-    },
-];
 const Hear = () => (
-    <VStack justifyContent="center">
+    <VStack alignItems="flex-start" marginBlock="32px">
         <Heading
-            fontWeight="700"
-            color="#000000"
-            textAlign="center"
-            marginBlock="20px"
-            letterSpacing="4px"
-            fontSize={{
-                base: '2rem',
-                md: '3.5rem',
-            }}
-            textShadow="2px 2px #fff, 2px -2px #fff, -2px 2px #fff, -2px -2px #fff
-                    ,3px 3px #951BF4, 3px -3px #951BF4, -3px 3px #951BF4, -3px -3px #951BF4"
+            fontFamily="Clash Display"
+            textColor="white"
+            textAlign="left"
+            width="100vw"
+            paddingInline="36px"
+            fontSize="40px"
         >
-            HEAR FROM PEOPLE
+            HEAR FROM{' '}
+            <span
+                style={{
+                    color: '#DBF72C',
+                }}
+            >
+                PEOPLE 🔊
+            </span>
         </Heading>
-        <VStack rowGap="10px">
-            {Feedback.map(({ avatar, feedback, color }) => (
-                <ParallaxView color={color}>
-                    <HStack marginBlock="5px">
-                        <Avatar src={avatar} />
-                        <Text textColor="#D9D9D9" fontSize="16px">
-                            {feedback}
-                        </Text>
-                    </HStack>
-                </ParallaxView>
-            ))}
+        <VStack>
+            <ParallaxView
+                text="A bi-weekly hackathon that gives tech-savvy learners an opportunity to explore all the latest technology related concepts including APIs, frameworks and build some cool projects."
+                duration={10}
+            />
+            <ParallaxView
+                text="You. Are you passionate about tech? Do you like to build something unique? Are you that curious cat who loves to explore uncharted territory? Then this is your opportunity."
+                duration={15}
+            />
+            <ParallaxView
+                text="Saturday evening 6 PM to 11 PM every odd saturday you will be able to take part in the program. Yes it is a recurring event and yes, you are welcome every time."
+                duration={20}
+            />
         </VStack>
     </VStack>
 );

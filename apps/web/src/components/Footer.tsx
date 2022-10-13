@@ -11,8 +11,10 @@ const Footer = () => (
         marginBlockStart="18px"
         justifyContent="space-between"
     >
-        <Image width={{ base: '100px', lg: '150px' }} src={thLogo} alt="TinkerHub Logo" />
-        <Text fontSize="16px">tinkerhub.org</Text>
+        <Image width="85px" src={thLogo} alt="TinkerHub Logo" />
+        <Text fontSize="24px" fontWeight="bold" fontFamily="Clash Display" textColor="white">
+            tinkerhub.org
+        </Text>
     </HStack>
 );
 

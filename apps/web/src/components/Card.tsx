@@ -7,7 +7,12 @@ const Card = ({ num, heading, text }: CardProps) => (
         padding="18px"
         background="rgba(255, 255, 255, 0.15)"
         maxWidth="400px"
+        border="1px solid rgba(255, 255, 255, 0.15)"
         fontFamily="Clash Display"
+        transition="all 0.3s ease-out"
+        _hover={{
+            border: '1px solid #DBF72C',
+        }}
         style={{
             backdropFilter: 'blur(25px)',
         }}
