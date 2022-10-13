@@ -7,23 +7,27 @@ import { connectFunctionsEmulator } from 'firebase/functions';
 import { useFirebase } from './context/firebase';
 import Landing from './routes/Landing';
 import Events from './routes/Events';
+import { NavBar } from './components';
 
-const App = () => (
-    /* const { auth, db, functions } = useFirebase();
+const App = () => {
+    const { auth, db, functions } = useFirebase();
 
     // eslint-disable-next-line no-restricted-globals
     if (location.hostname === 'localhost') {
         connectAuthEmulator(auth, 'http://localhost:9099');
         connectFirestoreEmulator(db, 'localhost', 8080);
         connectFunctionsEmulator(functions, 'localhost', 5001);
-    } */
-    <ChakraProvider>
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Landing />} />
-                <Route path="/events" element={<Events />} />
-            </Routes>
-        </BrowserRouter>
-    </ChakraProvider>
-);
+    }
+    return (
+        <ChakraProvider>
+            <BrowserRouter>
+                <NavBar />
+                <Routes>
+                    <Route path="/" element={<Landing />} />
+                    <Route path="/events" element={<Events />} />
+                </Routes>
+            </BrowserRouter>
+        </ChakraProvider>
+    );
+};
 export default App;

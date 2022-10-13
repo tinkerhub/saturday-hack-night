@@ -16,7 +16,7 @@ import { useFirebase } from '../context/firebase';
 const Navbar = () => {
     const { auth } = useFirebase();
     const [user, setUser] = useState<User | null>();
-    const [showMenu, setShowMenu] = useState(true);
+    const [showMenu, setShowMenu] = useState(false);
 
     useEffect(() => {
         onAuthStateChanged(auth, (authUser) => {

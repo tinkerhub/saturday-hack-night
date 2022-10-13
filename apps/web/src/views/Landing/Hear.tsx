@@ -15,7 +15,7 @@ const Hear = () => (
             HEAR FROM{' '}
             <span
                 style={{
-                    color: '#DBF72C',
+                    color: 'accent',
                 }}
             >
                 PEOPLE 🔊
