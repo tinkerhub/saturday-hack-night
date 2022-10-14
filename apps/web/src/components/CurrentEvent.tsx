@@ -1,5 +1,15 @@
 import { CalendarIcon } from '@chakra-ui/icons';
-import { Flex, HStack, VStack, Image, Text, Box, Heading, Button } from '@chakra-ui/react';
+import {
+    Flex,
+    HStack,
+    VStack,
+    Image,
+    Text,
+    Box,
+    Heading,
+    Button,
+    useDisclosure,
+} from '@chakra-ui/react';
 import {
     collection,
     doc,
@@ -12,12 +22,14 @@ import {
 import React, { useEffect, useState } from 'react';
 import circleIcon from '../../assets/circle.svg';
 import { useFirebase } from '../context/firebase';
+import { Team } from '../modal';
 
 const CurrentEvent = ({ event }: CurrentEventProps) => {
     const { db, auth } = useFirebase();
     const [teams, setTeams] = useState<number>(0);
     const [isRegistered, setIsRegistered] = useState<boolean>(false);
     const { name, about, time, image, moreInfo } = event.data();
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     useEffect(() => {
         (async () => {
@@ -44,6 +56,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
             paddingBlockStart="18px"
             justifyContent="space-between"
         >
+            <Team isOpen={isOpen} onClose={onClose} image={image} />
             <VStack
                 minWidth={{ base: '100%', lg: '50%' }}
                 maxWidth={{ base: '100%', lg: '50%' }}
@@ -120,6 +133,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                 </Text>
                 <HStack columnGap="15px">
                     <Button
+                        onClick={onOpen}
                         size="lg"
                         _hover={{
                             boxShadow: '0px 8px 16px rgba(255, 255, 255, 0.15)',
