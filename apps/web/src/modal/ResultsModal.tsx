@@ -83,7 +83,7 @@ const ResultsModal = ({ id, onClose, isOpen }: ResultsModalProps) => {
     useEffect(() => {
         (async () => {
             const resultsSnapshot = await getDocs(
-                query(collection(db, `events/${id}/teams`), where('projectStatus', '>', -1))
+                query(collection(db, `events/${id}/teams`), where('projectStatus', '>', -1)),
             );
             resultsSnapshot.docs.forEach(async (resultsSnap) => {
                 let memberList = resultsSnap.get('members').concat([resultsSnap.get('lead')]);
@@ -122,7 +122,7 @@ const ResultsModal = ({ id, onClose, isOpen }: ResultsModalProps) => {
                             <Accordion allowToggle>
                                 {ProjectStatus.map((status) => {
                                     const filteredResults = results.filter(
-                                        (result) => result.projectStatus === status.code
+                                        (result) => result.projectStatus === status.code,
                                     );
                                     return (
                                         filteredResults.length > 0 && (
