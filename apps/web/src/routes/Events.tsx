@@ -43,26 +43,30 @@ const Events = () => {
     }, [db]);
     return (
         <Layout>
-            <VStack
-                marginTop="80px"
-                backgroundImage={`
+            {currentEvents.length > 0 && (
+                <VStack
+                    marginTop="80px"
+                    backgroundImage={`
                 linear-gradient(180deg, rgba(12, 15, 23, 0) 67.85%, #0C0F17 100%),
                 linear-gradient(180deg, #0C0F17 0%, rgba(12, 15, 23, 0.8) 100%),
                 url(${bg}) `}
-            >
-                <Heading
-                    fontSize="40px"
-                    color="white"
-                    width="100vw"
-                    fontFamily="Clash Display"
-                    paddingInline={{
-                        base: '16px',
-                        lg: '32px',
-                    }}
                 >
-                    Ongoing Events🚀
-                </Heading>
-                <CurrentEvent />
+                    <Heading
+                        fontSize="40px"
+                        color="white"
+                        width="100vw"
+                        fontFamily="Clash Display"
+                        paddingInline={{
+                            base: '16px',
+                            lg: '32px',
+                        }}
+                    >
+                        Ongoing Events🚀
+                    </Heading>
+                    <CurrentEvent event={currentEvents[0]} />
+                </VStack>
+            )}
+            <VStack marginTop="50px">
                 <Heading
                     fontSize="40px"
                     color="white"
