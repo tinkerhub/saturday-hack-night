@@ -12,6 +12,7 @@ import React, { useEffect, useState } from 'react';
 import { useFirebase } from '../context/firebase';
 import { Layout } from '../layout';
 import bg from '../../assets/bg01.png';
+import { CurrentEvent } from '../components';
 
 const Events = () => {
     const { db } = useFirebase();
@@ -50,7 +51,7 @@ const Events = () => {
                 url(${bg}) `}
             >
                 <Heading
-                    fontSize="48px"
+                    fontSize="40px"
                     color="white"
                     width="100vw"
                     fontFamily="Clash Display"
@@ -59,8 +60,9 @@ const Events = () => {
                         lg: '32px',
                     }}
                 >
-                    Ongoing Events 🚀
+                    Ongoing Events🚀
                 </Heading>
+                <CurrentEvent />
             </VStack>
         </Layout>
     );
