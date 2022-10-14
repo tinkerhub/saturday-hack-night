@@ -1,4 +1,4 @@
-import { VStack, Heading } from '@chakra-ui/react';
+import { VStack, Heading, Grid } from '@chakra-ui/react';
 import {
     QueryDocumentSnapshot,
     DocumentData,
@@ -12,7 +12,7 @@ import React, { useEffect, useState } from 'react';
 import { useFirebase } from '../context/firebase';
 import { Layout } from '../layout';
 import bg from '../../assets/bg01.png';
-import { CurrentEvent } from '../components';
+import { CurrentEvent, EventCard } from '../components';
 
 const Events = () => {
     const { db } = useFirebase();
@@ -63,6 +63,42 @@ const Events = () => {
                     Ongoing Events🚀
                 </Heading>
                 <CurrentEvent />
+                <Heading
+                    fontSize="40px"
+                    color="white"
+                    width="100vw"
+                    fontFamily="Clash Display"
+                    paddingInline={{
+                        base: '16px',
+                        lg: '32px',
+                    }}
+                    style={{
+                        marginTop: '36px',
+                    }}
+                >
+                    Explored Areas🌟
+                </Heading>
+                <Grid
+                    templateColumns={{
+                        base: 'repeat(1, 1fr)',
+                        md: 'repeat(4, 1fr)',
+                    }}
+                    gap={{
+                        base: '18px',
+                        lg: '48x',
+                    }}
+                    paddingBlock={{
+                        base: '18px',
+                        lg: '36px',
+                    }}
+                    paddingBlockEnd="36px"
+                >
+                    <EventCard />
+                    <EventCard />
+                    <EventCard />
+                    <EventCard />
+                    <EventCard />
+                </Grid>
             </VStack>
         </Layout>
     );
