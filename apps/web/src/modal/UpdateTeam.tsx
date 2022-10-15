@@ -186,6 +186,9 @@ export const UpdateTeam = ({ isOpen, onClose, image, eventId, teamID }: ModalTyp
                                     onChange={(e) => setMember1(e.target.value)}
                                     defaultValue={member1}
                                     size="lg"
+                                    _focus={{
+                                        boxShadow: '0px 3px 8px rgba(219, 247, 44, 0.15)',
+                                    }}
                                     _placeholder={{
                                         textColor: 'rgba(255, 255, 255, 0.25)',
                                     }}
@@ -210,6 +213,9 @@ export const UpdateTeam = ({ isOpen, onClose, image, eventId, teamID }: ModalTyp
                                     backgroundColor="rgba(255, 255, 255, 0.25)"
                                     textColor="white"
                                     border="none"
+                                    _focus={{
+                                        boxShadow: '0px 3px 8px rgba(219, 247, 44, 0.15)',
+                                    }}
                                     width="300px"
                                     borderRadius="10px"
                                 />
