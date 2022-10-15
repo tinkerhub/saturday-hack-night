@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { CircularProgress, FormErrorIcon, Text } from '@chakra-ui/react';
+import { CircularProgress, Text, VStack } from '@chakra-ui/react';
 import { useLocation } from 'react-router-dom';
-import { CheckCircleIcon } from '@chakra-ui/icons';
+import { CheckCircleIcon, CloseIcon } from '@chakra-ui/icons';
 import { httpsCallable } from 'firebase/functions';
 import { GithubAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useFirebase } from '../context/firebase';
@@ -25,32 +25,32 @@ const Join = () => {
             else signInWithPopup(auth, new GithubAuthProvider());
     }, [auth, eventID, teamID, functions, status.state]);
     return (
-        <div
-            style={{
-                padding: '2rem',
-                justifyContent: 'center',
-                display: 'flex',
-                alignItems: 'center',
-            }}
+        <VStack
+            justifyContent="center"
+            alignItems="center"
+            height="100vh"
+            width="100vw"
+            backgroundColor="#0C0F17"
         >
             {status.state === 0 && (
-                <Text variant="h6">
-                    <CircularProgress />
+                <Text textAlign="center" fontFamily="Clash Display" fontSize="40px" color="white">
+                    <CircularProgress isIndeterminate /> <br />
                     Joining Team
                 </Text>
             )}
             {status.state === 1 && (
-                <Text variant="h6">
-                    Team Joined
+                <Text textAlign="center" fontFamily="Clash Display" fontSize="40px" color="white">
+                    Team Joined <br />
                     <CheckCircleIcon />
                 </Text>
             )}
             {status.state === -1 && (
-                <Text variant="h6">
-                    {status.message} <FormErrorIcon />
+                <Text textAlign="center" fontFamily="Clash Display" fontSize="40px" color="white">
+                    {status.message} <br />
+                    <CloseIcon />
                 </Text>
             )}
-        </div>
+        </VStack>
     );
 };
 export default Join;
