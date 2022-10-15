@@ -23,14 +23,23 @@ import {
 import React, { useEffect, useState } from 'react';
 import circleIcon from '../../assets/circle.svg';
 import { useFirebase } from '../context/firebase';
-import { UpdateTeamModal } from '../modal';
+import { UpdateTeamModal, CreateTeamModal } from '../modal';
 
 const CurrentEvent = ({ event }: CurrentEventProps) => {
     const { db, auth } = useFirebase();
     const [teams, setTeams] = useState<number>(0);
     const [teamID, setTeamID] = useState<string>('');
     const { name, about, time, image, moreInfo } = event.data();
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    const {
+        isOpen: isOpenUpdateModal,
+        onOpen: onOpenUpdateModal,
+        onClose: onCloseUpdateModal,
+    } = useDisclosure();
+    const {
+        isOpen: isOpenCreateModal,
+        onOpen: onOpenCreateModal,
+        onClose: onCloseCreateModal,
+    } = useDisclosure();
 
     useEffect(() => {
         (async () => {
@@ -58,10 +67,15 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
             justifyContent="space-between"
         >
             <UpdateTeamModal
-                isOpen={isOpen}
-                onClose={onClose}
+                isOpen={isOpenUpdateModal}
+                onClose={onCloseUpdateModal}
                 image={image}
                 teamID={teamID}
+                eventId={event.id}
+            />
+            <CreateTeamModal
+                isOpen={isOpenCreateModal}
+                onClose={onCloseCreateModal}
                 eventId={event.id}
             />
             <VStack
@@ -141,8 +155,11 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                 <HStack columnGap="15px">
                     <Button
                         onClick={
+                            // eslint-disable-next-line no-nested-ternary
                             auth.currentUser
-                                ? onOpen
+                                ? teamID
+                                    ? onOpenUpdateModal
+                                    : onOpenCreateModal
                                 : () => signInWithPopup(auth, new GithubAuthProvider())
                         }
                         fontFamily="Clash Display"
