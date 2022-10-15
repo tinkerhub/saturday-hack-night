@@ -15,7 +15,17 @@ import {
     ModalHeader,
     ModalOverlay,
 } from '@chakra-ui/react';
-import { getDoc, doc, DocumentData, DocumentSnapshot } from 'firebase/firestore';
+import {
+    getDoc,
+    doc,
+    DocumentData,
+    DocumentSnapshot,
+    updateDoc,
+    query,
+    collection,
+    where,
+    getDocs,
+} from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { useFirebase } from '../context/firebase';
 
@@ -34,11 +44,28 @@ export const UpdateTeam = ({ isOpen, onClose, image, eventId, teamID }: ModalTyp
     const [member2, setMember2] = useState<string>('');
     const finalRef = React.useRef(null);
     const { db } = useFirebase();
+    const updateTeam = async () => {
+        const members = [member1, member2];
+        const userMembers = members.filter((member) => member !== '');
+
+        const memberList = userMembers.map(async (member: string) => {
+            const userSnapshot = await getDocs(
+                query(collection(db, 'users'), where('githubID', '==', member)),
+            );
+            return userSnapshot.docs[0].id;
+        });
+        const memberData = await Promise.all(memberList);
+
+        await updateDoc(doc(db, `events/${eventId}/teams/${teamID}`), {
+            members: memberData,
+        });
+        onClose();
+    };
     useEffect(() => {
         (async () => {
             const teamSnapshot = await getDoc(doc(db, `events/${eventId}/teams/${teamID}`));
             setTeamData(teamSnapshot);
-            let memberList = teamSnapshot.get('members').concat([teamSnapshot.get('lead')]);
+            let memberList = teamSnapshot.get('members');
             memberList = [...new Set(memberList)];
             const members = memberList.map(async (member: string) => {
                 const memberSnapshot = await getDoc(doc(db, `users/${member}`));
@@ -144,6 +171,7 @@ export const UpdateTeam = ({ isOpen, onClose, image, eventId, teamID }: ModalTyp
                                 <Input
                                     ref={initialRef}
                                     placeholder="Github Username"
+                                    onChange={(e) => setMember1(e.target.value)}
                                     defaultValue={member1}
                                     size="lg"
                                     _placeholder={{
@@ -162,6 +190,7 @@ export const UpdateTeam = ({ isOpen, onClose, image, eventId, teamID }: ModalTyp
                                 <Input
                                     placeholder="Github Username"
                                     defaultValue={member2}
+                                    onChange={(e) => setMember2(e.target.value)}
                                     size="lg"
                                     _placeholder={{
                                         textColor: 'rgba(255, 255, 255, 0.25)',
@@ -181,7 +210,7 @@ export const UpdateTeam = ({ isOpen, onClose, image, eventId, teamID }: ModalTyp
                     <Button
                         size="lg"
                         backgroundColor="rgba(255, 255, 255, 1)"
-                        onClick={onClose}
+                        onClick={updateTeam}
                         transition="all 0.2s ease"
                         _hover={{
                             backgroundColor: '#DBF72C',
