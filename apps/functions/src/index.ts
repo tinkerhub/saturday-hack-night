@@ -6,34 +6,6 @@ import fetch from 'node-fetch';
 const app = admin.initializeApp();
 const firestore = app.firestore();
 
-async function setUpGitRepo(eventID: string, teamID: string, repoUrl: string, name: string) {
-    const { token } = functions.config().github;
-
-    const event = await firestore.doc(`events/${eventID}`).get();
-    const repo = `${event.get('org')}/${event.get('repoName')}`;
-
-    const response = await fetch(
-        `https://api.github.com/repos/${repo}/actions/workflows/add-project.yml/dispatches`,
-        {
-            headers: {
-                Accept: 'application/vnd.github.v3+json',
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
-            method: 'POST',
-            body: JSON.stringify({
-                ref: 'main',
-                inputs: {
-                    repo_url: repoUrl,
-                    folder_name: `${name} | ${teamID}`,
-                },
-            }),
-        }
-    ).then((res) => res.text());
-
-    if (response) console.error(response);
-}
-
 async function queueMails(
     bulk: FirebaseFirestore.WriteBatch,
     eventID: string,
@@ -104,6 +76,16 @@ export const onTeamCreated = functions.firestore
         const bulk = firestore.batch();
         const membersRef = snapshot.ref.collection('members');
 
+        const users = [snapshot.get("lead"), ...[snapshot.get("members") || []]];
+        const checks = users.map((user) =>
+            firestore.doc(`users/${user}/teams/${context.params.eventID}`).get());
+
+        const results = await Promise.all(checks);
+
+        if(results.map((doc) => doc.exists).find((doc) => doc))
+            return snapshot.ref.delete()
+                .catch((err) => console.error(err, `Delete Team ID => ${context.params.teamID}`))
+
         bulk.create(
             firestore.doc(`users/${snapshot.get('lead')}/teams/${context.params.eventID}`),
             {
@@ -121,13 +103,6 @@ export const onTeamCreated = functions.firestore
                     accepted: false,
                 });
             });
-
-        await setUpGitRepo(
-            context.params.eventID,
-            context.params.teamID,
-            snapshot.get('repo'),
-            snapshot.get('name')
-        ).catch((error) => console.error(error));
 
         await queueMails(
             bulk,
