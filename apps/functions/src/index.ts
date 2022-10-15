@@ -33,7 +33,7 @@ async function queueMails(
                 },
             },
         });
-    members.forEach(async (member) => {
+    return members.map(async (member) => {
         const user = await firestore.doc(`users/${member}`).get();
         bulk.create(mails.doc(member), {
             to: [user.get('email')],
@@ -131,12 +131,21 @@ export const onTeamEdited = functions.firestore
 
         const added = newMembers.filter((x: string) => !oldMember.includes(x));
         const removed = oldMember.filter((x: string) => !newMembers.includes(x));
+
+        const delta = Math.sign(change.after.get('projectStatus') - change.before.get('projectStatus'));
+
+        if((change.after.get('projectStatus') > 50 || change.before.get('projectStatus') > 50) && delta != 0)
+            bulk.update(firestore.doc(`/events/${context.params.eventID}`),{
+                projectCount: admin.firestore.FieldValue.increment(delta)
+            });
+
         added.forEach((uid: string) => {
             bulk.create(membersRef.doc(uid), {
                 uid,
                 accepted: false,
             });
         });
+
         removed.forEach((uid: string) => {
             bulk.delete(membersRef.doc(uid));
         });
