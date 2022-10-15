@@ -23,7 +23,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import circleIcon from '../../assets/circle.svg';
 import { useFirebase } from '../context/firebase';
-import { UpdateTeam } from '../modal';
+import { UpdateTeamModal } from '../modal';
 
 const CurrentEvent = ({ event }: CurrentEventProps) => {
     const { db, auth } = useFirebase();
@@ -57,7 +57,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
             paddingBlockStart="18px"
             justifyContent="space-between"
         >
-            <UpdateTeam
+            <UpdateTeamModal
                 isOpen={isOpen}
                 onClose={onClose}
                 image={image}

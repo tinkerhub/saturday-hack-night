@@ -11,7 +11,7 @@ const Home = () => {
 
     const register = () => {
         if (auth.currentUser) {
-            navigate('/dashboard');
+            navigate('/events');
         } else {
             signInWithPopup(auth, new GithubAuthProvider()).then((user) => {
                 if (user) {

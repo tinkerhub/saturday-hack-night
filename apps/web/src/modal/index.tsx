@@ -1,2 +1,3 @@
 export { ResultsModal } from './ResultsModal';
-export { UpdateTeam } from './UpdateTeam';
+export { UpdateTeamModal } from './UpdateTeamModal';
+export { CreateTeamModal } from './CreateTeamModal';

@@ -26,7 +26,6 @@ import {
 import { getDocs, query, collection, where, getDoc, doc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { useFirebase } from '../context/firebase';
-import { getColor } from '../utils/color';
 
 const ProjectStatus = [
     { code: 101, status: 'Best Overall Project' },
@@ -117,7 +116,7 @@ export const ResultsModal = ({ id, onClose, isOpen }: ResultsModalProps) => {
                 <ModalCloseButton />
                 <ModalBody>
                     <>
-                        {loading && <Spinner color={getColor()} />}
+                        {loading && <Spinner />}
                         {!loading && (
                             <Accordion allowToggle>
                                 {ProjectStatus.map((status) => {

@@ -37,7 +37,7 @@ interface ModalType {
     teamID: string;
 }
 
-export const UpdateTeam = ({ isOpen, onClose, image, eventId, teamID }: ModalType) => {
+export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: ModalType) => {
     const initialRef = React.useRef(null);
     const [teamData, setTeamData] = useState<DocumentSnapshot<DocumentData>>();
     const [member1, setMember1] = useState<string>('');
