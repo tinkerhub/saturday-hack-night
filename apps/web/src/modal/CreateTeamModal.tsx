@@ -48,12 +48,14 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
             m1 = (
                 await getDocs(query(collection(db, 'users'), where('githubID', '==', member1)))
             ).docs[0].data();
+            if (!m1) return setError((prev: any) => ({ ...prev, member1: true }));
             members.push(m1.uid);
         }
         if (member2.length > 0) {
             m2 = (
                 await getDocs(query(collection(db, 'users'), where('githubID', '==', member2)))
             ).docs[0].data();
+            if (!m2) return setError((prev: any) => ({ ...prev, member2: true }));
             members.push(m2.uid);
         }
         await addDoc(collection(db, `events/${eventId}/teams`), {
@@ -140,7 +142,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                                         textColor: 'rgba(255, 255, 255, 0.25)',
                                     }}
                                     backgroundColor="rgba(255, 255, 255, 0.25)"
-                                    textColor="rgba(255, 255, 255, 0.15)"
+                                    textColor="white"
                                     border="none"
                                     onChange={(e) => setName(e.target.value)}
                                     width="300px"
@@ -162,7 +164,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                                         textColor: 'rgba(255, 255, 255, 0.25)',
                                     }}
                                     backgroundColor="rgba(255, 255, 255, 0.25)"
-                                    textColor="rgba(255, 255, 255, 0.15)"
+                                    textColor="white"
                                     border="none"
                                     width="300px"
                                     borderRadius="10px"
@@ -242,7 +244,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                                     fontSize="12px"
                                     textColor="#32BA7C"
                                 >
-                                    You can participate individualy or can team up with upto 3
+                                    You can participate individualy or can team up with upto 2
                                     People
                                 </Text>
                             </Box>
