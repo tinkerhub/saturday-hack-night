@@ -22,12 +22,12 @@ import {
 import React, { useEffect, useState } from 'react';
 import circleIcon from '../../assets/circle.svg';
 import { useFirebase } from '../context/firebase';
-import { Team } from '../modal';
+import { UpdateTeam } from '../modal';
 
 const CurrentEvent = ({ event }: CurrentEventProps) => {
     const { db, auth } = useFirebase();
     const [teams, setTeams] = useState<number>(0);
-    const [isRegistered, setIsRegistered] = useState<boolean>(false);
+    const [teamID, setTeamID] = useState<string>('');
     const { name, about, time, image, moreInfo } = event.data();
     const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -39,7 +39,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                 doc(db, `users/${auth.currentUser?.uid}/teams/${event.id}`),
             );
             const user = userSnapshot.data();
-            if (user) setIsRegistered(true);
+            if (user) setTeamID(user.teamID);
         })();
         return () => {};
     }, [auth.currentUser?.uid, db, event.id]);
@@ -56,7 +56,13 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
             paddingBlockStart="18px"
             justifyContent="space-between"
         >
-            <Team isOpen={isOpen} onClose={onClose} image={image} />
+            <UpdateTeam
+                isOpen={isOpen}
+                onClose={onClose}
+                image={image}
+                teamID={teamID}
+                eventId={event.id}
+            />
             <VStack
                 minWidth={{ base: '100%', lg: '50%' }}
                 maxWidth={{ base: '100%', lg: '50%' }}
@@ -99,7 +105,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                 />
                 <Box
                     width="100%"
-                    backgroundColor={isRegistered ? '#DBF72C' : '#E24C4B'}
+                    backgroundColor={teamID ? '#DBF72C' : '#E24C4B'}
                     borderBottomStartRadius="10px"
                     padding="5px"
                     borderBottomEndRadius="10px"
@@ -111,7 +117,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                         textAlign="center"
                         fontFamily="Clash Display"
                     >
-                        {isRegistered ? 'Registered 🎉' : 'Register Now'}
+                        {teamID ? 'Registered 🎉' : 'Register Now'}
                     </Text>
                 </Box>
             </VStack>
@@ -134,6 +140,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                 <HStack columnGap="15px">
                     <Button
                         onClick={onOpen}
+                        fontFamily="Clash Display"
                         size="lg"
                         _hover={{
                             boxShadow: '0px 8px 16px rgba(255, 255, 255, 0.15)',
@@ -146,9 +153,10 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                             backdropFilter: 'blur(25px)',
                         }}
                     >
-                        {isRegistered ? 'View Team' : 'Create Team'}
+                        {teamID ? 'Edit Team' : 'Create Team'}
                     </Button>
                     <Button
+                        fontFamily="Clash Display"
                         size="lg"
                         backgroundColor="rgba(255, 255, 255, 0.15)"
                         textColor="white"

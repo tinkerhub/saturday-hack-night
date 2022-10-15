@@ -1,4 +1,2 @@
-import ResultsModal from './ResultsModal';
-
-export default { ResultsModal };
-export { Team } from './Team';
+export { ResultsModal } from './ResultsModal';
+export { UpdateTeam } from './UpdateTeam';

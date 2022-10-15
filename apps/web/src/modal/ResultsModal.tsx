@@ -76,7 +76,7 @@ const Items = ({ status, filteredResults }: ItemsProps) => (
         </AccordionPanel>
     </AccordionItem>
 );
-const ResultsModal = ({ id, onClose, isOpen }: ResultsModalProps) => {
+export const ResultsModal = ({ id, onClose, isOpen }: ResultsModalProps) => {
     const [results, setResults] = useState<Array<Results>>([]);
     const [loading, setLoading] = useState(true);
     const { db } = useFirebase();
@@ -160,4 +160,3 @@ interface ItemsProps {
     status: { code: number; status: string };
     filteredResults: Array<Results>;
 }
-export default ResultsModal;
