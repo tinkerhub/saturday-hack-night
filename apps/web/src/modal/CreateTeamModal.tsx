@@ -216,9 +216,23 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                             mt="20px"
                             rowGap={{
                                 base: '20px',
-                                lg: '50px',
+                                lg: '30px',
                             }}
                         >
+                            <Box
+                                backgroundColor="rgba(226,76,75,0.4)"
+                                paddingInline="10px"
+                                borderRadius="5px"
+                                paddingBlock="5px"
+                            >
+                                <Text
+                                    fontFamily="Clash Display"
+                                    fontSize="12px"
+                                    textColor="#E24C4B"
+                                >
+                                    Make sure all the members are registered on the platform
+                                </Text>
+                            </Box>
                             <Box
                                 backgroundColor="rgba(226,76,75,0.4)"
                                 paddingInline="10px"
