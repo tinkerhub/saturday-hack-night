@@ -1,7 +1,7 @@
 import React from 'react';
 import { Footer } from '../components';
 import { Layout } from '../layout';
-import { Faq, Hear, Home, How, Queries, Why } from '../views/Landing';
+import { Faq, Hear, Home, How, Why } from '../views/Landing';
 
 const Landing = () => (
     <Layout>
@@ -10,7 +10,8 @@ const Landing = () => (
         <How />
         <Hear />
         <Faq />
-        <Queries />
+        {/* 
+        <Queries /> */}
         <Footer />
     </Layout>
 );

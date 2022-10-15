@@ -28,20 +28,7 @@ const Queries = () => (
             paddingInline="16px"
             paddingBlock="32px"
         >
-            <Heading
-                fontWeight="700"
-                color="#fff"
-                textAlign="center"
-                marginBlock="20px"
-                letterSpacing="4px"
-                fontSize={{
-                    base: '2rem',
-                    md: '3.5rem',
-                }}
-                textShadow="2px 1px #951BF4"
-            >
-                STILL QUERIES?
-            </Heading>
+            {' '}
             <VStack>
                 <Text fontSize="16px">
                     Fathim Niswa : &nbsp; wa.me/+919846119108
