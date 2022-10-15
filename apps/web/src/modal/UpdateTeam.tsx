@@ -87,6 +87,7 @@ export const UpdateTeam = ({ isOpen, onClose, image, eventId, teamID }: ModalTyp
         >
             <ModalOverlay />
             <ModalContent
+                borderRadius="10px"
                 backgroundColor="#0C0F17"
                 minWidth={{
                     base: 'full',
@@ -94,12 +95,23 @@ export const UpdateTeam = ({ isOpen, onClose, image, eventId, teamID }: ModalTyp
                 }}
             >
                 <ModalHeader
+                    borderTopRadius="10px"
                     style={{
                         padding: '0px',
                     }}
                 >
-                    <Box backgroundColor="rgba(255,255,255,.15)" paddingBlock="35px">
-                        <Image src={image} alt="" paddingInline="50px" maxHeight="250px" />
+                    <Box
+                        borderTopRadius="10px"
+                        backgroundColor="rgba(255,255,255,.15)"
+                        paddingBlock="35px"
+                    >
+                        <Image
+                            src={image}
+                            alt=""
+                            paddingInline="50px"
+                            borderTopRadius="10px"
+                            maxHeight="250px"
+                        />
                     </Box>
                 </ModalHeader>
                 <ModalCloseButton
