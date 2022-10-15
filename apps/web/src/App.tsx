@@ -7,6 +7,7 @@ import { connectFunctionsEmulator } from 'firebase/functions';
 import { useFirebase } from './context/firebase';
 import Landing from './routes/Landing';
 import Events from './routes/Events';
+import Join from './routes/Join';
 import { NavBar } from './components';
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
                 <Routes>
                     <Route path="/" element={<Landing />} />
                     <Route path="/events" element={<Events />} />
+                    <Route path="/join" element={<Join />} />
                 </Routes>
             </BrowserRouter>
         </ChakraProvider>
