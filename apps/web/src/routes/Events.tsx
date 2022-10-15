@@ -97,11 +97,9 @@ const Events = () => {
                     }}
                     paddingBlockEnd="36px"
                 >
-                    <EventCard />
-                    <EventCard />
-                    <EventCard />
-                    <EventCard />
-                    <EventCard />
+                    {exploredEvents.map((event) => (
+                        <EventCard key={event.id} event={event} />
+                    ))}
                 </Grid>
             </VStack>
         </Layout>
