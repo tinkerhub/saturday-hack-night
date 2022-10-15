@@ -49,7 +49,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
             width="100%"
             flexDirection={{
                 base: 'column',
-                md: 'row',
+                lg: 'row',
             }}
             paddingInline={{ base: '16px', md: '32px' }}
             rowGap="16px"

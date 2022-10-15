@@ -19,7 +19,6 @@ const EventCard = ({ event }: EventCardProps) => {
             const resultsD = await getDocs(
                 query(collection(db, `events/${event.id}/teams`), where('projectStatus', '>=', 50)),
             );
-            console.log(resultsD.docs);
             setResultsData(resultsD.docs);
         })();
         return () => {};
