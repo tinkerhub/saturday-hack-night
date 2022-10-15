@@ -10,6 +10,7 @@ import {
     Button,
     useDisclosure,
 } from '@chakra-ui/react';
+import { GithubAuthProvider, signInWithPopup } from 'firebase/auth';
 import {
     collection,
     doc,
@@ -42,7 +43,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
             if (user) setTeamID(user.teamID);
         })();
         return () => {};
-    }, [auth.currentUser?.uid, db, event.id]);
+    }, [auth.currentUser, db, event.id]);
 
     return (
         <Flex
@@ -139,7 +140,11 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                 </Text>
                 <HStack columnGap="15px">
                     <Button
-                        onClick={onOpen}
+                        onClick={
+                            auth.currentUser
+                                ? onOpen
+                                : () => signInWithPopup(auth, new GithubAuthProvider())
+                        }
                         fontFamily="Clash Display"
                         size="lg"
                         _hover={{
