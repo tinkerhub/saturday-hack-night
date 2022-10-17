@@ -1,34 +1,15 @@
 import { VStack, Image, Box, Text, HStack, Button, useDisclosure } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
-import {
-    collection,
-    DocumentData,
-    getDocs,
-    query,
-    QueryDocumentSnapshot,
-    where,
-} from 'firebase/firestore';
-import { useFirebase } from '../context/firebase';
+import React from 'react';
+import { DocumentData, QueryDocumentSnapshot } from 'firebase/firestore';
 import { ResultsModal } from '../modal';
 
 const EventCard = ({ event }: EventCardProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    const { db } = useFirebase();
-    const { about, results, image, moreInfo } = event.data();
-    const [resultsData, setResultsData] = React.useState<DocumentData>();
-    useEffect(() => {
-        (async () => {
-            const resultsD = await getDocs(
-                query(collection(db, `events/${event.id}/teams`), where('projectStatus', '>=', 50)),
-            );
-            setResultsData(resultsD.docs);
-        })();
-        return () => {};
-    }, [db, event.id]);
+    const { about, results, image, moreInfo, projectCount } = event.data();
     return (
         <>
-            <ResultsModal id={event.id} onClose={onClose} isOpen={isOpen} />
+            {isOpen && <ResultsModal id={event.id} onClose={onClose} isOpen={isOpen} />}
             <VStack
                 maxWidth="300px"
                 backgroundColor="rgba(255,255,255,.15)"
@@ -48,7 +29,7 @@ const EventCard = ({ event }: EventCardProps) => {
                             fontFamily="Clash Display"
                             fontWeight="medium"
                         >
-                            ✅ {resultsData?.length} Submissions
+                            ✅ {projectCount} Submissions
                         </Text>
                     </Box>
                     <Text
