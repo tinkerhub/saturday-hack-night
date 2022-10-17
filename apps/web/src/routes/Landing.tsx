@@ -1,12 +1,12 @@
 import React from 'react';
 import { Footer } from '../components';
 import { Layout } from '../layout';
-import { Faq, Hear, Home, How, Why } from '../views/Landing';
+import { Faq, Hear, Home, How, What } from '../views/Landing';
 
 const Landing = () => (
     <Layout>
         <Home />
-        <Why />
+        <What />
         <How />
         <Hear />
         <Faq />
