@@ -1,27 +1,22 @@
 import {
-    Button,
     Modal,
     ModalBody,
     ModalCloseButton,
     ModalContent,
-    ModalFooter,
-    ModalHeader,
     ModalOverlay,
-    VStack,
     Avatar,
     Center,
     Heading,
     Flex,
     FormControl,
     FormLabel,
-    Input,
     FormErrorMessage,
 } from '@chakra-ui/react';
 import { GithubAuthProvider, signInWithPopup } from 'firebase/auth';
 
 import { getDoc, doc, DocumentData, DocumentSnapshot } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { Select, AsyncSelect, OptionBase } from 'chakra-react-select';
+import { Select, AsyncSelect, OptionBase, GroupBase } from 'chakra-react-select';
 import bg from '../../assets/bg01.png';
 import User from '../../assets/physicalHack.png';
 import { useFirebase } from '../context/firebase';
@@ -67,18 +62,23 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
     const [data, setData] = useState<UserData>({ phno: '', email: '', district: '' });
     const [user, setUser] = useState<DocumentSnapshot<DocumentData> | null>(null);
 
-    /*  async function fetchCampus(district: string) {
-        const coll: Options | [] = [];
+    const fetchCampus = async () => {
+        const coll: [Options] = [
+            {
+                label: 'Other',
+                value: 'Other',
+            },
+        ];
         const req = await fetch(
-            `https://us-central1-educational-institutions.cloudfunctions.net/getCollegeByDistrict?district=${district}`,
+            `https://us-central1-educational-institutions.cloudfunctions.net/getCollegeByDistrict?district=${data.district}`,
         );
         const res = await req.json();
-        res.forEach((college: string) => {
-            console.log(college);
-            coll.push({ label: college, value: college });
+        res.forEach((college: any) => {
+            console.log(college.name);
+            coll.push({ label: college.name, value: college.name });
         });
         return coll;
-    } */
+    };
 
     useEffect(() => {
         auth.onAuthStateChanged(async (authUser: any) => {
@@ -138,21 +138,17 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                     <Flex justifyContent="space-between" alignItems="center" mt="50px">
                         <FormControl label="District" id="District">
                             <FormLabel>District</FormLabel>
-                            <Select
-                                isClearable
-                                options={districts}
-                                // loadOptions={() =>}
-                                onChange={(e) => console.log(e.target.value)}
-                            />
+                            <Select isClearable options={districts} />
 
                             <FormErrorMessage>Please pick an option</FormErrorMessage>
                         </FormControl>
 
                         <FormControl label="College" id="College">
                             <FormLabel>I currenlty study at</FormLabel>
-                            <AsyncSelect
+                            <AsyncSelect<Options, true, GroupBase<Options>>
                                 isClearable
                                 defaultOptions
+                                loadOptions={fetchCampus}
                                 // loadOptions={() => fetchCampus()}
                                 // onInputChange={handleInputChange}
                             />

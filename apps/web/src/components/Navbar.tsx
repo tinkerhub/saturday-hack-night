@@ -30,12 +30,8 @@ const Navbar = () => {
     const { auth } = useFirebase();
     const [user, setUser] = useState<User | null>();
     const [showMenu, setShowMenu] = useState(false);
-<<<<<<< HEAD
     const { isOpen, onOpen, onClose } = useDisclosure();
-
-=======
     const imageRef = React.useRef<HTMLImageElement>(null);
->>>>>>> ebd150b0105b6de1767a90c6c31cdcd0cf2b1c38
     const handleWindowResize = useCallback(() => {
         if (window.innerWidth > 991) {
             setShowMenu(false);
