@@ -11,6 +11,7 @@ import {
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { MobileBar } from './MobileBar';
 import logo from '../../assets/logo.svg';
+import logoHover from '../../assets/logo_hover.svg';
 
 import { useFirebase } from '../context/firebase';
 
@@ -18,7 +19,7 @@ const Navbar = () => {
     const { auth } = useFirebase();
     const [user, setUser] = useState<User | null>();
     const [showMenu, setShowMenu] = useState(false);
-
+    const imageRef = React.useRef<HTMLImageElement>(null);
     const handleWindowResize = useCallback(() => {
         if (window.innerWidth > 991) {
             setShowMenu(false);
@@ -31,12 +32,10 @@ const Navbar = () => {
 
     useEffect(() => {
         window.addEventListener('resize', handleWindowResize);
-
         return () => {
             window.removeEventListener('resize', handleWindowResize);
         };
     }, [handleWindowResize]);
-
     useEffect(() => {
         onAuthStateChanged(auth, (authUser) => {
             setUser(authUser);
@@ -66,7 +65,18 @@ const Navbar = () => {
                 }}
             >
                 <Flex alignItems="center" justifyContent="space-between">
-                    <Image src={logo} height="32px" transition="all 0.2s ease-in-out" />
+                    <Image
+                        src={logo}
+                        height="32px"
+                        transition="all 0.4s ease-in"
+                        ref={imageRef}
+                        onMouseOver={() => {
+                            imageRef.current!.src = logoHover;
+                        }}
+                        onMouseOut={() => {
+                            imageRef.current!.src = logo;
+                        }}
+                    />
                     <HStack
                         gap="18px"
                         display={{
