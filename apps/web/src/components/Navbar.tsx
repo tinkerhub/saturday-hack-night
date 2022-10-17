@@ -1,5 +1,15 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Flex, HStack, VStack, Text, Image, Avatar, Button, Box } from '@chakra-ui/react';
+import {
+    Flex,
+    HStack,
+    VStack,
+    Text,
+    Image,
+    Avatar,
+    Button,
+    Box,
+    useDisclosure,
+} from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
 import {
     GithubAuthProvider,
@@ -13,11 +23,13 @@ import { MobileBar } from './MobileBar';
 import logo from '../../assets/logo.svg';
 
 import { useFirebase } from '../context/firebase';
+import { ProfileModal } from '../modal';
 
 const Navbar = () => {
     const { auth } = useFirebase();
     const [user, setUser] = useState<User | null>();
     const [showMenu, setShowMenu] = useState(false);
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     const handleWindowResize = useCallback(() => {
         if (window.innerWidth > 991) {
@@ -52,6 +64,7 @@ const Navbar = () => {
 
     return (
         <Box>
+            <ProfileModal isOpen={isOpen} onClose={onClose} />
             <VStack
                 paddingBlock="16px"
                 as="nav"
@@ -80,6 +93,7 @@ const Navbar = () => {
                                     {user.displayName}
                                 </Text>
                                 <Text
+                                    _hover={{ cursor: 'pointer' }}
                                     as="span"
                                     fontSize="14px"
                                     color="#DBF72C"
@@ -87,6 +101,7 @@ const Navbar = () => {
                                     style={{
                                         marginTop: '0px',
                                     }}
+                                    onClick={onOpen}
                                 >
                                     view profile
                                 </Text>
@@ -188,6 +203,7 @@ const Navbar = () => {
                                             {user.displayName}
                                         </Text>
                                         <Text
+                                            _hover={{ cursor: 'pointer' }}
                                             as="span"
                                             fontSize="14px"
                                             color="#DBF72C"
@@ -195,6 +211,7 @@ const Navbar = () => {
                                             style={{
                                                 marginTop: '0px',
                                             }}
+                                            onClick={onOpen}
                                         >
                                             view profile
                                         </Text>

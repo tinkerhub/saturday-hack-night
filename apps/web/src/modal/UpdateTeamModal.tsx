@@ -138,10 +138,9 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: Mod
                                 fontSize="16px"
                                 fontFamily="Clash Display"
                             >
-                                <FormControl>
+                                <FormControl isInvalid>
                                     <FormLabel color="white">Team Name</FormLabel>
                                     <Input
-                                        ref={initialRef}
                                         size="lg"
                                         defaultValue={teamData?.data()?.name}
                                         isReadOnly
@@ -160,7 +159,6 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: Mod
                                 <FormControl mt={4}>
                                     <FormLabel color="white">Github repository</FormLabel>
                                     <Input
-                                        ref={initialRef}
                                         defaultValue={teamData?.data()?.repo}
                                         isReadOnly
                                         placeholder="www.github.com/example/exampleRepo"
@@ -181,7 +179,6 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: Mod
                             <FormControl>
                                 <FormLabel color="white">Member 1</FormLabel>
                                 <Input
-                                    ref={initialRef}
                                     placeholder="Github Username"
                                     onChange={(e) => setMember1(e.target.value)}
                                     defaultValue={member1}
