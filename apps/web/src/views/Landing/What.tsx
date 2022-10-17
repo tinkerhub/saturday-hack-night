@@ -20,7 +20,7 @@ const What = () => (
                 textAlign="left"
                 zIndex="1"
             >
-                WHAT{' '}
+                WHAT IS{' '}
                 <span
                     style={{
                         color: '#DBF72C',

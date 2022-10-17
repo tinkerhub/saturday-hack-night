@@ -14,7 +14,12 @@ const Footer = () => (
         justifyContent="space-between"
     >
         <Image width="85px" src={thLogo} alt="TinkerHub Logo" />
-        <Link href="https://tinkerhub.org">
+        <Link
+            href="https://tinkerhub.org"
+            _hover={{
+                textDecoration: 'none',
+            }}
+        >
             <Text
                 fontSize={{
                     base: '12px',
