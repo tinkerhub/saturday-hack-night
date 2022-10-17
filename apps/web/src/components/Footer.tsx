@@ -1,4 +1,4 @@
-import { HStack, Image, Text } from '@chakra-ui/react';
+import { HStack, Image, Link, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import thLogo from '../../assets/TH.svg';
@@ -14,17 +14,19 @@ const Footer = () => (
         justifyContent="space-between"
     >
         <Image width="85px" src={thLogo} alt="TinkerHub Logo" />
-        <Text
-            fontSize={{
-                base: '12px',
-                lg: '24px',
-            }}
-            fontWeight="bold"
-            fontFamily="Clash Display"
-            textColor="white"
-        >
-            tinkerhub.org
-        </Text>
+        <Link href="https://tinkerhub.org">
+            <Text
+                fontSize={{
+                    base: '12px',
+                    lg: '24px',
+                }}
+                fontWeight="bold"
+                fontFamily="Clash Display"
+                textColor="white"
+            >
+                tinkerhub.org
+            </Text>
+        </Link>
     </HStack>
 );
 

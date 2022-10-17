@@ -5,7 +5,7 @@ import { Accordion } from '../../components';
 const faqs = [
     {
         question: 'What is Saturday Hacknight?',
-        answer: 'Saturday Hack Night is a biweekly hackathon organized by TinkerHub. The focus of the event is to provide learners the opportunity to explore a unique API and build exciting projects. TinkerHub will provide any credits or mentorship needed while you only have to think of one thing, Build!',
+        answer: 'Saturday Hack Night is bi-weekly hackathon that gives tech-savvy learners an opportunity to explore all the latest technology related concepts including APIs, frameworks and build some cool projects.',
     },
     {
         question: 'Who can Participate?',
@@ -13,7 +13,7 @@ const faqs = [
     },
     {
         question: 'What should be the team size?',
-        answer: 'You can work individually or in a team of 2-4 members.',
+        answer: 'You can work individually or in a team of 1-3 members.',
     },
     {
         question: 'What is the schedule of the program?',

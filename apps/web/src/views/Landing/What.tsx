@@ -3,7 +3,7 @@ import React from 'react';
 import physicalhack from '../../../assets/physicalHack.png';
 import neon from '../../../assets/neon01.svg';
 
-const Why = () => (
+const What = () => (
     <>
         <Image top="500px" position="absolute" src={neon} right="0" zIndex="0" />
         <VStack
@@ -20,7 +20,7 @@ const Why = () => (
                 textAlign="left"
                 zIndex="1"
             >
-                WHY{' '}
+                WHAT{' '}
                 <span
                     style={{
                         color: '#DBF72C',
@@ -80,4 +80,4 @@ const Why = () => (
     </>
 );
 
-export default Why;
+export default What;

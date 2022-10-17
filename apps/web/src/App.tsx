@@ -9,6 +9,7 @@ import Landing from './routes/Landing';
 import Events from './routes/Events';
 import Join from './routes/Join';
 import { NavBar } from './components';
+import '../assets/clashDisplay.css';
 
 const App = () => {
     const { auth, db, functions } = useFirebase();

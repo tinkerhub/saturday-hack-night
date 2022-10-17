@@ -1,8 +1,8 @@
 import Home from './Home';
-import Why from './Why';
 import How from './How';
 import Queries from './Queries';
 import Hear from './Hear';
 import Faq from './Faq';
+import What from './What';
 
-export { Home, Why, How, Queries, Hear, Faq };
+export { Home, What, How, Queries, Hear, Faq };

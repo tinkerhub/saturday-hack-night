@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 
@@ -5,34 +6,6 @@ import fetch from 'node-fetch';
 
 const app = admin.initializeApp();
 const firestore = app.firestore();
-
-async function setUpGitRepo(eventID: string, teamID: string, repoUrl: string, name: string) {
-    const { token } = functions.config().github;
-
-    const event = await firestore.doc(`events/${eventID}`).get();
-    const repo = `${event.get('org')}/${event.get('repoName')}`;
-
-    const response = await fetch(
-        `https://api.github.com/repos/${repo}/actions/workflows/add-project.yml/dispatches`,
-        {
-            headers: {
-                Accept: 'application/vnd.github.v3+json',
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
-            method: 'POST',
-            body: JSON.stringify({
-                ref: 'main',
-                inputs: {
-                    repo_url: repoUrl,
-                    folder_name: `${name} | ${teamID}`,
-                },
-            }),
-        }
-    ).then((res) => res.text());
-
-    if (response) console.error(response);
-}
 
 async function queueMails(
     bulk: FirebaseFirestore.WriteBatch,
@@ -42,7 +15,7 @@ async function queueMails(
     members: Array<string>,
     teamName: string,
     repo: string,
-    isUpdate: boolean
+    isUpdate: boolean,
 ) {
     const mails = firestore.collection(`/events/${eventID}/teams/${teamID}/mails`);
     const leadUser = await firestore.doc(`users/${lead}`).get();
@@ -61,7 +34,7 @@ async function queueMails(
                 },
             },
         });
-    members.forEach(async (member) => {
+    return members.map(async (member) => {
         const user = await firestore.doc(`users/${member}`).get();
         bulk.create(mails.doc(member), {
             to: [user.get('email')],
@@ -84,7 +57,7 @@ export const onNewUser = functions.auth.user().onCreate(async (user) => {
     const idNo = parts[parts.length - 1].split('?')[0];
 
     const github: any = await fetch(`https://api.github.com/user/${idNo}`).then((response) =>
-        response.json()
+        response.json(),
     );
     const data = {
         name: user.displayName,
@@ -104,6 +77,18 @@ export const onTeamCreated = functions.firestore
         const bulk = firestore.batch();
         const membersRef = snapshot.ref.collection('members');
 
+        const users = [snapshot.get('lead'), ...[snapshot.get('members') || []]];
+        const checks = users.map((user) =>
+            firestore.doc(`users/${user}/teams/${context.params.eventID}`).get(),
+        );
+
+        const results = await Promise.all(checks);
+
+        if (results.map((doc) => doc.exists).find((doc) => doc))
+            return snapshot.ref
+                .delete()
+                .catch((err) => console.error(err, `Delete Team ID => ${context.params.teamID}`));
+
         bulk.create(
             firestore.doc(`users/${snapshot.get('lead')}/teams/${context.params.eventID}`),
             {
@@ -112,7 +97,7 @@ export const onTeamCreated = functions.firestore
                 name: snapshot.get('name'),
                 repo: snapshot.get('repo'),
                 lead: true,
-            }
+            },
         );
         if (snapshot.get('members'))
             snapshot.get('members').forEach((uid: string) => {
@@ -122,13 +107,6 @@ export const onTeamCreated = functions.firestore
                 });
             });
 
-        await setUpGitRepo(
-            context.params.eventID,
-            context.params.teamID,
-            snapshot.get('repo'),
-            snapshot.get('name')
-        ).catch((error) => console.error(error));
-
         await queueMails(
             bulk,
             context.params.eventID,
@@ -137,7 +115,7 @@ export const onTeamCreated = functions.firestore
             snapshot.get('members'),
             snapshot.get('name'),
             snapshot.get('repo'),
-            false
+            false,
         );
 
         return bulk
@@ -156,12 +134,26 @@ export const onTeamEdited = functions.firestore
 
         const added = newMembers.filter((x: string) => !oldMember.includes(x));
         const removed = oldMember.filter((x: string) => !newMembers.includes(x));
+
+        const delta = Math.sign(
+            change.after.get('projectStatus') - change.before.get('projectStatus'),
+        );
+
+        if (
+            (change.after.get('projectStatus') > 50 || change.before.get('projectStatus') > 50) &&
+            delta !== 0
+        )
+            bulk.update(firestore.doc(`/events/${context.params.eventID}`), {
+                projectCount: admin.firestore.FieldValue.increment(delta),
+            });
+
         added.forEach((uid: string) => {
             bulk.create(membersRef.doc(uid), {
                 uid,
                 accepted: false,
             });
         });
+
         removed.forEach((uid: string) => {
             bulk.delete(membersRef.doc(uid));
         });
@@ -174,7 +166,7 @@ export const onTeamEdited = functions.firestore
             added,
             change.after.get('name'),
             change.after.get('repo'),
-            true
+            true,
         );
 
         return bulk
@@ -199,13 +191,13 @@ export const joinTeam = functions.https.onCall(async (data, context) => {
     if (registration.exists)
         throw new functions.https.HttpsError(
             'already-exists',
-            'User already in a team for this event'
+            'User already in a team for this event',
         );
 
     const batch = firestore.batch();
 
     const member = firestore.doc(
-        `events/${data.eventID}/teams/${data.teamID}/members/${context.auth?.uid}`
+        `events/${data.eventID}/teams/${data.teamID}/members/${context.auth?.uid}`,
     );
     const team = firestore.doc(`users/${context.auth?.uid}/teams/${data.teamID}`);
 
@@ -215,7 +207,7 @@ export const joinTeam = functions.https.onCall(async (data, context) => {
         if (error.code === 5)
             throw new functions.https.HttpsError(
                 'permission-denied',
-                'User not invited or team does exist.'
+                'User not invited or team does exist.',
             );
         if (error.code === 6)
             throw new functions.https.HttpsError('aborted', 'User already joined this team');
