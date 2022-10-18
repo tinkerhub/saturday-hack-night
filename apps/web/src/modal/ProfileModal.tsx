@@ -9,14 +9,17 @@ import {
     Heading,
     Flex,
     FormControl,
-    FormLabel,
+    Text,
+    Box,
+    Select,
     FormErrorMessage,
+    ModalHeader,
+    Button,
 } from '@chakra-ui/react';
 import { GithubAuthProvider, signInWithPopup } from 'firebase/auth';
 
 import { getDoc, doc, DocumentData, DocumentSnapshot } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { Select, AsyncSelect, OptionBase, GroupBase } from 'chakra-react-select';
 import bg from '../../assets/bg01.png';
 import User from '../../assets/physicalHack.png';
 import { useFirebase } from '../context/firebase';
@@ -30,11 +33,6 @@ interface UserData {
     phno: string;
     email: string;
     district: string;
-}
-
-interface Options extends OptionBase {
-    label: string;
-    value: string;
 }
 
 const districts = [
@@ -63,7 +61,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
     const [user, setUser] = useState<DocumentSnapshot<DocumentData> | null>(null);
 
     const fetchCampus = async () => {
-        const coll: [Options] = [
+        const coll: [any] = [
             {
                 label: 'Other',
                 value: 'Other',
@@ -100,62 +98,149 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
         <Modal isOpen={isOpen} onClose={onClose} size={{ base: 'full', lg: 'xl' }}>
             <ModalOverlay />
             <ModalContent
-                minH="600px"
-                position="relative"
-                borderRadius="10px"
-                backgroundColor="#0C0F17"
                 minWidth={{
                     base: 'full',
                     lg: 'container.md',
                 }}
             >
-                <ModalBody
-                    h="300px"
+                <ModalHeader
+                    minHeight="200px"
                     backgroundImage={`
                     linear-gradient(180deg, rgba(12, 15, 23, 0) 67.85%, #0C0F17 100%),
                     linear-gradient(180deg, #0C0F17 0%, rgba(12, 15, 23, 0.8) 100%),
                     url(${bg}) `}
                 >
                     <ModalCloseButton
+                        padding="15px"
                         color="rgba(226, 76, 75, 1)"
                         border="2px solid rgba(226, 76, 75, 1)"
                         borderRadius="full"
                     />
-                    <Center flexDirection="column" mt="50px">
-                        <Avatar src={User} order="2px solid #DBF72C" width="150px" height="150px" />
-                        <Heading color="white" fontFamily="Clash Display">
-                            Sreehari jayaraj
+                </ModalHeader>
+                <ModalBody backgroundColor="#0C0F17">
+                    <Center flexDirection="column" marginBlockStart="-120px">
+                        <Avatar
+                            src={User}
+                            border="3px solid #DBF72C"
+                            width="150px"
+                            height="150px"
+                        />
+                        <Heading color="white" fontSize="40" fontFamily="Clash Display">
+                            {user?.get('name')}
                         </Heading>
-                        <Heading
+                        <Text
                             color="rgba(233, 229, 225, 1)"
                             fontFamily="Clash Display"
                             fontSize="18px"
                             opacity="0.5"
                         >
-                            Hello@gmail.com
-                        </Heading>
+                            {user?.get('email')}
+                        </Text>
                     </Center>
-                    <Flex justifyContent="space-between" alignItems="center" mt="50px">
+                    <Flex
+                        flexDirection={{ base: 'column', lg: 'row' }}
+                        columnGap="25px"
+                        rowGap="25px"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        mt="25px"
+                    >
                         <FormControl label="District" id="District">
-                            <FormLabel>District</FormLabel>
-                            <Select isClearable options={districts} />
-
-                            <FormErrorMessage>Please pick an option</FormErrorMessage>
+                            <Select
+                                variant="filled"
+                                backgroundColor="rgba(255,255,255,0.15)"
+                                textColor="rgba(255,255,255,0.5)"
+                                iconColor="rgba(255,255,255,0.5)"
+                                height="45px"
+                                fontWeight="regular"
+                                transition="0.3s ease-in all"
+                                fontSize="16px"
+                                placeholder="Select District"
+                                fontFamily="Clash Display"
+                                _hover={{
+                                    backgroundColor: 'rgba(255,255,255,0.15)',
+                                    boxShadow: '0px 2px 4px rgba(255, 255, 255, 0.15)',
+                                }}
+                                _focus={{
+                                    border: '1px solid rgba(219, 247, 44, 0.15)',
+                                }}
+                            >
+                                {districts.map((district) => (
+                                    <option
+                                        style={{
+                                            padding: '10px',
+                                            backgroundColor: 'rgba(255,255,255,0.15)',
+                                            fontFamily: 'Clash Display',
+                                            fontSize: '16px',
+                                            fontWeight: 'regular',
+                                        }}
+                                        value={district.value}
+                                    >
+                                        {district.label}
+                                    </option>
+                                ))}
+                            </Select>
+                            <FormErrorMessage>Please pick an District</FormErrorMessage>
                         </FormControl>
-
-                        <FormControl label="College" id="College">
-                            <FormLabel>I currenlty study at</FormLabel>
-                            <AsyncSelect<Options, true, GroupBase<Options>>
-                                isClearable
-                                defaultOptions
-                                loadOptions={fetchCampus}
-                                // loadOptions={() => fetchCampus()}
-                                // onInputChange={handleInputChange}
-                            />
-
-                            <FormErrorMessage>Please pick an option</FormErrorMessage>
+                        <FormControl label="Campus" id="campus">
+                            <Select
+                                variant="filled"
+                                backgroundColor="rgba(255,255,255,0.15)"
+                                textColor="rgba(255,255,255,0.5)"
+                                iconColor="rgba(255,255,255,0.5)"
+                                height="45px"
+                                fontWeight="regular"
+                                transition="0.3s ease-in all"
+                                fontSize="16px"
+                                placeholder="Select Campus"
+                                fontFamily="Clash Display"
+                                _hover={{
+                                    backgroundColor: 'rgba(255,255,255,0.15)',
+                                    boxShadow: '0px 2px 4px rgba(255, 255, 255, 0.15)',
+                                }}
+                                _focus={{
+                                    border: '1px solid rgba(219, 247, 44, 0.15)',
+                                }}
+                            >
+                                {districts.map((district) => (
+                                    <option
+                                        style={{
+                                            padding: '10px',
+                                            backgroundColor: 'rgba(255,255,255,0.15)',
+                                            fontFamily: 'Clash Display',
+                                            fontSize: '16px',
+                                            fontWeight: 'regular',
+                                        }}
+                                        value={district.value}
+                                    >
+                                        {district.label}
+                                    </option>
+                                ))}
+                            </Select>
+                            <FormErrorMessage>Please pick an District</FormErrorMessage>
                         </FormControl>
                     </Flex>
+
+                    <Button
+                        width="250px"
+                        backgroundColor="white"
+                        fontSize="18px"
+                        fontWeight="medium"
+                        height="45px"
+                        transition=".5s all ease"
+                        _hover={{
+                            boxShadow: '0px 8px 16px rgba(255, 255, 255, 0.15)',
+                            backgroundColor: '#DBF72C',
+                        }}
+                        _active={{
+                            textColor: '#DBF72C',
+                            background: 'rgba(219, 247, 44, 0.15)',
+                            boxShadow: '0px 8px 16px rgba(219, 247, 44, 0.15)',
+                            backdropFilter: 'blur(25px)',
+                        }}
+                    >
+                        REGISTER N
+                    </Button>
                 </ModalBody>
             </ModalContent>
         </Modal>
