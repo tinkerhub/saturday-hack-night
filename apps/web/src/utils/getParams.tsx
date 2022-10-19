@@ -1,4 +1,4 @@
-export function getParams(params: string) {
+function getParams(params: string) {
     const rawParams = params.replace('?', '').split('&');
     const extractedParams: { [key: string]: string } = {};
     rawParams.forEach((item) => {
@@ -7,3 +7,5 @@ export function getParams(params: string) {
     });
     return extractedParams;
 }
+
+export default getParams;

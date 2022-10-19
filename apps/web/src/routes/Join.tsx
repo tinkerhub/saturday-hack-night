@@ -5,7 +5,7 @@ import { CheckCircleIcon, CloseIcon } from '@chakra-ui/icons';
 import { httpsCallable } from 'firebase/functions';
 import { GithubAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useFirebase } from '../context/firebase';
-import { getParams } from '../utils/getParams';
+import { getParams } from '../utils';
 
 const Join = () => {
     const { eventID, teamID } = getParams(useLocation().search);
