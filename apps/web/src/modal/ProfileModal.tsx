@@ -98,6 +98,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
         <Modal isOpen={isOpen} onClose={onClose} size={{ base: 'full', lg: 'xl' }}>
             <ModalOverlay />
             <ModalContent
+                borderRadius="10px"
                 minWidth={{
                     base: 'full',
                     lg: 'container.md',
@@ -105,6 +106,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
             >
                 <ModalHeader
                     minHeight="200px"
+                    borderTopRadius="10px"
                     backgroundImage={`
                     linear-gradient(180deg, rgba(12, 15, 23, 0) 67.85%, #0C0F17 100%),
                     linear-gradient(180deg, #0C0F17 0%, rgba(12, 15, 23, 0.8) 100%),
@@ -117,7 +119,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                         borderRadius="full"
                     />
                 </ModalHeader>
-                <ModalBody backgroundColor="#0C0F17">
+                <ModalBody backgroundColor="#0C0F17" borderBottomRadius="10px">
                     <Center flexDirection="column" marginBlockStart="-120px">
                         <Avatar
                             src={User}
@@ -137,110 +139,116 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                             {user?.get('email')}
                         </Text>
                     </Center>
-                    <Flex
-                        flexDirection={{ base: 'column', lg: 'row' }}
-                        columnGap="25px"
-                        rowGap="25px"
-                        justifyContent="space-between"
-                        alignItems="center"
-                        mt="25px"
-                    >
-                        <FormControl label="District" id="District">
-                            <Select
-                                variant="filled"
-                                backgroundColor="rgba(255,255,255,0.15)"
-                                textColor="rgba(255,255,255,0.5)"
-                                iconColor="rgba(255,255,255,0.5)"
-                                height="45px"
-                                fontWeight="regular"
-                                transition="0.3s ease-in all"
-                                fontSize="16px"
-                                placeholder="Select District"
-                                fontFamily="Clash Display"
-                                _hover={{
-                                    backgroundColor: 'rgba(255,255,255,0.15)',
-                                    boxShadow: '0px 2px 4px rgba(255, 255, 255, 0.15)',
-                                }}
-                                _focus={{
-                                    border: '1px solid rgba(219, 247, 44, 0.15)',
-                                }}
-                            >
-                                {districts.map((district) => (
-                                    <option
-                                        style={{
-                                            padding: '10px',
-                                            backgroundColor: 'rgba(255,255,255,0.15)',
-                                            fontFamily: 'Clash Display',
-                                            fontSize: '16px',
-                                            fontWeight: 'regular',
-                                        }}
-                                        value={district.value}
-                                    >
-                                        {district.label}
-                                    </option>
-                                ))}
-                            </Select>
-                            <FormErrorMessage>Please pick an District</FormErrorMessage>
-                        </FormControl>
-                        <FormControl label="Campus" id="campus">
-                            <Select
-                                variant="filled"
-                                backgroundColor="rgba(255,255,255,0.15)"
-                                textColor="rgba(255,255,255,0.5)"
-                                iconColor="rgba(255,255,255,0.5)"
-                                height="45px"
-                                fontWeight="regular"
-                                transition="0.3s ease-in all"
-                                fontSize="16px"
-                                placeholder="Select Campus"
-                                fontFamily="Clash Display"
-                                _hover={{
-                                    backgroundColor: 'rgba(255,255,255,0.15)',
-                                    boxShadow: '0px 2px 4px rgba(255, 255, 255, 0.15)',
-                                }}
-                                _focus={{
-                                    border: '1px solid rgba(219, 247, 44, 0.15)',
-                                }}
-                            >
-                                {districts.map((district) => (
-                                    <option
-                                        style={{
-                                            padding: '10px',
-                                            backgroundColor: 'rgba(255,255,255,0.15)',
-                                            fontFamily: 'Clash Display',
-                                            fontSize: '16px',
-                                            fontWeight: 'regular',
-                                        }}
-                                        value={district.value}
-                                    >
-                                        {district.label}
-                                    </option>
-                                ))}
-                            </Select>
-                            <FormErrorMessage>Please pick an District</FormErrorMessage>
-                        </FormControl>
-                    </Flex>
+                    <Flex rowGap="30px" flexDirection="column" alignItems="stretch">
+                        <Flex
+                            flexDirection={{ base: 'column', lg: 'row' }}
+                            columnGap="25px"
+                            rowGap="25px"
+                            justifyContent="space-between"
+                            alignItems="center"
+                            marginTop="25px"
+                        >
+                            <FormControl label="District" id="District">
+                                <Select
+                                    variant="filled"
+                                    backgroundColor="rgba(255,255,255,0.15)"
+                                    textColor="rgba(255,255,255,0.5)"
+                                    iconColor="rgba(255,255,255,0.5)"
+                                    height="45px"
+                                    fontWeight="regular"
+                                    transition="0.3s ease-in all"
+                                    fontSize="16px"
+                                    placeholder="Select District"
+                                    fontFamily="Clash Display"
+                                    _hover={{
+                                        backgroundColor: 'rgba(255,255,255,0.15)',
+                                        boxShadow: '0px 2px 4px rgba(255, 255, 255, 0.15)',
+                                    }}
+                                    _focus={{
+                                        border: '1px solid rgba(219, 247, 44, 0.15)',
+                                    }}
+                                >
+                                    {districts.map((district) => (
+                                        <option
+                                            style={{
+                                                padding: '10px',
+                                                backgroundColor: 'rgba(255,255,255,0.15)',
+                                                fontFamily: 'Clash Display',
+                                                fontSize: '16px',
+                                                fontWeight: 'regular',
+                                            }}
+                                            value={district.value}
+                                        >
+                                            {district.label}
+                                        </option>
+                                    ))}
+                                </Select>
+                                <FormErrorMessage>Please pick an District</FormErrorMessage>
+                            </FormControl>
+                            <FormControl label="Campus" id="campus">
+                                <Select
+                                    variant="filled"
+                                    backgroundColor="rgba(255,255,255,0.15)"
+                                    textColor="rgba(255,255,255,0.5)"
+                                    iconColor="rgba(255,255,255,0.5)"
+                                    height="45px"
+                                    fontWeight="regular"
+                                    transition="0.3s ease-in all"
+                                    fontSize="16px"
+                                    placeholder="Select Campus"
+                                    fontFamily="Clash Display"
+                                    _hover={{
+                                        backgroundColor: 'rgba(255,255,255,0.15)',
+                                        boxShadow: '0px 2px 4px rgba(255, 255, 255, 0.15)',
+                                    }}
+                                    _focus={{
+                                        border: '1px solid rgba(219, 247, 44, 0.15)',
+                                    }}
+                                >
+                                    {districts.map((district) => (
+                                        <option
+                                            style={{
+                                                padding: '10px',
+                                                backgroundColor: 'rgba(255,255,255,0.15)',
+                                                fontFamily: 'Clash Display',
+                                                fontSize: '16px',
+                                                fontWeight: 'regular',
+                                            }}
+                                            value={district.value}
+                                        >
+                                            {district.label}
+                                        </option>
+                                    ))}
+                                </Select>
+                                <FormErrorMessage>Please pick an District</FormErrorMessage>
+                            </FormControl>
+                        </Flex>
 
-                    <Button
-                        width="250px"
-                        backgroundColor="white"
-                        fontSize="18px"
-                        fontWeight="medium"
-                        height="45px"
-                        transition=".5s all ease"
-                        _hover={{
-                            boxShadow: '0px 8px 16px rgba(255, 255, 255, 0.15)',
-                            backgroundColor: '#DBF72C',
-                        }}
-                        _active={{
-                            textColor: '#DBF72C',
-                            background: 'rgba(219, 247, 44, 0.15)',
-                            boxShadow: '0px 8px 16px rgba(219, 247, 44, 0.15)',
-                            backdropFilter: 'blur(25px)',
-                        }}
-                    >
-                        REGISTER N
-                    </Button>
+                        <Center paddingBlockEnd="30px">
+                            <Button
+                                width="250px"
+                                backgroundColor="rgba(256, 256, 256, 0.15)"
+                                fontSize="18px"
+                                fontWeight="medium"
+                                textColor="white"
+                                height="45px"
+                                transition=".5s all ease"
+                                _hover={{
+                                    boxShadow: '0px 8px 16px rgba(255, 255, 255, 0.15)',
+                                    backgroundColor: '#DBF72C',
+                                    textColor: '#0C0F17',
+                                }}
+                                _active={{
+                                    textColor: '#DBF72C',
+                                    background: 'rgba(219, 247, 44, 0.15)',
+                                    boxShadow: '0px 8px 16px rgba(219, 247, 44, 0.15)',
+                                    backdropFilter: 'blur(25px)',
+                                }}
+                            >
+                                UPDATE PROFILE
+                            </Button>
+                        </Center>
+                    </Flex>
                 </ModalBody>
             </ModalContent>
         </Modal>
