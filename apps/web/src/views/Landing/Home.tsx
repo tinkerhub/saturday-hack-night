@@ -15,7 +15,7 @@ const Home = () => {
         } else {
             signInWithPopup(auth, new GithubAuthProvider()).then((user) => {
                 if (user) {
-                    navigate('/dashboard');
+                    navigate('/events');
                 }
             });
         }
