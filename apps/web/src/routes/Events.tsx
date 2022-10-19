@@ -1,11 +1,4 @@
-import {
-    VStack,
-    Heading,
-    Grid,
-    Center,
-    CircularProgress,
-    CircularProgressLabel,
-} from '@chakra-ui/react';
+import { VStack, Heading, Grid, Center, CircularProgress } from '@chakra-ui/react';
 import {
     QueryDocumentSnapshot,
     DocumentData,
@@ -92,7 +85,6 @@ const Events = () => {
                         Explored Areas🌟
                     </Heading>
                     <Center height="50vh">
-                        <CircularProgressLabel>loading screen</CircularProgressLabel>
                         <CircularProgress isIndeterminate color="#A6BA30" size="80px" />
                     </Center>
                 </VStack>
