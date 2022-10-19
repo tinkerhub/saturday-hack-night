@@ -23,6 +23,7 @@ import React, { useEffect, useState } from 'react';
 import bg from '../../assets/bg01.png';
 import User from '../../assets/physicalHack.png';
 import { useFirebase } from '../context/firebase';
+import { toTitleCase } from '../utils';
 
 interface ProfileMod {
     isOpen: boolean;
@@ -37,6 +38,11 @@ interface UserData {
     campusId: string;
 }
 
+interface Campus {
+    campusId: string;
+    campusName: string;
+}
+
 const districts = [
     { label: 'Thiruvananthapuram', value: 'Thiruvananthapuram' },
     { label: 'Kollam', value: 'Kollam' },
@@ -44,7 +50,7 @@ const districts = [
     { label: 'Alappuzha', value: 'Alappuzha' },
     { label: 'Kottayam', value: 'Kottayam' },
     { label: 'Idukki', value: 'Idukki' },
-    { label: 'Ernakukam', value: 'Ernakukukam' },
+    { label: 'Ernakulam', value: 'Ernakulam' },
     { label: 'Thrissur', value: 'Thrissur' },
     { label: 'Palakkad', value: 'Palakkad' },
     { label: 'Malappuram', value: 'Malappuram' },
@@ -65,23 +71,32 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
         campusId: '',
     });
     const [user, setUser] = useState<DocumentSnapshot<DocumentData> | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [campuses, setCampuses] = useState<Array<Campus>>([{ campusId: '', campusName: '' }]);
 
-    const fetchCampus = async () => {
-        const coll: [any] = [
-            {
-                label: 'Other',
-                value: 'Other',
-            },
-        ];
-        const req = await fetch(
-            `https://us-central1-educational-institutions.cloudfunctions.net/getCollegeByDistrict?district=${data.district}`,
-        );
-        const res = await req.json();
-        res.forEach((college: any) => {
-            coll.push({ label: college.name, value: college.name });
-        });
-        return coll;
-    };
+    useEffect(() => {
+        (async () => {
+            setLoading(true);
+            const coll: [any] = [
+                {
+                    label: 'Other',
+                    value: 'Other',
+                },
+            ];
+            const req = await fetch(
+                `https://us-central1-educational-institutions.cloudfunctions.net/getCollegeByDistrict?district=${data.district}`,
+            );
+            const res = await req.json();
+            res.forEach((college: any) => {
+                coll.push({ campusId: college.id, campusName: college.name });
+            });
+            setCampuses(coll);
+            setLoading(false);
+        })();
+        return () => {
+            setLoading(false);
+        };
+    }, [data.district]);
 
     useEffect(() => {
         auth.onAuthStateChanged(async (authUser: any) => {
@@ -196,6 +211,9 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                     height="45px"
                                     borderRadius="10px"
                                     fontWeight="regular"
+                                    onChange={(e) => {
+                                        setData({ ...data, district: e.target.value });
+                                    }}
                                     transition="0.3s ease-in all"
                                     defaultValue={data.district}
                                     fontSize="16px"
@@ -230,6 +248,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                             <FormControl label="Campus" id="campus">
                                 <Select
                                     variant="filled"
+                                    disabled={loading}
                                     backgroundColor="rgba(255,255,255,0.15)"
                                     textColor="rgba(255,255,255,0.5)"
                                     iconColor="rgba(255,255,255,0.5)"
@@ -238,8 +257,15 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                     transition="0.3s ease-in all"
                                     borderRadius="10px"
                                     fontSize="16px"
+                                    defaultValue={data.campus}
                                     placeholder="Select Campus"
                                     fontFamily="Clash Display"
+                                    onChange={(e) => {
+                                        const { campusId, campusName } = campuses.filter(
+                                            (campus) => campus.campusName === e.target.value,
+                                        )[0];
+                                        setData({ ...data, campusId, campus: campusName });
+                                    }}
                                     _hover={{
                                         backgroundColor: 'rgba(255,255,255,0.15)',
                                         boxShadow: '0px 2px 4px rgba(255, 255, 255, 0.15)',
@@ -248,8 +274,9 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                         border: '1px solid rgba(219, 247, 44, 0.15)',
                                     }}
                                 >
-                                    {districts.map((district) => (
+                                    {campuses.map((campus) => (
                                         <option
+                                            key={campus.campusId}
                                             style={{
                                                 padding: '10px',
                                                 backgroundColor: 'rgba(255,255,255,0.15)',
@@ -257,9 +284,9 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                                 fontSize: '16px',
                                                 fontWeight: 'regular',
                                             }}
-                                            value={district.value}
+                                            value={campus.campusName}
                                         >
-                                            {district.label}
+                                            {toTitleCase(campus.campusName)}
                                         </option>
                                     ))}
                                 </Select>
