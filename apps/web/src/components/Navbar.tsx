@@ -73,6 +73,7 @@ const Navbar = () => {
                 alignItems="stretch"
                 paddingInline={{ base: '16px', md: '32px' }}
                 zIndex="3"
+                backgroundColor="rgba(13,16,24,0.75)"
                 style={{
                     backdropFilter: 'blur(10px)',
                 }}
