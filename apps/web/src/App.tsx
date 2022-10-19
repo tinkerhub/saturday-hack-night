@@ -9,17 +9,16 @@ import Landing from './routes/Landing';
 import Events from './routes/Events';
 import Join from './routes/Join';
 import { NavBar } from './components';
-import '../assets/clashDisplay.css';
+import '../assets/style/clashDisplay.css';
 
 const App = () => {
     const { auth, db, functions } = useFirebase();
 
-    // eslint-disable-next-line no-restricted-globals
-    // if (location.hostname === 'localhost') {
-    //     connectAuthEmulator(auth, 'http://localhost:9099');
-    //     connectFirestoreEmulator(db, 'localhost', 8080);
-    //     connectFunctionsEmulator(functions, 'localhost', 5001);
-    // }
+    if (location.hostname === 'localhost') {
+        connectAuthEmulator(auth, 'http://localhost:9099');
+        connectFirestoreEmulator(db, 'localhost', 8080);
+        connectFunctionsEmulator(functions, 'localhost', 5001);
+    }
     return (
         <ChakraProvider>
             <BrowserRouter>

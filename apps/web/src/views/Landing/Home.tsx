@@ -3,7 +3,7 @@ import { signInWithPopup, GithubAuthProvider } from 'firebase/auth';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFirebase } from '../../context/firebase';
-import bg from '../../../assets/bg01.png';
+import bg from '../../../assets/images/codeBg.png';
 
 const Home = () => {
     const { auth } = useFirebase();

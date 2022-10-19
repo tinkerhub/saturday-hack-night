@@ -1,7 +1,7 @@
 import { HStack, Image, Link, Text } from '@chakra-ui/react';
 import React from 'react';
 
-import thLogo from '../../assets/TH.svg';
+import thLogo from '../../assets/images/TH.svg';
 
 const Footer = () => (
     <HStack

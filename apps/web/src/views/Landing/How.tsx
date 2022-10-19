@@ -1,6 +1,6 @@
 import { VStack, Heading, Grid } from '@chakra-ui/react';
 import React from 'react';
-import codeClub from '../../../assets/codeClub.png';
+import codeClub from '../../../assets/images/codeClub.png';
 import { Card } from '../../components';
 
 const How = () => (

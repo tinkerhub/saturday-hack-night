@@ -20,8 +20,8 @@ import {
 } from 'firebase/auth';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { MobileBar } from './MobileBar';
-import logo from '../../assets/logo.svg';
-import logoHover from '../../assets/logo_hover.svg';
+import logo from '../../assets/images/logo.svg';
+import logoHover from '../../assets/images/logo_hover.svg';
 
 import { useFirebase } from '../context/firebase';
 import { ProfileModal } from '../modal';

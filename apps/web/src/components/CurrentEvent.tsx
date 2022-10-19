@@ -21,7 +21,7 @@ import {
     QueryDocumentSnapshot,
 } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import circleIcon from '../../assets/circle.svg';
+import circleIcon from '../../assets/images/circle.svg';
 import { useFirebase } from '../context/firebase';
 import { UpdateTeamModal, CreateTeamModal } from '../modal';
 

@@ -11,7 +11,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import { useFirebase } from '../context/firebase';
 import { Layout } from '../layout';
-import bg from '../../assets/bg01.png';
+import bg from '../../assets/images/codeBg.png';
 import { CurrentEvent, EventCard } from '../components';
 
 const Events = () => {

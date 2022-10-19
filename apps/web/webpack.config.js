@@ -17,12 +17,11 @@ const config = {
         port: 3000,
         hot: true,
         historyApiFallback: true,
-        host: 'localhost',
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: 'src/index.html',
-            favicon: path.resolve(__dirname, 'assets/favicon.svg'),
+            favicon: path.resolve(__dirname, 'assets/images/favicon.svg'),
             minify: {
                 removeAttributeQuotes: true,
                 collapseWhitespace: true,

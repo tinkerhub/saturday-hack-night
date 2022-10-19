@@ -20,8 +20,8 @@ import { GithubAuthProvider, signInWithPopup } from 'firebase/auth';
 
 import { getDoc, doc, DocumentData, DocumentSnapshot } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import bg from '../../assets/bg01.png';
-import User from '../../assets/physicalHack.png';
+import bg from '../../assets/images/codeBg.png';
+import User from '../../assets/images/physicalHack.png';
 import { useFirebase } from '../context/firebase';
 import { toTitleCase } from '../utils';
 

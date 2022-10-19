@@ -1,7 +1,7 @@
 import { Heading, VStack, Text, Flex, Image } from '@chakra-ui/react';
 import React from 'react';
-import physicalhack from '../../../assets/physicalHack.png';
-import neon from '../../../assets/neon01.svg';
+import physicalhack from '../../../assets/images/physicalHack.png';
+import neon from '../../../assets/images/neon01.svg';
 
 const What = () => (
     <>
