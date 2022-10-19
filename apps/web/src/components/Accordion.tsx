@@ -9,7 +9,11 @@ import {
 } from '@chakra-ui/react';
 
 const Accordion = ({ content }: AccordionProps) => (
-    <ChakraAccordion>
+    <ChakraAccordion
+        style={{
+            marginInline: '9px',
+        }}
+    >
         {content.map((item) => (
             <AccordionItem
                 borderRadius="10px"
