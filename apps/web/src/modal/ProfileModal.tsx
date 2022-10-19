@@ -11,14 +11,15 @@ import {
     FormControl,
     Text,
     Select,
-    FormErrorMessage,
+    Box,
     ModalHeader,
     Button,
     Input,
+    FormErrorMessage,
 } from '@chakra-ui/react';
 import { GithubAuthProvider, signInWithPopup } from 'firebase/auth';
 
-import { getDoc, doc, DocumentData, DocumentSnapshot } from 'firebase/firestore';
+import { getDoc, doc, DocumentData, DocumentSnapshot, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import bg from '../../assets/images/codeBg.png';
 import User from '../../assets/images/physicalHack.png';
@@ -73,6 +74,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
     const [user, setUser] = useState<DocumentSnapshot<DocumentData> | null>(null);
     const [loading, setLoading] = useState(true);
     const [campuses, setCampuses] = useState<Array<Campus>>([{ campusId: '', campusName: '' }]);
+    const [error, setError] = useState<boolean>(false);
 
     useEffect(() => {
         (async () => {
@@ -115,6 +117,33 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
             }
         });
     }, [auth, db]);
+
+    const updateProfile = async () => {
+        setError(false);
+        setLoading(true);
+        if (!data.phno || !data.phno.match(/^(\+\d{1,3})?\d{10}$/g)) {
+            setLoading(false);
+            return setError(true);
+        }
+        if (data.district === 'Other')
+            setData((d) => ({ ...d, district: '', campus: '', districtId: '' }));
+        if (auth.currentUser) {
+            updateDoc(user!.ref, {
+                phno: data.phno,
+                email: data.email,
+                district: data.district,
+                campusID: data.campusId,
+                campusName: data.campus,
+            })
+                .then(() => {
+                    setLoading(false);
+                    onClose();
+                })
+                .catch((err) => {
+                    throw err;
+                });
+        }
+    };
 
     return (
         <Modal isOpen={isOpen} onClose={onClose} size={{ base: 'full', lg: 'xl' }}>
@@ -172,6 +201,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                         <FormControl isRequired label="Phone Number" id="Phone">
                             <Input
                                 placeholder="Phone Number"
+                                disabled={loading}
                                 variant="filled"
                                 height="45px"
                                 fontWeight="regular"
@@ -181,15 +211,16 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                 backgroundColor="rgba(255,255,255,0.15)"
                                 textColor="white"
                                 fontFamily="Clash Display"
+                                border="none"
+                                borderRadius="10px"
+                                onChange={(e) => setData({ ...data, phno: e.target.value })}
                                 _placeholder={{
                                     textColor: 'rgba(255, 255, 255, 0.25)',
                                 }}
-                                border="none"
                                 _focus={{
                                     boxShadow: '0px 3px 8px rgba(219, 247, 44, 0.15)',
                                     border: '1px solid rgba(219, 247, 44, 0.15)',
                                 }}
-                                borderRadius="10px"
                                 _hover={{
                                     backgroundColor: 'rgba(255,255,255,0.25)',
                                 }}
@@ -204,6 +235,8 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                         >
                             <FormControl label="District" id="District">
                                 <Select
+                                    disabled={loading}
+                                    name="district"
                                     variant="filled"
                                     backgroundColor="rgba(255,255,255,0.15)"
                                     textColor="rgba(255,255,255,0.5)"
@@ -247,6 +280,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                             </FormControl>
                             <FormControl label="Campus" id="campus">
                                 <Select
+                                    name="campus"
                                     variant="filled"
                                     disabled={loading}
                                     backgroundColor="rgba(255,255,255,0.15)"
@@ -293,6 +327,18 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                 <FormErrorMessage>Please pick an District</FormErrorMessage>
                             </FormControl>
                         </Flex>
+                        <Box
+                            display={error ? 'block' : 'none'}
+                            backgroundColor="rgba(226,76,75,0.4)"
+                            marginTop="-15px"
+                            paddingInline="10px"
+                            borderRadius="5px"
+                            paddingBlock="5px"
+                        >
+                            <Text fontFamily="Clash Display" fontSize="12px" textColor="#E24C4B">
+                                Please Enter a valid Mobile Number
+                            </Text>
+                        </Box>
 
                         <Center paddingBlockEnd="30px">
                             <Button
@@ -316,6 +362,9 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                 }}
                                 _focus={{
                                     border: '1px solid rgba(219, 247, 44, 0.15)',
+                                }}
+                                onClick={() => {
+                                    updateProfile();
                                 }}
                             >
                                 Update Profile
