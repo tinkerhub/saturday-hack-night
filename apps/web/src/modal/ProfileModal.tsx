@@ -10,11 +10,11 @@ import {
     Flex,
     FormControl,
     Text,
-    Box,
     Select,
     FormErrorMessage,
     ModalHeader,
     Button,
+    Input,
 } from '@chakra-ui/react';
 import { GithubAuthProvider, signInWithPopup } from 'firebase/auth';
 
@@ -33,22 +33,22 @@ interface UserData {
     phno: string;
     email: string;
     district: string;
+    campus: string;
+    campusId: string;
 }
 
 const districts = [
     { label: 'Thiruvananthapuram', value: 'Thiruvananthapuram' },
     { label: 'Kollam', value: 'Kollam' },
     { label: 'Pathanamthitta', value: 'Pathanamthitta' },
-    { label: 'Kottayam', value: 'Kottayam' },
     { label: 'Alappuzha', value: 'Alappuzha' },
+    { label: 'Kottayam', value: 'Kottayam' },
     { label: 'Idukki', value: 'Idukki' },
     { label: 'Ernakukam', value: 'Ernakukukam' },
     { label: 'Thrissur', value: 'Thrissur' },
     { label: 'Palakkad', value: 'Palakkad' },
     { label: 'Malappuram', value: 'Malappuram' },
-    { label: 'Kozhikode', value: 'Kozhikode' },
     { label: 'Wayanad', value: 'Wayanad' },
-    { label: 'Kannur', value: 'Kannur' },
     { label: 'Kozhikode', value: 'Kozhikode' },
     { label: 'Kannur', value: 'Kannur' },
     { label: 'Kasarkode', value: 'Kasarkode' },
@@ -57,7 +57,13 @@ const districts = [
 
 export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
     const { auth, db } = useFirebase();
-    const [data, setData] = useState<UserData>({ phno: '', email: '', district: '' });
+    const [data, setData] = useState<UserData>({
+        phno: '',
+        email: '',
+        district: '',
+        campus: '',
+        campusId: '',
+    });
     const [user, setUser] = useState<DocumentSnapshot<DocumentData> | null>(null);
 
     const fetchCampus = async () => {
@@ -72,7 +78,6 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
         );
         const res = await req.json();
         res.forEach((college: any) => {
-            console.log(college.name);
             coll.push({ label: college.name, value: college.name });
         });
         return coll;
@@ -88,6 +93,8 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                     phno: snap.get('phno'),
                     email: snap.get('email'),
                     district: snap.get('district') || '',
+                    campus: snap.get('campusName') || '',
+                    campusId: snap.get('campusID') || '',
                 });
                 // setCampuses({ id: snap.get('campusID') || '', name: snap.get('campusName') || '' });
             }
@@ -98,6 +105,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
         <Modal isOpen={isOpen} onClose={onClose} size={{ base: 'full', lg: 'xl' }}>
             <ModalOverlay />
             <ModalContent
+                border="none"
                 borderRadius="10px"
                 minWidth={{
                     base: 'full',
@@ -105,6 +113,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                 }}
             >
                 <ModalHeader
+                    border="none"
                     minHeight="200px"
                     borderTopRadius="10px"
                     backgroundImage={`
@@ -119,10 +128,10 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                         borderRadius="full"
                     />
                 </ModalHeader>
-                <ModalBody backgroundColor="#0C0F17" borderBottomRadius="10px">
+                <ModalBody backgroundColor="#0C0F17" borderBottomRadius="10px" border="none">
                     <Center flexDirection="column" marginBlockStart="-120px">
                         <Avatar
-                            src={User}
+                            src={user?.get('avatar') || User}
                             border="3px solid #DBF72C"
                             width="150px"
                             height="150px"
@@ -139,14 +148,44 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                             {user?.get('email')}
                         </Text>
                     </Center>
-                    <Flex rowGap="30px" flexDirection="column" alignItems="stretch">
+                    <Flex
+                        marginTop="25px"
+                        rowGap="30px"
+                        flexDirection="column"
+                        alignItems="stretch"
+                    >
+                        <FormControl isRequired label="Phone Number" id="Phone">
+                            <Input
+                                placeholder="Phone Number"
+                                variant="filled"
+                                height="45px"
+                                fontWeight="regular"
+                                transition="0.3s ease-in all"
+                                defaultValue={data.phno}
+                                fontSize="16px"
+                                backgroundColor="rgba(255,255,255,0.15)"
+                                textColor="white"
+                                fontFamily="Clash Display"
+                                _placeholder={{
+                                    textColor: 'rgba(255, 255, 255, 0.25)',
+                                }}
+                                border="none"
+                                _focus={{
+                                    boxShadow: '0px 3px 8px rgba(219, 247, 44, 0.15)',
+                                    border: '1px solid rgba(219, 247, 44, 0.15)',
+                                }}
+                                borderRadius="10px"
+                                _hover={{
+                                    backgroundColor: 'rgba(255,255,255,0.25)',
+                                }}
+                            />
+                        </FormControl>
                         <Flex
                             flexDirection={{ base: 'column', lg: 'row' }}
                             columnGap="25px"
                             rowGap="25px"
                             justifyContent="space-between"
                             alignItems="center"
-                            marginTop="25px"
                         >
                             <FormControl label="District" id="District">
                                 <Select
@@ -155,8 +194,10 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                     textColor="rgba(255,255,255,0.5)"
                                     iconColor="rgba(255,255,255,0.5)"
                                     height="45px"
+                                    borderRadius="10px"
                                     fontWeight="regular"
                                     transition="0.3s ease-in all"
+                                    defaultValue={data.district}
                                     fontSize="16px"
                                     placeholder="Select District"
                                     fontFamily="Clash Display"
@@ -170,6 +211,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                 >
                                     {districts.map((district) => (
                                         <option
+                                            key={district.value}
                                             style={{
                                                 padding: '10px',
                                                 backgroundColor: 'rgba(255,255,255,0.15)',
@@ -194,6 +236,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                     height="45px"
                                     fontWeight="regular"
                                     transition="0.3s ease-in all"
+                                    borderRadius="10px"
                                     fontSize="16px"
                                     placeholder="Select Campus"
                                     fontFamily="Clash Display"
@@ -230,7 +273,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                 backgroundColor="rgba(256, 256, 256, 0.15)"
                                 fontSize="18px"
                                 fontWeight="medium"
-                                textColor="white"
+                                textColor="rgba(255,255,255,0.5)"
                                 height="45px"
                                 transition=".5s all ease"
                                 _hover={{
@@ -244,8 +287,11 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                     boxShadow: '0px 8px 16px rgba(219, 247, 44, 0.15)',
                                     backdropFilter: 'blur(25px)',
                                 }}
+                                _focus={{
+                                    border: '1px solid rgba(219, 247, 44, 0.15)',
+                                }}
                             >
-                                UPDATE PROFILE
+                                Update Profile
                             </Button>
                         </Center>
                     </Flex>

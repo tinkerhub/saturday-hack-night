@@ -196,6 +196,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                                 <Input
                                     placeholder="Github Username"
                                     onChange={(e) => setMember2(e.target.value)}
+                                    width="300px"
                                     size="lg"
                                     _placeholder={{
                                         textColor: 'rgba(255, 255, 255, 0.25)',
@@ -206,7 +207,6 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                                     _focus={{
                                         boxShadow: '0px 3px 8px rgba(219, 247, 44, 0.15)',
                                     }}
-                                    width="300px"
                                     borderRadius="10px"
                                 />
                             </FormControl>
