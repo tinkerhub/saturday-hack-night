@@ -59,7 +59,7 @@ const districts = [
     { label: 'Kozhikode', value: 'Kozhikode' },
     { label: 'Kannur', value: 'Kannur' },
     { label: 'Kasaragod', value: 'Kasaragod' },
-    { label: 'other', value: 'other' },
+    { label: 'Other', value: 'Other' },
 ];
 
 export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
@@ -275,7 +275,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                 >
                                     {districts.map((district) => (
                                         <option
-                                            key={district.value}
+                                            key={district.label}
                                             style={{
                                                 padding: '10px',
                                                 fontFamily: 'Clash Display',

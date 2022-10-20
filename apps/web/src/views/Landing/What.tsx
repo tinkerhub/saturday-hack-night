@@ -13,23 +13,6 @@ const What = () => (
             width="100vw"
             alignItems="flex-start"
         >
-            <Heading
-                fontFamily="Clash Display"
-                textColor="white"
-                fontSize="40px"
-                textAlign="left"
-                zIndex="1"
-            >
-                WHAT IS{' '}
-                <span
-                    style={{
-                        color: '#DBF72C',
-                    }}
-                >
-                    SATURDAY HACKNIGHT &nbsp;
-                </span>
-                ?
-            </Heading>
             <Flex
                 alignItems="flex-start"
                 flexDirection={{
@@ -37,41 +20,36 @@ const What = () => (
                     lg: 'row',
                 }}
             >
-                <VStack alignItems="flex-start">
+                <VStack
+                    alignItems="flex-start"
+                    justifyContent="center"
+                    minHeight={{ base: '0px', md: '450px' }}
+                >
+                    <Heading
+                        fontFamily="Clash Display"
+                        textColor="white"
+                        fontSize="40px"
+                        textAlign="left"
+                        zIndex="1"
+                    >
+                        WHAT IS{' '}
+                        <span
+                            style={{
+                                color: '#DBF72C',
+                            }}
+                        >
+                            SATURDAY HACKNIGHT &nbsp;
+                        </span>
+                        ?
+                    </Heading>
                     <Text
                         fontSize={{ base: '18px', lg: '24px' }}
                         textColor="white"
-                        marginBlockStart="36px"
-                        marginBlockEnd="18px"
+                        marginBlock="18px"
                     >
                         Saturday Hack Night is a bi weekly hackathon that gives tech-savvy learners
                         an oppurtunity to explore all the latest technology related concepts
                         including APIs, frameworks and build some cool projects.
-                    </Text>
-                    <Text
-                        textColor="#E9E5E1"
-                        textAlign="left"
-                        fontSize={{ base: '16px', lg: '18px' }}
-                    >
-                        The needed resources, the respective API/Framework and documentation will be
-                        shared with you once you register.
-                        <br />
-                        <br />
-                        All you have to do is brainstorm and come up with a solution for your
-                        problem with the given Tech.
-                        <br />
-                        <br />
-                        Once you are done with referring the documentation provided, team up (or
-                        even go solo!) and join the Discord server to take part in an exhilarating
-                        evening.
-                        <br />
-                        <br />
-                        The problem statement will be published on Saturday evening and you will
-                        have the whole night to build.
-                        <br />
-                        <br />
-                        Stay tuned on TinkerHub Discord channels and Instagram page for the latest
-                        information and clues!
                     </Text>
                 </VStack>
                 <Image zIndex="1" height="100%" width="100%" src={physicalhack} />
