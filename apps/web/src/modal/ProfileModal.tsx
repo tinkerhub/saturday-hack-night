@@ -75,7 +75,6 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
     const [loading, setLoading] = useState(true);
     const [campuses, setCampuses] = useState<Array<Campus>>([{ campusId: '', campusName: '' }]);
     const [error, setError] = useState<boolean>(false);
-
     useEffect(() => {
         (async () => {
             setLoading(true);
@@ -102,22 +101,21 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
 
     useEffect(() => {
         auth.onAuthStateChanged(async (authUser: any) => {
-            if (!authUser) signInWithPopup(auth, new GithubAuthProvider());
-            else {
-                const snap = await getDoc(doc(db, `users/${authUser.uid}`));
-                setUser(snap);
-                setData({
-                    phno: snap.get('phno'),
-                    email: snap.get('email'),
-                    district: snap.get('district') || '',
-                    campus: snap.get('campusName') || '',
-                    campusId: snap.get('campusID') || '',
-                });
-                // setCampuses({ id: snap.get('campusID') || '', name: snap.get('campusName') || '' });
-            }
+            if (!authUser) return;
+            const snap = await getDoc(doc(db, `users/${authUser.uid}`));
+            setUser(snap);
+            setData({
+                phno: snap.get('phno'),
+                email: snap.get('email'),
+                district: snap.get('district') || '',
+                campus: snap.get('campusName') || '',
+                campusId: snap.get('campusID') || '',
+            });
+            // setCampuses({ id: snap.get('campusID') || '', name: snap.get('campusName') || '' });
         });
     }, [auth, db]);
 
+    // eslint-disable-next-line consistent-return
     const updateProfile = async () => {
         setError(false);
         setLoading(true);
