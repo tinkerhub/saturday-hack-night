@@ -22,7 +22,7 @@ import {
 import { getDoc, doc, DocumentData, DocumentSnapshot, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import bg from '../../assets/images/codeBg.png';
-import User from '../../assets/images/physicalHack.png';
+import userFallback from '../../assets/images/userFallback.png';
 import { useFirebase } from '../context/firebase';
 import { toTitleCase } from '../utils';
 
@@ -189,7 +189,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                 <ModalBody backgroundColor="#0C0F17" borderBottomRadius="10px" border="none">
                     <Center flexDirection="column" marginBlockStart="-120px">
                         <Avatar
-                            src={user?.get('avatar') || User}
+                            src={user?.get('avatar') || userFallback}
                             border="3px solid #DBF72C"
                             width="150px"
                             height="150px"

@@ -22,6 +22,7 @@ import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { MobileBar } from './MobileBar';
 import logo from '../../assets/images/logo.svg';
 import logoHover from '../../assets/images/logo_hover.svg';
+import userFallback from '../../assets/images/userFallback.png';
 
 import { useFirebase } from '../context/firebase';
 import { ProfileModal } from '../modal';
@@ -200,7 +201,7 @@ const Navbar = () => {
                             {user ? (
                                 <HStack>
                                     <Avatar
-                                        src={user.photoURL!}
+                                        src={user.photoURL || userFallback}
                                         border="2px solid #DBF72C"
                                         onClick={logout}
                                     />

@@ -29,7 +29,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
     const { db, auth } = useFirebase();
     const [teams, setTeams] = useState<number>(0);
     const [teamID, setTeamID] = useState<string>('');
-    const { name, about, time, image, moreInfo } = event.data();
+    const { name, about, time, imageWhite, moreInfo } = event.data();
     const {
         isOpen: isOpenUpdateModal,
         onOpen: onOpenUpdateModal,
@@ -68,7 +68,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
             <UpdateTeamModal
                 isOpen={isOpenUpdateModal}
                 onClose={onCloseUpdateModal}
-                image={image}
+                image={imageWhite}
                 teamID={teamID}
                 eventId={event.id}
             />
@@ -81,7 +81,6 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                 minWidth={{ base: '100%', lg: '50%' }}
                 maxWidth={{ base: '100%', lg: '50%' }}
                 borderRadius="10px"
-                rowGap="32px"
                 background="rgba(255, 255, 255, 0.15);"
                 style={{
                     backdropFilter: 'blur(10px)',
@@ -91,7 +90,8 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                     fontFamily="Clash Display"
                     width="100%"
                     justifyContent="space-between"
-                    padding="16px"
+                    paddingInline="16px"
+                    paddingBlockStart="16px"
                 >
                     <HStack textColor="white">
                         <CalendarIcon height="15px" width="15px" />
@@ -112,7 +112,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                 <Image
                     marginInline="16px"
                     width="100%"
-                    src={image}
+                    src={imageWhite}
                     objectFit="contain"
                     flexGrow="1"
                     paddingInline="8px"
