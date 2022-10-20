@@ -16,8 +16,8 @@ import {
     Button,
     Input,
     FormErrorMessage,
+    useToast,
 } from '@chakra-ui/react';
-import { GithubAuthProvider, signInWithPopup } from 'firebase/auth';
 
 import { getDoc, doc, DocumentData, DocumentSnapshot, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
@@ -75,6 +75,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
     const [loading, setLoading] = useState(true);
     const [campuses, setCampuses] = useState<Array<Campus>>([{ campusId: '', campusName: '' }]);
     const [error, setError] = useState<boolean>(false);
+    const toast = useToast();
     useEffect(() => {
         (async () => {
             setLoading(true);
@@ -135,9 +136,24 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
             })
                 .then(() => {
                     setLoading(false);
+                    toast({
+                        title: 'Profile Updated',
+                        description: 'Your profile has been updated successfully',
+                        status: 'success',
+                        duration: 5000,
+                        isClosable: true,
+                    });
                     onClose();
                 })
                 .catch((err) => {
+                    setLoading(false);
+                    toast({
+                        title: 'Error',
+                        description: 'Something went wrong',
+                        status: 'error',
+                        duration: 5000,
+                        isClosable: true,
+                    });
                     throw err;
                 });
         }

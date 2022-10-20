@@ -44,21 +44,21 @@ const What = () => (
                         marginBlockStart="36px"
                         marginBlockEnd="18px"
                     >
-                        Saturday Hack Night is not just your regular hackathon. Here, you will be
-                        building solutions/applications via API integration on every first and third
-                        Saturday of the month.
+                        Saturday Hack Night is a bi weekly hackathon that gives tech-savvy learners
+                        an oppurtunity to explore all the latest technology related concepts
+                        including APIs, frameworks and build some cool projects.
                     </Text>
                     <Text
                         textColor="#E9E5E1"
                         textAlign="left"
                         fontSize={{ base: '16px', lg: '18px' }}
                     >
-                        The needed resources, the respective API and documentation will be shared
-                        with you once you register.
+                        The needed resources, the respective API/Framework and documentation will be
+                        shared with you once you register.
                         <br />
                         <br />
                         All you have to do is brainstorm and come up with a solution for your
-                        problem with the given API.
+                        problem with the given Tech.
                         <br />
                         <br />
                         Once you are done with referring the documentation provided, team up (or
