@@ -11,6 +11,7 @@ import {
     ModalBody,
     ModalCloseButton,
     ModalContent,
+    useToast,
     ModalFooter,
     ModalHeader,
     ModalOverlay,
@@ -39,6 +40,7 @@ interface ModalType {
 
 export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: ModalType) => {
     const initialRef = React.useRef(null);
+    const toast = useToast();
     const [teamData, setTeamData] = useState<DocumentSnapshot<DocumentData>>();
     const [member1, setMember1] = useState<string>('');
     const [member2, setMember2] = useState<string>('');
@@ -56,10 +58,29 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: Mod
         });
         const memberData = await Promise.all(memberList);
 
-        await updateDoc(doc(db, `events/${eventId}/teams/${teamID}`), {
+        updateDoc(doc(db, `events/${eventId}/teams/${teamID}`), {
             members: memberData,
-        });
-        onClose();
+        })
+            .then(() => {
+                toast({
+                    title: 'Team Updated',
+                    description: 'Your team has been updated',
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                });
+                onClose();
+            })
+            .catch((error) => {
+                toast({
+                    title: 'Error',
+                    description: error.message,
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
+                });
+                throw error;
+            });
     };
     useEffect(() => {
         (async () => {
@@ -119,13 +140,13 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: Mod
                     border="2px solid rgba(226, 76, 75, 1)"
                     borderRadius="full"
                 />
-                <ModalBody marginTop="36px">
+                <ModalBody marginTop="9px">
                     <Heading fontFamily="Clash Display" as="h2" color="white">
                         Team Details
                     </Heading>
                     <Flex
                         justifyContent="space-evenly"
-                        columnGap="50px"
+                        columnGap="25px"
                         alignItems="center"
                         fontSize="16px"
                         fontFamily="Clash Display"

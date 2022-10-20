@@ -40,15 +40,14 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
         onOpen: onOpenCreateModal,
         onClose: onCloseCreateModal,
     } = useDisclosure();
-
     useEffect(() => {
         (async () => {
             const teamSnapshots = await getDocs(query(collection(db, `events/${event.id}/teams`)));
             setTeams(teamSnapshots.docs.length);
-            const userSnapshot = await getDoc(
+            const userSnap = await getDoc(
                 doc(db, `users/${auth.currentUser?.uid}/teams/${event.id}`),
             );
-            const user = userSnapshot.data();
+            const user = userSnap.data();
             if (user) setTeamID(user.teamID);
         })();
         return () => {};

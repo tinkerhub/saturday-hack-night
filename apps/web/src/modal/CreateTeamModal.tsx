@@ -14,12 +14,14 @@ import {
     Box,
     FormLabel,
     Input,
+    useToast,
 } from '@chakra-ui/react';
 import { getDocs, query, collection, where, addDoc } from 'firebase/firestore';
 import React, { useState, useRef } from 'react';
 import { useFirebase } from '../context/firebase';
 
 export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalProps) => {
+    const toast = useToast();
     const { auth, db } = useFirebase();
     const initialRef = useRef(null);
     const finalRef = useRef(null);
@@ -64,14 +66,32 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
             if (!m2) return setError((prev: any) => ({ ...prev, member2: true }));
             members.push(m2.uid);
         }
-        await addDoc(collection(db, `events/${eventId}/teams`), {
+        addDoc(collection(db, `events/${eventId}/teams`), {
             name,
             repo,
             members,
             lead: auth.currentUser.uid,
-        });
+        })
+            .then(() => {
+                toast({
+                    title: 'Team Registered',
+                    description: 'Your team has been registered successfully',
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: true,
+                });
+                onClose();
+            })
+            .catch(() => {
+                toast({
+                    title: 'Error',
+                    description: 'An error occured while registering your team',
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                });
+            });
         setLoading(false);
-        onClose();
     };
     return (
         <Modal
@@ -160,7 +180,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                             </FormControl>
 
                             <FormControl>
-                                <FormLabel color="white">*Github Repository</FormLabel>
+                                <FormLabel color="white">Github Repository</FormLabel>
                                 <Input
                                     ref={initialRef}
                                     disabled={loading}
