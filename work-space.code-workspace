@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": ".",
+		}
+	],
+	"settings": {
+		"files.exclude":{
+			".prettierrc":true,
+			".lintstagedrc":true,
+			"yarn-error.log":true,
+			"node_modules":true,
+			".eslintrc":false,
+			"firestore.indexes.json":true,
+			".github":true,
+			".husky":true,
+			".firebaserc":true,
+			"commitlint.config.js":true,
+			"yarn.lock":true,
+			"apps/functions/.turbo":true,
+			"apps/web/.turbo":true
+		}
+
+	}
+}
