@@ -58,7 +58,7 @@ const districts = [
     { label: 'Wayanad', value: 'Wayanad' },
     { label: 'Kozhikode', value: 'Kozhikode' },
     { label: 'Kannur', value: 'Kannur' },
-    { label: 'Kasarkode', value: 'Kasarkode' },
+    { label: 'Kasaragod', value: 'Kasaragod' },
     { label: 'other', value: 'other' },
 ];
 
@@ -239,7 +239,6 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                     name="district"
                                     variant="filled"
                                     backgroundColor="rgba(255,255,255,0.15)"
-                                    textColor="rgba(255,255,255,0.5)"
                                     iconColor="rgba(255,255,255,0.5)"
                                     height="45px"
                                     borderRadius="10px"
@@ -265,7 +264,6 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                             key={district.value}
                                             style={{
                                                 padding: '10px',
-                                                backgroundColor: 'rgba(255,255,255,0.15)',
                                                 fontFamily: 'Clash Display',
                                                 fontSize: '16px',
                                                 fontWeight: 'regular',
@@ -284,7 +282,6 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                     variant="filled"
                                     disabled={loading}
                                     backgroundColor="rgba(255,255,255,0.15)"
-                                    textColor="rgba(255,255,255,0.5)"
                                     iconColor="rgba(255,255,255,0.5)"
                                     height="45px"
                                     fontWeight="regular"
@@ -313,7 +310,6 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                             key={campus.campusId}
                                             style={{
                                                 padding: '10px',
-                                                backgroundColor: 'rgba(255,255,255,0.15)',
                                                 fontFamily: 'Clash Display',
                                                 fontSize: '16px',
                                                 fontWeight: 'regular',

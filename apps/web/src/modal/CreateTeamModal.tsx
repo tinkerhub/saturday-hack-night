@@ -25,6 +25,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
     const finalRef = useRef(null);
     const [name, setName] = useState('');
     const [repo, setRepo] = useState('');
+    const [loading, setLoading] = useState(false);
     const [member1, setMember1] = useState('');
     const [member2, setMember2] = useState('');
     const [error, setError] = useState({
@@ -35,12 +36,17 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
     });
     // eslint-disable-next-line consistent-return
     const registerTeam = async () => {
+        setLoading(true);
         setError({ name: false, repo: false, member1: false, member2: false });
 
-        if (!name.match(/^[a-z|0-9]+$/gi))
+        if (!name.match(/^[a-z|0-9]+$/gi)) {
+            setLoading(false);
             return setError((prev: any) => ({ ...prev, name: true }));
-        if (!repo.match(/^https:\/\/github.com\/[^/]+\/[^/]+$/g))
+        }
+        if (!repo.match(/^https:\/\/github.com\/[^/]+\/[^/]+$/g)) {
+            setLoading(false);
             return setError((prev: any) => ({ ...prev, repo: true }));
+        }
         let m1;
         let m2;
         const members = [];
@@ -64,6 +70,8 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
             members,
             lead: auth.currentUser.uid,
         });
+        setLoading(false);
+        onClose();
     };
     return (
         <Modal
@@ -89,6 +97,13 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                         padding: '16px',
                     }}
                 >
+                    <ModalCloseButton
+                        color="rgba(226, 76, 75, 1)"
+                        border="2px solid rgba(226, 76, 75, 1)"
+                        borderRadius="full"
+                    />
+                </ModalHeader>
+                <ModalBody>
                     <Heading fontFamily="Clash Display" fontSize="32px" textColor="#E9E5E1">
                         Register Your Team
                     </Heading>
@@ -106,16 +121,9 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                             {auth.currentUser?.email}
                         </span>
                     </Text>
-                    <ModalCloseButton
-                        color="rgba(226, 76, 75, 1)"
-                        border="2px solid rgba(226, 76, 75, 1)"
-                        borderRadius="full"
-                    />
-                </ModalHeader>
-                <ModalBody>
                     <Flex
                         justifyContent="space-evenly"
-                        columnGap="50px"
+                        columnGap="25px"
                         alignItems="center"
                         fontSize="16px"
                         fontFamily="Clash Display"
@@ -134,6 +142,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                                 <Input
                                     ref={initialRef}
                                     size="lg"
+                                    disabled={loading}
                                     placeholder="*Team Name"
                                     _focus={{
                                         boxShadow: '0px 3px 8px rgba(219, 247, 44, 0.15)',
@@ -145,7 +154,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                                     textColor="white"
                                     border="none"
                                     onChange={(e) => setName(e.target.value)}
-                                    width="300px"
+                                    minWidth="350px"
                                     borderRadius="10px"
                                 />
                             </FormControl>
@@ -154,6 +163,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                                 <FormLabel color="white">*Github Repository</FormLabel>
                                 <Input
                                     ref={initialRef}
+                                    disabled={loading}
                                     placeholder="www.github.com/example/exampleRepo"
                                     size="lg"
                                     onChange={(e) => setRepo(e.target.value)}
@@ -166,7 +176,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                                     backgroundColor="rgba(255, 255, 255, 0.25)"
                                     textColor="white"
                                     border="none"
-                                    width="300px"
+                                    minWidth="350px"
                                     borderRadius="10px"
                                 />
                             </FormControl>
@@ -175,6 +185,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                                 <Input
                                     ref={initialRef}
                                     placeholder="Github Username"
+                                    disabled={loading}
                                     size="lg"
                                     onChange={(e) => setMember1(e.target.value)}
                                     _focus={{
@@ -186,7 +197,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                                     backgroundColor="rgba(255, 255, 255, 0.25)"
                                     textColor="white"
                                     border="none"
-                                    width="300px"
+                                    minWidth="350px"
                                     borderRadius="10px"
                                 />
                             </FormControl>
@@ -196,7 +207,8 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                                 <Input
                                     placeholder="Github Username"
                                     onChange={(e) => setMember2(e.target.value)}
-                                    width="300px"
+                                    minWidth="350px"
+                                    disabled={loading}
                                     size="lg"
                                     _placeholder={{
                                         textColor: 'rgba(255, 255, 255, 0.25)',
@@ -213,44 +225,50 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                         </Flex>
                         <Flex
                             flexDirection="column"
-                            mt="20px"
+                            marginTop="20px"
                             rowGap={{
                                 base: '20px',
                                 lg: '30px',
                             }}
                         >
-                            <Box
-                                backgroundColor="rgba(226,76,75,0.4)"
-                                paddingInline="10px"
-                                borderRadius="5px"
-                                paddingBlock="5px"
-                            >
-                                <Text
-                                    fontFamily="Clash Display"
-                                    fontSize="12px"
-                                    textColor="#E24C4B"
+                            {error.name && (
+                                <Box
+                                    backgroundColor="rgba(226,76,75,0.15)"
+                                    paddingInline="10px"
+                                    borderRadius="5px"
+                                    paddingBlock="5px"
                                 >
-                                    Make sure all the members are registered on the platform
-                                </Text>
-                            </Box>
-                            <Box
-                                backgroundColor="rgba(226,76,75,0.4)"
-                                paddingInline="10px"
-                                borderRadius="5px"
-                                paddingBlock="5px"
-                            >
-                                <Text
-                                    fontFamily="Clash Display"
-                                    fontSize="12px"
-                                    textColor="#E24C4B"
+                                    <Text
+                                        fontFamily="Clash Display"
+                                        fontSize="12px"
+                                        textColor="#E24C4B"
+                                    >
+                                        Team Name should be Alpha Numeric & should not contain any
+                                        special characters
+                                    </Text>
+                                </Box>
+                            )}
+                            {error.repo && (
+                                <Box
+                                    backgroundColor="rgba(226,76,75,0.15)"
+                                    paddingInline="10px"
+                                    borderRadius="5px"
+                                    paddingBlock="5px"
                                 >
-                                    Project repo can&apos;t be changed once submitted
-                                </Text>
-                            </Box>
+                                    <Text
+                                        fontFamily="Clash Display"
+                                        fontSize="12px"
+                                        textColor="#E24C4B"
+                                    >
+                                        Enter a valid repo Url
+                                    </Text>
+                                </Box>
+                            )}
                             <Box
                                 backgroundColor="rgba(50,186,124,0.15)"
                                 paddingInline="10px"
                                 borderRadius="5px"
+                                width="350px"
                                 paddingBlock="5px"
                             >
                                 <Text
@@ -258,6 +276,10 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                                     fontSize="12px"
                                     textColor="#32BA7C"
                                 >
+                                    Make sure all the members are registered on the platform
+                                    <br />
+                                    Project repo can&apos;t be changed once submitted
+                                    <br />
                                     You can participate individualy or can team up with upto 2
                                     People
                                 </Text>
@@ -269,7 +291,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                     <Button
                         size="lg"
                         backgroundColor="rgba(255, 255, 255, 1)"
-                        onClick={registerTeam}
+                        onClick={loading ? () => {} : registerTeam}
                         transition="all 0.2s ease"
                         _hover={{
                             backgroundColor: '#DBF72C',
