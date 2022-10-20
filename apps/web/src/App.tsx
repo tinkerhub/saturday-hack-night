@@ -14,11 +14,11 @@ import '../assets/style/clashDisplay.css';
 const App = () => {
     const { auth, db, functions } = useFirebase();
 
-    // if (location.hostname === 'localhost') {
-    //     connectAuthEmulator(auth, 'http://localhost:9099');
-    //     connectFirestoreEmulator(db, 'localhost', 8080);
-    //     connectFunctionsEmulator(functions, 'localhost', 5001);
-    // }
+    /* if (location.hostname === 'localhost') {
+        connectAuthEmulator(auth, 'http://localhost:9099');
+        connectFirestoreEmulator(db, 'localhost', 8080);
+        connectFunctionsEmulator(functions, 'localhost', 5001);
+    } */
     return (
         <ChakraProvider>
             <BrowserRouter>
