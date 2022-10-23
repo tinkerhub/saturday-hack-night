@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const resposiveLoader = require('responsive-loader/sharp');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { InjectManifest } = require('workbox-webpack-plugin');
 
 const packageJSON = require('./package.json');
 
@@ -91,6 +92,13 @@ module.exports = () => {
                         sizes: [96, 128, 192, 256, 384, 500],
                     },
                 ],
+            }),
+        );
+        config.plugins.push(
+            new InjectManifest({
+                swSrc: path.resolve(__dirname, 'src', 'sw.ts'),
+                exclude: [/\.map$/, /^manifest.*\.js(?:on)?$/, /\.(jpe?g|png|webp)$/i],
+                maximumFileSizeToCacheInBytes: 12 * 1024 * 1024,
             }),
         );
         config.plugins.push(new CleanWebpackPlugin());
