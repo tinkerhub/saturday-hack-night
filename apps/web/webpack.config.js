@@ -45,6 +45,20 @@ const config = {
                 use: [stylesHandler, 'css-loader'],
             },
             {
+                test: /\.(jpe?g|png|webp|)$/i,
+                use: [
+                    {
+                        loader: 'responsive-loader',
+                        options: {
+                            adapter: resposiveLoader,
+                            sizes: [320, 640, 960, 1200, 1800, 2400],
+                            placeholder: true,
+                            placeholderSize: 20,
+                        },
+                    },
+                ],
+            },
+            {
                 test: /\.(eot|svg|ttf|woff|woff2|gif)$/i,
                 type: 'asset',
             },
@@ -64,20 +78,6 @@ module.exports = () => {
     if (isProduction) {
         config.mode = 'production';
         config.optimization = { splitChunks: { chunks: 'all' } };
-        config.module.rules.push({
-            test: /\.(jpe?g|png|webp|)$/i,
-            use: [
-                {
-                    loader: 'responsive-loader',
-                    options: {
-                        adapter: resposiveLoader,
-                        sizes: [320, 640, 960, 1200, 1800, 2400],
-                        placeholder: true,
-                        placeholderSize: 20,
-                    },
-                },
-            ],
-        });
         config.plugins.push(
             new WebpackPwaManifest({
                 name: 'Saturday HackNight',
