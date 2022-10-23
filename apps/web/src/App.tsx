@@ -33,7 +33,6 @@ const App = () => {
                     <Route path="/" element={<Landing />} />
                     <Route path="/events" element={<Events />} />
                     <Route path="/join" element={<Join />} />
-                    <Route path="*" element={<Landing />} />
                 </Routes>
             </BrowserRouter>
         </ChakraProvider>
