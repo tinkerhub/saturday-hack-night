@@ -52,19 +52,27 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
         let m1;
         let m2;
         const members = [];
-        if (member1.length > 0) {
-            m1 = (
-                await getDocs(query(collection(db, 'users'), where('githubID', '==', member1)))
-            ).docs[0].data();
-            if (!m1) return setError((prev: any) => ({ ...prev, member1: true }));
-            members.push(m1.uid);
+        try {
+            if (member1.length > 0) {
+                m1 = (
+                    await getDocs(query(collection(db, 'users'), where('githubID', '==', member1)))
+                ).docs[0].data();
+                members.push(m1.uid);
+            }
+        } catch (err) {
+            setLoading(false);
+            return setError((prev: any) => ({ ...prev, member1: true, member2: true }));
         }
-        if (member2.length > 0) {
-            m2 = (
-                await getDocs(query(collection(db, 'users'), where('githubID', '==', member2)))
-            ).docs[0].data();
-            if (!m2) return setError((prev: any) => ({ ...prev, member2: true }));
-            members.push(m2.uid);
+        try {
+            if (member2.length > 0) {
+                m2 = (
+                    await getDocs(query(collection(db, 'users'), where('githubID', '==', member2)))
+                ).docs[0].data();
+                members.push(m2.uid);
+            }
+        } catch (err) {
+            setLoading(false);
+            return setError((prev: any) => ({ ...prev, member2: true }));
         }
         addDoc(collection(db, `events/${eventId}/teams`), {
             name,
@@ -281,6 +289,38 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                                         textColor="#E24C4B"
                                     >
                                         Enter a valid repo Url
+                                    </Text>
+                                </Box>
+                            )}
+                            {error.member1 && (
+                                <Box
+                                    backgroundColor="rgba(226,76,75,0.15)"
+                                    paddingInline="10px"
+                                    borderRadius="5px"
+                                    paddingBlock="5px"
+                                >
+                                    <Text
+                                        fontFamily="Clash Display"
+                                        fontSize="12px"
+                                        textColor="#E24C4B"
+                                    >
+                                        Member 1 is not found on SHN Platform
+                                    </Text>
+                                </Box>
+                            )}
+                            {error.member2 && (
+                                <Box
+                                    backgroundColor="rgba(226,76,75,0.15)"
+                                    paddingInline="10px"
+                                    borderRadius="5px"
+                                    paddingBlock="5px"
+                                >
+                                    <Text
+                                        fontFamily="Clash Display"
+                                        fontSize="12px"
+                                        textColor="#E24C4B"
+                                    >
+                                        Member 2 is not found on SHN Platform
                                     </Text>
                                 </Box>
                             )}
