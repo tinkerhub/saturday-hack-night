@@ -61,7 +61,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
             }
         } catch (err) {
             setLoading(false);
-            return setError((prev: any) => ({ ...prev, member1: true, member2: true }));
+            return setError((prev: any) => ({ ...prev, member1: true }));
         }
         try {
             if (member2.length > 0) {
