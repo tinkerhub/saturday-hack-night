@@ -76,19 +76,6 @@ export const onTeamCreated = functions.firestore
     .onCreate(async (snapshot, context) => {
         const bulk = firestore.batch();
         const membersRef = snapshot.ref.collection('members');
-
-        const users = [snapshot.get('lead'), ...[snapshot.get('members') || []]];
-        const checks = users.map((user) =>
-            firestore.doc(`users/${user}/teams/${context.params.eventID}`).get(),
-        );
-
-        const results = await Promise.all(checks);
-
-        if (results.map((doc) => doc.exists).find((doc) => doc))
-            return snapshot.ref
-                .delete()
-                .catch((err) => console.error(err, `Delete Team ID => ${context.params.teamID}`));
-
         bulk.create(
             firestore.doc(`users/${snapshot.get('lead')}/teams/${context.params.eventID}`),
             {
