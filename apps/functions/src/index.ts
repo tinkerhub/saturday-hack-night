@@ -20,7 +20,7 @@ async function queueMails(
     const mails = firestore.collection(`/events/${eventID}/teams/${teamID}/mails`);
     const leadUser = await firestore.doc(`users/${lead}`).get();
 
-    if (!isUpdate)
+    if (!isUpdate) {
         bulk.create(mails.doc(lead), {
             to: [leadUser.get('email')],
             template: {
@@ -34,7 +34,8 @@ async function queueMails(
                 },
             },
         });
-    return members.map(async (member) => {
+    }
+    members.forEach(async (member) => {
         const user = await firestore.doc(`users/${member}`).get();
         bulk.create(mails.doc(member), {
             to: [user.get('email')],
@@ -56,7 +57,7 @@ export const onNewUser = functions.auth.user().onCreate(async (user) => {
     const parts = user.photoURL?.split('/') as unknown as string;
     const idNo = parts[parts.length - 1].split('?')[0];
 
-    const github: any = await fetch(`https://api.github.com/user/${idNo}`).then((response) =>
+    const github = await fetch(`https://api.github.com/user/${idNo}`).then((response) =>
         response.json(),
     );
     const data = {
@@ -129,18 +130,17 @@ export const onTeamEdited = functions.firestore
         if (
             (change.after.get('projectStatus') > 50 || change.before.get('projectStatus') > 50) &&
             delta !== 0
-        )
+        ) {
             bulk.update(firestore.doc(`/events/${context.params.eventID}`), {
                 projectCount: admin.firestore.FieldValue.increment(delta),
             });
-
+        }
         added.forEach((uid: string) => {
             bulk.create(membersRef.doc(uid), {
                 uid,
                 accepted: false,
             });
         });
-
         removed.forEach((uid: string) => {
             bulk.delete(membersRef.doc(uid));
         });
