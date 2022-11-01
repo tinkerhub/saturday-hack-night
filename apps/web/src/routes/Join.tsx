@@ -3,7 +3,7 @@ import { CircularProgress, Text, VStack } from '@chakra-ui/react';
 import { useLocation } from 'react-router-dom';
 import { CheckCircleIcon, CloseIcon } from '@chakra-ui/icons';
 import { httpsCallable } from 'firebase/functions';
-import { GithubAuthProvider, onAuthStateChanged, signInWithPopup, User } from 'firebase/auth';
+import { onAuthStateChanged, User } from 'firebase/auth';
 import { useFirebase } from '../context/firebase';
 import { getParams } from '../utils';
 
@@ -24,9 +24,8 @@ const Join = () => {
                 )({ teamID, eventID })
                     .then(() => setStatus({ state: 1, message: 'Done' }))
                     .catch((error) => setStatus({ state: -1, message: error.message }));
-            else signInWithPopup(auth, new GithubAuthProvider());
         }
-    }, [user, eventID, teamID, functions, status.state, auth]);
+    }, [auth, eventID, teamID, functions, user, status.state]);
     return (
         <VStack
             justifyContent="center"
@@ -38,7 +37,7 @@ const Join = () => {
             {status.state === 0 && (
                 <Text textAlign="center" fontFamily="Clash Display" fontSize="40px" color="white">
                     <CircularProgress isIndeterminate /> <br />
-                    Joining Team
+                    Joining Team...
                 </Text>
             )}
             {status.state === 1 && (
