@@ -80,7 +80,7 @@ const Navbar = () => {
                 }}
             >
                 <Flex alignItems="center" justifyContent="space-between">
-                    <Image
+                    <NavLink to="/"><Image
                         src={logo}
                         height="32px"
                         transition="all 0.4s ease-in"
@@ -91,7 +91,7 @@ const Navbar = () => {
                         onMouseOut={() => {
                             imageRef.current!.src = logo;
                         }}
-                    />
+                    /></NavLink>
                     <HStack
                         gap="18px"
                         display={{
