@@ -43,15 +43,15 @@
 
 ## About The Project
 
-Saturday Hacknight is a community built saturday-hack-night for Tinkers to conduct Hacking activities.
+Saturday Hacknight is a community built Platform for Tinkers to conduct Hacking activities.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Built With
 
 -   [Firebase](https://firebase.com/)
--   [Next.js](https://nextjs.org/)
--   [Typescript](https://typescript.com/)
+-   [Create react app](https://reactjs.org/)
+-   [Typescript](https://typescript.org/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
