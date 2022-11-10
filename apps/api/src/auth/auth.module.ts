@@ -1,16 +1,20 @@
 import { Module, DynamicModule } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 import { ConfigInjectionToken, AuthModuleConfig } from './config.interface';
 import { SupertokensService } from './supertokens/supertokens.service';
 
 @Module({
     providers: [SupertokensService],
-    imports: [ConfigModule],
     exports: [],
     controllers: [],
 })
 export class AuthModule {
-    static forRoot({ connectionURI, apiKey, appInfo }: AuthModuleConfig): DynamicModule {
+    static forRoot({
+        connectionURI,
+        apiKey,
+        appInfo,
+        githubClientId,
+        githubClientSecret,
+    }: AuthModuleConfig): DynamicModule {
         return {
             providers: [
                 {
@@ -18,6 +22,8 @@ export class AuthModule {
                         appInfo,
                         connectionURI,
                         apiKey,
+                        githubClientId,
+                        githubClientSecret,
                     },
                     provide: ConfigInjectionToken,
                 },
