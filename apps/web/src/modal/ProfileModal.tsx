@@ -20,6 +20,7 @@ import {
 } from '@chakra-ui/react';
 
 import { getDoc, doc, DocumentData, DocumentSnapshot, updateDoc } from 'firebase/firestore';
+import { Select as ReactSelect, ChakraStylesConfig } from 'chakra-react-select';
 import React, { useEffect, useState } from 'react';
 import bg from '../../assets/images/codeBg.png';
 import userFallback from '../../assets/images/userFallback.png';
@@ -159,6 +160,32 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
         }
     };
 
+    const chakraStyles: ChakraStylesConfig = {
+        dropdownIndicator: (provided) => ({
+            ...provided,
+            bg: 'transparent',
+        }),
+        container: (provided) => ({
+            ...provided,
+            border: 'none',
+            _focus: {
+                boxShadow: '0px 3px 8px rgba(219, 247, 44, 0.15)',
+                border: '1px solid rgba(219, 247, 44, 0.15)',
+            },
+        }),
+        downChevron: () => ({
+            color: 'rgba(255, 255, 255, 0.25)',
+        }),
+        singleValue: () => ({
+            color: 'white',
+            fontFamily: 'Clash Display',
+        }),
+        placeholder: () => ({
+            fontFamily: 'Clash Display',
+            textColor: 'rgba(255, 255, 255, 0.25)',
+        }),
+    };
+
     return (
         <Modal isOpen={isOpen} onClose={onClose} size={{ base: 'full', lg: 'xl' }}>
             <ModalOverlay />
@@ -248,7 +275,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                             alignItems="center"
                         >
                             <FormControl label="District" id="District">
-                                <Select
+                                {/* <Select
                                     disabled={loading}
                                     name="district"
                                     variant="filled"
@@ -272,8 +299,8 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                     _focus={{
                                         border: '1px solid rgba(219, 247, 44, 0.15)',
                                     }}
-                                >
-                                    {districts.map((district) => (
+                                > */}
+                                {/* {districts.map((district) => (
                                         <option
                                             key={district.label}
                                             style={{
@@ -286,8 +313,18 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                         >
                                             {district.label}
                                         </option>
-                                    ))}
-                                </Select>
+                                    ))} */}
+                                <ReactSelect
+                                    placeholder="select district"
+                                    options={districts}
+                                    chakraStyles={chakraStyles}
+                                    onChange={(e: any) => {
+                                        console.log(e.target);
+                                        // setData({ ...data, district: e.target.value });
+                                    }}
+                                    value={data.district}
+                                />
+                                {/* </Select> */}
                                 <FormErrorMessage>Please pick an District</FormErrorMessage>
                             </FormControl>
                             <FormControl label="Campus" id="campus">

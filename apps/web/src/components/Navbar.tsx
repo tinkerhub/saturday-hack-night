@@ -82,17 +82,17 @@ const Navbar = () => {
                 <Flex alignItems="center" justifyContent="space-between">
                     <NavLink to="/">
                         <Image
-                        src={logo}
-                        height="32px"
-                        transition="all 0.4s ease-in"
-                        ref={imageRef}
-                        onMouseOver={() => {
-                            imageRef.current!.src = logoHover;
-                        }}
-                        onMouseOut={() => {
-                            imageRef.current!.src = logo;
-                        }}
-                    />
+                            src={logo}
+                            height="32px"
+                            transition="all 0.4s ease-in"
+                            ref={imageRef}
+                            onMouseOver={() => {
+                                imageRef.current!.src = logoHover;
+                            }}
+                            onMouseOut={() => {
+                                imageRef.current!.src = logo;
+                            }}
+                        />
                     </NavLink>
                     <HStack
                         gap="18px"
