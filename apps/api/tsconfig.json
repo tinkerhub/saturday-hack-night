@@ -1,0 +1,18 @@
+{
+    "extends": "../../tsconfig.json",
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules"],
+    "compilerOptions": {
+        "module": "commonjs",
+        "isolatedModules": false,
+        "declaration": true,
+        "noUnusedParameters": false,
+        "strictPropertyInitialization": false,
+        "strict": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "outDir": "./dist",
+        "baseUrl": "./"
+    }
+}
