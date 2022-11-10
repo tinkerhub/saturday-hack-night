@@ -36,9 +36,11 @@ import { MailModule } from './mail/mail.module';
                 transport: {
                     target: 'pino-pretty',
                     options: {
+                        singleLine: true,
                         colorize: true,
                         translateTime: true,
                         ignore: 'pid,hostname',
+                        minimumLevel: 'info',
                     },
                 },
             },

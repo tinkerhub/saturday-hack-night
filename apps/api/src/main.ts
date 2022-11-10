@@ -1,12 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
-import { Logger } from 'nestjs-pino';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
     const fastify = new FastifyAdapter({
-        logger: true,
+        logger: false,
     });
     const app = await NestFactory.create<NestFastifyApplication>(AppModule, fastify, {
         bufferLogs: true,
@@ -18,7 +17,6 @@ async function bootstrap() {
         .setVersion('0.0.1')
         .build();
     const document = SwaggerModule.createDocument(app, config);
-    app.useLogger(app.get(Logger));
     SwaggerModule.setup('docs', app, document);
     await app.listen((process.env.PORT as string) || 3001);
 }
