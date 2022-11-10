@@ -11,7 +11,54 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id              String      @id @unique @default(cuid()) @db.VarChar(30)
+  authid          String?     @unique // SuperTokens Authentication ID
+  githubid        String?     @unique // Github ID
+  name            String
+  email           String      @unique
+  campus          String?
+  district        String?
+  mobile          String?     @unique
+  teams           Team[]
+}
+
+model Event {
+  id            String        @id @unique @default(cuid()) @db.VarChar(30)
+  name          String
+  description   String
+  image         String
+  info          String
+  date          DateTime
+  teams         Team[]
+  projectCount  Int           @default(0)
+  registration  Boolean       @default(false)
+  results       Boolean       @default(false)
+  created_at    DateTime      @default(now())
+  updated_at    DateTime      @updatedAt
+}
+model Team {
+  id            String        @id @unique @default(cuid()) @db.VarChar(30)
+  name          String
+  pitchStatus   PitchStatus   @default(PENDING)
+  projectStatus ProjectStatus @default(PENDING)
+  repo          String
+  eventid       String
+  event         Event         @relation(fields: [eventid], references: [id])
+  members       User[]      
+  created_at    DateTime      @default(now())
+  updated_at    DateTime      @updatedAt
+}
+
+enum PitchStatus {
+  PENDING
+  ABSENT
+  PRESENT
+}
+
+enum ProjectStatus {
+  PENDING
+  WORKING
+  COMPLETED
+  DROP
+  BESTPROJECT
 }

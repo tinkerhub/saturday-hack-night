@@ -5,8 +5,11 @@ services:
         volumes:
             - ./tmp/pg:/var/lib/postgresql/data
         ports:
-            - 5433:5433
+            - 5432:5432
         environment:
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=postgres
             - POSTGRES_DB=shn-platform
+networks:
+    app_network:
+        driver: bridge
