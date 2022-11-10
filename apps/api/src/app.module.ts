@@ -1,10 +1,11 @@
+import Joi from 'joi';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import Joi from 'joi';
 import { LoggerModule } from 'nestjs-pino';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { AppController } from './app.controller';
+import { MailModule } from './mail/mail.module';
 
 @Module({
     imports: [
@@ -19,6 +20,10 @@ import { AppController } from './app.controller';
                 SUPERTOKENS_CONNECTION_URI: Joi.string(),
                 GITHUB_CLIENT_ID: Joi.string(),
                 GITHUB_CLIENT_SECRET: Joi.string(),
+                EMAIL_HOST: Joi.string(),
+                EMAIL_USERNAME: Joi.string(),
+                EMAIL_PASSWORD: Joi.string(),
+                MAIL_FROM: Joi.string(),
             }),
             validationOptions: {
                 allowUnknown: true,
@@ -50,6 +55,7 @@ import { AppController } from './app.controller';
             githubClientId: process.env.GITHUB_CLIENT_ID || '',
             githubClientSecret: process.env.GITHUB_CLIENT_SECRET || '',
         }),
+        MailModule,
     ],
     controllers: [AppController],
 })
