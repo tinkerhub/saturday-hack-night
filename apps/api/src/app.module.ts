@@ -4,6 +4,7 @@ import Joi from 'joi';
 import { LoggerModule } from 'nestjs-pino';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
+import { AppController } from './app.controller';
 
 @Module({
     imports: [
@@ -16,6 +17,8 @@ import { AuthModule } from './auth/auth.module';
                 SUPERTOKENS_API_DOMAIN: Joi.string(),
                 SUPERTOKENS_WEBSITE_DOMAIN: Joi.string(),
                 SUPERTOKENS_CONNECTION_URI: Joi.string(),
+                GITHUB_CLIENT_ID: Joi.string(),
+                GITHUB_CLIENT_SECRET: Joi.string(),
             }),
             validationOptions: {
                 allowUnknown: true,
@@ -44,7 +47,10 @@ import { AuthModule } from './auth/auth.module';
                 apiDomain: process.env.SUPERTOKENS_API_DOMAIN || '',
                 websiteDomain: process.env.SUPERTOKENS_WEBSITE_DOMAIN || '',
             },
+            githubClientId: process.env.GITHUB_CLIENT_ID || '',
+            githubClientSecret: process.env.GITHUB_CLIENT_SECRET || '',
         }),
     ],
+    controllers: [AppController],
 })
 export class AppModule {}
