@@ -1,12 +1,22 @@
+import { HttpService } from '@nestjs/axios';
 import supertokens from 'supertokens-node';
 import Session from 'supertokens-node/recipe/session';
 import ThirdParty from 'supertokens-node/recipe/thirdparty';
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
+import { AxiosError } from 'axios';
+import { catchError, firstValueFrom } from 'rxjs';
+import { ProfileService } from 'src/profile/profile.service';
 import { ConfigInjectionToken, AuthModuleConfig } from '../config.interface';
 
 @Injectable()
 export class SupertokensService {
-    constructor(@Inject(ConfigInjectionToken) private config: AuthModuleConfig) {
+    private readonly logger = new Logger('SuperTokensServixe');
+
+    constructor(
+        @Inject(ConfigInjectionToken) private config: AuthModuleConfig,
+        private httpService: HttpService,
+        private profileSevice: ProfileService,
+    ) {
         supertokens.init({
             appInfo: this.config.appInfo,
             supertokens: {
@@ -22,6 +32,49 @@ export class SupertokensService {
                                 clientSecret: this.config.githubClientSecret,
                             }),
                         ],
+                    },
+                    override: {
+                        apis: (originalImplementation) => ({
+                            ...originalImplementation,
+                            signInUpPOST: async (input) => {
+                                if (originalImplementation.signInUpPOST === undefined) {
+                                    throw Error('Should never come here');
+                                }
+                                const response = await originalImplementation.signInUpPOST(input);
+                                if (response.status === 'OK') {
+                                    if (response.createdNewUser) {
+                                        const { user } = response;
+                                        const { email, thirdParty, id } = user;
+                                        const { userId } = thirdParty;
+                                        const { data } = await firstValueFrom(
+                                            this.httpService
+                                                .get(`https://api.github.com/user/${userId}`)
+                                                .pipe(
+                                                    catchError((error: AxiosError) => {
+                                                        this.logger.error(error.response?.data);
+                                                        this.logger.log(
+                                                            error.message,
+                                                            'Github API Error',
+                                                        );
+                                                        throw error;
+                                                    }),
+                                                ),
+                                        );
+                                        const github = {
+                                            id,
+                                            authid: id,
+                                            name: data.name,
+                                            email,
+                                            avatar: data.avatar_url || null,
+                                            githubid: data.login || null,
+                                        };
+                                        const temp = await this.profileSevice.create(github);
+                                        this.logger.log(temp.message);
+                                    }
+                                }
+                                return response;
+                            },
+                        }),
                     },
                 }),
                 Session.init(),

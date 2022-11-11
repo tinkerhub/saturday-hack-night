@@ -6,6 +6,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { AppController } from './app.controller';
 import { MailModule } from './mail/mail.module';
+import { ProfileModule } from './profile/profile.module';
 
 @Module({
     imports: [
@@ -57,6 +58,7 @@ import { MailModule } from './mail/mail.module';
             githubClientSecret: process.env.GITHUB_CLIENT_SECRET as string,
         }),
         MailModule,
+        ProfileModule,
     ],
     controllers: [AppController],
 })
