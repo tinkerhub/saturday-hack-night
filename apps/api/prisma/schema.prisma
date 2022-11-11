@@ -11,10 +11,11 @@ datasource db {
 }
 
 model User {
-  id              String      @id @unique @default(cuid()) @db.VarChar(30)
+  id              String      @id @unique @default(cuid())
   authid          String?     @unique // SuperTokens Authentication ID
   githubid        String?     @unique // Github ID
   name            String
+  avatar          String?
   email           String      @unique
   campus          String?
   district        String?
@@ -23,7 +24,7 @@ model User {
 }
 
 model Event {
-  id            String        @id @unique @default(cuid()) @db.VarChar(30)
+  id            String        @id @unique @default(cuid())
   name          String
   description   String
   image         String
@@ -37,7 +38,7 @@ model Event {
   updated_at    DateTime      @updatedAt
 }
 model Team {
-  id            String        @id @unique @default(cuid()) @db.VarChar(30)
+  id            String        @id @unique @default(cuid())
   name          String
   pitchStatus   PitchStatus   @default(PENDING)
   projectStatus ProjectStatus @default(PENDING)
