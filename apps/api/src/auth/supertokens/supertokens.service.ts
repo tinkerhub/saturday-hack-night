@@ -10,7 +10,7 @@ import { ConfigInjectionToken, AuthModuleConfig } from '../config.interface';
 
 @Injectable()
 export class SupertokensService {
-    private readonly logger = new Logger('SuperTokensServixe');
+    private readonly logger = new Logger(SupertokensService.name);
 
     constructor(
         @Inject(ConfigInjectionToken) private config: AuthModuleConfig,

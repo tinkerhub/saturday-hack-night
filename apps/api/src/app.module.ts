@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { AppController } from './app.controller';
 import { MailModule } from './mail/mail.module';
 import { ProfileModule } from './profile/profile.module';
+import { ActivityModule } from './activity/activity.module';
 
 @Module({
     imports: [
@@ -59,6 +60,7 @@ import { ProfileModule } from './profile/profile.module';
         }),
         MailModule,
         ProfileModule,
+        ActivityModule,
     ],
     controllers: [AppController],
 })

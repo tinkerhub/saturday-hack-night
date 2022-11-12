@@ -21,6 +21,7 @@ model User {
   campus              String?
   district            String?
   teamMembers         TeamMember[]
+  participated        Participant[]
 }
 
 model Activity {
@@ -33,7 +34,7 @@ model Activity {
   mode                ActivityMode    @default(ONLINE)
   status              ActivityStatus  @default(PENDING)
   teams               Team[]
-  participants        TeamMember[]
+  participants        Participant[]
   created_at          DateTime        @default(now())
   updated_at          DateTime        @updatedAt
 }
@@ -59,9 +60,18 @@ model TeamMember{
   teamId              String
   user                User            @relation(fields: [userId], references: [id])
   userId              String
+  @@id([teamId, userId])
+}
+
+model Participant {
+  id                  String          @unique @default(cuid())
+  user                User            @relation(fields: [userId], references: [id])
+  userId              String
   activity            Activity        @relation(fields: [activityId], references: [id])
   activityId          String
-  @@id([teamId, userId])
+  created_at          DateTime        @default(now())
+  updated_at          DateTime        @updatedAt
+  @@id([userId, activityId])
 }
 
 enum TeamMemberRole{
