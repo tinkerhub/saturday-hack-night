@@ -21,6 +21,22 @@ export class ActivityService {
     async read(id: string) {
         const data = await this.prismaService.activity.findUnique({
             where: { id },
+            select: {
+                id: true,
+                title: true,
+                description: true,
+                date: true,
+                image: true,
+                mode: true,
+                status: true,
+                details: true,
+                _count: {
+                    select: {
+                        teams: true,
+                        participants: true,
+                    },
+                },
+            },
         });
         return this.Success({
             message: 'Activity read successfully',
@@ -32,6 +48,22 @@ export class ActivityService {
         const data = await this.prismaService.activity.findMany({
             orderBy: {
                 date: 'desc',
+            },
+            select: {
+                id: true,
+                title: true,
+                description: true,
+                date: true,
+                image: true,
+                mode: true,
+                status: true,
+                details: true,
+                _count: {
+                    select: {
+                        teams: true,
+                        participants: true,
+                    },
+                },
             },
         });
         return this.Success({

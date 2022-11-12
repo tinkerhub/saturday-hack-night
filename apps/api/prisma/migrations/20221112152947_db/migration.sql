@@ -67,7 +67,7 @@ CREATE TABLE "TeamMember" (
     "userId" TEXT NOT NULL,
     "activityId" TEXT NOT NULL,
 
-    CONSTRAINT "TeamMember_pkey" PRIMARY KEY ("teamId","userId")
+    CONSTRAINT "TeamMember_pkey" PRIMARY KEY ("teamId","userId","activityId")
 );
 
 -- CreateIndex
