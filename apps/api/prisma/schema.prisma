@@ -11,52 +11,81 @@ datasource db {
 }
 
 model User {
-  id              String      @id @unique @default(cuid())
-  authid          String?     @unique // SuperTokens Authentication ID
-  githubid        String?     @unique // Github ID
-  name            String
-  avatar          String?
-  email           String      @unique
-  campus          String?
-  district        String?
-  mobile          String?     @unique
-  teams           Team[]
+  id                  String          @id @unique @default(cuid())
+  authid              String          @unique
+  email               String          @unique
+  githubid            String          @unique
+  name                String?
+  mobile              String?
+  avatar              String
+  campus              String?
+  district            String?
+  teamMembers         TeamMember[]
 }
 
-model Event {
-  id            String        @id @unique @default(cuid())
-  name          String
-  description   String
-  image         String
-  info          String
-  date          DateTime
-  teams         Team[]
-  projectCount  Int           @default(0)
-  registration  Boolean       @default(false)
-  results       Boolean       @default(false)
-  created_at    DateTime      @default(now())
-  updated_at    DateTime      @updatedAt
+model Activity {
+  id                  String          @id @unique @default(cuid())
+  title               String
+  description         String
+  image               String
+  details             String
+  date                DateTime
+  mode                ActivityMode    @default(ONLINE)
+  status              ActivityStatus  @default(PENDING)
+  teams               Team[]
+  participants        TeamMember[]
+  created_at          DateTime        @default(now())
+  updated_at          DateTime        @updatedAt
 }
+
 model Team {
-  id            String        @id @unique @default(cuid())
-  name          String
-  pitchStatus   PitchStatus   @default(PENDING)
-  projectStatus ProjectStatus @default(PENDING)
-  repo          String
-  eventid       String
-  event         Event         @relation(fields: [eventid], references: [id])
-  members       User[]      
-  created_at    DateTime      @default(now())
-  updated_at    DateTime      @updatedAt
+  id                  String          @id @unique @default(cuid())
+  name                String
+  repo                String
+  inviteCode          String          @unique @default(cuid())
+  activity            Activity        @relation(fields: [activityId], references: [id])
+  activityId          String
+  members             TeamMember[]
+  pitchStatus         PitchStatus     @default(PENDING)
+  projectStatus       ProjectStatus   @default(PENDING)
+  created_at          DateTime        @default(now())
+  updated_at          DateTime        @updatedAt
 }
 
-enum PitchStatus {
+model TeamMember{
+  id                  String          @unique @default(cuid())
+  role                TeamMemberRole  @default(MEMBER)
+  team                Team            @relation(fields: [teamId], references: [id])
+  teamId              String
+  user                User            @relation(fields: [userId], references: [id])
+  userId              String
+  activity            Activity        @relation(fields: [activityId], references: [id])
+  activityId          String
+  @@id([teamId, userId])
+}
+
+enum TeamMemberRole{
+  MEMBER
+  LEADER
+}
+
+enum ActivityMode{
+  ONLINE
+  OFFLINE
+}
+enum ActivityStatus{
+  REGISTRATION
+  RESULT
+  PENDING
+}
+
+enum PitchStatus{
   PENDING
   ABSENT
   PRESENT
 }
 
-enum ProjectStatus {
+enum ProjectStatus{
   PENDING
   WORKING
   COMPLETED
