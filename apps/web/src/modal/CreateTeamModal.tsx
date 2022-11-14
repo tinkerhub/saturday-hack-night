@@ -418,8 +418,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                                     <br />
                                     Project repo can&apos;t be changed once submitted
                                     <br />
-                                    You can participate individualy or can team up with upto 3
-                                    People
+                                    You can team up with upto 3 People
                                     <br />
                                     Team should have atleast 1 member
                                 </Text>
