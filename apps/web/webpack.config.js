@@ -79,12 +79,21 @@ module.exports = () => {
     if (isProduction) {
         config.mode = 'production';
         config.optimization = { splitChunks: { chunks: 'all' } };
+        config.plugins.push(new CleanWebpackPlugin());
+        config.plugins.push(new MiniCssExtractPlugin({ filename: 'bundle.[contenthash].css' }));
+        config.plugins.push(
+            new InjectManifest({
+                swSrc: path.resolve(__dirname, 'src', 'sw.ts'),
+                exclude: [/\.map$/, /^manifest.*\.js(?:on)?$/, /\.(jpe?g|png|webp)$/i],
+                maximumFileSizeToCacheInBytes: 12 * 1024 * 1024,
+            }),
+        );
         config.plugins.push(
             new WebpackPwaManifest({
                 name: 'Saturday HackNight',
                 short_name: 'SHN',
                 description: packageJSON.description,
-                orientation: 'any',
+                orientation: 'portrait',
                 publicPath: '/',
                 icons: [
                     {
@@ -94,15 +103,6 @@ module.exports = () => {
                 ],
             }),
         );
-        config.plugins.push(
-            new InjectManifest({
-                swSrc: path.resolve(__dirname, 'src', 'sw.ts'),
-                exclude: [/\.map$/, /^manifest.*\.js(?:on)?$/, /\.(jpe?g|png|webp)$/i],
-                maximumFileSizeToCacheInBytes: 12 * 1024 * 1024,
-            }),
-        );
-        config.plugins.push(new CleanWebpackPlugin());
-        config.plugins.push(new MiniCssExtractPlugin({ filename: 'bundle.[contenthash].css' }));
     } else {
         config.mode = 'development';
     }

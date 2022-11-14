@@ -5,9 +5,6 @@ import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching';
 import { setDefaultHandler, registerRoute } from 'workbox-routing';
 import { BackgroundSyncPlugin } from 'workbox-background-sync';
 import { ExpirationPlugin } from 'workbox-expiration';
-import { setCacheNameDetails } from 'workbox-core';
-
-setCacheNameDetails({ prefix: '__APP_NAME__', suffix: '__APP_VERSION__' });
 
 // @ts-ignore: __WB_MANIFEST is a placeholder filled by workbox-webpack-plugin with the list of dependecies to be cached
 precacheAndRoute(self.__WB_MANIFEST || []);
@@ -31,7 +28,7 @@ registerRoute(
         plugins: [
             new ExpirationPlugin({
                 maxEntries: 60,
-                maxAgeSeconds: 12 * 60 * 60,
+                maxAgeSeconds: 5 * 60,
                 purgeOnQuotaError: true,
             }),
         ],
@@ -41,6 +38,8 @@ registerRoute(
 setDefaultHandler(new StaleWhileRevalidate({}));
 
 addEventListener('message', (event) => {
-    // @ts-ignore: __WB_MANIFEST is a placeholder filled by workbox-webpack-plugin with the list of dependecies to be cached
-    if (event.data?.type === 'SKIP_WAITING') self.skipWaiting();
+    if (event.data && event.data.type === 'SKIP_WAITING') {
+        // @ts-ignore: __WB_MANIFEST is a placeholder filled by workbox-webpack-plugin with the list of dependecies to be cached
+        self.skipWaiting();
+    }
 });

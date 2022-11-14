@@ -9,7 +9,8 @@ import { useFirebase } from './context/firebase';
 import Landing from './routes/Landing';
 import Events from './routes/Events';
 import Join from './routes/Join';
-import { NavBar, UpdateApp } from './components';
+import Update from './routes/Update';
+import { NavBar } from './components';
 import '../assets/style/clashDisplay.css';
 
 const App = () => {
@@ -18,21 +19,28 @@ const App = () => {
     wb.register().catch((error) => {
         throw error;
     });
+    wb.addEventListener('waiting', () => {
+        wb.addEventListener('controlling', () => {
+            window.location.href = '/update';
+        });
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
 
-    /* if (location.hostname === 'localhost') {
+    // eslint-disable-next-line no-restricted-globals
+    if (location.hostname === 'localhost') {
         connectAuthEmulator(auth, 'http://localhost:9099');
         connectFirestoreEmulator(db, 'localhost', 8080);
         connectFunctionsEmulator(functions, 'localhost', 5001);
-    } */
+    }
     return (
         <ChakraProvider>
             <BrowserRouter>
-                <UpdateApp wb={wb} />
                 <NavBar />
                 <Routes>
                     <Route path="/" element={<Landing />} />
                     <Route path="/events" element={<Events />} />
                     <Route path="/join" element={<Join />} />
+                    <Route path="/update" element={<Update wb={wb} />} />
                 </Routes>
             </BrowserRouter>
         </ChakraProvider>
