@@ -30,16 +30,19 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
     const [loading, setLoading] = useState(false);
     const [member1, setMember1] = useState('');
     const [member2, setMember2] = useState('');
+    const [member3, setMember3] = useState('');
     const [error, setError] = useState({
         name: false,
         repo: false,
         member1: false,
         member2: false,
+        member3: false,
+        count: false,
     });
     // eslint-disable-next-line consistent-return
     const registerTeam = async () => {
         setLoading(true);
-        setError({ name: false, repo: false, member1: false, member2: false });
+        setError({ name: false, repo: false, member1: false, member2: false, member3: false, count: false });
 
         if (!name.match(/^[a-z|0-9]+$/gi)) {
             setLoading(false);
@@ -51,6 +54,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
         }
         let m1;
         let m2;
+        let m3;
         const members = [];
         try {
             if (member1.length > 0) {
@@ -73,6 +77,25 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
         } catch (err) {
             setLoading(false);
             return setError((prev: any) => ({ ...prev, member2: true }));
+        }
+        try {
+            if (member3.length > 0) {
+                m3 = (
+                    await getDocs(query(collection(db, 'users'), where('githubID', '==', member3)))
+                ).docs[0].data();
+                members.push(m3.uid);
+            }
+        } catch (err) {
+            setLoading(false);
+            return setError((prev: any) => ({ ...prev, member3: true }));
+        }
+        const teamMembers = new Set(members);
+        if(teamMembers.has(auth.currentUser.uid)) {
+            teamMembers.delete(auth.currentUser.uid);
+        }
+        if (teamMembers.size > 3 || teamMembers.size < 1 ) {
+            setLoading(false);
+            return setError((prev: any) => ({ ...prev, count: true }));
         }
         addDoc(collection(db, `events/${eventId}/teams`), {
             name,
@@ -250,6 +273,27 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                                     borderRadius="10px"
                                 />
                             </FormControl>
+                            <FormControl>
+                                <FormLabel color="white">Member 3</FormLabel>
+                                <Input
+                                    placeholder="Github Username"
+                                    onChange={(e) => setMember3(e.target.value)}
+                                    minWidth="350px"
+                                    disabled={loading}
+                                    size="lg"
+                                    _placeholder={{
+                                        textColor: 'rgba(255, 255, 255, 0.25)',
+                                    }}
+                                    backgroundColor="rgba(255, 255, 255, 0.25)"
+                                    textColor="white"
+                                    border="none"
+                                    _focus={{
+                                        boxShadow: '0px 3px 8px rgba(219, 247, 44, 0.15)',
+                                    }}
+                                    borderRadius="10px"
+                                />
+                            </FormControl>
+                            
                         </Flex>
                         <Flex
                             flexDirection="column"
@@ -324,6 +368,40 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                                     </Text>
                                 </Box>
                             )}
+
+                            {error.member3 && (
+                                <Box
+                                    backgroundColor="rgba(226,76,75,0.15)"
+                                    paddingInline="10px"
+                                    borderRadius="5px"
+                                    paddingBlock="5px"
+                                >
+                                    <Text
+                                        fontFamily="Clash Display"
+                                        fontSize="12px"
+                                        textColor="#E24C4B"
+                                    >
+                                        Member 3 is not found on SHN Platform
+                                    </Text>
+                                </Box>
+                            )}
+                            {error.count && (
+                                <Box
+                                    backgroundColor="rgba(226,76,75,0.15)"
+                                    paddingInline="10px"
+                                    borderRadius="5px"
+                                    paddingBlock="5px"
+                                >
+                                    <Text
+                                        fontFamily="Clash Display"
+                                        fontSize="12px"
+                                        textColor="#E24C4B"
+                                    >
+                                        Team should have atleast 1 member
+                                    </Text>
+                                </Box>
+                            )}
+
                             <Box
                                 backgroundColor="rgba(50,186,124,0.15)"
                                 paddingInline="10px"
@@ -340,8 +418,10 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                                     <br />
                                     Project repo can&apos;t be changed once submitted
                                     <br />
-                                    You can participate individualy or can team up with upto 2
+                                    You can participate individualy or can team up with upto 3
                                     People
+                                    <br />
+                                    Team should have atleast 1 member
                                 </Text>
                             </Box>
                         </Flex>
