@@ -24,7 +24,7 @@ export class MailService {
     }
 }
 interface TeamCreatedContext {
-    data: { name: string; teamName: string; repoUrl: string; teamID: string; eventID: string };
+    data: { name: string; teamName: string; repoUrl: string; teamID: string; inviteCode: string };
     email: string;
 }
 

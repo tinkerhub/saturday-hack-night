@@ -2,6 +2,7 @@ import Joi from 'joi';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { LoggerModule } from 'nestjs-pino';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { AppController } from './app.controller';
@@ -59,6 +60,7 @@ import { TeamModule } from './team/team.module';
             githubClientId: process.env.GITHUB_CLIENT_ID as string,
             githubClientSecret: process.env.GITHUB_CLIENT_SECRET as string,
         }),
+        EventEmitterModule.forRoot(),
         MailModule,
         ProfileModule,
         ActivityModule,
