@@ -6,10 +6,7 @@ import { connectAuthEmulator } from 'firebase/auth';
 import { connectFirestoreEmulator } from 'firebase/firestore';
 import { connectFunctionsEmulator } from 'firebase/functions';
 import { useFirebase } from './context/firebase';
-import Landing from './routes/Landing';
-import Events from './routes/Events';
-import Join from './routes/Join';
-import Error from './routes/Error';
+import { Landing, Error, Join, Events } from './routes';
 import { NavBar, UpdateApp } from './components';
 import '../assets/style/clashDisplay.css';
 
