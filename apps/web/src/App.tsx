@@ -9,6 +9,7 @@ import { useFirebase } from './context/firebase';
 import Landing from './routes/Landing';
 import Events from './routes/Events';
 import Join from './routes/Join';
+import Error from './routes/Error';
 import { NavBar, UpdateApp } from './components';
 import '../assets/style/clashDisplay.css';
 
@@ -33,6 +34,7 @@ const App = () => {
                     <Route path="/" element={<Landing />} />
                     <Route path="/events" element={<Events />} />
                     <Route path="/join" element={<Join />} />
+                    <Route path="*" element={<Error />} />
                 </Routes>
             </BrowserRouter>
         </ChakraProvider>
