@@ -143,6 +143,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                         duration: 5000,
                         isClosable: true,
                     });
+                    window.location.reload();
                     onClose();
                 })
                 .catch((err) => {
