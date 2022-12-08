@@ -44,10 +44,11 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: Mod
     const [teamData, setTeamData] = useState<DocumentSnapshot<DocumentData>>();
     const [member1, setMember1] = useState<string>('');
     const [member2, setMember2] = useState<string>('');
+    const [member3, setMember3] = useState<string>('');
     const finalRef = React.useRef(null);
     const { db } = useFirebase();
     const updateTeam = async () => {
-        const members = [member1, member2];
+        const members = [member1, member2, member3];
         const userMembers = members.filter((member) => member !== '');
 
         const memberList = userMembers.map(async (member: string) => {
@@ -94,6 +95,7 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: Mod
             });
             setMember1((await members[0]).githubID);
             setMember2((await members[1]).githubID);
+            setMember3((await members[2]).githubID);
         })();
         return () => {};
     }, [db, eventId, teamID]);
@@ -239,6 +241,39 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: Mod
                                 />
                             </FormControl>
                         </Flex>
+                    </Flex>
+                    <Flex
+                        justifyContent="space-evenly"
+                        columnGap="25px"
+                        alignItems="center"
+                        fontSize="16px"
+                        fontFamily="Clash Display"
+                        flexDirection={{ base: 'column', lg: 'row' }}
+                    >
+                        <Box>
+                            <Flex flexDirection="column">
+                                <FormControl mt={4}>
+                                    <FormLabel color="white">Member 3</FormLabel>
+                                    <Input
+                                        placeholder="Github Username"
+                                        defaultValue={member3}
+                                        onChange={(e) => setMember3(e.target.value)}
+                                        size="lg"
+                                        _placeholder={{
+                                            textColor: 'rgba(255, 255, 255, 0.25)',
+                                        }}
+                                        backgroundColor="rgba(255, 255, 255, 0.25)"
+                                        textColor="white"
+                                        border="none"
+                                        _focus={{
+                                            boxShadow: '0px 3px 8px rgba(219, 247, 44, 0.15)',
+                                        }}
+                                        width="300px"
+                                        borderRadius="10px"
+                                    />
+                                </FormControl>
+                            </Flex>
+                        </Box>
                     </Flex>
                 </ModalBody>
 

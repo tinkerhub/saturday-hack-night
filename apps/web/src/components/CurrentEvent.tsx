@@ -9,6 +9,7 @@ import {
     Heading,
     Button,
     useDisclosure,
+    useToast,
 } from '@chakra-ui/react';
 import { GithubAuthProvider, signInWithPopup } from 'firebase/auth';
 import {
@@ -26,10 +27,12 @@ import { useFirebase } from '../context/firebase';
 import { UpdateTeamModal, CreateTeamModal } from '../modal';
 
 const CurrentEvent = ({ event }: CurrentEventProps) => {
+    const toast = useToast();
     const { db, auth } = useFirebase();
     const [teams, setTeams] = useState<number>(0);
     const [teamID, setTeamID] = useState<string>('');
     const { name, about, time, imageWhite, moreInfo } = event.data();
+    const [isProfileComplete, setIsProfileComplete] = useState<boolean>(false);
     const {
         isOpen: isOpenUpdateModal,
         onOpen: onOpenUpdateModal,
@@ -44,11 +47,13 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
         (async () => {
             const teamSnapshots = await getDocs(query(collection(db, `events/${event.id}/teams`)));
             setTeams(teamSnapshots.docs.length);
-            const userSnap = await getDoc(
+            const userTeamSnap = await getDoc(
                 doc(db, `users/${auth.currentUser?.uid}/teams/${event.id}`),
             );
-            const user = userSnap.data();
+            const user = userTeamSnap.data();
             if (user) setTeamID(user.teamID);
+            const userSnap = await getDoc(doc(db, `users/${auth.currentUser?.uid}`));
+            if (userSnap.get('phno')) setIsProfileComplete(true);
         })();
         return () => {};
     }, [auth.currentUser, db, event.id]);
@@ -156,9 +161,20 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                         onClick={
                             // eslint-disable-next-line no-nested-ternary
                             auth.currentUser
-                                ? teamID
+                                ? // eslint-disable-next-line no-nested-ternary
+                                  teamID
                                     ? onOpenUpdateModal
-                                    : onOpenCreateModal
+                                    : isProfileComplete
+                                    ? onOpenCreateModal
+                                    : () =>
+                                          toast({
+                                              title: 'Profile Incomplete',
+                                              description:
+                                                  'Please complete your profile before registering for an event',
+                                              status: 'error',
+                                              duration: 5000,
+                                              isClosable: true,
+                                          })
                                 : () => signInWithPopup(auth, new GithubAuthProvider())
                         }
                         fontFamily="Clash Display"

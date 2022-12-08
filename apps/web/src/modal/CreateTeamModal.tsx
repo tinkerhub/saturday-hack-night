@@ -42,7 +42,14 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
     // eslint-disable-next-line consistent-return
     const registerTeam = async () => {
         setLoading(true);
-        setError({ name: false, repo: false, member1: false, member2: false, member3: false, count: false });
+        setError({
+            name: false,
+            repo: false,
+            member1: false,
+            member2: false,
+            member3: false,
+            count: false,
+        });
 
         if (!name.match(/^[a-z|0-9]+$/gi)) {
             setLoading(false);
@@ -90,10 +97,10 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
             return setError((prev: any) => ({ ...prev, member3: true }));
         }
         const teamMembers = new Set(members);
-        if(teamMembers.has(auth.currentUser.uid)) {
+        if (teamMembers.has(auth.currentUser.uid)) {
             teamMembers.delete(auth.currentUser.uid);
         }
-        if (teamMembers.size > 3 || teamMembers.size < 1 ) {
+        if (teamMembers.size > 3 || teamMembers.size < 1) {
             setLoading(false);
             return setError((prev: any) => ({ ...prev, count: true }));
         }
@@ -111,6 +118,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                     duration: 5000,
                     isClosable: true,
                 });
+                window.location.reload();
                 onClose();
             })
             .catch(() => {
@@ -293,7 +301,6 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                                     borderRadius="10px"
                                 />
                             </FormControl>
-                            
                         </Flex>
                         <Flex
                             flexDirection="column"
