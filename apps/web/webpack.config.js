@@ -1,12 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const WebpackPwaManifest = require('webpack-pwa-manifest');
 const resposiveLoader = require('responsive-loader/sharp');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const { InjectManifest } = require('workbox-webpack-plugin');
-
-const packageJSON = require('./package.json');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const stylesHandler = isProduction ? MiniCssExtractPlugin.loader : 'style-loader';
@@ -81,28 +77,6 @@ module.exports = () => {
         config.optimization = { splitChunks: { chunks: 'all' } };
         config.plugins.push(new CleanWebpackPlugin());
         config.plugins.push(new MiniCssExtractPlugin({ filename: 'bundle.[contenthash].css' }));
-        config.plugins.push(
-            new InjectManifest({
-                swSrc: path.resolve(__dirname, 'src', 'sw.ts'),
-                exclude: [/\.map$/, /^manifest.*\.js(?:on)?$/, /\.(jpe?g|png|webp)$/i],
-                maximumFileSizeToCacheInBytes: 12 * 1024 * 1024,
-            }),
-        );
-        config.plugins.push(
-            new WebpackPwaManifest({
-                name: 'Saturday HackNight',
-                short_name: 'SHN',
-                description: packageJSON.description,
-                orientation: 'portrait',
-                publicPath: '/',
-                icons: [
-                    {
-                        src: path.resolve(__dirname, 'assets/images/logo.png'),
-                        sizes: [96, 128, 192, 256, 384, 500],
-                    },
-                ],
-            }),
-        );
     } else {
         config.mode = 'development';
     }
