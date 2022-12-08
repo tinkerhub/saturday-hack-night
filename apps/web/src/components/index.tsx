@@ -5,5 +5,6 @@ import ParallaxView from './ParallaxView';
 import Accordion from './Accordion';
 import CurrentEvent from './CurrentEvent';
 import EventCard from './EventCard';
+import Member from './Member';
 
-export { NavBar, Card, Footer, ParallaxView, Accordion, CurrentEvent, EventCard };
+export { NavBar, Card, Footer, ParallaxView, Accordion, CurrentEvent, EventCard, Member };
