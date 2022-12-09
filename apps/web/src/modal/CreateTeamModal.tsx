@@ -1,3 +1,4 @@
+import React, { useState, useRef } from 'react';
 import {
     Modal,
     ModalOverlay,
@@ -17,7 +18,7 @@ import {
     useToast,
 } from '@chakra-ui/react';
 import { getDocs, query, collection, where, addDoc } from 'firebase/firestore';
-import React, { useState, useRef } from 'react';
+import { Member } from '../components';
 import { useFirebase } from '../context/firebase';
 
 export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalProps) => {
@@ -28,9 +29,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
     const [name, setName] = useState('');
     const [repo, setRepo] = useState('');
     const [loading, setLoading] = useState(false);
-    const [member1, setMember1] = useState('');
-    const [member2, setMember2] = useState('');
-    const [member3, setMember3] = useState('');
+    const [users, setUsers] = useState<Array<string>>([]);
     const [error, setError] = useState({
         name: false,
         repo: false,
@@ -59,43 +58,29 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
             setLoading(false);
             return setError((prev: any) => ({ ...prev, repo: true }));
         }
-        let m1;
-        let m2;
-        let m3;
-        const members = [];
-        try {
-            if (member1.length > 0) {
-                m1 = (
-                    await getDocs(query(collection(db, 'users'), where('githubID', '==', member1)))
-                ).docs[0].data();
-                members.push(m1.uid);
-            }
-        } catch (err) {
-            setLoading(false);
-            return setError((prev: any) => ({ ...prev, member1: true }));
-        }
-        try {
-            if (member2.length > 0) {
-                m2 = (
-                    await getDocs(query(collection(db, 'users'), where('githubID', '==', member2)))
-                ).docs[0].data();
-                members.push(m2.uid);
-            }
-        } catch (err) {
-            setLoading(false);
-            return setError((prev: any) => ({ ...prev, member2: true }));
-        }
-        try {
-            if (member3.length > 0) {
-                m3 = (
-                    await getDocs(query(collection(db, 'users'), where('githubID', '==', member3)))
-                ).docs[0].data();
-                members.push(m3.uid);
-            }
-        } catch (err) {
-            setLoading(false);
-            return setError((prev: any) => ({ ...prev, member3: true }));
-        }
+        const members = await Promise.all(
+            // eslint-disable-next-line consistent-return
+            users.map(async (user) => {
+                if (user.length > 0) {
+                    try {
+                        const data = (
+                            await getDocs(
+                                query(collection(db, 'users'), where('githubID', '==', user)),
+                            )
+                        ).docs[0].data();
+                        return data.uid;
+                    } catch (err) {
+                        setLoading(false);
+                        if (user === users[0])
+                            setError((prev: any) => ({ ...prev, member1: true }));
+                        if (user === users[1])
+                            setError((prev: any) => ({ ...prev, member2: true }));
+                        if (user === users[2])
+                            setError((prev: any) => ({ ...prev, member3: true }));
+                    }
+                }
+            }),
+        );
         const teamMembers = new Set(members);
         if (teamMembers.has(auth.currentUser.uid)) {
             teamMembers.delete(auth.currentUser.uid);
@@ -107,7 +92,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
         addDoc(collection(db, `events/${eventId}/teams`), {
             name,
             repo,
-            members,
+            members: Array.from(teamMembers),
             lead: auth.currentUser.uid,
         })
             .then(() => {
@@ -239,68 +224,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                                     borderRadius="10px"
                                 />
                             </FormControl>
-                            <FormControl>
-                                <FormLabel color="white">Member 1</FormLabel>
-                                <Input
-                                    ref={initialRef}
-                                    placeholder="Github Username"
-                                    disabled={loading}
-                                    size="lg"
-                                    onChange={(e) => setMember1(e.target.value)}
-                                    _focus={{
-                                        boxShadow: '0px 3px 8px rgba(219, 247, 44, 0.15)',
-                                    }}
-                                    _placeholder={{
-                                        textColor: 'rgba(255, 255, 255, 0.25)',
-                                    }}
-                                    backgroundColor="rgba(255, 255, 255, 0.25)"
-                                    textColor="white"
-                                    border="none"
-                                    minWidth="350px"
-                                    borderRadius="10px"
-                                />
-                            </FormControl>
-
-                            <FormControl>
-                                <FormLabel color="white">Member 2</FormLabel>
-                                <Input
-                                    placeholder="Github Username"
-                                    onChange={(e) => setMember2(e.target.value)}
-                                    minWidth="350px"
-                                    disabled={loading}
-                                    size="lg"
-                                    _placeholder={{
-                                        textColor: 'rgba(255, 255, 255, 0.25)',
-                                    }}
-                                    backgroundColor="rgba(255, 255, 255, 0.25)"
-                                    textColor="white"
-                                    border="none"
-                                    _focus={{
-                                        boxShadow: '0px 3px 8px rgba(219, 247, 44, 0.15)',
-                                    }}
-                                    borderRadius="10px"
-                                />
-                            </FormControl>
-                            <FormControl>
-                                <FormLabel color="white">Member 3</FormLabel>
-                                <Input
-                                    placeholder="Github Username"
-                                    onChange={(e) => setMember3(e.target.value)}
-                                    minWidth="350px"
-                                    disabled={loading}
-                                    size="lg"
-                                    _placeholder={{
-                                        textColor: 'rgba(255, 255, 255, 0.25)',
-                                    }}
-                                    backgroundColor="rgba(255, 255, 255, 0.25)"
-                                    textColor="white"
-                                    border="none"
-                                    _focus={{
-                                        boxShadow: '0px 3px 8px rgba(219, 247, 44, 0.15)',
-                                    }}
-                                    borderRadius="10px"
-                                />
-                            </FormControl>
+                            <Member setUsers={setUsers} />
                         </Flex>
                         <Flex
                             flexDirection="column"

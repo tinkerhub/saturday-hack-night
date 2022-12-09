@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Flex, Image, Input, InputGroup, InputRightAddon, Text, VStack } from '@chakra-ui/react';
 import addBtn from '../../assets/images/add-square.svg';
 
-const Member = () => {
+interface MemberProps {
+    setUsers: React.Dispatch<React.SetStateAction<Array<string>>>;
+    githubIds?: Array<string>;
+}
+
+const Member = ({ setUsers, githubIds }: MemberProps) => {
     const [members, setMembers] = React.useState<{
         [key: string]: {
             name: string;
@@ -13,12 +18,14 @@ const Member = () => {
         const values = { ...members };
         values[index].name = e.target.value;
         setMembers(values);
+        setUsers(Object.values(values).map((member) => member.name));
     };
 
     const removeMember = (index: string) => {
         setMembers((prev) => {
             const newMembers = { ...prev };
             delete newMembers[index];
+            setUsers(Object.values(newMembers).map((member) => member.name));
             return newMembers;
         });
     };
@@ -27,11 +34,24 @@ const Member = () => {
         setMembers((prev) => {
             const newMembers = { ...prev };
             newMembers[Date.now()] = {
-                name: 'Enter Github Username',
+                name: '',
             };
+            setUsers(Object.values(newMembers).map((member) => member.name));
             return newMembers;
         });
     };
+    useEffect(() => {
+        setMembers(() => {
+            const newMembers: any = {};
+            if (!githubIds) return newMembers;
+            githubIds.forEach((id) => {
+                newMembers[Date.now()] = {
+                    name: id,
+                };
+            });
+            return newMembers;
+        });
+    }, [githubIds]);
 
     return (
         <VStack>
