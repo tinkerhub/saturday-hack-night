@@ -1,5 +1,15 @@
 import React, { useEffect } from 'react';
-import { Flex, Image, Input, InputGroup, InputRightAddon, Text, VStack } from '@chakra-ui/react';
+import {
+    Flex,
+    FormControl,
+    FormLabel,
+    Image,
+    Input,
+    InputGroup,
+    InputRightAddon,
+    Text,
+    VStack,
+} from '@chakra-ui/react';
 import addBtn from '../../assets/images/add-square.svg';
 
 interface MemberProps {
@@ -33,7 +43,7 @@ const Member = ({ setUsers, githubIds }: MemberProps) => {
     const addMember = () => {
         setMembers((prev) => {
             const newMembers = { ...prev };
-            newMembers[Date.now()] = {
+            newMembers[Date.now() + Math.random()] = {
                 name: '',
             };
             setUsers(Object.values(newMembers).map((member) => member.name));
@@ -45,52 +55,56 @@ const Member = ({ setUsers, githubIds }: MemberProps) => {
             const newMembers: any = {};
             if (!githubIds) return newMembers;
             githubIds.forEach((id) => {
-                newMembers[Date.now()] = {
+                newMembers[Date.now() + Math.random()] = {
                     name: id,
                 };
             });
             return newMembers;
         });
-    }, [githubIds]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <VStack>
-            {Object.entries(members).map((member) => (
-                <InputGroup key={member[0]}>
-                    <Input
-                        placeholder="Github Username"
-                        size="lg"
-                        defaultValue={member[1].name}
-                        onChange={(e) => handleChange(e, member[0])}
-                        _focus={{
-                            boxShadow: '0px 3px 8px rgba(219, 247, 44, 0.15)',
-                            border: '1px solid #E9E5E1',
-                        }}
-                        _placeholder={{
-                            textColor: 'rgba(255, 255, 255, 0.25)',
-                        }}
-                        backgroundColor="rgba(255, 255, 255, 0.25)"
-                        textColor="white"
-                        border="none"
-                        minWidth="245px"
-                        borderRadius="10px"
-                    />
-                    <InputRightAddon
-                        border="none"
-                        textColor="#E24C4B"
-                        fontFamily="Clash Display"
-                        backgroundColor="rgba(255,255,255,0.25)"
-                        fontWeight="bold"
-                        height="48px"
-                        minWidth="30px"
-                        onClick={() => {
-                            removeMember(member[0]);
-                        }}
-                    >
-                        Remove
-                    </InputRightAddon>
-                </InputGroup>
-            ))}
+            <FormControl>
+                <FormLabel color="white">Team Members</FormLabel>
+                {Object.entries(members).map((member) => (
+                    <InputGroup key={member[0]} width="350px" marginBottom="20px">
+                        <Input
+                            placeholder="Github Username"
+                            size="lg"
+                            defaultValue={member[1].name}
+                            onChange={(e) => handleChange(e, member[0])}
+                            _focus={{
+                                boxShadow: '0px 3px 8px rgba(219, 247, 44, 0.15)',
+                                border: '1px solid #E9E5E1',
+                            }}
+                            _placeholder={{
+                                textColor: 'rgba(255, 255, 255, 0.25)',
+                            }}
+                            backgroundColor="rgba(255, 255, 255, 0.25)"
+                            textColor="white"
+                            border="none"
+                            minWidth="245px"
+                            borderRadius="10px"
+                        />
+                        <InputRightAddon
+                            border="none"
+                            textColor="#E24C4B"
+                            fontFamily="Clash Display"
+                            backgroundColor="rgba(255,255,255,0.25)"
+                            fontWeight="bold"
+                            height="48px"
+                            minWidth="30px"
+                            onClick={() => {
+                                removeMember(member[0]);
+                            }}
+                        >
+                            Remove
+                        </InputRightAddon>
+                    </InputGroup>
+                ))}
+            </FormControl>
 
             {Object.keys(members).length < 3 && (
                 <Flex
@@ -99,7 +113,7 @@ const Member = ({ setUsers, githubIds }: MemberProps) => {
                     paddingInline="20px"
                     paddingBlock="5px"
                     columnGap="10px"
-                    minWidth="350px"
+                    width="350px"
                     border="1px solid rgba(219, 247, 44, 0.15)"
                     borderRadius="10px"
                     transition="all 0.2s ease-in-out"
