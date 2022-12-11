@@ -1,5 +1,6 @@
 {
   "name": "functions",
+  "license": "MIT",
   "scripts": {
     "format": "prettier --write 'src/*.ts'",
     "lint": "eslint --ext .ts src",
