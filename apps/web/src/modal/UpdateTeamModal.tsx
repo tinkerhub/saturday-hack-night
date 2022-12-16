@@ -117,18 +117,8 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: Mod
                         padding: '0px',
                     }}
                 >
-                    <Box
-                        borderTopRadius="10px"
-                        backgroundColor="rgba(255,255,255,.15)"
-                        paddingBlock="35px"
-                    >
-                        <Image
-                            src={image}
-                            alt=""
-                            paddingInline="50px"
-                            borderTopRadius="10px"
-                            maxHeight="250px"
-                        />
+                    <Box borderTopRadius="10px" backgroundColor="rgba(255,255,255,.15)">
+                        <Image src={image} alt="" borderTopRadius="10px" width="100%" />
                     </Box>
                 </ModalHeader>
                 <ModalCloseButton
@@ -168,7 +158,7 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: Mod
                                         backgroundColor="rgba(255, 255, 255, 0.25)"
                                         textColor="rgba(255, 255, 255, 0.15)"
                                         border="none"
-                                        width="350px"
+                                        width="325px"
                                         borderRadius="10px"
                                     />
                                 </FormControl>
@@ -186,7 +176,7 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: Mod
                                         backgroundColor="rgba(255, 255, 255, 0.25)"
                                         textColor="rgba(255, 255, 255, 0.15)"
                                         border="none"
-                                        width="350px"
+                                        width="325px"
                                         borderRadius="10px"
                                     />
                                 </FormControl>
@@ -198,7 +188,7 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: Mod
                     </Flex>
                 </ModalBody>
 
-                <ModalFooter justifyContent="flex-start">
+                <ModalFooter justifyContent="flex-end">
                     <Button
                         size="lg"
                         backgroundColor="rgba(255, 255, 255, 1)"

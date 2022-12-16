@@ -198,7 +198,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                                     textColor="white"
                                     border="none"
                                     onChange={(e) => setName(e.target.value)}
-                                    minWidth="350px"
+                                    width="325px"
                                     borderRadius="10px"
                                 />
                             </FormControl>
@@ -220,7 +220,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                                     backgroundColor="rgba(255, 255, 255, 0.25)"
                                     textColor="white"
                                     border="none"
-                                    minWidth="350px"
+                                    width="325px"
                                     borderRadius="10px"
                                 />
                             </FormControl>
@@ -357,7 +357,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                         </Flex>
                     </Flex>
                 </ModalBody>
-                <ModalFooter>
+                <ModalFooter justifyContent="flex-end">
                     <Button
                         size="lg"
                         backgroundColor="rgba(255, 255, 255, 1)"

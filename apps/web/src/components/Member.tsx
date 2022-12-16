@@ -69,7 +69,7 @@ const Member = ({ setUsers, githubIds }: MemberProps) => {
             <FormControl>
                 <FormLabel color="white">Team Members</FormLabel>
                 {Object.entries(members).map((member) => (
-                    <InputGroup key={member[0]} width="350px" marginBottom="20px">
+                    <InputGroup key={member[0]} width="325px" marginBottom="20px">
                         <Input
                             placeholder="Github Username"
                             size="lg"
@@ -85,7 +85,6 @@ const Member = ({ setUsers, githubIds }: MemberProps) => {
                             backgroundColor="rgba(255, 255, 255, 0.25)"
                             textColor="white"
                             border="none"
-                            minWidth="245px"
                             borderRadius="10px"
                         />
                         <InputRightAddon
@@ -95,7 +94,7 @@ const Member = ({ setUsers, githubIds }: MemberProps) => {
                             backgroundColor="rgba(255,255,255,0.25)"
                             fontWeight="bold"
                             height="48px"
-                            minWidth="30px"
+                            width="auto"
                             onClick={() => {
                                 removeMember(member[0]);
                             }}
@@ -113,7 +112,7 @@ const Member = ({ setUsers, githubIds }: MemberProps) => {
                     paddingInline="20px"
                     paddingBlock="5px"
                     columnGap="10px"
-                    width="350px"
+                    width="325px"
                     border="1px solid rgba(219, 247, 44, 0.15)"
                     borderRadius="10px"
                     transition="all 0.2s ease-in-out"
