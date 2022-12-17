@@ -169,11 +169,21 @@ const Navbar = () => {
                         flexDirection="row"
                         alignItems="center"
                     >
-                        <NavLink to="/">
+                        <NavLink
+                            to="/"
+                            style={({ isActive }) =>
+                                isActive
+                                    ? {
+                                          color: '#DBF72C',
+                                      }
+                                    : {
+                                          color: 'white',
+                                      }
+                            }
+                        >
                             <Text
                                 as="span"
                                 fontSize="18px"
-                                color="white"
                                 transition="all 0.2s  ease-in-out"
                                 _hover={{
                                     color: '#DBF72C',
@@ -182,11 +192,21 @@ const Navbar = () => {
                                 HOME
                             </Text>
                         </NavLink>
-                        <NavLink to="/events">
+                        <NavLink
+                            to="/events"
+                            style={({ isActive }) =>
+                                isActive
+                                    ? {
+                                          color: '#DBF72C',
+                                      }
+                                    : {
+                                          color: 'white',
+                                      }
+                            }
+                        >
                             <Text
                                 as="span"
                                 fontSize="18px"
-                                color="white"
                                 transition="all 0.2s  ease-in-out"
                                 _hover={{
                                     color: '#DBF72C',

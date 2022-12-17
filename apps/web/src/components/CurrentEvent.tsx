@@ -60,7 +60,10 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
 
     return (
         <Flex
-            width="100%"
+            width={{
+                base: '100%',
+                xl: 'container.xl',
+            }}
             flexDirection={{
                 base: 'column',
                 lg: 'row',
