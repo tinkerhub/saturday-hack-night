@@ -4,7 +4,10 @@ import React from 'react';
 const Stats = () => (
     <Flex
         marginBlock="28px"
-        columnGap="100px"
+        columnGap={{
+            lg: '50px',
+            xl: '100px',
+        }}
         justifyContent="center"
         alignItems="center"
         rowGap="25px"

@@ -23,7 +23,7 @@ const Accordion = ({ content }: AccordionProps) => (
                 transition="all 0.2s ease-in"
                 width={{
                     base: '100%',
-                    lg: 'container.lg',
+                    xl: 'container.xl',
                 }}
                 border="1px solid #0C0F17"
                 textColor="white"

@@ -10,7 +10,10 @@ const What = () => (
             marginTop="36px"
             paddingInline={{ base: '18px', lg: '36px' }}
             fontFamily="Clash Display"
-            width="100vw"
+            width={{
+                base: '100vw',
+                xl: 'container.xl',
+            }}
             alignItems="flex-start"
         >
             <Flex

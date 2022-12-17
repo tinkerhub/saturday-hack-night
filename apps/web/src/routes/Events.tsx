@@ -97,6 +97,11 @@ const Events = () => {
             {currentEvents.length > 0 && (
                 <VStack
                     marginTop="80px"
+                    alignItems="flex-start"
+                    width={{
+                        base: '100vw',
+                        lg: 'container.xl',
+                    }}
                     backgroundImage={`
                 linear-gradient(180deg, rgba(12, 15, 23, 0) 67.85%, #0C0F17 100%),
                 linear-gradient(180deg, #0C0F17 0%, rgba(12, 15, 23, 0.8) 100%),
@@ -105,7 +110,6 @@ const Events = () => {
                     <Heading
                         fontSize="40px"
                         color="white"
-                        width="100vw"
                         fontFamily="Clash Display"
                         paddingInline={{
                             base: '16px',
@@ -117,16 +121,24 @@ const Events = () => {
                     <CurrentEvent event={currentEvents[0]} />
                 </VStack>
             )}
-            <VStack marginTop="50px">
+            <VStack
+                marginTop="50px"
+                alignItems="center"
+                width={{
+                    base: '100vw',
+                    xl: 'container.xl',
+                }}
+            >
                 <Heading
                     fontSize="40px"
                     color="white"
-                    width="100vw"
                     fontFamily="Clash Display"
                     paddingInline={{
                         base: '16px',
                         lg: '32px',
                     }}
+                    width="100%"
+                    textAlign="left"
                     style={{
                         marginTop: '36px',
                     }}
@@ -136,18 +148,23 @@ const Events = () => {
                 <Grid
                     templateColumns={{
                         base: 'repeat(1, 1fr)',
-                        md: 'repeat(2, 1fr)',
-                        lg: 'repeat(4, 1fr)',
+                        sm: 'repeat(2, 1fr)',
+                        md: 'repeat(3, 1fr)',
+                        xl: 'repeat(4, 1fr)',
                     }}
                     gap={{
                         base: '18px',
                         lg: '48x',
                     }}
-                    paddingBlock={{
+                    paddingBlockStart={{
                         base: '18px',
                         lg: '36px',
                     }}
                     paddingBlockEnd="36px"
+                    paddingInline={{
+                        base: '16px',
+                        lg: '32px',
+                    }}
                 >
                     {exploredEvents.map((event) => (
                         <EventCard key={event.id} event={event} />
