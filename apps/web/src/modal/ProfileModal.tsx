@@ -23,6 +23,7 @@ import { getDoc, doc, DocumentData, DocumentSnapshot, updateDoc } from 'firebase
 import React, { useEffect, useState } from 'react';
 import bg from '../../assets/images/codeBg.png';
 import userFallback from '../../assets/images/userFallback.png';
+import { Toast } from '../components';
 import { useFirebase } from '../context/firebase';
 import { toTitleCase } from '../utils';
 
@@ -137,11 +138,9 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                 .then(() => {
                     setLoading(false);
                     toast({
-                        title: 'Profile Updated',
-                        description: 'Your profile has been updated successfully',
+                        title: '✅ Profile Updated',
                         status: 'success',
-                        duration: 5000,
-                        isClosable: true,
+                        render: ({ title, status }) => <Toast title={title} status={status} />,
                     });
                     window.location.reload();
                     onClose();
@@ -149,11 +148,9 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                 .catch((err) => {
                     setLoading(false);
                     toast({
-                        title: 'Error',
-                        description: 'Something went wrong',
+                        title: '✗ Something went wrong',
                         status: 'error',
-                        duration: 5000,
-                        isClosable: true,
+                        render: ({ title, status }) => <Toast title={title} status={status} />,
                     });
                     throw err;
                 });

@@ -6,5 +6,6 @@ import Accordion from './Accordion';
 import CurrentEvent from './CurrentEvent';
 import EventCard from './EventCard';
 import Member from './Member';
+import Toast from './Toast';
 
-export { NavBar, Card, Footer, ParallaxView, Accordion, CurrentEvent, EventCard, Member };
+export { NavBar, Card, Footer, ParallaxView, Accordion, CurrentEvent, EventCard, Member, Toast };
