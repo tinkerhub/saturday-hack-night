@@ -28,7 +28,7 @@ import {
     getDocs,
 } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { Member } from '../components';
+import { Member, Toast } from '../components';
 import { useFirebase } from '../context/firebase';
 
 interface ModalType {
@@ -45,7 +45,7 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: Mod
     const [teamData, setTeamData] = useState<DocumentSnapshot<DocumentData>>();
     const [users, setUsers] = useState<Array<string>>([]);
     const finalRef = React.useRef(null);
-    const { db } = useFirebase();
+    const { db, auth } = useFirebase();
     const updateTeam = async () => {
         const userMembers = users.filter((user) => user !== '');
 
@@ -55,28 +55,31 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: Mod
             );
             return userSnapshot.docs[0].id;
         });
-        const memberData = await Promise.all(memberList);
-
+        let memberData = await Promise.all(memberList);
+        memberData = memberData.filter((member) => member !== auth.currentUser.uid);
+        if (memberData.length < 1) {
+            toast({
+                title: '✗ Team must have atleast one member',
+                status: 'error',
+                render: ({ title, status }) => <Toast title={title} status={status} />,
+            });
+            return;
+        }
         updateDoc(doc(db, `events/${eventId}/teams/${teamID}`), {
             members: memberData,
         })
             .then(() => {
                 toast({
-                    title: 'Team Updated',
-                    description: 'Your team has been updated',
+                    title: '✅ Team Updated',
                     status: 'success',
-                    duration: 3000,
-                    isClosable: true,
+                    render: ({ title, status }) => <Toast title={title} status={status} />,
                 });
                 onClose();
             })
             .catch((error) => {
                 toast({
-                    title: 'Error',
-                    description: error.message,
-                    status: 'error',
-                    duration: 3000,
-                    isClosable: true,
+                    title: '✗ Team Update Error',
+                    render: ({ title, status }) => <Toast title={title} status={status} />,
                 });
                 throw error;
             });

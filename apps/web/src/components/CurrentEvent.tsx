@@ -25,6 +25,7 @@ import React, { useEffect, useState } from 'react';
 import circleIcon from '../../assets/images/circle.svg';
 import { useFirebase } from '../context/firebase';
 import { UpdateTeamModal, CreateTeamModal } from '../modal';
+import Toast from './Toast';
 
 const CurrentEvent = ({ event }: CurrentEventProps) => {
     const toast = useToast();
@@ -171,12 +172,11 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                                     ? onOpenCreateModal
                                     : () =>
                                           toast({
-                                              title: 'Profile Incomplete',
-                                              description:
-                                                  'Please complete your profile before registering for an event',
+                                              title: '✗ Please complete your Profile',
                                               status: 'error',
-                                              duration: 5000,
-                                              isClosable: true,
+                                              render: ({ title, status }) => (
+                                                  <Toast title={title} status={status} />
+                                              ),
                                           })
                                 : () => signInWithPopup(auth, new GithubAuthProvider())
                         }

@@ -9,7 +9,9 @@ const EventCard = ({ event }: EventCardProps) => {
     const { about, results, image, moreInfo, projectCount } = event.data();
     return (
         <>
-            {isOpen && <ResultsModal id={event.id} onClose={onClose} isOpen={isOpen} />}
+            {isOpen && (
+                <ResultsModal id={event.id} onClose={onClose} isOpen={isOpen} image={image} />
+            )}
             <VStack
                 maxWidth="300px"
                 backgroundColor="rgba(255,255,255,.15)"

@@ -18,7 +18,7 @@ import {
     useToast,
 } from '@chakra-ui/react';
 import { getDocs, query, collection, where, addDoc } from 'firebase/firestore';
-import { Member } from '../components';
+import { Member, Toast } from '../components';
 import { useFirebase } from '../context/firebase';
 
 export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalProps) => {
@@ -97,22 +97,18 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
         })
             .then(() => {
                 toast({
-                    title: 'Team Registered',
-                    description: 'Your team has been registered successfully',
+                    title: '✅ Team Registered',
                     status: 'success',
-                    duration: 5000,
-                    isClosable: true,
+                    render: ({ title, status }) => <Toast title={title} status={status} />,
                 });
                 window.location.reload();
                 onClose();
             })
             .catch(() => {
                 toast({
-                    title: 'Error',
-                    description: 'An error occured while registering your team',
+                    title: '✗ Team Registration Failed',
                     status: 'error',
-                    duration: 5000,
-                    isClosable: true,
+                    render: ({ title, status }) => <Toast title={title} status={status} />,
                 });
             });
         setLoading(false);
