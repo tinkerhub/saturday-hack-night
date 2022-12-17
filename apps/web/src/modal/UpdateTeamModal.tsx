@@ -28,6 +28,7 @@ import {
     getDocs,
 } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
+import { Member, Toast } from '../components';
 import { useFirebase } from '../context/firebase';
 
 interface ModalType {
@@ -42,13 +43,11 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: Mod
     const initialRef = React.useRef(null);
     const toast = useToast();
     const [teamData, setTeamData] = useState<DocumentSnapshot<DocumentData>>();
-    const [member1, setMember1] = useState<string>('');
-    const [member2, setMember2] = useState<string>('');
+    const [users, setUsers] = useState<Array<string>>([]);
     const finalRef = React.useRef(null);
-    const { db } = useFirebase();
+    const { db, auth } = useFirebase();
     const updateTeam = async () => {
-        const members = [member1, member2];
-        const userMembers = members.filter((member) => member !== '');
+        const userMembers = users.filter((user) => user !== '');
 
         const memberList = userMembers.map(async (member: string) => {
             const userSnapshot = await getDocs(
@@ -56,28 +55,31 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: Mod
             );
             return userSnapshot.docs[0].id;
         });
-        const memberData = await Promise.all(memberList);
-
+        let memberData = await Promise.all(memberList);
+        memberData = memberData.filter((member) => member !== auth.currentUser.uid);
+        if (memberData.length < 1) {
+            toast({
+                title: '✗ Team must have atleast one member',
+                status: 'error',
+                render: ({ title, status }) => <Toast title={title} status={status} />,
+            });
+            return;
+        }
         updateDoc(doc(db, `events/${eventId}/teams/${teamID}`), {
             members: memberData,
         })
             .then(() => {
                 toast({
-                    title: 'Team Updated',
-                    description: 'Your team has been updated',
+                    title: '✅ Team Updated',
                     status: 'success',
-                    duration: 3000,
-                    isClosable: true,
+                    render: ({ title, status }) => <Toast title={title} status={status} />,
                 });
                 onClose();
             })
             .catch((error) => {
                 toast({
-                    title: 'Error',
-                    description: error.message,
-                    status: 'error',
-                    duration: 3000,
-                    isClosable: true,
+                    title: '✗ Team Update Error',
+                    render: ({ title, status }) => <Toast title={title} status={status} />,
                 });
                 throw error;
             });
@@ -86,14 +88,11 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: Mod
         (async () => {
             const teamSnapshot = await getDoc(doc(db, `events/${eventId}/teams/${teamID}`));
             setTeamData(teamSnapshot);
-            let memberList = teamSnapshot.get('members');
-            memberList = [...new Set(memberList)];
-            const members = memberList.map(async (member: string) => {
-                const memberSnapshot = await getDoc(doc(db, `users/${member}`));
-                return memberSnapshot.data();
+            const memberList = teamSnapshot.get('members');
+            memberList.forEach(async (member: string) => {
+                const memberSnapshot = (await getDoc(doc(db, `users/${member}`))).data();
+                setUsers((prev) => [...prev, memberSnapshot?.githubID]);
             });
-            setMember1((await members[0]).githubID);
-            setMember2((await members[1]).githubID);
         })();
         return () => {};
     }, [db, eventId, teamID]);
@@ -121,18 +120,8 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: Mod
                         padding: '0px',
                     }}
                 >
-                    <Box
-                        borderTopRadius="10px"
-                        backgroundColor="rgba(255,255,255,.15)"
-                        paddingBlock="35px"
-                    >
-                        <Image
-                            src={image}
-                            alt=""
-                            paddingInline="50px"
-                            borderTopRadius="10px"
-                            maxHeight="250px"
-                        />
+                    <Box borderTopRadius="10px" backgroundColor="rgba(255,255,255,.15)">
+                        <Image src={image} alt="" borderTopRadius="10px" width="100%" />
                     </Box>
                 </ModalHeader>
                 <ModalCloseButton
@@ -147,7 +136,7 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: Mod
                     <Flex
                         justifyContent="space-evenly"
                         columnGap="25px"
-                        alignItems="center"
+                        alignItems="flex-start"
                         fontSize="16px"
                         fontFamily="Clash Display"
                         flexDirection={{ base: 'column', lg: 'row' }}
@@ -172,7 +161,7 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: Mod
                                         backgroundColor="rgba(255, 255, 255, 0.25)"
                                         textColor="rgba(255, 255, 255, 0.15)"
                                         border="none"
-                                        width="300px"
+                                        width="325px"
                                         borderRadius="10px"
                                     />
                                 </FormControl>
@@ -190,59 +179,19 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: Mod
                                         backgroundColor="rgba(255, 255, 255, 0.25)"
                                         textColor="rgba(255, 255, 255, 0.15)"
                                         border="none"
-                                        width="300px"
+                                        width="325px"
                                         borderRadius="10px"
                                     />
                                 </FormControl>
                             </Flex>
                         </Box>
                         <Flex flexDirection="column" mt="20px">
-                            <FormControl>
-                                <FormLabel color="white">Member 1</FormLabel>
-                                <Input
-                                    placeholder="Github Username"
-                                    onChange={(e) => setMember1(e.target.value)}
-                                    defaultValue={member1}
-                                    size="lg"
-                                    _focus={{
-                                        boxShadow: '0px 3px 8px rgba(219, 247, 44, 0.15)',
-                                    }}
-                                    _placeholder={{
-                                        textColor: 'rgba(255, 255, 255, 0.25)',
-                                    }}
-                                    backgroundColor="rgba(255, 255, 255, 0.25)"
-                                    textColor="white"
-                                    border="none"
-                                    width="300px"
-                                    borderRadius="10px"
-                                />
-                            </FormControl>
-
-                            <FormControl mt={4}>
-                                <FormLabel color="white">Member 2</FormLabel>
-                                <Input
-                                    placeholder="Github Username"
-                                    defaultValue={member2}
-                                    onChange={(e) => setMember2(e.target.value)}
-                                    size="lg"
-                                    _placeholder={{
-                                        textColor: 'rgba(255, 255, 255, 0.25)',
-                                    }}
-                                    backgroundColor="rgba(255, 255, 255, 0.25)"
-                                    textColor="white"
-                                    border="none"
-                                    _focus={{
-                                        boxShadow: '0px 3px 8px rgba(219, 247, 44, 0.15)',
-                                    }}
-                                    width="300px"
-                                    borderRadius="10px"
-                                />
-                            </FormControl>
+                            {users && <Member githubIds={users} setUsers={setUsers} />}
                         </Flex>
                     </Flex>
                 </ModalBody>
 
-                <ModalFooter justifyContent="flex-start">
+                <ModalFooter justifyContent="flex-end">
                     <Button
                         size="lg"
                         backgroundColor="rgba(255, 255, 255, 1)"

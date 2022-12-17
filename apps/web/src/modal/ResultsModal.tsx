@@ -1,81 +1,158 @@
 import {
-    Accordion,
-    AccordionButton,
-    AccordionIcon,
-    AccordionItem,
-    AccordionPanel,
-    AvatarGroup,
     Box,
     Button,
-    Link,
-    Modal,
-    ModalBody,
-    ModalCloseButton,
-    ModalContent,
-    ModalFooter,
-    ModalHeader,
-    ModalOverlay,
-    Spinner,
+    Center,
+    Heading,
     Avatar,
-    Table,
-    Tbody,
-    Td,
-    Thead,
-    Tr,
+    CircularProgress,
+    VStack,
+    Grid,
+    HStack,
+    Text,
+    Drawer,
+    DrawerContent,
+    DrawerBody,
+    Image,
+    Link,
+    DrawerCloseButton,
+    useToast,
 } from '@chakra-ui/react';
 import { getDocs, query, collection, where, getDoc, doc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
+import Toast from '../components/Toast';
 import { useFirebase } from '../context/firebase';
 
 const ProjectStatus = [
-    { code: 101, status: 'Best Overall Project' },
-    { code: 102, status: 'Best Group Projects' },
-    { code: 100, status: 'Best Individual Projects' },
-    { code: 50, status: 'Completed Projects' },
+    { code: 101, status: 'Best Overall Project⭐' },
+    { code: 102, status: 'Best Group Projects⭐' },
+    { code: 100, status: 'Best Individual Projects⭐' },
+    { code: 50, status: 'Completed Projects⭐' },
 ];
-const Items = ({ status, filteredResults }: ItemsProps) => (
-    <AccordionItem key={status.code}>
-        <AccordionButton>
-            <Box flex="1" textAlign="left">
-                {status.status}
-            </Box>
-            <AccordionIcon />
-        </AccordionButton>
-        <AccordionPanel pb={4}>
-            <Table size="md" textAlign="center" fontSize="14px">
-                <Thead>
-                    <Tr>
-                        <Td>Team</Td>
-                        <Td>Members</Td>
-                        <Td>Repo</Td>
-                    </Tr>
-                </Thead>
-                <Tbody>
-                    {filteredResults.map((result) => (
-                        <Tr key={result.name}>
-                            <Td>{result.name}</Td>
-                            <Td>
-                                <AvatarGroup size="sm" max={2}>
-                                    {result.members.map((member) => (
-                                        <Avatar
-                                            key={member.uid}
-                                            src={member.avatar}
-                                            name={member.githubID}
-                                        />
-                                    ))}
-                                </AvatarGroup>
-                            </Td>
-                            <Td>
-                                <Link href={result.repo}>Visit</Link>
-                            </Td>
-                        </Tr>
-                    ))}
-                </Tbody>
-            </Table>
-        </AccordionPanel>
-    </AccordionItem>
-);
-export const ResultsModal = ({ id, onClose, isOpen }: ResultsModalProps) => {
+const Items = ({ filteredResults }: ItemsProps) => {
+    const toast = useToast();
+    return (
+        <Grid
+            templateColumns={{
+                base: 'repeat(1, 1fr)',
+                sm: 'repeat(2, 1fr)',
+                md: 'repeat(3, 1fr)',
+                xl: 'repeat(4, 1fr)',
+            }}
+            gap={{
+                base: '18px',
+                lg: '48x',
+            }}
+            paddingBlockStart={{
+                base: '18px',
+                lg: '36px',
+            }}
+            paddingBlockEnd="36px"
+            paddingInline={{
+                base: '16px',
+                lg: '32px',
+            }}
+        >
+            {filteredResults.map((result) => (
+                <VStack
+                    width="280px"
+                    backgroundColor="rgba(255,255,255,.15)"
+                    alignItems="flex-start"
+                    borderRadius="10px"
+                >
+                    <Box backgroundColor="white" padding="30px" width="100%" borderTopRadius="10px">
+                        <Text textAlign="center" fontSize="18px">
+                            <b>{result.name}</b>
+                        </Text>
+                    </Box>
+                    <VStack
+                        width="100%"
+                        paddingInline="16px"
+                        alignItems="flex-start"
+                        flexGrow="1"
+                        rowGap="5px"
+                        justifyContent="space-around"
+                    >
+                        {result.members.map((member) => (
+                            <Link href={`https://www.github.com/${member.githubID}`} isExternal>
+                                <HStack key={member.uid}>
+                                    <Avatar
+                                        height="30px"
+                                        width="30px"
+                                        src={member.avatar}
+                                        name={member.githubID}
+                                    />
+                                    <Text
+                                        fontSize="14px"
+                                        fontFamily="Clash Display"
+                                        textColor="white"
+                                    >
+                                        {member.githubID}
+                                    </Text>
+                                </HStack>
+                            </Link>
+                        ))}
+                        <HStack
+                            width="100%"
+                            borderEndRadius="10px"
+                            justifyContent="flex-end"
+                            paddingBlock="8px"
+                        >
+                            <Button
+                                width="130px"
+                                _hover={{
+                                    boxShadow: '0px 8px 16px rgba(255, 255, 255, 0.15)',
+                                    backgroundColor: '#DBF72C',
+                                }}
+                                _active={{
+                                    textColor: '#DBF72C',
+                                    background: 'rgba(219, 247, 44, 0.15)',
+                                    boxShadow: '0px 8px 16px rgba(219, 247, 44, 0.15)',
+                                    backdropFilter: 'blur(25px)',
+                                }}
+                                onClick={() => {
+                                    window.open(result.repo, '_blank');
+                                }}
+                            >
+                                View Project
+                            </Button>
+                            <Button
+                                width="130px"
+                                background="rgba(255, 255, 255, 0.15)"
+                                textColor="white"
+                                _hover={{
+                                    textColor: 'black',
+                                    boxShadow: '0px 8px 16px rgba(255, 255, 255, 0.15)',
+                                    backgroundColor: '#DBF72C',
+                                }}
+                                _active={{
+                                    textColor: '#DBF72C',
+                                    background: 'rgba(219, 247, 44, 0.15)',
+                                    boxShadow: '0px 8px 16px rgba(219, 247, 44, 0.15)',
+                                    backdropFilter: 'blur(25px)',
+                                }}
+                                onClick={() => {
+                                    navigator.clipboard.writeText(result.repo).then(() => {
+                                        toast({
+                                            title: '✅Copied to clipboard!',
+                                            status: 'success',
+                                            position: 'bottom',
+                                            render: ({ title, status }) => (
+                                                <Toast title={title} status={status} />
+                                            ),
+                                        });
+                                    });
+                                }}
+                            >
+                                Copy Link
+                            </Button>
+                        </HStack>
+                    </VStack>
+                </VStack>
+            ))}
+        </Grid>
+    );
+};
+export const ResultsModal = ({ id, onClose, isOpen, image }: ResultsModalProps) => {
     const [results, setResults] = useState<Array<Results>>([]);
     const [loading, setLoading] = useState(true);
     const { db } = useFirebase();
@@ -109,38 +186,64 @@ export const ResultsModal = ({ id, onClose, isOpen }: ResultsModalProps) => {
         };
     }, [db, id]);
     return (
-        <Modal size={{ base: 'sm', lg: 'xl' }} onClose={onClose} isOpen={isOpen} isCentered>
-            <ModalOverlay />
-            <ModalContent>
-                <ModalHeader>Results</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody>
-                    <>
-                        {loading && <Spinner />}
-                        {!loading && (
-                            <Accordion allowToggle>
-                                {ProjectStatus.map((status) => {
-                                    const filteredResults = results.filter(
-                                        (result) => result.projectStatus === status.code,
-                                    );
-                                    return (
-                                        filteredResults.length > 0 && (
-                                            <Items
-                                                status={status}
-                                                filteredResults={filteredResults}
-                                            />
-                                        )
-                                    );
-                                })}
-                            </Accordion>
-                        )}
-                    </>
-                </ModalBody>
-                <ModalFooter>
-                    <Button onClick={onClose}>Close</Button>
-                </ModalFooter>
-            </ModalContent>
-        </Modal>
+        <Drawer size="full" onClose={onClose} isOpen={isOpen}>
+            <DrawerContent
+                borderRadius="10px"
+                backgroundColor="#0C0F17"
+                minWidth={{
+                    base: 'full',
+                }}
+            >
+                <Box display="flex" justifyContent="center" backgroundColor="rgba(255,255,255,.15)">
+                    <Image
+                        src={image}
+                        alt=""
+                        height={{
+                            base: 'full',
+                            md: '125px',
+                        }}
+                    />
+                </Box>
+                <DrawerCloseButton
+                    padding="15px"
+                    color="rgba(226, 76, 75, 1)"
+                    border="2px solid rgba(226, 76, 75, 1)"
+                    borderRadius="full"
+                />
+                <DrawerBody>
+                    {loading ? (
+                        <Center height="50vh">
+                            <CircularProgress isIndeterminate color="#A6BA30" size="80px" />
+                        </Center>
+                    ) : (
+                        ProjectStatus.map((status) => {
+                            const filteredResults = results.filter(
+                                (result) => result.projectStatus === status.code,
+                            );
+                            if (filteredResults.length > 0) {
+                                return (
+                                    <VStack alignItems="flex-start">
+                                        <Heading
+                                            fontFamily="Clash Display"
+                                            textColor="rgba(255, 255, 255, 1)"
+                                            fontSize={{
+                                                base: '25px',
+                                                md: '50px',
+                                            }}
+                                        >
+                                            {status.status}
+                                        </Heading>
+
+                                        <Items filteredResults={filteredResults} />
+                                    </VStack>
+                                );
+                            }
+                            return null;
+                        })
+                    )}
+                </DrawerBody>
+            </DrawerContent>
+        </Drawer>
     );
 };
 
@@ -148,6 +251,7 @@ interface ResultsModalProps {
     id: string;
     onClose: () => void;
     isOpen: boolean;
+    image: string;
 }
 interface Results {
     name: string;
@@ -156,6 +260,5 @@ interface Results {
     members: Array<any>;
 }
 interface ItemsProps {
-    status: { code: number; status: string };
     filteredResults: Array<Results>;
 }

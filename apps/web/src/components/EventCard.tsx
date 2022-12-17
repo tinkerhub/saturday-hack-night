@@ -9,7 +9,9 @@ const EventCard = ({ event }: EventCardProps) => {
     const { about, results, image, moreInfo, projectCount } = event.data();
     return (
         <>
-            {isOpen && <ResultsModal id={event.id} onClose={onClose} isOpen={isOpen} />}
+            {isOpen && (
+                <ResultsModal id={event.id} onClose={onClose} isOpen={isOpen} image={image} />
+            )}
             <VStack
                 maxWidth="300px"
                 backgroundColor="rgba(255,255,255,.15)"
@@ -19,7 +21,13 @@ const EventCard = ({ event }: EventCardProps) => {
                 <Box backgroundColor="white" padding="30px" width="100%" borderTopRadius="10px">
                     <Image height="120px" src={image} objectFit="cover" />
                 </Box>
-                <VStack paddingInline="16px" alignItems="flex-start" flexGrow="1">
+                <VStack
+                    paddingInline="16px"
+                    alignItems="flex-start"
+                    flexGrow="1"
+                    rowGap="5px"
+                    justifyContent="space-around"
+                >
                     <Box backgroundColor="rgba(219,247,44,.15)" borderRadius="15px">
                         <Text
                             paddingBlock="5px"
@@ -38,6 +46,7 @@ const EventCard = ({ event }: EventCardProps) => {
                         flexGrow="1"
                         fontFamily="Clash Display"
                         fontWeight="medium"
+                        noOfLines={3}
                     >
                         {about}
                     </Text>
@@ -48,7 +57,8 @@ const EventCard = ({ event }: EventCardProps) => {
                         paddingBlock="8px"
                     >
                         <Button
-                            display={results ? 'block' : 'none'}
+                            width="130px"
+                            disabled={!results}
                             _hover={{
                                 boxShadow: '0px 8px 16px rgba(255, 255, 255, 0.15)',
                                 backgroundColor: '#DBF72C',
@@ -64,7 +74,11 @@ const EventCard = ({ event }: EventCardProps) => {
                             View Projects
                         </Button>
                         <Button
+                            width="130px"
+                            background="rgba(255, 255, 255, 0.15)"
+                            textColor="white"
                             _hover={{
+                                textColor: 'black',
                                 boxShadow: '0px 8px 16px rgba(255, 255, 255, 0.15)',
                                 backgroundColor: '#DBF72C',
                             }}

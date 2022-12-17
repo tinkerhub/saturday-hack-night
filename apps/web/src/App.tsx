@@ -1,25 +1,27 @@
-import { ChakraProvider } from '@chakra-ui/react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import React from 'react';
-import { Workbox } from 'workbox-window';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ChakraProvider } from '@chakra-ui/react';
 import { connectAuthEmulator } from 'firebase/auth';
 import { connectFirestoreEmulator } from 'firebase/firestore';
 import { connectFunctionsEmulator } from 'firebase/functions';
 import { useFirebase } from './context/firebase';
-import Landing from './routes/Landing';
-import Events from './routes/Events';
-import Join from './routes/Join';
-import { NavBar, UpdateApp } from './components';
+
+import { Landing, Error, Join, Events } from './routes';
+import { NavBar } from './components';
+
 import '../assets/style/clashDisplay.css';
 
 const App = () => {
     const { auth, db, functions } = useFirebase();
-    const wb = new Workbox('sw.js');
-    wb.register().catch((error) => {
-        throw error;
+
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+        registrations.forEach((registration) => {
+            registration.unregister();
+        });
     });
 
-    /* if (location.hostname === 'localhost') {
+    // eslint-disable-next-line no-restricted-globals
+    /*     if (location.hostname === 'localhost') {
         connectAuthEmulator(auth, 'http://localhost:9099');
         connectFirestoreEmulator(db, 'localhost', 8080);
         connectFunctionsEmulator(functions, 'localhost', 5001);
@@ -27,12 +29,12 @@ const App = () => {
     return (
         <ChakraProvider>
             <BrowserRouter>
-                <UpdateApp wb={wb} />
                 <NavBar />
                 <Routes>
                     <Route path="/" element={<Landing />} />
                     <Route path="/events" element={<Events />} />
                     <Route path="/join" element={<Join />} />
+                    <Route path="*" element={<Error />} />
                 </Routes>
             </BrowserRouter>
         </ChakraProvider>

@@ -26,7 +26,12 @@ const faqs = [
 ];
 
 const Faq = () => (
-    <VStack width="100vw">
+    <VStack
+        width={{
+            base: '100vw',
+            xl: 'container.xl',
+        }}
+    >
         <Heading
             fontFamily="Clash Display"
             textColor="white"

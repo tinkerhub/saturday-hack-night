@@ -5,7 +5,10 @@ import { Card } from '../../components';
 
 const How = () => (
     <VStack
-        width="100vw"
+        width={{
+            base: '100vw',
+            xl: 'container.xl',
+        }}
         paddingInline={{ base: '18px', lg: '36px' }}
         backgroundImage={`linear-gradient(180deg, rgba(12, 15, 23, 0.2) 67.85%, #0C0F17 100%), linear-gradient(180deg, #0C0F17 0%, rgba(12, 15, 23, 0.4) 100%), url(${codeClub});`}
     >

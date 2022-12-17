@@ -82,17 +82,17 @@ const Navbar = () => {
                 <Flex alignItems="center" justifyContent="space-between">
                     <NavLink to="/">
                         <Image
-                        src={logo}
-                        height="32px"
-                        transition="all 0.4s ease-in"
-                        ref={imageRef}
-                        onMouseOver={() => {
-                            imageRef.current!.src = logoHover;
-                        }}
-                        onMouseOut={() => {
-                            imageRef.current!.src = logo;
-                        }}
-                    />
+                            src={logo}
+                            height="32px"
+                            transition="all 0.4s ease-in"
+                            ref={imageRef}
+                            onMouseOver={() => {
+                                imageRef.current!.src = logoHover;
+                            }}
+                            onMouseOut={() => {
+                                imageRef.current!.src = logo;
+                            }}
+                        />
                     </NavLink>
                     <HStack
                         gap="18px"
@@ -138,6 +138,7 @@ const Navbar = () => {
                                 LOGIN
                             </Button>
                         )}
+
                         {!showMenu ? (
                             <HamburgerIcon
                                 _hover={{ cursor: 'pointer' }}
@@ -154,8 +155,8 @@ const Navbar = () => {
                                 _hover={{ cursor: 'pointer' }}
                                 color="white"
                                 display={{ base: 'block', lg: 'none' }}
-                                height="28px"
-                                width="28px"
+                                height="25px"
+                                width="35px"
                                 onClick={() => {
                                     setShowMenu(!showMenu);
                                 }}
@@ -168,11 +169,21 @@ const Navbar = () => {
                         flexDirection="row"
                         alignItems="center"
                     >
-                        <NavLink to="/">
+                        <NavLink
+                            to="/"
+                            style={({ isActive }) =>
+                                isActive
+                                    ? {
+                                          color: '#DBF72C',
+                                      }
+                                    : {
+                                          color: 'white',
+                                      }
+                            }
+                        >
                             <Text
                                 as="span"
                                 fontSize="18px"
-                                color="white"
                                 transition="all 0.2s  ease-in-out"
                                 _hover={{
                                     color: '#DBF72C',
@@ -181,11 +192,21 @@ const Navbar = () => {
                                 HOME
                             </Text>
                         </NavLink>
-                        <NavLink to="/events">
+                        <NavLink
+                            to="/events"
+                            style={({ isActive }) =>
+                                isActive
+                                    ? {
+                                          color: '#DBF72C',
+                                      }
+                                    : {
+                                          color: 'white',
+                                      }
+                            }
+                        >
                             <Text
                                 as="span"
                                 fontSize="18px"
-                                color="white"
                                 transition="all 0.2s  ease-in-out"
                                 _hover={{
                                     color: '#DBF72C',
