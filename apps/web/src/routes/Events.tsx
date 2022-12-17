@@ -23,6 +23,7 @@ const Events = () => {
     const [exploredEvents, setExploredEvents] = useState<
         Array<QueryDocumentSnapshot<DocumentData>>
     >([]);
+
     useEffect(() => {
         (async () => {
             const eventSnapshot = await getDocs(

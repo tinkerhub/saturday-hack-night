@@ -1,12 +1,19 @@
 import { VStack, Image, Box, Text, HStack, Button, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
 import { DocumentData, QueryDocumentSnapshot } from 'firebase/firestore';
+import { useSearchParams } from 'react-router-dom';
 import { ResultsModal } from '../modal';
 
 const EventCard = ({ event }: EventCardProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const [, setSearchParams] = useSearchParams();
 
-    const { about, results, image, moreInfo, projectCount } = event.data();
+    const { about, results, image, moreInfo, projectCount, name } = event.data();
+    const openResultModal = () => {
+        setSearchParams({ name: name.split(' ').join('') });
+        onOpen();
+    };
+
     return (
         <>
             {isOpen && (
@@ -69,7 +76,7 @@ const EventCard = ({ event }: EventCardProps) => {
                                 boxShadow: '0px 8px 16px rgba(219, 247, 44, 0.15)',
                                 backdropFilter: 'blur(25px)',
                             }}
-                            onClick={onOpen}
+                            onClick={openResultModal}
                         >
                             View Projects
                         </Button>
