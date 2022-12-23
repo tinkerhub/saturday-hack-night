@@ -10,6 +10,7 @@ import { MailModule } from './mail/mail.module';
 import { ProfileModule } from './profile/profile.module';
 import { ActivityModule } from './activity/activity.module';
 import { TeamModule } from './team/team.module';
+import { CollegeModule } from './college/college.module';
 
 @Module({
     imports: [
@@ -65,6 +66,7 @@ import { TeamModule } from './team/team.module';
         ProfileModule,
         ActivityModule,
         TeamModule,
+        CollegeModule,
     ],
     controllers: [AppController],
 })

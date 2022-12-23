@@ -27,6 +27,9 @@ export class ProfileService {
             where: {
                 authid,
             },
+            include: {
+                college: true,
+            },
         });
         return this.Success({
             message: 'User read successfully',

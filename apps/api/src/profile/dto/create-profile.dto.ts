@@ -30,7 +30,7 @@ export class CreateProfileDto {
 
     @ApiProperty()
     @IsString()
-    campus?: string;
+    collegeId?: string;
 
     @ApiProperty()
     @IsString()

@@ -67,7 +67,7 @@ CREATE TABLE "TeamMember" (
     "userId" TEXT NOT NULL,
     "activityId" TEXT NOT NULL,
 
-    CONSTRAINT "TeamMember_pkey" PRIMARY KEY ("teamId","userId","activityId")
+    CONSTRAINT "TeamMember_pkey" PRIMARY KEY ("userId","activityId")
 );
 
 -- CreateIndex
@@ -93,6 +93,12 @@ CREATE UNIQUE INDEX "Team_inviteCode_key" ON "Team"("inviteCode");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "TeamMember_id_key" ON "TeamMember"("id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "TeamMember_userId_activityId_key" ON "TeamMember"("userId", "activityId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "TeamMember_userId_teamId_key" ON "TeamMember"("userId", "teamId");
 
 -- AddForeignKey
 ALTER TABLE "Team" ADD CONSTRAINT "Team_activityId_fkey" FOREIGN KEY ("activityId") REFERENCES "Activity"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

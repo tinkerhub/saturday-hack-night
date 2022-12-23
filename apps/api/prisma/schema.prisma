@@ -18,9 +18,16 @@ model User {
   name                String?
   mobile              String?
   avatar              String
-  campus              String?
+  college             College?        @relation(fields: [collegeId], references: [id])
+  collegeId           String?
   district            String?
   participated        TeamMember[]
+}
+
+model College {
+  id   String @id
+  name String @unique
+  user User[]
 }
 
 model Activity {
