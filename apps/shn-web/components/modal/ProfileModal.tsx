@@ -10,7 +10,6 @@ import {
     Flex,
     FormControl,
     Text,
-    Box,
     ModalHeader,
     Button,
     Input,
@@ -128,6 +127,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
         };
         try {
             setLoading(true);
+            setTimeout(() => {}, 3000);
             api.patch('profile', DbData).then((res) => {
                 if (res.data.Success) {
                     toast({
@@ -135,15 +135,8 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                         status: 'success',
                         render: ({ title, status }) => <Toast title={title} status={status} />,
                     });
-                    setUser(res.data.Data);
-                    window.location.reload();
+                    setUser(res.data.data);
                     onClose();
-                } else {
-                    toast({
-                        title: '❌ Something went wrong',
-                        status: 'error',
-                        render: ({ title, status }) => <Toast title={title} status={status} />,
-                    });
                 }
                 setLoading(false);
             });
@@ -249,23 +242,20 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                         }}
                                         {...register('mobile')}
                                     />
-                                    <FormErrorMessage>
-                                        <Box
-                                            display={errors.mobile ? 'block' : 'none'}
-                                            backgroundColor="rgba(226,76,75,0.4)"
-                                            marginTop="-15px"
-                                            paddingInline="10px"
-                                            borderRadius="5px"
-                                            paddingBlock="5px"
+                                    <FormErrorMessage
+                                        backgroundColor="rgba(226,76,75,0.4)"
+                                        marginTop="-15px"
+                                        paddingInline="10px"
+                                        borderRadius="5px"
+                                        paddingBlock="5px"
+                                    >
+                                        <Text
+                                            fontFamily="Clash Display"
+                                            fontSize="12px"
+                                            textColor="#E24C4B"
                                         >
-                                            <Text
-                                                fontFamily="Clash Display"
-                                                fontSize="12px"
-                                                textColor="#E24C4B"
-                                            >
-                                                Please Enter a valid Mobile Number
-                                            </Text>
-                                        </Box>
+                                            {errors.mobile?.message}
+                                        </Text>
                                     </FormErrorMessage>
                                 </FormControl>
                                 <Flex

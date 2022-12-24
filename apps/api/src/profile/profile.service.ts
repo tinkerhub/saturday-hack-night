@@ -60,6 +60,10 @@ export class ProfileService {
             where: {
                 authid,
             },
+            include: {
+                college: true,
+                participated: true,
+            },
             data: updateProfileDto,
         });
         return this.Success({

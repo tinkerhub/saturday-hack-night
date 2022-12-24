@@ -49,6 +49,7 @@ const Navbar = () => {
                 fontFamily="Clash Display"
                 position="fixed"
                 width="100vw"
+                height="77px"
                 alignItems="stretch"
                 paddingInline={{ base: '16px', md: '32px' }}
                 zIndex="3"

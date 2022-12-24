@@ -1,7 +1,9 @@
 import { Button, Heading, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import { BaseLayout } from '../layout';
+import { NextPageWithLayout } from './_app';
 
-const Error = () => {
+const Error: NextPageWithLayout = () => {
     const router = useRouter();
     return (
         <VStack
@@ -60,5 +62,5 @@ const Error = () => {
         </VStack>
     );
 };
-
+Error.getLayout = (page) => <BaseLayout>{page}</BaseLayout>;
 export default Error;
