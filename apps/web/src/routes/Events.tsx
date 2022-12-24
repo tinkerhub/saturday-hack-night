@@ -9,17 +9,21 @@ import {
     orderBy,
 } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useFirebase } from '../context/firebase';
 import { Layout } from '../layout';
 import bg from '../../assets/images/codeBg.png';
 import { CurrentEvent, EventCard } from '../components';
+import { ResultsModal } from '../modal';
 
 const Events = () => {
     const [loading, setLoading] = useState(true);
     const { db } = useFirebase();
+    const [searchParams] = useSearchParams();
     const [currentEvents, setCurrentEvents] = useState<Array<QueryDocumentSnapshot<DocumentData>>>(
         [],
     );
+    const [modelData, setModalData] = useState<DocumentData>();
     const [exploredEvents, setExploredEvents] = useState<
         Array<QueryDocumentSnapshot<DocumentData>>
     >([]);
@@ -39,6 +43,13 @@ const Events = () => {
             );
             setExploredEvents(exploredSnapshot.docs);
             setLoading(false);
+            const id = searchParams.get('id');
+            if (id) {
+                const event = exploredSnapshot.docs.find((event) => event.id === id);
+                if (event) {
+                    setModalData(event);
+                }
+            }
         })();
         return () => {};
     }, [db]);
@@ -95,6 +106,14 @@ const Events = () => {
 
     return (
         <Layout>
+            {modelData && (
+                <ResultsModal
+                    id={modelData.id}
+                    isOpen
+                    onClose={() => setModalData(undefined)}
+                    image={modelData.get('image')}
+                />
+            )}
             {currentEvents.length > 0 && (
                 <VStack
                     marginTop="80px"

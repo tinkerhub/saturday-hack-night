@@ -8,9 +8,9 @@ const EventCard = ({ event }: EventCardProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [, setSearchParams] = useSearchParams();
 
-    const { about, results, image, moreInfo, projectCount, name } = event.data();
+    const { about, results, image, moreInfo, projectCount } = event.data();
     const openResultModal = () => {
-        setSearchParams({ name: name.split(' ').join('') });
+        setSearchParams({ id: event.id });
         onOpen();
     };
 

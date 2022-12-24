@@ -61,7 +61,7 @@ export const ResultsModal = ({ id, onClose, isOpen, image }: ResultsModalProps) 
         <Drawer
             size="full"
             onClose={() => {
-                searchParams.delete('name');
+                searchParams.delete('id');
                 setSearchParams(searchParams);
                 onClose();
             }}
