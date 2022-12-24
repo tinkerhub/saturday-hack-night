@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import NavBar from './Navbar';
 import Card from './Card';
 import Footer from './Footer';

@@ -1,6 +1,5 @@
-import { CreateTeamModal } from './CreateTeamModal';
-import { ProfileModal } from './ProfileModal';
-import { ResultsModal } from './ResultsModal';
-import { UpdateTeamModal } from './UpdateTeamModal';
-
-export { CreateTeamModal, ProfileModal, ResultsModal, UpdateTeamModal };
+/* eslint-disable import/no-cycle */
+export { CreateTeamModal } from './CreateTeamModal';
+export { ProfileModal } from './ProfileModal';
+export { ResultsModal } from './ResultsModal';
+export { UpdateTeamModal } from './UpdateTeamModal';
