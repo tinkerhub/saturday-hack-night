@@ -33,6 +33,7 @@ const EventCard = ({ event }: EventCardProps) => {
                 maxWidth="300px"
                 backgroundColor="rgba(255,255,255,.15)"
                 alignItems="flex-start"
+                className="cardBox"
                 borderRadius="10px"
             >
                 <Box
@@ -43,7 +44,7 @@ const EventCard = ({ event }: EventCardProps) => {
                     borderTopRadius="10px"
                 >
                     <Text
-                        display={results ? 'block' : 'none'}
+                        display="none"
                         position="absolute"
                         cursor="pointer"
                         paddingInline="8px"
@@ -58,6 +59,11 @@ const EventCard = ({ event }: EventCardProps) => {
                             textColor: 'black',
                             boxShadow: '0px 8px 16px rgba(255, 255, 255, 0.15)',
                             backgroundColor: '#DBF72C',
+                        }}
+                        css={{
+                            '.cardBox: hover &': {
+                                display: results ? 'block' : 'none',
+                            },
                         }}
                         onClick={() =>
                             navigator.clipboard
