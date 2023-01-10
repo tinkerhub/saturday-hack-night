@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 
@@ -20,7 +19,7 @@ async function queueMails(
     const mails = firestore.collection(`/events/${eventID}/teams/${teamID}/mails`);
     const leadUser = await firestore.doc(`users/${lead}`).get();
 
-    if (!isUpdate) {
+    if (!isUpdate)
         bulk.create(mails.doc(lead), {
             to: [leadUser.get('email')],
             template: {
@@ -34,8 +33,8 @@ async function queueMails(
                 },
             },
         });
-    }
-    members.forEach(async (member) => {
+
+    for (const member of members || []) {
         const user = await firestore.doc(`users/${member}`).get();
         bulk.create(mails.doc(member), {
             to: [user.get('email')],
@@ -50,7 +49,7 @@ async function queueMails(
                 },
             },
         });
-    });
+    }
 }
 
 export const onNewUser = functions.auth.user().onCreate(async (user) => {
@@ -88,12 +87,11 @@ export const onTeamCreated = functions.firestore
             },
         );
         if (snapshot.get('members'))
-            snapshot.get('members').forEach((uid: string) => {
+            for (const uid of snapshot.get('members'))
                 bulk.create(membersRef.doc(uid), {
                     uid,
                     accepted: false,
                 });
-            });
 
         await queueMails(
             bulk,
@@ -135,15 +133,13 @@ export const onTeamEdited = functions.firestore
                 projectCount: admin.firestore.FieldValue.increment(delta),
             });
         }
-        added.forEach((uid: string) => {
+        for (const uid of added)
             bulk.create(membersRef.doc(uid), {
                 uid,
                 accepted: false,
             });
-        });
-        removed.forEach((uid: string) => {
-            bulk.delete(membersRef.doc(uid));
-        });
+
+        for (const uid of removed) bulk.delete(membersRef.doc(uid));
 
         await queueMails(
             bulk,

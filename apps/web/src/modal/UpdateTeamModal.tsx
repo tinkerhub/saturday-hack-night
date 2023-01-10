@@ -42,6 +42,7 @@ interface ModalType {
 export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: ModalType) => {
     const initialRef = React.useRef(null);
     const toast = useToast();
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [teamData, setTeamData] = useState<DocumentSnapshot<DocumentData>>();
     const [users, setUsers] = useState<Array<string>>([]);
     const finalRef = React.useRef(null);
@@ -86,15 +87,21 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: Mod
     };
     useEffect(() => {
         (async () => {
+            setIsLoading(true);
             const teamSnapshot = await getDoc(doc(db, `events/${eventId}/teams/${teamID}`));
             setTeamData(teamSnapshot);
             const memberList = teamSnapshot.get('members');
-            memberList.forEach(async (member: string) => {
+            for (const member of memberList) {
                 const memberSnapshot = (await getDoc(doc(db, `users/${member}`))).data();
                 setUsers((prev) => [...prev, memberSnapshot?.githubID]);
-            });
+            }
+            setIsLoading(false);
         })();
-        return () => {};
+        return () => {
+            setTeamData(undefined);
+            setUsers([]);
+            setIsLoading(false);
+        };
     }, [db, eventId, teamID]);
 
     return (
@@ -185,9 +192,11 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamID }: Mod
                                 </FormControl>
                             </Flex>
                         </Box>
-                        <Flex flexDirection="column" mt="20px">
-                            {users && <Member githubIds={users} setUsers={setUsers} />}
-                        </Flex>
+                        {!isLoading && (
+                            <Flex flexDirection="column" mt="20px">
+                                {users && <Member githubIds={users} setUsers={setUsers} />}
+                            </Flex>
+                        )}
                     </Flex>
                 </ModalBody>
 
