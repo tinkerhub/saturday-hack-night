@@ -5,10 +5,10 @@
     "baseUrl": ".",
     "compilerOptions": {
         "incremental": true,
-        "jsx": "preserve"
-    },
-    "paths": {
-        "@app/*": ["./*"]
+        "jsx": "preserve",
+        "paths": {
+            "@app/*": ["./*"]
+        }
     },
     "typeRoots": ["./node_modules/@types/"]
 }

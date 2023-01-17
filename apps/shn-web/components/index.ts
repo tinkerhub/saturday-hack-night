@@ -1,11 +1,10 @@
-import Navbar from './Navbar';
-import Card from './Card';
-import ParallaxView from './ParallaxView';
-import Accordion from './Accordion';
-import Footer from './Footer';
-import MobileBar from './MobileBar';
-import Toast from './Toast';
-import CurrentEvent from './CurrentEvent';
-import EventCard from './EventCard';
-
-export { Navbar, Card, ParallaxView, Accordion, Footer, MobileBar, Toast, CurrentEvent, EventCard };
+export { Navbar } from './Navbar';
+export { Card } from './Card';
+export { ParallaxView } from './ParallaxView';
+export { Accordion } from './Accordion';
+export { Footer } from './Footer';
+export { MobileBar } from './MobileBar';
+export { Toast } from './Toast';
+export { Member } from './Member';
+export { CurrentEvent } from './CurrentEvent';
+export { EventCard } from './EventCard';

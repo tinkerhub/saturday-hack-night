@@ -34,4 +34,4 @@ const Footer = () => (
     </HStack>
 );
 
-export default Footer;
+export { Footer };

@@ -2,8 +2,8 @@ import React, { createContext, useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import Session from 'supertokens-web-js/recipe/session';
 import { getAuthorisationURLWithQueryParamsAndSetState } from 'supertokens-web-js/recipe/thirdparty';
-import { api } from '../api';
-import { Child, User } from '../types';
+import { api } from '@app/api';
+import { Child, User } from '@app/types';
 
 interface Prop {
     user: User | null;
@@ -11,6 +11,7 @@ interface Prop {
     setUser: React.Dispatch<User | null>;
     login: () => Promise<void>;
     logout: () => Promise<void>;
+    isProfileComplete: boolean;
 }
 
 export const AuthCtx = createContext({} as Prop);
@@ -18,7 +19,8 @@ export const AuthCtx = createContext({} as Prop);
 export const AuthContext = ({ children }: Child) => {
     const router = useRouter();
     const [user, setUser] = useState<User | null>(null);
-    const [isUserLoading, setUserLoading] = useState(true);
+    const [isUserLoading, setUserLoading] = useState<boolean>(true);
+    const [isProfileComplete, setIsProfileComplete] = useState<boolean>(false);
     const { doesSessionExist } = Session;
 
     const login = async () => {
@@ -30,6 +32,8 @@ export const AuthContext = ({ children }: Child) => {
             window.location.assign(authUrl);
         } catch (err: any) {
             router.push('/error');
+        } finally {
+            setUserLoading(false);
         }
     };
     const logout = async () => {
@@ -48,6 +52,7 @@ export const AuthContext = ({ children }: Child) => {
             }
             if (data.Success && data.data) {
                 setUser(data.data);
+                if (data.data.mobile) setIsProfileComplete(true);
             }
         } catch {
             router.push('/error');
@@ -58,12 +63,17 @@ export const AuthContext = ({ children }: Child) => {
 
     useEffect(() => {
         (async () => {
+            setUserLoading(true);
             if (await doesSessionExist()) {
                 getData();
             } else {
                 setUserLoading(false);
             }
         })();
+        return () => {
+            setUser(null);
+            setUserLoading(true);
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [doesSessionExist]);
 
@@ -71,6 +81,7 @@ export const AuthContext = ({ children }: Child) => {
         () => ({
             user,
             isUserLoading,
+            isProfileComplete,
             setUser,
             login,
             logout,

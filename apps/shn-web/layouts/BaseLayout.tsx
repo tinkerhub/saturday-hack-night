@@ -1,6 +1,6 @@
 import { Container, VStack } from '@chakra-ui/react';
-import type { Child } from '../types';
-import { Footer, Navbar } from '../components';
+import type { Child } from '@app/types';
+import { Footer, Navbar } from '@app/components';
 
 export const BaseLayout = ({ children }: Child) => (
     <>

@@ -37,7 +37,7 @@ const Card = ({ num, heading, text }: CardProps) => (
     </HStack>
 );
 
-export default Card;
+export { Card };
 
 export interface CardProps {
     num: string;

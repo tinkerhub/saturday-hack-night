@@ -56,7 +56,7 @@ const Accordion = ({ content }: AccordionProps) => (
         ))}
     </ChakraAccordion>
 );
-export default Accordion;
+export { Accordion };
 
 interface AccordionProps {
     content: {

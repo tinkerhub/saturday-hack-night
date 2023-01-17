@@ -18,6 +18,7 @@ export default class Document extends NextDocument {
             }
                             `}
                     </style>
+                    <link href="/style/clashDisplay.css" rel="stylesheet" />
                 </Head>
                 <body>
                     <Main />

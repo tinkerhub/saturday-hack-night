@@ -25,10 +25,10 @@ import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { InferType } from 'yup';
-import Toast from '../Toast';
-import { profileModalValidator } from '../../validator';
-import { useAuthCtx } from '../../hooks';
-import { api } from '../../api';
+import { Toast } from '@app/components';
+import { profileModalValidator } from '@app/validators';
+import { useAuthCtx } from '@app/hooks';
+import { api } from '@app/api';
 
 type FormType = InferType<typeof profileModalValidator>;
 
@@ -242,21 +242,19 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                         }}
                                         {...register('mobile')}
                                     />
-                                    <FormErrorMessage
+                                    <Text
+                                        display={errors.mobile ? 'block' : 'none'}
                                         backgroundColor="rgba(226,76,75,0.4)"
-                                        marginTop="-15px"
+                                        marginTop="15px"
                                         paddingInline="10px"
                                         borderRadius="5px"
                                         paddingBlock="5px"
+                                        fontFamily="Clash Display"
+                                        fontSize="12px"
+                                        textColor="#E24C4B"
                                     >
-                                        <Text
-                                            fontFamily="Clash Display"
-                                            fontSize="12px"
-                                            textColor="#E24C4B"
-                                        >
-                                            {errors.mobile?.message}
-                                        </Text>
-                                    </FormErrorMessage>
+                                        {errors.mobile?.message}
+                                    </Text>
                                 </FormControl>
                                 <Flex
                                     flexDirection={{ base: 'column', lg: 'row' }}

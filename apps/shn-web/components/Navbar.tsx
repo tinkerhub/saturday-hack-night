@@ -14,9 +14,9 @@ import {
 } from '@chakra-ui/react';
 
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
-import { useAuthCtx } from '../hooks';
-import MobileBar from './MobileBar';
-import { ProfileModal } from './modal';
+import { MobileBar } from '@app/components';
+import { useAuthCtx } from '@app/hooks';
+import { ProfileModal } from '@app/components/modal';
 
 const Navbar = () => {
     const { user, login, logout } = useAuthCtx();
@@ -148,15 +148,10 @@ const Navbar = () => {
                         flexDirection="row"
                         alignItems="center"
                     >
-                        <Link
-                            href="/"
-                            textColor="white"
-                            _activeLink={{
-                                color: '#DBF72C',
-                            }}
-                        >
+                        <Link href="/">
                             <Text
                                 as="span"
+                                color="white"
                                 fontSize="18px"
                                 transition="all 0.2s  ease-in-out"
                                 _hover={{
@@ -166,15 +161,10 @@ const Navbar = () => {
                                 HOME
                             </Text>
                         </Link>
-                        <Link
-                            href="/events"
-                            textColor="white"
-                            _activeLink={{
-                                color: '#DBF72C',
-                            }}
-                        >
+                        <Link href="/events">
                             <Text
                                 as="span"
+                                color="white"
                                 fontSize="18px"
                                 transition="all 0.2s  ease-in-out"
                                 _hover={{
@@ -246,4 +236,4 @@ const Navbar = () => {
         </Box>
     );
 };
-export default Navbar;
+export { Navbar };

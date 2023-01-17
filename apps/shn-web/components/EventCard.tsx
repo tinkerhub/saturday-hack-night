@@ -1,19 +1,12 @@
-import { VStack, Image, Box, Text, HStack, Button, useDisclosure } from '@chakra-ui/react';
+import { VStack, Image, Box, Text, HStack, Button } from '@chakra-ui/react';
 import React from 'react';
-/* import { DocumentData, QueryDocumentSnapshot } from 'firebase/firestore';
-import { ResultsModal } from '../modal';
- */
-const EventCard = ({
-    id,
-    title,
-    description,
-    image,
-    mode,
-    status,
-    details,
-    _count,
-}: EventCardProps) => {
-    const { isOpen, onOpen, onClose } = useDisclosure();
+import { Activity } from '@prisma/client';
+/* import { ResultsModal } from '../modal'; */
+
+const EventCard = ({ event }: EventCardProps) => {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    const { description, image, status, details, _count } = event;
+    /* const { isOpen, onOpen, onClose } = useDisclosure(); */
     return (
         <>
             {/*      {isOpen && (
@@ -44,7 +37,7 @@ const EventCard = ({
                             fontFamily="Clash Display"
                             fontWeight="medium"
                         >
-                            ✅ {_count.teams} Submissions
+                            ✅ {_count!.teams || 0} Teams
                         </Text>
                     </Box>
                     <Text
@@ -65,7 +58,7 @@ const EventCard = ({
                     >
                         <Button
                             width="130px"
-                            disabled={status !== 'RESULTS'}
+                            disabled={status !== 'RESULT'}
                             _hover={{
                                 boxShadow: '0px 8px 16px rgba(255, 255, 255, 0.15)',
                                 backgroundColor: '#DBF72C',
@@ -76,7 +69,9 @@ const EventCard = ({
                                 boxShadow: '0px 8px 16px rgba(219, 247, 44, 0.15)',
                                 backdropFilter: 'blur(25px)',
                             }}
-                            onClick={onOpen}
+                            onClick={() => {
+                                /* onOpen(); */
+                            }}
                         >
                             View Projects
                         </Button>
@@ -106,17 +101,11 @@ const EventCard = ({
     );
 };
 interface EventCardProps {
-    id: string;
-    title: string;
-    description: string;
-    image: string;
-    mode: string;
-    status: string;
-    details: string;
-    _count: {
-        teams: number;
-        participants: number;
+    event: Activity & {
+        _count?: {
+            teams: number;
+        };
     };
 }
 
-export default EventCard;
+export { EventCard };

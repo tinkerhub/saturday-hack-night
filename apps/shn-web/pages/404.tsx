@@ -1,7 +1,7 @@
 import { Button, Heading, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { BaseLayout } from '../layout';
-import { NextPageWithLayout } from './_app';
+import { BaseLayout } from '@app/layouts';
+import { NextPageWithLayout } from '@app/pages/_app';
 
 const Error: NextPageWithLayout = () => {
     const router = useRouter();

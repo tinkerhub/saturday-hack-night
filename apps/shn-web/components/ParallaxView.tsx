@@ -45,4 +45,4 @@ const ParallaxView = ({ text, duration }: ParallaxProps) => {
     );
 };
 
-export default ParallaxView;
+export { ParallaxView };

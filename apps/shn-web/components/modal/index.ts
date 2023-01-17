@@ -1,3 +1,2 @@
-import { ProfileModal } from './ProfileModal';
-
-export { ProfileModal };
+export { CreateTeamModal } from './CreateTeamModal';
+export { ProfileModal } from './ProfileModal';

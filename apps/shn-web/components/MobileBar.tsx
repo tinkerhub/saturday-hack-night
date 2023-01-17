@@ -90,4 +90,4 @@ const MobileBar = ({ closeModal }: Handler) => {
     );
 };
 
-export default MobileBar;
+export { MobileBar };

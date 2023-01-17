@@ -24,4 +24,4 @@ interface ToastProps {
     title: React.ReactNode;
     status?: string;
 }
-export default Toast;
+export { Toast };

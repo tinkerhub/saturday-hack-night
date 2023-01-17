@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { CalendarIcon } from '@chakra-ui/icons';
+import { Activity } from '@prisma/client';
 import {
     Flex,
     HStack,
@@ -12,38 +13,41 @@ import {
     useDisclosure,
     useToast,
 } from '@chakra-ui/react';
-/* import { UpdateTeamModal, CreateTeamModal } from '../modal';
- */ import Toast from './Toast';
+import moment from 'moment';
+import { api } from '@app/api';
+import { CreateTeamModal } from '@app/components/modal';
+import { Toast } from '@app/components/';
+import { useAuthCtx } from '@app/hooks';
 
 const CurrentEvent = ({ event }: CurrentEventProps) => {
     const toast = useToast();
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    const { title, description, date, image, details, _count } = event;
-    /*     const {
+    const { id, title, description, date, image, details, _count } = event;
+    const [isRegistered, setIsRegistered] = useState<boolean>(false);
+    const { isProfileComplete, user, login } = useAuthCtx();
+
+    useEffect(() => {
+        (async () => {
+            if (user) {
+                const { data } = await api.get(`/team/${id}`);
+                if (data.data) setIsRegistered(true);
+            }
+        })();
+        return () => {
+            setIsRegistered(false);
+        };
+    }, [isProfileComplete, user, login, id]);
+
+    /*  const {
         isOpen: isOpenUpdateModal,
         onOpen: onOpenUpdateModal,
         onClose: onCloseUpdateModal,
-    } = useDisclosure();
+    } = useDisclosure(); */
     const {
         isOpen: isOpenCreateModal,
         onOpen: onOpenCreateModal,
         onClose: onCloseCreateModal,
     } = useDisclosure();
-    useEffect(() => {
-        (async () => {
-            const teamSnapshots = await getDocs(query(collection(db, `events/${event.id}/teams`)));
-            setTeams(teamSnapshots.docs.length);
-            const userTeamSnap = await getDoc(
-                doc(db, `users/${auth.currentUser?.uid}/teams/${event.id}`),
-            );
-            const user = userTeamSnap.data();
-            if (user) setTeamID(user.teamID);
-            const userSnap = await getDoc(doc(db, `users/${auth.currentUser?.uid}`));
-            if (userSnap.get('phno')) setIsProfileComplete(true);
-        })();
-        return () => {};
-    }, [auth.currentUser, db, event.id]);
- */
     return (
         <Flex
             width={{
@@ -65,12 +69,12 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                 image={imageWhite}
                 teamID={teamID}
                 eventId={event.id}
-            />
+            /> */}
             <CreateTeamModal
                 isOpen={isOpenCreateModal}
                 onClose={onCloseCreateModal}
                 eventId={event.id}
-            /> */}
+            />
             <VStack
                 minWidth={{ base: '100%', lg: '50%' }}
                 maxWidth={{ base: '100%', lg: '50%' }}
@@ -89,7 +93,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                 >
                     <HStack textColor="white">
                         <CalendarIcon height="15px" width="15px" />
-                        <Text fontSize="12px">{date}</Text>
+                        <Text fontSize="12px">{moment(date).format('ll')}</Text>
                     </HStack>
                     <HStack
                         padding="10px"
@@ -99,7 +103,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                     >
                         <Image width="15px" height="15px" src="images/circle.svg" />
                         <Text fontSize="12px" textColor="#DBF72C">
-                            {_count.teams} Teams Registered
+                            {_count!.teams || 0} Teams Registered
                         </Text>
                     </HStack>
                 </HStack>
@@ -112,8 +116,8 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                     paddingInline="8px"
                 />
                 <Box
-                    width="100%" /* 
-                    backgroundColor={teamID ? '#DBF72C' : '#E24C4B'} */
+                    width="100%"
+                    backgroundColor={isRegistered ? '#DBF72C' : '#E24C4B'}
                     borderBottomStartRadius="10px"
                     padding="5px"
                     borderBottomEndRadius="10px"
@@ -125,8 +129,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                         textAlign="center"
                         fontFamily="Clash Display"
                     >
-                        Registered
-                        {/*  {teamID ? 'Registered 🎉' : 'Register Now'} */}
+                        {isRegistered ? 'Registered 🎉' : 'Register Now'}
                     </Text>
                 </Box>
             </VStack>
@@ -148,12 +151,12 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                 </Text>
                 <HStack columnGap="15px">
                     <Button
-                        /* onClick={
+                        onClick={
                             // eslint-disable-next-line no-nested-ternary
-                            auth.currentUser
+                            user
                                 ? // eslint-disable-next-line no-nested-ternary
-                                  teamID
-                                    ? onOpenUpdateModal
+                                  isRegistered
+                                    ? () => {}
                                     : isProfileComplete
                                     ? onOpenCreateModal
                                     : () =>
@@ -165,8 +168,8 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                                                   <Toast title={title} status={status} />
                                               ),
                                           })
-                                : () => signInWithPopup(auth, new GithubAuthProvider())
-                        } */
+                                : () => login()
+                        }
                         fontFamily="Clash Display"
                         size="lg"
                         _hover={{
@@ -180,7 +183,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                             backdropFilter: 'blur(25px)',
                         }}
                     >
-                        {/*  {teamID ? 'Edit Team' : 'Create Team'} */}
+                        {isRegistered ? 'Edit Team' : 'Create Team'}
                     </Button>
                     <Button
                         fontFamily="Clash Display"
@@ -210,8 +213,8 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
     );
 };
 
-interface CurrentEventProps {
-    event: any;
+export interface CurrentEventProps {
+    event: Activity & { _count?: { teams: number } };
 }
 
-export default CurrentEvent;
+export { CurrentEvent };
