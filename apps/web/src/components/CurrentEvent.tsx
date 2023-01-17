@@ -74,18 +74,22 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
             paddingBlockStart="18px"
             justifyContent="space-between"
         >
-            <UpdateTeamModal
-                isOpen={isOpenUpdateModal}
-                onClose={onCloseUpdateModal}
-                image={imageWhite}
-                teamID={teamID}
-                eventId={event.id}
-            />
-            <CreateTeamModal
-                isOpen={isOpenCreateModal}
-                onClose={onCloseCreateModal}
-                eventId={event.id}
-            />
+            {isOpenUpdateModal && (
+                <UpdateTeamModal
+                    isOpen={isOpenUpdateModal}
+                    onClose={onCloseUpdateModal}
+                    image={imageWhite}
+                    teamID={teamID}
+                    eventId={event.id}
+                />
+            )}
+            {isOpenCreateModal && (
+                <CreateTeamModal
+                    isOpen={isOpenCreateModal}
+                    onClose={onCloseCreateModal}
+                    eventId={event.id}
+                />
+            )}
             <VStack
                 minWidth={{ base: '100%', lg: '50%' }}
                 maxWidth={{ base: '100%', lg: '50%' }}
