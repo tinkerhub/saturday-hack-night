@@ -1,6 +1,5 @@
 import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
 import { Injectable } from '@nestjs/common';
-import { TeamMemberRole } from '@prisma/client';
 import { TeamUpdatedEvent } from 'src/events/team-updated-event';
 import { MailService } from 'src/mail/mail.service';
 import { TeamCreatedEvent } from '../events/team-created-event';
@@ -48,7 +47,7 @@ export class TeamService {
                 data: {
                     members: {
                         create: {
-                            role: TeamMemberRole.MEMBER,
+                            role: 'MEMBER',
                             userId: authId,
                             activityId: tempTeam.activityId,
                         },
@@ -85,7 +84,7 @@ export class TeamService {
                 activityId,
                 members: {
                     create: {
-                        role: TeamMemberRole.LEADER,
+                        role: 'LEADER',
                         userId: authid,
                         activityId,
                     },
@@ -110,7 +109,27 @@ export class TeamService {
                 },
             },
         });
-        this.eventEmitter.emit('team.create', new TeamCreatedEvent(res.id, res.members));
+        const members = await Promise.all(
+            createTeamDto.members.map(async (member) => {
+                const user = await this.prisma.user.findUnique({
+                    where: {
+                        githubid: member,
+                    },
+                });
+                return {
+                    role: 'MEMBER',
+                    user: {
+                        name: user!.name,
+                        email: user!.email,
+                        githubid: user!.githubid,
+                    },
+                };
+            }),
+        );
+
+        members.push(res.members[0]);
+
+        this.eventEmitter.emit('team.create', new TeamCreatedEvent(res.id, members));
         return this.Success({
             message: 'Team created successfully',
             data: res,
@@ -138,7 +157,7 @@ export class TeamService {
         }
         const member = res.data.members as string[];
         const isLeader = member.find(
-            (mem: any) => mem.role === TeamMemberRole.LEADER && mem.user.authid === authid,
+            (mem: any) => mem.role === 'LEADER' && mem.user.authid === authid,
         );
         if (isLeader == null) {
             return new UpdateException("User don't have permission to update");
@@ -191,7 +210,7 @@ export class TeamService {
             return;
         }
         members.forEach(async (member) => {
-            if (member.role === TeamMemberRole.LEADER) {
+            if (member.role === 'LEADER') {
                 const data = {
                     name: member.user.name || member.user.githubid,
                     teamName: team.name,
@@ -206,11 +225,9 @@ export class TeamService {
             } else {
                 const data = {
                     name: member.user.name || member.user.githubid,
-                    lead:
-                        members.find((mem) => mem.role === TeamMemberRole.LEADER)?.user.name || '',
+                    lead: members.find((mem) => mem.role === 'LEADER')?.user.name || '',
                     teamName: team.name,
-                    teamID: team.id,
-                    eventID: team.activityId,
+                    inviteCode: team.inviteCode,
                 };
                 await this.mailService.sendMemberInvited({
                     data,
@@ -230,6 +247,7 @@ export class TeamService {
             select: {
                 id: true,
                 name: true,
+                inviteCode: true,
                 activityId: true,
                 members: {
                     select: {
@@ -261,11 +279,9 @@ export class TeamService {
             }
             const data = {
                 name: user.name || user.githubid,
-                lead:
-                    team.members.find((mem) => mem.role === TeamMemberRole.LEADER)?.user.name || '',
+                lead: team.members.find((mem) => mem.role === 'LEADER')?.user.name || '',
                 teamName: team.name,
-                teamID: team.id,
-                eventID: team.activityId,
+                inviteCode: team.inviteCode,
             };
             await this.mailService.sendMemberInvited({
                 data,

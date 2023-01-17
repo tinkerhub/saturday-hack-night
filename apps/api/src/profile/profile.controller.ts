@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Patch, Session, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Session, UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { SessionContainer } from 'supertokens-node/recipe/session';
 import { ProfileService } from './profile.service';
@@ -31,6 +31,16 @@ export class ProfileController {
             return await this.profileService.update(updateProfileDto, authId);
         } catch (err) {
             throw new UpdateException(err);
+        }
+    }
+
+    @Get(':githubId')
+    @UseGuards(new AuthGuard())
+    async readByGithubId(@Param('githubId') githubId: string) {
+        try {
+            return await this.profileService.readByGithubId(githubId);
+        } catch (err) {
+            throw new ReadException(err);
         }
     }
 }

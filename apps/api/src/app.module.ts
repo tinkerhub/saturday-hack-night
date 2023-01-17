@@ -29,6 +29,7 @@ import { CollegeModule } from './college/college.module';
                 EMAIL_USERNAME: Joi.string(),
                 EMAIL_PASSWORD: Joi.string(),
                 MAIL_FROM: Joi.string(),
+                DASHBOARD_API_KEY: Joi.string(),
             }),
             validationOptions: {
                 allowUnknown: true,
@@ -60,6 +61,7 @@ import { CollegeModule } from './college/college.module';
             },
             githubClientId: process.env.GITHUB_CLIENT_ID as string,
             githubClientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+            DashboardApiKey: process.env.DASHBOARD_API_KEY as string,
         }),
         EventEmitterModule.forRoot(),
         MailModule,

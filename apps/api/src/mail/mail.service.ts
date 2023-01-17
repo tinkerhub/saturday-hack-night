@@ -29,6 +29,6 @@ interface TeamCreatedContext {
 }
 
 interface MemberInvitedContext {
-    data: { name: string; lead: string; teamName: string; teamID: string; eventID: string };
+    data: { name: string; lead: string; teamName: string; inviteCode: string };
     email: string;
 }

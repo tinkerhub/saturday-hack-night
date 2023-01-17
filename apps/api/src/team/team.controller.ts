@@ -1,6 +1,7 @@
 import { SessionContainer } from 'supertokens-node/recipe/session';
-import { Controller, Post, Body, Patch, UseGuards, Param } from '@nestjs/common';
+import { Controller, Post, Body, Patch, UseGuards, Param, Get } from '@nestjs/common';
 import { Session } from 'src/auth/session.decorator';
+import { ReadException } from './exception/read.exception';
 import { TeamService } from './team.service';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
@@ -45,6 +46,18 @@ export class TeamController {
             return this.teamService.join(authId, inviteCode);
         } catch (err) {
             return new UpdateException(err);
+        }
+    }
+
+    @Get(':eventId')
+    @UseGuards(new AuthGuard())
+    get(@Session() session: SessionContainer, @Param('eventId') activityid: string) {
+        let authId: string;
+        try {
+            authId = session.getUserId();
+            return this.teamService.read(activityid, authId);
+        } catch (err) {
+            return new ReadException(err);
         }
     }
 }

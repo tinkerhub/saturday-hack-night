@@ -8,4 +8,5 @@ export type AuthModuleConfig = {
     apiKey: string;
     githubClientId: string;
     githubClientSecret: string;
+    DashboardApiKey: string;
 };

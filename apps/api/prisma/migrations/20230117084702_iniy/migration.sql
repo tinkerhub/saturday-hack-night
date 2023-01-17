@@ -1,18 +1,3 @@
--- CreateEnum
-CREATE TYPE "TeamMemberRole" AS ENUM ('MEMBER', 'LEADER');
-
--- CreateEnum
-CREATE TYPE "ActivityMode" AS ENUM ('ONLINE', 'OFFLINE');
-
--- CreateEnum
-CREATE TYPE "ActivityStatus" AS ENUM ('REGISTRATION', 'RESULT', 'PENDING');
-
--- CreateEnum
-CREATE TYPE "PitchStatus" AS ENUM ('PENDING', 'ABSENT', 'PRESENT');
-
--- CreateEnum
-CREATE TYPE "ProjectStatus" AS ENUM ('PENDING', 'WORKING', 'COMPLETED', 'DROP', 'BESTPROJECT');
-
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
@@ -22,10 +7,18 @@ CREATE TABLE "User" (
     "name" TEXT,
     "mobile" TEXT,
     "avatar" TEXT NOT NULL,
-    "campus" TEXT,
+    "collegeId" TEXT,
     "district" TEXT,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "College" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+
+    CONSTRAINT "College_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -36,8 +29,8 @@ CREATE TABLE "Activity" (
     "image" TEXT NOT NULL,
     "details" TEXT NOT NULL,
     "date" TIMESTAMP(3) NOT NULL,
-    "mode" "ActivityMode" NOT NULL DEFAULT 'ONLINE',
-    "status" "ActivityStatus" NOT NULL DEFAULT 'PENDING',
+    "location" TEXT NOT NULL DEFAULT 'Online',
+    "status" TEXT NOT NULL DEFAULT 'PENDING',
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
@@ -51,8 +44,8 @@ CREATE TABLE "Team" (
     "repo" TEXT NOT NULL,
     "inviteCode" TEXT NOT NULL,
     "activityId" TEXT NOT NULL,
-    "pitchStatus" "PitchStatus" NOT NULL DEFAULT 'PENDING',
-    "projectStatus" "ProjectStatus" NOT NULL DEFAULT 'PENDING',
+    "pitchStatus" TEXT NOT NULL DEFAULT 'PENDING',
+    "projectStatus" TEXT NOT NULL DEFAULT 'PENDING',
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
@@ -62,7 +55,7 @@ CREATE TABLE "Team" (
 -- CreateTable
 CREATE TABLE "TeamMember" (
     "id" TEXT NOT NULL,
-    "role" "TeamMemberRole" NOT NULL DEFAULT 'MEMBER',
+    "role" TEXT NOT NULL DEFAULT 'MEMBER',
     "teamId" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "activityId" TEXT NOT NULL,
@@ -83,6 +76,9 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 CREATE UNIQUE INDEX "User_githubid_key" ON "User"("githubid");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "College_name_key" ON "College"("name");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Activity_id_key" ON "Activity"("id");
 
 -- CreateIndex
@@ -99,6 +95,9 @@ CREATE UNIQUE INDEX "TeamMember_userId_activityId_key" ON "TeamMember"("userId",
 
 -- CreateIndex
 CREATE UNIQUE INDEX "TeamMember_userId_teamId_key" ON "TeamMember"("userId", "teamId");
+
+-- AddForeignKey
+ALTER TABLE "User" ADD CONSTRAINT "User_collegeId_fkey" FOREIGN KEY ("collegeId") REFERENCES "College"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Team" ADD CONSTRAINT "Team_activityId_fkey" FOREIGN KEY ("activityId") REFERENCES "Activity"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

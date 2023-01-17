@@ -27,7 +27,7 @@ export class ActivityService {
                 description: true,
                 date: true,
                 image: true,
-                mode: true,
+                location: true,
                 status: true,
                 details: true,
                 _count: {
@@ -55,7 +55,7 @@ export class ActivityService {
                 description: true,
                 date: true,
                 image: true,
-                mode: true,
+                location: true,
                 status: true,
                 details: true,
                 _count: {

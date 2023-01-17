@@ -4,6 +4,7 @@ import { UpdateException } from './exception/update.exception';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { UpdateProfileDto } from './dto/update-profile.dto';
+import { ReadException } from './exception/read.exception';
 
 interface Resp {
     message: string;
@@ -69,6 +70,24 @@ export class ProfileService {
         return this.Success({
             message: 'User updated successfully',
             data,
+        });
+    }
+
+    async readByGithubId(githubId: string) {
+        const data = await this.prisma.user.findMany({
+            where: {
+                githubid: githubId,
+            },
+        });
+        if (data.length === 0) {
+            throw new ReadException('User does not exist');
+        }
+        return this.Success({
+            message: 'User read successfully',
+            data: {
+                user: data[0].githubid,
+                status: true,
+            },
         });
     }
 }

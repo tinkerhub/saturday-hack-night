@@ -17,6 +17,7 @@ export class AuthModule {
         appInfo,
         githubClientId,
         githubClientSecret,
+        DashboardApiKey,
     }: AuthModuleConfig): DynamicModule {
         return {
             providers: [
@@ -27,6 +28,7 @@ export class AuthModule {
                         apiKey,
                         githubClientId,
                         githubClientSecret,
+                        DashboardApiKey,
                     },
                     provide: ConfigInjectionToken,
                 },

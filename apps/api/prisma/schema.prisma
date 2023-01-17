@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id                  String          @id @unique @default(cuid())
+  id                  String          @unique @id
   authid              String          @unique
   email               String          @unique
   githubid            String          @unique
@@ -22,6 +22,8 @@ model User {
   collegeId           String?
   district            String?
   participated        TeamMember[]
+  created_at          DateTime        @default(now())
+  updated_at          DateTime        @updatedAt
 }
 
 model College {
@@ -37,12 +39,12 @@ model Activity {
   image               String
   details             String
   date                DateTime
-  mode                ActivityMode    @default(ONLINE)
-  status              ActivityStatus  @default(PENDING)
+  location            String          @default("Online")
+  status              String          @default("PENDING")
   teams               Team[]
   participants        TeamMember[]
-  created_at          DateTime        @default(now())
-  updated_at          DateTime        @updatedAt
+  created_at          DateTime         @default(now())
+  updated_at          DateTime         @updatedAt
 }
 
 model Team {
@@ -53,15 +55,15 @@ model Team {
   activity            Activity        @relation(fields: [activityId], references: [id])
   activityId          String
   members             TeamMember[]
-  pitchStatus         PitchStatus     @default(PENDING)
-  projectStatus       ProjectStatus   @default(PENDING)
+  pitchStatus         String          @default("PENDING")
+  projectStatus       String          @default("PENDING")
   created_at          DateTime        @default(now())
   updated_at          DateTime        @updatedAt
 }
 
 model TeamMember{
   id                  String          @unique @default(cuid())
-  role                TeamMemberRole  @default(MEMBER)
+  role                String          @default("MEMBER")
   team                Team            @relation(fields: [teamId], references: [id])
   teamId              String
   user                User            @relation(fields: [userId], references: [id])
@@ -71,33 +73,4 @@ model TeamMember{
   @@unique([userId, activityId])
   @@unique([userId, teamId])
   @@id([userId, activityId])
-}
-
-enum TeamMemberRole{
-  MEMBER
-  LEADER
-}
-
-enum ActivityMode{
-  ONLINE
-  OFFLINE
-}
-enum ActivityStatus{
-  REGISTRATION
-  RESULT
-  PENDING
-}
-
-enum PitchStatus{
-  PENDING
-  ABSENT
-  PRESENT
-}
-
-enum ProjectStatus{
-  PENDING
-  WORKING
-  COMPLETED
-  DROP
-  BESTPROJECT
 }
