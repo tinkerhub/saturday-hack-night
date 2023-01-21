@@ -1,7 +1,7 @@
 import { MailerModule } from '@nestjs-modules/mailer';
-import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { Global, Module } from '@nestjs/common';
 import { join } from 'path';
+import { ReactAdapter } from '@webtre/nestjs-mailer-react-adapter';
 import { ConfigService } from '@nestjs/config';
 import { MailService } from './mail.service';
 
@@ -19,14 +19,11 @@ import { MailService } from './mail.service';
                     },
                 },
                 defaults: {
-                    from: `"No Reply" <${config.get('MAIL_FROM')}>`,
+                    from: `"TinkerHub Foundation" <${config.get('MAIL_FROM')}>`,
                 },
                 template: {
                     dir: join(__dirname, 'templates'),
-                    adapter: new HandlebarsAdapter(),
-                    options: {
-                        strict: true,
-                    },
+                    adapter: new ReactAdapter(),
                 },
             }),
             inject: [ConfigService],
