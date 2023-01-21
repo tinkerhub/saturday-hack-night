@@ -38,7 +38,7 @@ const Events: NextPageWithLayout = () => {
                     backgroundImage={`
                 linear-gradient(180deg, rgba(12, 15, 23, 0) 67.85%, #0C0F17 100%),
                 linear-gradient(180deg, #0C0F17 0%, rgba(12, 15, 23, 0.8) 100%),
-                url('images/bg.png') `}
+                url('images/codeBg.png') `}
                 >
                     <Heading
                         fontSize="40px"
@@ -54,56 +54,58 @@ const Events: NextPageWithLayout = () => {
                     <CurrentEvent event={currentEvent} />
                 </VStack>
             )}
-            <VStack
-                marginTop="50px"
-                alignItems="center"
-                width={{
-                    base: '100vw',
-                    xl: 'container.xl',
-                }}
-            >
-                <Heading
-                    fontSize="40px"
-                    color="white"
-                    fontFamily="Clash Display"
-                    paddingInline={{
-                        base: '16px',
-                        lg: '32px',
-                    }}
-                    width="100%"
-                    textAlign="left"
-                    style={{
-                        marginTop: '36px',
+            {pastEvents.length > 0 && (
+                <VStack
+                    marginTop="50px"
+                    alignItems="center"
+                    width={{
+                        base: '100vw',
+                        xl: 'container.xl',
                     }}
                 >
-                    Explored Areas🌟
-                </Heading>
-                <Grid
-                    templateColumns={{
-                        base: 'repeat(1, 1fr)',
-                        sm: 'repeat(2, 1fr)',
-                        md: 'repeat(3, 1fr)',
-                        xl: 'repeat(4, 1fr)',
-                    }}
-                    gap={{
-                        base: '18px',
-                        lg: '48x',
-                    }}
-                    paddingBlockStart={{
-                        base: '18px',
-                        lg: '36px',
-                    }}
-                    paddingBlockEnd="36px"
-                    paddingInline={{
-                        base: '16px',
-                        lg: '32px',
-                    }}
-                >
-                    {pastEvents.map((event: Activity) => (
-                        <EventCard key={event.id} event={event} />
-                    ))}
-                </Grid>
-            </VStack>
+                    <Heading
+                        fontSize="40px"
+                        color="white"
+                        fontFamily="Clash Display"
+                        paddingInline={{
+                            base: '16px',
+                            lg: '32px',
+                        }}
+                        width="100%"
+                        textAlign="left"
+                        style={{
+                            marginTop: '36px',
+                        }}
+                    >
+                        Explored Areas🌟
+                    </Heading>
+                    <Grid
+                        templateColumns={{
+                            base: 'repeat(1, 1fr)',
+                            sm: 'repeat(2, 1fr)',
+                            md: 'repeat(3, 1fr)',
+                            xl: 'repeat(4, 1fr)',
+                        }}
+                        gap={{
+                            base: '18px',
+                            lg: '48x',
+                        }}
+                        paddingBlockStart={{
+                            base: '18px',
+                            lg: '36px',
+                        }}
+                        paddingBlockEnd="36px"
+                        paddingInline={{
+                            base: '16px',
+                            lg: '32px',
+                        }}
+                    >
+                        {pastEvents.map((event: Activity) => (
+                            <EventCard key={event.id} event={event} />
+                        ))}
+                    </Grid>
+                </VStack>
+            )}
         </>
     );
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { CalendarIcon } from '@chakra-ui/icons';
-import { Activity } from '@prisma/client';
+import { Activity, Team } from '@prisma/client';
 import {
     Flex,
     HStack,
@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react';
 import moment from 'moment';
 import { api } from '@app/api';
-import { CreateTeamModal } from '@app/components/modal';
+import { CreateTeamModal, UpdateTeamModal } from '@app/components/modal';
 import { Toast } from '@app/components/';
 import { useAuthCtx } from '@app/hooks';
 
@@ -23,26 +23,26 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
     const toast = useToast();
     // eslint-disable-next-line @typescript-eslint/naming-convention
     const { id, title, description, date, image, details, _count } = event;
-    const [isRegistered, setIsRegistered] = useState<boolean>(false);
+    const [team, setTeam] = useState<Team | null>(null);
     const { isProfileComplete, user, login } = useAuthCtx();
 
     useEffect(() => {
         (async () => {
             if (user) {
                 const { data } = await api.get(`/team/${id}`);
-                if (data.data) setIsRegistered(true);
+                if (data.data) setTeam(data.data.team);
             }
         })();
         return () => {
-            setIsRegistered(false);
+            setTeam(null);
         };
     }, [isProfileComplete, user, login, id]);
 
-    /*  const {
+    const {
         isOpen: isOpenUpdateModal,
         onOpen: onOpenUpdateModal,
         onClose: onCloseUpdateModal,
-    } = useDisclosure(); */
+    } = useDisclosure();
     const {
         isOpen: isOpenCreateModal,
         onOpen: onOpenCreateModal,
@@ -63,18 +63,22 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
             paddingBlockStart="18px"
             justifyContent="space-between"
         >
-            {/* <UpdateTeamModal
-                isOpen={isOpenUpdateModal}
-                onClose={onCloseUpdateModal}
-                image={imageWhite}
-                teamID={teamID}
-                eventId={event.id}
-            /> */}
-            <CreateTeamModal
-                isOpen={isOpenCreateModal}
-                onClose={onCloseCreateModal}
-                eventId={event.id}
-            />
+            {team && isOpenUpdateModal && (
+                <UpdateTeamModal
+                    teamId={team.id}
+                    isOpen={isOpenUpdateModal}
+                    onClose={onCloseUpdateModal}
+                    image={image}
+                    eventId={id}
+                />
+            )}
+            {user && isOpenCreateModal && (
+                <CreateTeamModal
+                    isOpen={isOpenCreateModal}
+                    onClose={onCloseCreateModal}
+                    eventId={id}
+                />
+            )}
             <VStack
                 minWidth={{ base: '100%', lg: '50%' }}
                 maxWidth={{ base: '100%', lg: '50%' }}
@@ -117,7 +121,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                 />
                 <Box
                     width="100%"
-                    backgroundColor={isRegistered ? '#DBF72C' : '#E24C4B'}
+                    backgroundColor={team ? '#DBF72C' : '#E24C4B'}
                     borderBottomStartRadius="10px"
                     padding="5px"
                     borderBottomEndRadius="10px"
@@ -129,7 +133,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                         textAlign="center"
                         fontFamily="Clash Display"
                     >
-                        {isRegistered ? 'Registered 🎉' : 'Register Now'}
+                        {team ? 'Registered 🎉' : 'Register Now'}
                     </Text>
                 </Box>
             </VStack>
@@ -155,8 +159,8 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                             // eslint-disable-next-line no-nested-ternary
                             user
                                 ? // eslint-disable-next-line no-nested-ternary
-                                  isRegistered
-                                    ? () => {}
+                                  team
+                                    ? onOpenUpdateModal
                                     : isProfileComplete
                                     ? onOpenCreateModal
                                     : () =>
@@ -183,7 +187,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                             backdropFilter: 'blur(25px)',
                         }}
                     >
-                        {isRegistered ? 'Edit Team' : 'Create Team'}
+                        {team ? 'Edit Team' : 'Create Team'}
                     </Button>
                     <Button
                         fontFamily="Clash Display"

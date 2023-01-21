@@ -20,7 +20,7 @@ const Member = ({ loading }: MemberProps) => {
     const { control } = useFormContext();
     const { fields, append, remove } = useFieldArray({
         control,
-        name: 'members.',
+        name: 'members',
     });
 
     return (
@@ -57,16 +57,15 @@ const Member = ({ loading }: MemberProps) => {
                                     borderRadius="10px"
                                 />
                                 <InputRightAddon
+                                    cursor={loading ? 'not-allowed' : 'pointer'}
                                     border="none"
                                     textColor="#E24C4B"
                                     fontFamily="Clash Display"
-                                    backgroundColor="rgba(255,255,255,0.25)"
+                                    backgroundColor={loading ? '#26272f' : 'rgba(255,255,255,0.25)'}
                                     fontWeight="bold"
                                     height="48px"
                                     width="auto"
-                                    onClick={() => {
-                                        remove(index);
-                                    }}
+                                    onClick={() => !loading && remove(index)}
                                 >
                                     Remove
                                 </InputRightAddon>
@@ -88,9 +87,7 @@ const Member = ({ loading }: MemberProps) => {
                     borderRadius="10px"
                     transition="all 0.2s ease-in-out"
                     background="rgba(219, 247, 44, 0.15)"
-                    onClick={() => {
-                        append('');
-                    }}
+                    onClick={() => (loading ? null : append(''))}
                     _hover={{
                         background: 'rgba(255, 255, 255, 0.15)',
                         border: '1px dashed #DBF72C',

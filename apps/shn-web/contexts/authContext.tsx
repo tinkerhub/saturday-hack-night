@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useMemo } from 'react';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import Session from 'supertokens-web-js/recipe/session';
 import { getAuthorisationURLWithQueryParamsAndSetState } from 'supertokens-web-js/recipe/thirdparty';
 import { api } from '@app/api';
@@ -36,6 +36,12 @@ export const AuthContext = ({ children }: Child) => {
             setUserLoading(false);
         }
     };
+    Router.events.on('routeChangeStart', () => {
+        setUserLoading(true);
+    });
+    Router.events.on('routeChangeComplete', () => {
+        setUserLoading(false);
+    });
     const logout = async () => {
         await Session.signOut();
         setUser(null);
@@ -44,13 +50,13 @@ export const AuthContext = ({ children }: Child) => {
         try {
             setUserLoading(true);
             const { data } = await api.get('/profile');
-            if (!data.Success) {
+            if (!data.success) {
                 throw new Error();
             }
-            if (data.Success && data.data === null) {
+            if (data.success && data.data === null) {
                 router.push('/error');
             }
-            if (data.Success && data.data) {
+            if (data.success && data.data) {
                 setUser(data.data);
                 if (data.data.mobile) setIsProfileComplete(true);
             }
@@ -87,7 +93,7 @@ export const AuthContext = ({ children }: Child) => {
             logout,
         }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [doesSessionExist, isUserLoading, user],
+        [doesSessionExist, isUserLoading, user, setUser, isProfileComplete],
     );
 
     return <AuthCtx.Provider value={value}>{children}</AuthCtx.Provider>;
