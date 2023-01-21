@@ -12,7 +12,7 @@ export class ActivityService {
 
     Success(resp: Resp) {
         return {
-            Success: true,
+            success: true,
             message: resp.message,
             data: resp.data,
         };

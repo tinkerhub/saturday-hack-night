@@ -17,7 +17,7 @@ export class ProfileService {
 
     Success(resp: Resp) {
         return {
-            Success: true,
+            success: true,
             message: resp.message,
             data: resp.data,
         };

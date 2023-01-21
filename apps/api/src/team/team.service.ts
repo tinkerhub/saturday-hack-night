@@ -22,6 +22,14 @@ export class TeamService {
         private mailService: MailService,
     ) {}
 
+    Success(resp: Resp) {
+        return {
+            success: true,
+            message: resp.message,
+            data: resp.data,
+        };
+    }
+
     async join(authId: string, inviteCode: string) {
         const user = await this.prisma.user.findUnique({
             where: {
@@ -61,14 +69,6 @@ export class TeamService {
         } catch (error) {
             return new UpdateException('User already in a Team');
         }
-    }
-
-    Success(resp: Resp) {
-        return {
-            Success: true,
-            message: resp.message,
-            data: resp.data,
-        };
     }
 
     async create(createTeamDto: CreateTeamDto, authid: string) {
@@ -142,6 +142,25 @@ export class TeamService {
                 userId: authid,
                 activityId,
             },
+            select: {
+                team: {
+                    select: {
+                        id: true,
+                        name: true,
+                        repo: true,
+                        members: {
+                            select: {
+                                role: true,
+                                user: {
+                                    select: {
+                                        githubid: true,
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
         });
         return this.Success({
             message: 'Team Read successfully',
@@ -151,21 +170,21 @@ export class TeamService {
 
     async update(authid: string, updateTeamDto: UpdateTeamDto) {
         const { teamId, members } = updateTeamDto;
-        const res = await this.findOne(teamId!);
-        if (res.data == null) {
+        const { data } = await this.findOne(teamId!);
+        if (data == null) {
             return new UpdateException("Team Doesn't exist found");
         }
-        const member = res.data.members as string[];
+        const member = data.members as string[];
         const isLeader = member.find(
             (mem: any) => mem.role === 'LEADER' && mem.user.authid === authid,
         );
         if (isLeader == null) {
             return new UpdateException("User don't have permission to update");
         }
-        this.eventEmitter.emit('team.update', new TeamUpdatedEvent(teamId!, members || []));
+        this.eventEmitter.emit('team.update', new TeamUpdatedEvent(data.id, members || []));
         return this.Success({
             message: 'Team updated successfully',
-            data: res.data,
+            data,
         });
     }
 
@@ -212,9 +231,6 @@ export class TeamService {
         members.forEach(async (member) => {
             if (member.role === 'LEADER') {
                 const data = {
-                    name: member.user.name || member.user.githubid,
-                    teamName: team.name,
-                    repoUrl: team.repo,
                     teamID: team.id,
                     inviteCode: team.inviteCode,
                 };
@@ -224,9 +240,9 @@ export class TeamService {
                 });
             } else {
                 const data = {
-                    name: member.user.name || member.user.githubid,
                     lead: members.find((mem) => mem.role === 'LEADER')?.user.name || '',
                     teamName: team.name,
+                    teamID: teamId,
                     inviteCode: team.inviteCode,
                 };
                 await this.mailService.sendMemberInvited({
@@ -264,14 +280,32 @@ export class TeamService {
                 },
             },
         });
-        if (team == null) {
-            return;
-        }
-        const added = members.filter((mem) => !team.members.find((m) => m.user.id === mem));
+        const removed =
+            team?.members.filter(
+                (mem) => !members.includes(mem.user.id) && mem.role !== 'LEADER',
+            ) || [];
+        const added = members.filter((mem) => team?.members.find((m) => m.user.id !== mem));
+
+        removed.forEach(async (member) => {
+            const user = await this.prisma.user.findUnique({
+                where: {
+                    githubid: member.user.githubid,
+                },
+            });
+            await this.prisma.teamMember.delete({
+                where: {
+                    userId_teamId: {
+                        userId: user!.id,
+                        teamId,
+                    },
+                },
+            });
+        });
+
         added.forEach(async (member) => {
             const user = await this.prisma.user.findUnique({
                 where: {
-                    id: member,
+                    githubid: member,
                 },
             });
             if (user == null) {
@@ -279,11 +313,14 @@ export class TeamService {
             }
             const data = {
                 name: user.name || user.githubid,
-                lead: team.members.find((mem) => mem.role === 'LEADER')?.user.name || '',
-                teamName: team.name,
-                inviteCode: team.inviteCode,
+                lead: team!.members.find((mem) => mem.role === 'LEADER')?.user.name || '',
+                teamName: team!.name,
+                teamID: teamId,
+                inviteCode: team!.inviteCode,
             };
-            await this.mailService.sendMemberInvited({
+
+            // eslint-disable-next-line consistent-return
+            return this.mailService.sendMemberInvited({
                 data,
                 email: user.email,
             });
