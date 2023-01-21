@@ -14,17 +14,17 @@ import {
     useToast,
 } from '@chakra-ui/react';
 import moment from 'moment';
-import { api } from '@app/api';
+import api from '@app/api';
 import { CreateTeamModal, UpdateTeamModal } from '@app/components/modal';
 import { Toast } from '@app/components/';
-import { useAuthCtx } from '@app/hooks';
+import { useAuth } from '@app/hooks';
 
 const CurrentEvent = ({ event }: CurrentEventProps) => {
     const toast = useToast();
     // eslint-disable-next-line @typescript-eslint/naming-convention
     const { id, title, description, date, image, details, _count } = event;
     const [team, setTeam] = useState<Team | null>(null);
-    const { isProfileComplete, user, login } = useAuthCtx();
+    const { isProfileComplete, user, login } = useAuth();
 
     useEffect(() => {
         (async () => {

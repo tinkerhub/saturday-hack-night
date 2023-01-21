@@ -4,7 +4,7 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { NextPage } from 'next';
 import initAuth from '@app/auth';
-import { AuthContext } from '@app/contexts';
+import { AuthProvider } from '@app/contexts';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
     getLayout?: (page: React.ReactElement) => ReactNode;
@@ -25,7 +25,7 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
                 <title>Saturday HackNight</title>
                 <link rel="icon" type="image/x-icon" href="/images/logo.png" />
             </Head>
-            <AuthContext>{getLayout(<Component {...pageProps} />)}</AuthContext>
+            <AuthProvider>{getLayout(<Component {...pageProps} />)}</AuthProvider>
         </ChakraProvider>
     );
 };

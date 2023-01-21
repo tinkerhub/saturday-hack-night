@@ -1,8 +1,8 @@
 import React, { createContext, useState, useEffect, useMemo } from 'react';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import Session from 'supertokens-web-js/recipe/session';
 import { getAuthorisationURLWithQueryParamsAndSetState } from 'supertokens-web-js/recipe/thirdparty';
-import { api } from '@app/api';
+import api from '@app/api';
 import { Child, User } from '@app/types';
 
 interface Prop {
@@ -14,41 +14,37 @@ interface Prop {
     isProfileComplete: boolean;
 }
 
-export const AuthCtx = createContext({} as Prop);
+export const AuthContext = createContext({} as Prop);
 
-export const AuthContext = ({ children }: Child) => {
+export const AuthProvider = ({ children }: Child) => {
     const router = useRouter();
     const [user, setUser] = useState<User | null>(null);
-    const [isUserLoading, setUserLoading] = useState<boolean>(true);
+    const [isUserLoading, setUserLoading] = useState<boolean>(false);
     const [isProfileComplete, setIsProfileComplete] = useState<boolean>(false);
     const { doesSessionExist } = Session;
 
     const login = async () => {
+        setUserLoading(true);
         try {
             const authUrl = await getAuthorisationURLWithQueryParamsAndSetState({
                 providerId: 'github',
                 authorisationURL: 'http://localhost:3000/auth',
             });
-            window.location.assign(authUrl);
+            router.push(authUrl);
         } catch (err: any) {
             router.push('/error');
         } finally {
             setUserLoading(false);
         }
     };
-    Router.events.on('routeChangeStart', () => {
-        setUserLoading(true);
-    });
-    Router.events.on('routeChangeComplete', () => {
-        setUserLoading(false);
-    });
     const logout = async () => {
+        setUserLoading(true);
         await Session.signOut();
+        setUserLoading(false);
         setUser(null);
     };
     const getData = async () => {
         try {
-            setUserLoading(true);
             const { data } = await api.get('/profile');
             if (!data.success) {
                 throw new Error();
@@ -62,18 +58,13 @@ export const AuthContext = ({ children }: Child) => {
             }
         } catch {
             router.push('/error');
-        } finally {
-            setUserLoading(false);
         }
     };
 
     useEffect(() => {
         (async () => {
-            setUserLoading(true);
             if (await doesSessionExist()) {
                 getData();
-            } else {
-                setUserLoading(false);
             }
         })();
         return () => {
@@ -96,5 +87,5 @@ export const AuthContext = ({ children }: Child) => {
         [doesSessionExist, isUserLoading, user, setUser, isProfileComplete],
     );
 
-    return <AuthCtx.Provider value={value}>{children}</AuthCtx.Provider>;
+    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

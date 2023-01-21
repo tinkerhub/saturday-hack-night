@@ -1,14 +1,11 @@
 import { Container, VStack } from '@chakra-ui/react';
 import type { Child } from '@app/types';
-import { Footer, Navbar } from '@app/components';
-import { useAuthCtx } from '@app/hooks';
-import { LoadingAnimaton } from '@app/components/LoadingAnimaton';
+import { Footer, Navbar, LoadingAnimation } from '@app/components';
+import { useAuth } from '@app/hooks';
 
 export const BaseLayout = ({ children }: Child) => {
-    const { isUserLoading } = useAuthCtx();
-    if (isUserLoading) {
-        return <LoadingAnimaton />;
-    }
+    const { isUserLoading } = useAuth();
+    if (isUserLoading) return <LoadingAnimation />;
 
     return (
         <>

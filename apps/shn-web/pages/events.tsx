@@ -2,13 +2,17 @@ import { VStack, Heading, Grid } from '@chakra-ui/react';
 import { Activity } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import { EventCard, CurrentEvent } from '@app/components';
-import { api } from '@app/api';
+import api from '@app/api';
 import { BaseLayout } from '@app/layouts';
 import { NextPageWithLayout } from '@app/pages/_app';
+import { useRouter } from 'next/router';
+import { ResultsModal } from '@app/components/modal';
 
 const Events: NextPageWithLayout = () => {
+    const router = useRouter();
     const [currentEvent, setCurrentEvent] = useState<Activity | null>(null);
     const [pastEvents, setPastEvents] = useState<Activity[]>([]);
+    const [modalData, setModalData] = useState<Activity | null>(null);
     useEffect(() => {
         (async () => {
             const { data } = await api.get('/activity');
@@ -25,8 +29,29 @@ const Events: NextPageWithLayout = () => {
             setPastEvents([]);
         };
     }, []);
+    useEffect(() => {
+        const { eventID } = router.query;
+        if (eventID) {
+            const event = pastEvents.find((e: Activity) => e.id === eventID);
+            if (event) {
+                setModalData(event);
+            }
+        }
+        return () => {
+            setModalData(null);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pastEvents]);
     return (
         <>
+            {modalData && (
+                <ResultsModal
+                    id={modalData.id}
+                    isOpen
+                    onClose={() => setModalData(null)}
+                    image={modalData.image}
+                />
+            )}
             {currentEvent && (
                 <VStack
                     marginTop="80px"

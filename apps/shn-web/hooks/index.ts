@@ -1,3 +1,1 @@
-import { useAuthCtx } from './useAuthCtx';
-
-export { useAuthCtx };
+export { useAuth } from './useAuth';

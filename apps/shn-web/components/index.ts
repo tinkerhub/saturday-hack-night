@@ -7,4 +7,6 @@ export { MobileBar } from './MobileBar';
 export { Toast } from './Toast';
 export { Member } from './Member';
 export { CurrentEvent } from './CurrentEvent';
+export { LoadingAnimation } from './LoadingAnimation';
 export { EventCard } from './EventCard';
+export { ResultItems } from './ResultItems';

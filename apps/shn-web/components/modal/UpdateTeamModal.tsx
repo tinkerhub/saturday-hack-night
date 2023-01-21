@@ -24,8 +24,8 @@ import { InferType } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Member, Toast } from '@app/components';
 import { TeamValidator } from '@app/validators';
-import { useAuthCtx } from '@app/hooks';
-import { api } from '@app/api';
+import { useAuth } from '@app/hooks';
+import api from '@app/api';
 
 type FormType = InferType<typeof TeamValidator>;
 
@@ -48,7 +48,7 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamId }: Mod
         formState: { errors },
     } = methods;
     const [loading, setLoading] = useState(true);
-    const { user } = useAuthCtx();
+    const { user } = useAuth();
     const toast = useToast();
 
     useEffect(() => {

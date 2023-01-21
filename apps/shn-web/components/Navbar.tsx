@@ -15,11 +15,11 @@ import {
 
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { MobileBar } from '@app/components';
-import { useAuthCtx } from '@app/hooks';
+import { useAuth } from '@app/hooks';
 import { ProfileModal } from '@app/components/modal';
 
 const Navbar = () => {
-    const { user, login, logout } = useAuthCtx();
+    const { user, login, logout } = useAuth();
     const [showMenu, setShowMenu] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const imageRef = React.useRef<HTMLImageElement>(null);

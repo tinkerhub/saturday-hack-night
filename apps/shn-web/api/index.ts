@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import Session from 'supertokens-web-js/recipe/session';
 
-export const api = Axios.create({
+const api = Axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_DOMAIN || 'http://localhost:3001',
     headers: {
         Accept: 'application/json',
@@ -9,3 +9,5 @@ export const api = Axios.create({
     },
 });
 Session.addAxiosInterceptors(api);
+
+export default api;

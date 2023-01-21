@@ -21,14 +21,14 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { InferType } from 'yup';
 import { Member, Toast } from '@app/components';
-import { useAuthCtx } from '@app/hooks';
+import { useAuth } from '@app/hooks';
 import { TeamValidator } from '@app/validators';
-import { api } from '@app/api';
+import api from '@app/api';
 
 type FormType = InferType<typeof TeamValidator>;
 
 export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalProps) => {
-    const { user } = useAuthCtx();
+    const { user } = useAuth();
     const methods = useForm<FormType>({
         resolver: yupResolver(TeamValidator),
     });
@@ -72,81 +72,6 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
         }
     };
 
-    // eslint-disable-next-line consistent-return
-    /* const registerTeam = async () => {
-        setLoading(true);
-        setError({
-            name: false,
-            repo: false,
-            member1: false,
-            member2: false,
-            member3: false,
-            count: false,
-        });
-
-        if (!name.match(/^[a-z|0-9]+$/gi)) {
-            setLoading(false);
-            return setError((prev: any) => ({ ...prev, name: true }));
-        }
-        if (!repo.match(/^https:\/\/github.com\/[^/]+\/[^/]+$/g)) {
-            setLoading(false);
-            return setError((prev: any) => ({ ...prev, repo: true }));
-        }
-        const members = await Promise.all(
-            // eslint-disable-next-line consistent-return
-            users.map(async (user) => {
-                if (user.length > 0) {
-                    try {
-                        const data = (
-                            await getDocs(
-                                query(collection(db, 'users'), where('githubID', '==', user)),
-                            )
-                        ).docs[0].data();
-                        return data.uid;
-                    } catch (err) {
-                        setLoading(false);
-                        if (user === users[0])
-                            setError((prev: any) => ({ ...prev, member1: true }));
-                        if (user === users[1])
-                            setError((prev: any) => ({ ...prev, member2: true }));
-                        if (user === users[2])
-                            setError((prev: any) => ({ ...prev, member3: true }));
-                    }
-                }
-            }),
-        );
-        const teamMembers = new Set(members);
-        if (teamMembers.has(auth.currentUser.uid)) {
-            teamMembers.delete(auth.currentUser.uid);
-        }
-        if (teamMembers.size > 3 || teamMembers.size < 1) {
-            setLoading(false);
-            return setError((prev: any) => ({ ...prev, count: true }));
-        }
-        addDoc(collection(db, `events/${eventId}/teams`), {
-            name,
-            repo,
-            members: Array.from(teamMembers),
-            lead: auth.currentUser.uid,
-        })
-            .then(() => {
-                toast({
-                    title: '✅ Team Registered',
-                    status: 'success',
-                    render: ({ title, status }) => <Toast title={title} status={status} />,
-                });
-                window.location.reload();
-                onClose();
-            })
-            .catch(() => {
-                toast({
-                    title: '✗ Team Registration Failed',
-                    status: 'error',
-                    render: ({ title, status }) => <Toast title={title} status={status} />,
-                });
-            });
-        setLoading(false);
-    }; */
     return (
         <Modal isOpen={isOpen} onClose={onClose} size={{ base: 'full', lg: 'xl' }} isCentered>
             <ModalOverlay />

@@ -2,7 +2,7 @@ import { Button, Container, Heading, Text, VStack, Image, Flex, Grid } from '@ch
 import { useRouter } from 'next/router';
 import { ReactElement } from 'react';
 import { Card, ParallaxView, Accordion } from '@app/components';
-import { useAuthCtx } from '@app/hooks';
+import { useAuth } from '@app/hooks';
 import { BaseLayout } from '@app/layouts';
 import { NextPageWithLayout } from '@app/pages/_app';
 
@@ -30,7 +30,7 @@ const faqs = [
 ];
 
 const Home: NextPageWithLayout = () => {
-    const { user, login } = useAuthCtx();
+    const { user, login } = useAuth();
     const router = useRouter();
     return (
         <>

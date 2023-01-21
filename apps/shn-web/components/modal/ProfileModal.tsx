@@ -27,8 +27,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { InferType } from 'yup';
 import { Toast } from '@app/components';
 import { profileModalValidator } from '@app/validators';
-import { useAuthCtx } from '@app/hooks';
-import { api } from '@app/api';
+import { useAuth } from '@app/hooks';
+import api from '@app/api';
 
 type FormType = InferType<typeof profileModalValidator>;
 
@@ -110,7 +110,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
         setValue,
         formState: { errors },
     } = methods;
-    const { user, setUser } = useAuthCtx();
+    const { user, setUser } = useAuth();
     const [loading, setLoading] = React.useState(false);
     const toast = useToast();
 
