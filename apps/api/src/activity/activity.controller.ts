@@ -23,4 +23,13 @@ export class ActivityController {
             throw new ReadException(error);
         }
     }
+
+    @Get('projects/:id')
+    async readProjects(@Param('id') id: string) {
+        try {
+            return this.activityService.readProjects(id);
+        } catch (error) {
+            throw new ReadException(error);
+        }
+    }
 }

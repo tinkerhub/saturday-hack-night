@@ -71,4 +71,55 @@ export class ActivityService {
             data,
         });
     }
+
+    async readProjects(id: string) {
+        const data = await this.prismaService.team.findMany({
+            where: {
+                activityId: id,
+                projectStatus: {
+                    in: ['COMPLETE', 'BEST PROJECT'],
+                },
+            },
+            select: {
+                name: true,
+                repo: true,
+                projectStatus: true,
+                members: {
+                    select: {
+                        user: {
+                            select: {
+                                name: true,
+                                githubid: true,
+                                avatar: true,
+                            },
+                        },
+                    },
+                },
+            },
+            orderBy: {
+                projectStatus: 'asc',
+            },
+        });
+
+        if (data.length === 0) {
+            return this.Success({
+                message: 'No Projects found',
+                data: [],
+            });
+        }
+        const projects = data.map((team) => ({
+            name: team.name,
+            repo: team.repo,
+            projectStatus: team.projectStatus,
+            members: team.members.map((member) => ({
+                name: member.user.name,
+                githubid: member.user.githubid,
+                avatar: member.user.avatar,
+            })),
+        }));
+        return this.Success({
+            message: 'Projects read successfully',
+            data: projects,
+        });
+    }
 }
