@@ -11,8 +11,7 @@
         "start:prod": "node dist/main",
         "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
         "format": "prettier --write \"{src,apps,libs,test}/**/*.ts\"",
-        "prisma:generate": "prisma generate",
-        "prisma:studio": "prisma studio"
+        "db:generate": "prisma generate"
     },
     "dependencies": {
         "@fastify/static": "^6.5.0",

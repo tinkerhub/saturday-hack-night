@@ -5,8 +5,8 @@ import ThirdParty from 'supertokens-web-js/recipe/thirdparty';
 const initAuth = () => {
     SuperTokens.init({
         appInfo: {
-            apiDomain: 'http://localhost:3001',
-            appName: 'Saturday HackNight',
+            apiDomain: process.env.NEXT_PUBLIC_API_DOMAIN as string,
+            appName: process.env.NEXT_PUBLIC_SUPERTOKENS_APP_NAME as string,
         },
         recipeList: [Session.init(), ThirdParty.init()],
     });
