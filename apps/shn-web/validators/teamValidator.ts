@@ -1,5 +1,12 @@
 import * as Yup from 'yup';
-import { api } from '@app/api';
+import api from '@app/api';
+import { debounce } from '@app/utils';
+
+const validateMembers = async (members: string[]) => {
+    const promises = (members || []).map((member) => api.get(`profile/${member}`));
+    const responses = await Promise.all(promises);
+    return responses.every((response) => !response.data.data.success);
+};
 
 const TeamValidator = Yup.object({
     name: Yup.string()
@@ -13,10 +20,17 @@ const TeamValidator = Yup.object({
         .max(4)
         .required('Team must have at least one member')
         .of(Yup.string().nullable(true))
-        .test('members', 'Members must be valid GitHub usernames', async (members) => {
-            const promises = (members || []).map((member) => api.get(`profile/${member}`));
-            const responses = await Promise.all(promises);
-            return responses.every((response) => !response.data.data.success);
-        }),
+        .test(
+            'members',
+            'Members must be valid GitHub usernames',
+            async (members) =>
+                new Promise((resolve) => {
+                    debounce(async () => {
+                        const isValid = await validateMembers(members as string[]);
+                        resolve(isValid);
+                    })();
+                }),
+        ),
 });
+
 export { TeamValidator };
