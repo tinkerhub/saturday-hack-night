@@ -7,6 +7,7 @@ export class TeamCreatedEvent {
                 name: string | null;
                 email: string;
                 githubid: string;
+                inviteCode: string | null;
             };
         }[],
     ) {}

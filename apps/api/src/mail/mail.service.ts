@@ -24,11 +24,11 @@ export class MailService {
     }
 }
 interface TeamCreatedContext {
-    data: { teamID: string; inviteCode: string };
+    data: { teamID: string };
     email: string;
 }
 
 interface MemberInvitedContext {
-    data: { lead: string; teamName: string; inviteCode: string; teamID: string };
+    data: { lead: string; teamName: string; inviteCode: string | null; teamID: string };
     email: string;
 }

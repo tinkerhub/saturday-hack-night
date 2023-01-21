@@ -39,27 +39,32 @@ export class TeamService {
         if (user == null) {
             return new UpdateException('User not Authenticated');
         }
-        const tempTeam = await this.prisma.team.findUnique({
+        const invite = await this.prisma.invite.findUnique({
             where: {
-                inviteCode,
+                id: inviteCode,
             },
         });
-        if (tempTeam == null) {
+        if (invite == null) {
             return new UpdateException('Invalid invite code');
         }
         try {
             const res = await this.prisma.team.update({
                 where: {
-                    inviteCode,
+                    id: invite.teamId,
                 },
                 data: {
                     members: {
                         create: {
                             role: 'MEMBER',
                             userId: authId,
-                            activityId: tempTeam.activityId,
+                            activityId: invite.activityId,
                         },
                     },
+                },
+            });
+            await this.prisma.invite.delete({
+                where: {
+                    id: inviteCode,
                 },
             });
             return this.Success({
@@ -94,7 +99,6 @@ export class TeamService {
                 id: true,
                 name: true,
                 repo: true,
-                inviteCode: true,
                 members: {
                     select: {
                         role: true,
@@ -109,6 +113,7 @@ export class TeamService {
                 },
             },
         });
+
         const members = await Promise.all(
             createTeamDto.members.map(async (member) => {
                 const user = await this.prisma.user.findUnique({
@@ -116,19 +121,35 @@ export class TeamService {
                         githubid: member,
                     },
                 });
+                const invite = await this.prisma.invite.create({
+                    data: {
+                        teamId: res.id,
+                        userId: user!.id,
+                        activityId,
+                    },
+                });
                 return {
                     role: 'MEMBER',
                     user: {
+                        id: user!.id,
                         name: user!.name,
                         email: user!.email,
+                        inviteCode: invite.id,
                         githubid: user!.githubid,
                     },
                 };
             }),
         );
-
-        members.push(res.members[0]);
-
+        members.push({
+            role: 'LEADER',
+            user: {
+                id: authid,
+                name: res.members[0].user.name,
+                email: res.members[0].user.email,
+                inviteCode: '',
+                githubid: res.members[0].user.githubid,
+            },
+        });
         this.eventEmitter.emit('team.create', new TeamCreatedEvent(res.id, members));
         return this.Success({
             message: 'Team created successfully',
@@ -232,7 +253,6 @@ export class TeamService {
             if (member.role === 'LEADER') {
                 const data = {
                     teamID: team.id,
-                    inviteCode: team.inviteCode,
                 };
                 await this.mailService.sendTeamCreated({
                     data,
@@ -243,7 +263,7 @@ export class TeamService {
                     lead: members.find((mem) => mem.role === 'LEADER')?.user.name || '',
                     teamName: team.name,
                     teamID: teamId,
-                    inviteCode: team.inviteCode,
+                    inviteCode: member.user.inviteCode,
                 };
                 await this.mailService.sendMemberInvited({
                     data,
@@ -263,7 +283,6 @@ export class TeamService {
             select: {
                 id: true,
                 name: true,
-                inviteCode: true,
                 activityId: true,
                 members: {
                     select: {
@@ -311,12 +330,19 @@ export class TeamService {
             if (user == null) {
                 return;
             }
+            const invite = await this.prisma.invite.create({
+                data: {
+                    activityId: team!.activityId,
+                    teamId,
+                    userId: user.id,
+                },
+            });
             const data = {
                 name: user.name || user.githubid,
                 lead: team!.members.find((mem) => mem.role === 'LEADER')?.user.name || '',
                 teamName: team!.name,
                 teamID: teamId,
-                inviteCode: team!.inviteCode,
+                inviteCode: invite.id,
             };
 
             // eslint-disable-next-line consistent-return

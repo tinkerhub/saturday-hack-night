@@ -3,7 +3,6 @@ import { Head } from '@react-email/head';
 import { Html } from '@react-email/html';
 import { Preview } from '@react-email/preview';
 import { Text } from '@react-email/text';
-import { Button } from '@react-email/button';
 import { Section } from '@react-email/section';
 import { Img } from '@react-email/img';
 
@@ -42,15 +41,6 @@ const textSeco = {
     fontSize: '18px',
     fontWeight: 400,
 };
-const btn = {
-    backgroundColor: 'white',
-    color: '#0C0F17',
-    textDecoration: 'none',
-    borderRadius: '10px',
-    padding: '12px 24px',
-    fontWeight: 500,
-    fontSize: '18px',
-};
 const textTert = {
     color: 'white',
     fontSize: '17px',
@@ -64,10 +54,9 @@ const logo = {
 
 interface Props {
     teamID: string;
-    inviteCode: string;
 }
 
-const Create = ({ teamID, inviteCode }: Props) => (
+const Create = ({ teamID }: Props) => (
     <Html lang="en">
         <Head>
             <link
@@ -96,29 +85,13 @@ const Create = ({ teamID, inviteCode }: Props) => (
                         Your team has been created
                     </Text>
                     <Text style={textSeco}>
-                        An Invitation mail to join the team has been send to all Team Members. If
-                        they haven&apos;t received mail yet, share the link below.
+                        An Invitation mail to join the team has been send to all Team Members. They
+                        will be part of your team once they accept the invitation.
                     </Text>
-                    <Button
-                        style={btn}
-                        href={`https://hacknight.tinkerhub.org/join?invite=${inviteCode}`}
-                    >
-                        Invite Members
-                    </Button>
                 </Container>
                 <Text style={textTert}>
                     Your Team ID is
                     <span style={accent}> {teamID}</span>
-                </Text>
-                <Text style={textTert}>
-                    If you are having problem with the link above, try using this link to invite
-                    your team members <br />
-                    <a
-                        style={accent}
-                        href={`https://hacknight.tinkerhub.org/join?invite=${inviteCode}`}
-                    >
-                        https://hacknight.tinkerhub.org/join?invite={inviteCode}
-                    </a>
                 </Text>
                 <Img
                     style={logo}
