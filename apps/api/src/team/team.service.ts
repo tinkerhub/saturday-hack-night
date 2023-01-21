@@ -44,6 +44,9 @@ export class TeamService {
                 id: inviteCode,
             },
         });
+        if (invite?.userId !== user.id) {
+            return new UpdateException('Invalid invite code');
+        }
         if (invite == null) {
             return new UpdateException('Invalid invite code');
         }
