@@ -1,28 +1,28 @@
 {
-  "name": "functions",
-  "license": "MIT",
-  "scripts": {
-    "format": "prettier --write 'src/*.ts'",
-    "lint": "eslint --ext .ts src",
-    "build": "tsc",
-    "dev": "yarn build && firebase emulators:start",
-    "shell": "yarn build && firebase functions:shell",
-    "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
-  },
-  "version": "1.0.0",
-  "engines": {
-    "node": "16"
-  },
-  "main": "lib/index.js",
-  "dependencies": {
-    "firebase-admin": "^11.0.1",
-    "firebase-functions": "^3.22.0",
-    "node-fetch": "2.6.7"
-  },
-  "devDependencies": {
-    "@firebase/app-types": "^0.7.0",
-    "@types/node-fetch": "^2.6.2"
-  },
-  "private": true
+    "name": "functions",
+    "license": "MIT",
+    "scripts": {
+        "format": "prettier --write 'src/*.ts'",
+        "lint": "eslint --ext .ts src",
+        "build": "tsc",
+        "dev": "yarn build && firebase emulators:start",
+        "shell": "yarn build && firebase functions:shell",
+        "deploy": "firebase deploy --only functions",
+        "logs": "firebase functions:log"
+    },
+    "version": "1.0.0",
+    "engines": {
+        "node": "18"
+    },
+    "main": "lib/index.js",
+    "dependencies": {
+        "firebase-admin": "^11.0.1",
+        "firebase-functions": "^3.22.0",
+        "node-fetch": "2.6.7"
+    },
+    "devDependencies": {
+        "@firebase/app-types": "^0.7.0",
+        "@types/node-fetch": "^2.6.2"
+    },
+    "private": true
 }
