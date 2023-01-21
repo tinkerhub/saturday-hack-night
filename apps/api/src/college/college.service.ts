@@ -10,6 +10,7 @@ export class CollegeService {
             where: {
                 name: {
                     contains: cname,
+                    mode: 'insensitive',
                 },
             },
         });

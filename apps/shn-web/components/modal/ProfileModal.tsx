@@ -17,7 +17,7 @@ import {
     useToast,
 } from '@chakra-ui/react';
 
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Select from 'react-select';
 import AsyncSelect from 'react-select/async';
 
@@ -29,6 +29,7 @@ import { Toast } from '@app/components';
 import { profileModalValidator } from '@app/validators';
 import { useAuth } from '@app/hooks';
 import api from '@app/api';
+import { debounce } from '@app/utils';
 
 type FormType = InferType<typeof profileModalValidator>;
 
@@ -78,6 +79,11 @@ const selectStyle = {
         ...styles,
         color: 'white',
     }),
+    option: (styles: any) => ({
+        ...styles,
+        border: '1px solid rgba(255, 255, 255, 0.15)',
+        backgroundColor: 'rgba(255,255,255,0.15)',
+    }),
 };
 
 const districts = [
@@ -115,10 +121,19 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
     const toast = useToast();
 
     const getCollege = async (input: string) => {
-        const data = await (await api.get(`college?search=${input}&limit=20&page=1`)).data;
-        const college = data.map((el: Clg) => ({ label: el.name, value: el.id }));
+        const { data } = await api.get(`college?search=${input}&limit=20&page=1`);
+        const college = await data.map((el: Clg) => ({ label: el.name, value: el.id }));
         return college;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const loadOptionsDebounced = useCallback(
+        debounce((inputValue: string, callback: (options: any) => void) => {
+            getCollege(inputValue).then((options) => {
+                callback(options);
+            });
+        }, 500),
+        [],
+    );
     const updateProfile = async (data: FormType) => {
         const DbData = {
             mobile: data.mobile,
@@ -129,7 +144,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
             setLoading(true);
             setTimeout(() => {}, 3000);
             api.patch('profile', DbData).then((res) => {
-                if (res.data.Success) {
+                if (res.data.success) {
                     toast({
                         title: '✅ Profile Updated',
                         status: 'success',
@@ -303,7 +318,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                                     {...field}
                                                     isClearable
                                                     defaultOptions
-                                                    loadOptions={getCollege}
+                                                    loadOptions={loadOptionsDebounced}
                                                     styles={{
                                                         ...selectStyle,
                                                     }}
