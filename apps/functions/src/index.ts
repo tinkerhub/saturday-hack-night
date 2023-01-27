@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 
@@ -35,6 +36,7 @@ async function queueMails(
         });
 
     for (const member of members || []) {
+        // eslint-disable-next-line no-await-in-loop
         const user = await firestore.doc(`users/${member}`).get();
         bulk.create(mails.doc(member), {
             to: [user.get('email')],

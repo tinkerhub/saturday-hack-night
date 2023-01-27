@@ -9,9 +9,8 @@ services:
         environment:
             - POSTGRES_USER=${DB_USER}
             - POSTGRES_PASSWORD=${DB_PASS}
-            - POSTGRES_DB=${DB_NAME}
         healthcheck:
-            test: ['CMD-SHELL', 'pg_isready -U ${DB_USER} -d ${DB_NAME}']
+            test: ['CMD-SHELL', 'pg_isready -U ${DB_USER}']
             interval: 5s
             timeout: 5s
             retries: 5

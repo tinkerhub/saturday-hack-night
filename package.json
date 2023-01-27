@@ -6,37 +6,35 @@
     "scripts": {
         "build": "turbo run build",
         "build:web": "turbo run build --filter=web",
-        "build:api": "turbo run build --filter=api",
         "start": "turbo run start",
-        "db:generate": "turbo run db:generate --filter=api",
         "dev": "turbo run dev",
-        "test": "turbo run test",
         "lint": "turbo run lint",
         "prepack": "husky install",
         "format": "turbo run format"
     },
     "private": true,
     "workspaces": [
-        "apps/*"
+        "apps/*",
+        "packages/*"
     ],
     "devDependencies": {
-        "@commitlint/cli": "^17.0.3",
-        "@commitlint/config-conventional": "^17.0.3",
-        "@typescript-eslint/eslint-plugin": "^5.32.0",
-        "@typescript-eslint/parser": "^5.32.0",
-        "eslint": "^8.21.0",
+        "@commitlint/cli": "^17.4.2",
+        "@commitlint/config-conventional": "^17.4.2",
+        "eslint": "^8.32.0",
+        "husky": "^8.0.3",
+        "lint-staged": "^13.1.0",
+        "prettier": "^2.8.3",
+        "turbo": "^1.7.0",
+        "typescript": "^4.9.4",
+        "@typescript-eslint/eslint-plugin": "^5.49.0",
+        "@typescript-eslint/parser": "^5.49.0",
         "eslint-config-airbnb": "^19.0.4",
         "eslint-config-airbnb-typescript": "^17.0.0",
-        "eslint-config-prettier": "^8.5.0",
-        "eslint-plugin-import": "^2.26.0",
-        "eslint-plugin-jsx-a11y": "^6.6.1",
-        "eslint-plugin-prettier": "^4.2.1",
-        "eslint-plugin-react": "^7.30.1",
+        "eslint-config-prettier": "^8.6.0",
+        "eslint-plugin-import": "^2.27.5",
+        "eslint-plugin-jsx-a11y": "^6.7.1",
         "eslint-plugin-react-hooks": "^4.6.0",
-        "husky": "^8.0.1",
-        "lint-staged": "^13.0.3",
-        "prettier": "^2.7.1",
-        "turbo": "^1.4.2",
-        "typescript": "^4.7.4"
+        "eslint-plugin-prettier": "^4.2.1",
+        "eslint-plugin-react": "^7.32.1"
     }
 }

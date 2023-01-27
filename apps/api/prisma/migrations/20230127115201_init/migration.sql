@@ -9,6 +9,8 @@ CREATE TABLE "User" (
     "avatar" TEXT NOT NULL,
     "collegeId" TEXT,
     "district" TEXT,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -42,7 +44,6 @@ CREATE TABLE "Team" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "repo" TEXT NOT NULL,
-    "inviteCode" TEXT NOT NULL,
     "activityId" TEXT NOT NULL,
     "pitchStatus" TEXT NOT NULL DEFAULT 'PENDING',
     "projectStatus" TEXT NOT NULL DEFAULT 'PENDING',
@@ -61,6 +62,14 @@ CREATE TABLE "TeamMember" (
     "activityId" TEXT NOT NULL,
 
     CONSTRAINT "TeamMember_pkey" PRIMARY KEY ("userId","activityId")
+);
+
+-- CreateTable
+CREATE TABLE "Invite" (
+    "id" TEXT NOT NULL,
+    "teamId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "activityId" TEXT NOT NULL
 );
 
 -- CreateIndex
@@ -85,9 +94,6 @@ CREATE UNIQUE INDEX "Activity_id_key" ON "Activity"("id");
 CREATE UNIQUE INDEX "Team_id_key" ON "Team"("id");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Team_inviteCode_key" ON "Team"("inviteCode");
-
--- CreateIndex
 CREATE UNIQUE INDEX "TeamMember_id_key" ON "TeamMember"("id");
 
 -- CreateIndex
@@ -95,6 +101,9 @@ CREATE UNIQUE INDEX "TeamMember_userId_activityId_key" ON "TeamMember"("userId",
 
 -- CreateIndex
 CREATE UNIQUE INDEX "TeamMember_userId_teamId_key" ON "TeamMember"("userId", "teamId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Invite_id_key" ON "Invite"("id");
 
 -- AddForeignKey
 ALTER TABLE "User" ADD CONSTRAINT "User_collegeId_fkey" FOREIGN KEY ("collegeId") REFERENCES "College"("id") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -110,3 +119,12 @@ ALTER TABLE "TeamMember" ADD CONSTRAINT "TeamMember_userId_fkey" FOREIGN KEY ("u
 
 -- AddForeignKey
 ALTER TABLE "TeamMember" ADD CONSTRAINT "TeamMember_activityId_fkey" FOREIGN KEY ("activityId") REFERENCES "Activity"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Invite" ADD CONSTRAINT "Invite_teamId_fkey" FOREIGN KEY ("teamId") REFERENCES "Team"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Invite" ADD CONSTRAINT "Invite_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Invite" ADD CONSTRAINT "Invite_activityId_fkey" FOREIGN KEY ("activityId") REFERENCES "Activity"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
