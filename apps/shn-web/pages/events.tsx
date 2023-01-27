@@ -15,7 +15,7 @@ const Events: NextPageWithLayout = () => {
     const [modalData, setModalData] = useState<Activity | null>(null);
     useEffect(() => {
         (async () => {
-            const { data } = await api.get('/activity');
+            const { data } = await api.get('/event');
             const fcurrentEvent: Activity =
                 data.data.filter((event: Activity) => event.status === 'REGISTRATION')[0] || null;
             const fpastEvents: Activity[] = data.data.filter(

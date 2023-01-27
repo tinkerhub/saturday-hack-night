@@ -1,8 +1,8 @@
 import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
 import { Injectable } from '@nestjs/common';
-import { TeamUpdatedEvent } from 'src/events/team-updated-event';
+import { TeamUpdatedEvent } from 'src/team/events/team-updated-event';
 import { MailService } from 'src/mail/mail.service';
-import { TeamCreatedEvent } from '../events/team-created-event';
+import { TeamCreatedEvent } from './events/team-created-event';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
@@ -60,7 +60,7 @@ export class TeamService {
                         create: {
                             role: 'MEMBER',
                             userId: authId,
-                            activityId: invite.activityId,
+                            eventId: invite.eventId,
                         },
                     },
                 },
@@ -80,8 +80,8 @@ export class TeamService {
     }
 
     async create(createTeamDto: CreateTeamDto, authid: string) {
-        const { activityId, name, repo } = createTeamDto;
-        const { data } = await this.read(activityId, authid);
+        const { eventId, name, repo } = createTeamDto;
+        const { data } = await this.read(eventId, authid);
         if (data != null) {
             return new CreateException('User already in a Team');
         }
@@ -89,12 +89,12 @@ export class TeamService {
             data: {
                 name,
                 repo,
-                activityId,
+                eventId,
                 members: {
                     create: {
                         role: 'LEADER',
                         userId: authid,
-                        activityId,
+                        eventId,
                     },
                 },
             },
@@ -128,7 +128,7 @@ export class TeamService {
                     data: {
                         teamId: res.id,
                         userId: user!.id,
-                        activityId,
+                        eventId,
                     },
                 });
                 return {
@@ -160,11 +160,11 @@ export class TeamService {
         });
     }
 
-    async read(activityId: string, authid: string) {
+    async read(eventId: string, authid: string) {
         const data = await this.prisma.teamMember.findFirst({
             where: {
                 userId: authid,
-                activityId,
+                eventId,
             },
             select: {
                 team: {
@@ -286,7 +286,7 @@ export class TeamService {
             select: {
                 id: true,
                 name: true,
-                activityId: true,
+                eventId: true,
                 members: {
                     select: {
                         role: true,
@@ -335,7 +335,7 @@ export class TeamService {
             }
             const invite = await this.prisma.invite.create({
                 data: {
-                    activityId: team!.activityId,
+                    eventId: team!.eventId,
                     teamId,
                     userId: user.id,
                 },

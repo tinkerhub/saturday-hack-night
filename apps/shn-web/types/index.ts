@@ -34,7 +34,7 @@ export type Team = {
     id: string;
     name: string;
     repo: string;
-    activityId: string;
+    eventId: string;
     pitchStatus: string;
     projectStatus: string;
     created_at: Date;

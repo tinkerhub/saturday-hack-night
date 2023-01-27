@@ -17,7 +17,7 @@ export class CreateTeamDto {
 
     @ApiProperty()
     @IsString()
-    activityId: string;
+    eventId: string;
 
     @ApiProperty()
     @IsArray()

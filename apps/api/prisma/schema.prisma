@@ -33,7 +33,7 @@ model College {
   user User[]
 }
 
-model Activity {
+model Event {
   id                  String          @id @unique @default(cuid())
   title               String
   description         String
@@ -54,8 +54,8 @@ model Team {
   name                String
   repo                String
   invite              Invite[]
-  activity            Activity        @relation(fields: [activityId], references: [id])
-  activityId          String
+  event               Event        @relation(fields: [eventId], references: [id])
+  eventId             String
   members             TeamMember[]
   pitchStatus         String          @default("PENDING")
   projectStatus       String          @default("PENDING")
@@ -70,11 +70,11 @@ model TeamMember{
   teamId              String
   user                User            @relation(fields: [userId], references: [id])
   userId              String
-  activity            Activity        @relation(fields: [activityId], references: [id])
-  activityId          String
-  @@unique([userId, activityId])
+  event               Event        @relation(fields: [eventId], references: [id])
+  eventId             String
+  @@unique([userId, eventId])
   @@unique([userId, teamId])
-  @@id([userId, activityId])
+  @@id([userId, eventId])
 }
 
 model Invite {
@@ -83,6 +83,6 @@ model Invite {
   teamId              String
   user                User            @relation(fields: [userId], references: [id])
   userId              String
-  activity            Activity        @relation(fields: [activityId], references: [id])
-  activityId          String
+  event               Event        @relation(fields: [eventId], references: [id])
+  eventId             String
 }

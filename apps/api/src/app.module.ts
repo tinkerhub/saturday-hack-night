@@ -8,7 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { AppController } from './app.controller';
 import { MailModule } from './mail/mail.module';
 import { ProfileModule } from './profile/profile.module';
-import { ActivityModule } from './activity/activity.module';
+import { EventModule } from './event/event.module';
 import { TeamModule } from './team/team.module';
 import { CollegeModule } from './college/college.module';
 
@@ -66,7 +66,7 @@ import { CollegeModule } from './college/college.module';
         EventEmitterModule.forRoot(),
         MailModule,
         ProfileModule,
-        ActivityModule,
+        EventModule,
         TeamModule,
         CollegeModule,
     ],

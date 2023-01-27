@@ -51,11 +51,11 @@ export class TeamController {
 
     @Get(':eventId')
     @UseGuards(new AuthGuard())
-    get(@Session() session: SessionContainer, @Param('eventId') activityid: string) {
+    get(@Session() session: SessionContainer, @Param('eventId') eventId: string) {
         let authId: string;
         try {
             authId = session.getUserId();
-            return this.teamService.read(activityid, authId);
+            return this.teamService.read(eventId, authId);
         } catch (err) {
             return new ReadException(err);
         }

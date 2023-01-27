@@ -34,7 +34,7 @@ export const ResultsModal = ({ id, onClose, isOpen, image }: ResultsModalProps) 
     useEffect(() => {
         (async () => {
             try {
-                const { data } = await api.get(`/activity/projects/${id}`);
+                const { data } = await api.get(`/event/projects/${id}`);
                 if (data.success) {
                     setProjects(data.data);
                 }

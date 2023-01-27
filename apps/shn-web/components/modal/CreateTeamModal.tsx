@@ -50,7 +50,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                 name,
                 repo,
                 members: Array.from(teamMembers),
-                activityId: eventId,
+                eventId,
             });
             if (data.data) {
                 toast({

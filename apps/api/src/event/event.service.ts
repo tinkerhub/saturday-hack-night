@@ -7,7 +7,7 @@ interface Resp {
 }
 
 @Injectable()
-export class ActivityService {
+export class EventService {
     constructor(private readonly prismaService: PrismaService) {}
 
     Success(resp: Resp) {
@@ -19,7 +19,7 @@ export class ActivityService {
     }
 
     async read(id: string) {
-        const data = await this.prismaService.activity.findUnique({
+        const data = await this.prismaService.event.findUnique({
             where: { id },
             select: {
                 id: true,
@@ -39,13 +39,13 @@ export class ActivityService {
             },
         });
         return this.Success({
-            message: 'Activity read successfully',
+            message: 'Event read successfully',
             data,
         });
     }
 
     async readAll() {
-        const data = await this.prismaService.activity.findMany({
+        const data = await this.prismaService.event.findMany({
             orderBy: {
                 date: 'desc',
             },
@@ -67,7 +67,7 @@ export class ActivityService {
             },
         });
         return this.Success({
-            message: 'Activities read successfully',
+            message: 'Event read successfully',
             data,
         });
     }
@@ -75,7 +75,7 @@ export class ActivityService {
     async readProjects(id: string) {
         const data = await this.prismaService.team.findMany({
             where: {
-                activityId: id,
+                eventId: id,
                 projectStatus: {
                     in: ['COMPLETE', 'BEST PROJECT'],
                 },

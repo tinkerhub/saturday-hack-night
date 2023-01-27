@@ -1,15 +1,15 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { ActivityService } from './activity.service';
+import { EventService } from './event.service';
 import { ReadException } from './exception/read.exception';
 
-@Controller('activity')
-export class ActivityController {
-    constructor(private readonly activityService: ActivityService) {}
+@Controller('event')
+export class EventController {
+    constructor(private readonly eventService: EventService) {}
 
     @Get()
     async readAll() {
         try {
-            return this.activityService.readAll();
+            return this.eventService.readAll();
         } catch (error) {
             throw new ReadException(error);
         }
@@ -18,7 +18,7 @@ export class ActivityController {
     @Get(':id')
     async readOne(@Param('id') id: string) {
         try {
-            return this.activityService.read(id);
+            return this.eventService.read(id);
         } catch (error) {
             throw new ReadException(error);
         }
@@ -27,7 +27,7 @@ export class ActivityController {
     @Get('projects/:id')
     async readProjects(@Param('id') id: string) {
         try {
-            return this.activityService.readProjects(id);
+            return this.eventService.readProjects(id);
         } catch (error) {
             throw new ReadException(error);
         }
