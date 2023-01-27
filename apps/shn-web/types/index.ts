@@ -16,3 +16,27 @@ export type User = {
 export type Child = {
     children: React.ReactNode;
 };
+
+export type Activity = {
+    id: string;
+    title: string;
+    description: string;
+    image: string;
+    details: string;
+    date: Date;
+    location: string;
+    status: string;
+    created_at: Date;
+    updated_at: Date;
+};
+
+export type Team = {
+    id: string;
+    name: string;
+    repo: string;
+    activityId: string;
+    pitchStatus: string;
+    projectStatus: string;
+    created_at: Date;
+    updated_at: Date;
+};

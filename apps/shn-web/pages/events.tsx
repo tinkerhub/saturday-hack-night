@@ -1,5 +1,5 @@
 import { VStack, Heading, Grid } from '@chakra-ui/react';
-import { Activity } from '@prisma/client';
+import { Activity } from '@app/types';
 import { useEffect, useState } from 'react';
 import { EventCard, CurrentEvent } from '@app/components';
 import api from '@app/api';

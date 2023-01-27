@@ -1,6 +1,7 @@
 import { Heading, VStack, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 const signinTexts = [
     'Brace yourself, login sequence initiated',
@@ -14,6 +15,10 @@ const signinTexts = [
 const LoadingAnimation = () => {
     const router = useRouter();
     const signin = router.pathname === '/auth';
+    const [text, setText] = useState('Loading ...');
+    useEffect(() => {
+        setText(signinTexts[Math.floor(Math.random() * signinTexts.length)]);
+    }, []);
     return (
         <VStack
             w="100%"
@@ -56,8 +61,8 @@ const LoadingAnimation = () => {
                     fontFamily="Clash Display"
                 >
                     {signin
-                        ? signinTexts[Math.floor(Math.random() * signinTexts.length)]
-                        : "Logging you out, don't worry, we're not going to delete your account"}
+                        ? text
+                        : `Logging you out, don't worry, we're not going to delete your account`}
                 </Text>
             </motion.div>
         </VStack>

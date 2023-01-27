@@ -9,7 +9,7 @@ import {
     useToast,
     useDisclosure,
 } from '@chakra-ui/react';
-import { Activity } from '@prisma/client';
+import { Activity } from '@app/types';
 import { useRouter } from 'next/router';
 import { Toast } from '@app/components';
 import { ResultsModal } from '@app/components/modal';

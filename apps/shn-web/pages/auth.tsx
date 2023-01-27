@@ -9,7 +9,7 @@ const Auth = () => {
         try {
             const response = await signInAndUp();
             if (response.status === 'OK') {
-                router.back();
+                router.push('/');
             }
         } catch (err: any) {
             router.push('/error');

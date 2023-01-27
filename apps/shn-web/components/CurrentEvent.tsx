@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { CalendarIcon } from '@chakra-ui/icons';
-import { Activity, Team } from '@prisma/client';
+import { Activity, Team } from '@app/types';
 import {
     Flex,
     HStack,
