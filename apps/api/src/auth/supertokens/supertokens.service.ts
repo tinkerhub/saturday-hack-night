@@ -66,7 +66,6 @@ export class SupertokensService {
                                         );
                                         const github = {
                                             id,
-                                            authid: id,
                                             name: data.name,
                                             email,
                                             avatar: data.avatar_url || null,

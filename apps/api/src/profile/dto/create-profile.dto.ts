@@ -9,11 +9,6 @@ export class CreateProfileDto {
     @ApiProperty()
     @IsString()
     @IsNotEmpty()
-    authid: string;
-
-    @ApiProperty()
-    @IsString()
-    @IsNotEmpty()
     githubid: string;
 
     @ApiProperty()

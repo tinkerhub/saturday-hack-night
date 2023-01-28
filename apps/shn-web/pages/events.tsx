@@ -1,5 +1,5 @@
 import { VStack, Heading, Grid } from '@chakra-ui/react';
-import { Activity } from '@app/types';
+import { Event } from '@app/types';
 import { useEffect, useState } from 'react';
 import { EventCard, CurrentEvent } from '@app/components';
 import api from '@app/api';
@@ -10,16 +10,16 @@ import { ResultsModal } from '@app/components/modal';
 
 const Events: NextPageWithLayout = () => {
     const router = useRouter();
-    const [currentEvent, setCurrentEvent] = useState<Activity | null>(null);
-    const [pastEvents, setPastEvents] = useState<Activity[]>([]);
-    const [modalData, setModalData] = useState<Activity | null>(null);
+    const [currentEvent, setCurrentEvent] = useState<Event | null>(null);
+    const [pastEvents, setPastEvents] = useState<Event[]>([]);
+    const [modalData, setModalData] = useState<Event | null>(null);
     useEffect(() => {
         (async () => {
             const { data } = await api.get('/event');
-            const fcurrentEvent: Activity =
-                data.data.filter((event: Activity) => event.status === 'REGISTRATION')[0] || null;
-            const fpastEvents: Activity[] = data.data.filter(
-                (event: Activity) => event.status === 'RESULT' || event.status === 'PENDING',
+            const fcurrentEvent: Event =
+                data.data.filter((event: Event) => event.status === 'REGISTRATION')[0] || null;
+            const fpastEvents: Event[] = data.data.filter(
+                (event: Event) => event.status === 'RESULT' || event.status === 'PENDING',
             );
             setCurrentEvent(fcurrentEvent);
             setPastEvents(fpastEvents);
@@ -32,7 +32,7 @@ const Events: NextPageWithLayout = () => {
     useEffect(() => {
         const { eventID } = router.query;
         if (eventID) {
-            const event = pastEvents.find((e: Activity) => e.id === eventID);
+            const event = pastEvents.find((e: Event) => e.id === eventID);
             if (event) {
                 setModalData(event);
             }
@@ -125,7 +125,7 @@ const Events: NextPageWithLayout = () => {
                             lg: '32px',
                         }}
                     >
-                        {pastEvents.map((event: Activity) => (
+                        {pastEvents.map((event: Event) => (
                             <EventCard key={event.id} event={event} />
                         ))}
                     </Grid>

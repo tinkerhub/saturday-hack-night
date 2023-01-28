@@ -33,7 +33,7 @@ export class TeamService {
     async join(authId: string, inviteCode: string) {
         const user = await this.prisma.user.findUnique({
             where: {
-                authid: authId,
+                id: authId,
             },
         });
         if (user == null) {
@@ -226,7 +226,7 @@ export class TeamService {
                         role: true,
                         user: {
                             select: {
-                                authid: true,
+                                id: true,
                                 githubid: true,
                                 email: true,
                             },

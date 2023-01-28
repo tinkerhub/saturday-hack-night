@@ -26,7 +26,7 @@ export class ProfileService {
     async read(authid: string) {
         const data = await this.prisma.user.findUnique({
             where: {
-                authid,
+                id: authid,
             },
             include: {
                 college: true,
@@ -39,7 +39,7 @@ export class ProfileService {
     }
 
     async create(createProfileDto: CreateProfileDto) {
-        const resp = await this.read(createProfileDto.authid);
+        const resp = await this.read(createProfileDto.id);
         if (resp.data != null) {
             return new CreateException('User already exists');
         }
@@ -59,7 +59,7 @@ export class ProfileService {
         }
         const data = await this.prisma.user.update({
             where: {
-                authid,
+                id: authid,
             },
             include: {
                 college: true,

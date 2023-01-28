@@ -90,7 +90,7 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamId }: Mod
 
     const updateTeam = async (formData: FormType) => {
         const dbData = {
-            activityId: eventId,
+            eventId,
             name: undefined,
             repo: undefined,
             teamId,

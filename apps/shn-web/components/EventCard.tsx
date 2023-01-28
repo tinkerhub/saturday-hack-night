@@ -9,7 +9,7 @@ import {
     useToast,
     useDisclosure,
 } from '@chakra-ui/react';
-import { Activity } from '@app/types';
+import { Event } from '@app/types';
 import { useRouter } from 'next/router';
 import { Toast } from '@app/components';
 import { ResultsModal } from '@app/components/modal';
@@ -164,7 +164,7 @@ const EventCard = ({ event }: EventCardProps) => {
     );
 };
 interface EventCardProps {
-    event: Activity & {
+    event: Event & {
         _count?: {
             teams: number;
         };

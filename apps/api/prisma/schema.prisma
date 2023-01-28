@@ -12,7 +12,6 @@ datasource db {
 
 model User {
   id                  String          @unique @id
-  authid              String          @unique
   email               String          @unique
   githubid            String          @unique
   name                String?
@@ -24,7 +23,6 @@ model User {
   participated        TeamMember[]
   invites             Invite[]
   created_at          DateTime        @default(now())
-  updated_at          DateTime        @updatedAt
 }
 
 model College {
@@ -34,7 +32,7 @@ model College {
 }
 
 model Event {
-  id                  String          @id @unique @default(cuid())
+  id                  String          @id @unique @db.Uuid @default(uuid())
   title               String
   description         String
   image               String
@@ -46,43 +44,41 @@ model Event {
   participants        TeamMember[]
   invites             Invite[]
   created_at          DateTime         @default(now())
-  updated_at          DateTime         @updatedAt
 }
 
 model Team {
-  id                  String          @id @unique @default(cuid())
+  id                  String          @id @unique @db.Uuid @default(uuid())
   name                String
   repo                String
   invite              Invite[]
-  event               Event        @relation(fields: [eventId], references: [id])
-  eventId             String
+  event               Event           @relation(fields: [eventId], references: [id])
+  eventId             String          @db.Uuid
   members             TeamMember[]
   pitchStatus         String          @default("PENDING")
   projectStatus       String          @default("PENDING")
   created_at          DateTime        @default(now())
-  updated_at          DateTime        @updatedAt
 }
 
 model TeamMember{
-  id                  String          @unique @default(cuid())
+  id                  String          @unique @db.Uuid @default(uuid())
   role                String          @default("MEMBER")
   team                Team            @relation(fields: [teamId], references: [id])
-  teamId              String
+  teamId              String          @db.Uuid
   user                User            @relation(fields: [userId], references: [id])
   userId              String
-  event               Event        @relation(fields: [eventId], references: [id])
-  eventId             String
+  event               Event           @relation(fields: [eventId], references: [id])
+  eventId             String          @db.Uuid
   @@unique([userId, eventId])
   @@unique([userId, teamId])
   @@id([userId, eventId])
 }
 
 model Invite {
-  id                  String          @unique @default(cuid())
+  id                  String          @unique @db.Uuid @default(uuid())
   team                Team            @relation(fields: [teamId], references: [id])
-  teamId              String
+  teamId              String          @db.Uuid
   user                User            @relation(fields: [userId], references: [id])
   userId              String
-  event               Event        @relation(fields: [eventId], references: [id])
-  eventId             String
+  event               Event           @relation(fields: [eventId], references: [id])
+  eventId             String          @db.Uuid
 }

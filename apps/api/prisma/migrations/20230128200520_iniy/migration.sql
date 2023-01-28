@@ -1,7 +1,6 @@
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
-    "authid" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "githubid" TEXT NOT NULL,
     "name" TEXT,
@@ -10,7 +9,6 @@ CREATE TABLE "User" (
     "collegeId" TEXT,
     "district" TEXT,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -25,7 +23,7 @@ CREATE TABLE "College" (
 
 -- CreateTable
 CREATE TABLE "Event" (
-    "id" TEXT NOT NULL,
+    "id" UUID NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "image" TEXT NOT NULL,
@@ -34,49 +32,44 @@ CREATE TABLE "Event" (
     "location" TEXT NOT NULL DEFAULT 'Online',
     "status" TEXT NOT NULL DEFAULT 'PENDING',
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Event_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Team" (
-    "id" TEXT NOT NULL,
+    "id" UUID NOT NULL,
     "name" TEXT NOT NULL,
     "repo" TEXT NOT NULL,
-    "eventId" TEXT NOT NULL,
+    "eventId" UUID NOT NULL,
     "pitchStatus" TEXT NOT NULL DEFAULT 'PENDING',
     "projectStatus" TEXT NOT NULL DEFAULT 'PENDING',
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Team_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "TeamMember" (
-    "id" TEXT NOT NULL,
+    "id" UUID NOT NULL,
     "role" TEXT NOT NULL DEFAULT 'MEMBER',
-    "teamId" TEXT NOT NULL,
+    "teamId" UUID NOT NULL,
     "userId" TEXT NOT NULL,
-    "eventId" TEXT NOT NULL,
+    "eventId" UUID NOT NULL,
 
     CONSTRAINT "TeamMember_pkey" PRIMARY KEY ("userId","eventId")
 );
 
 -- CreateTable
 CREATE TABLE "Invite" (
-    "id" TEXT NOT NULL,
-    "teamId" TEXT NOT NULL,
+    "id" UUID NOT NULL,
+    "teamId" UUID NOT NULL,
     "userId" TEXT NOT NULL,
-    "eventId" TEXT NOT NULL
+    "eventId" UUID NOT NULL
 );
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_id_key" ON "User"("id");
-
--- CreateIndex
-CREATE UNIQUE INDEX "User_authid_key" ON "User"("authid");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");

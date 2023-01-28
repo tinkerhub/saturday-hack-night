@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { CalendarIcon } from '@chakra-ui/icons';
-import { Activity, Team } from '@app/types';
+import { Event, Team } from '@app/types';
 import {
     Flex,
     HStack,
@@ -218,7 +218,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
 };
 
 export interface CurrentEventProps {
-    event: Activity & { _count?: { teams: number } };
+    event: Event & { _count?: { teams: number } };
 }
 
 export { CurrentEvent };

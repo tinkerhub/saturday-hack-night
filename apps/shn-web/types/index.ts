@@ -1,6 +1,5 @@
 export type User = {
     id: string;
-    authid: string;
     email: string;
     githubId: string;
     name?: string;
@@ -17,7 +16,7 @@ export type Child = {
     children: React.ReactNode;
 };
 
-export type Activity = {
+export type Event = {
     id: string;
     title: string;
     description: string;
@@ -27,7 +26,6 @@ export type Activity = {
     location: string;
     status: string;
     created_at: Date;
-    updated_at: Date;
 };
 
 export type Team = {
@@ -38,5 +36,4 @@ export type Team = {
     pitchStatus: string;
     projectStatus: string;
     created_at: Date;
-    updated_at: Date;
 };
