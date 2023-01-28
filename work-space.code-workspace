@@ -17,7 +17,6 @@
             ".husky": true,
             ".firebaserc": true,
             "commitlint.config.js": true,
-            "yarn.lock": true,
             "firestore.rules": true,
             "firebase.json": true,
             "apps/**/.turbo": true,

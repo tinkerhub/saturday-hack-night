@@ -107,16 +107,37 @@ export class EventService {
                 data: [],
             });
         }
-        const projects = data.map((team) => ({
-            name: team.name,
-            repo: team.repo,
-            projectStatus: team.projectStatus,
-            members: team.members.map((member) => ({
-                name: member.user.name,
-                githubid: member.user.githubid,
-                avatar: member.user.avatar,
-            })),
-        }));
+        const projects = data.map(
+            (team: {
+                name: string;
+                repo: string;
+                projectStatus: string;
+                members: {
+                    user: {
+                        name: string | null;
+                        githubid: string;
+                        avatar: string;
+                    };
+                }[];
+            }) => ({
+                name: team.name,
+                repo: team.repo,
+                projectStatus: team.projectStatus,
+                members: team.members.map(
+                    (member: {
+                        user: {
+                            name: string | null;
+                            githubid: string;
+                            avatar: string;
+                        };
+                    }) => ({
+                        name: member.user.name,
+                        githubid: member.user.githubid,
+                        avatar: member.user.avatar,
+                    }),
+                ),
+            }),
+        );
         return this.Success({
             message: 'Projects read successfully',
             data: projects,
