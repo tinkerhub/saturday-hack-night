@@ -3,6 +3,7 @@ import supertokens from 'supertokens-node';
 import Session from 'supertokens-node/recipe/session';
 import ThirdParty from 'supertokens-node/recipe/thirdparty';
 import Dashboard from 'supertokens-node/recipe/dashboard';
+import UserMetadata from 'supertokens-node/recipe/usermetadata';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { AxiosError } from 'axios';
 import { catchError, firstValueFrom } from 'rxjs';
@@ -28,6 +29,7 @@ export class SupertokensService {
                 Dashboard.init({
                     apiKey: this.config.DashboardApiKey,
                 }),
+                UserMetadata.init(),
                 ThirdParty.init({
                     signInAndUpFeature: {
                         providers: [

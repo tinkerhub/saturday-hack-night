@@ -1,0 +1,171 @@
+import { Injectable } from '@nestjs/common';
+import { ReadException } from './exception/read.exception';
+import { PrismaService } from '../prisma/prisma.service';
+
+interface Resp {
+    message: string;
+    data?: any;
+}
+
+@Injectable()
+export class PointService {
+    constructor(private readonly prisma: PrismaService) {}
+
+    Success(resp: Resp) {
+        return {
+            success: true,
+            message: resp.message,
+            data: resp.data,
+        };
+    }
+
+    async updatePoints(eventId: string) {
+        const event = await this.prisma.event.findUnique({
+            where: {
+                id: eventId,
+            },
+        });
+        if (!event) {
+            throw new ReadException('Event not found');
+        }
+        const teams = await this.prisma.team.findMany({
+            where: {
+                eventId,
+            },
+            select: {
+                projectStatus: true,
+                pitchStatus: true,
+                eventId: true,
+                members: {
+                    select: {
+                        role: true,
+                        user: {
+                            select: {
+                                id: true,
+                                collegeId: true,
+                            },
+                        },
+                    },
+                },
+            },
+        });
+        const newPoints: {
+            collegeId: string | null;
+            userId: string;
+            eventId: string;
+            points: number;
+        }[] = [];
+        teams.forEach((team) => {
+            let points = 0;
+            if (team.projectStatus === 'COMPLETED') points += 100;
+            if (team.pitchStatus === 'COMPLETED') points += 100;
+            if (team.projectStatus === 'BEST PROJECT') points += 200;
+            if (team.projectStatus === 'DROPPED') points -= 50;
+            if (team.pitchStatus === 'ABSENT') points -= 50;
+            team.members.forEach((member) => {
+                let finalPoints = points;
+                if (member.role === 'LEADER') finalPoints += 50;
+                newPoints.push({
+                    collegeId: member.user.collegeId,
+                    userId: member.user.id,
+                    eventId: team.eventId,
+                    points: finalPoints,
+                });
+            });
+        });
+        await this.prisma.points.deleteMany({
+            where: {
+                eventId,
+            },
+        });
+        await this.prisma.points.createMany({
+            data: newPoints,
+        });
+        this.Success({
+            message: 'Points table updated',
+        });
+    }
+
+    async getCollegePoints() {
+        const points = await this.prisma.points.findMany({
+            take: 10,
+            select: {
+                college: {
+                    select: {
+                        name: true,
+                        id: true,
+                    },
+                },
+                points: true,
+            },
+            orderBy: {
+                points: 'desc',
+            },
+        });
+        const collegePoints: {
+            id: string;
+            name: string;
+        }[] = [];
+        points.forEach((point) => {
+            if (point.college) {
+                collegePoints.push({
+                    id: point.college.id,
+                    name: point.college.name,
+                });
+            }
+        });
+        return this.Success({
+            message: 'College points',
+            data: collegePoints,
+        });
+    }
+
+    async getUsersPoints() {
+        const points = await this.prisma.points.findMany({
+            take: 10,
+            select: {
+                user: {
+                    select: {
+                        name: true,
+                        id: true,
+                        avatar: true,
+                        githubid: true,
+                        college: {
+                            select: {
+                                name: true,
+                            },
+                        },
+                    },
+                },
+                points: true,
+            },
+            orderBy: {
+                points: 'desc',
+            },
+        });
+        const userPoints: {
+            id: string;
+            name: string | null;
+            githubid: string;
+            avatar: string;
+            college: string | null;
+            points: number;
+        }[] = [];
+        points.forEach((point) => {
+            if (point.user) {
+                userPoints.push({
+                    id: point.user.id,
+                    name: point.user.name || null,
+                    githubid: point.user.githubid,
+                    avatar: point.user.avatar,
+                    college: point.user.college?.name || null,
+                    points: point.points,
+                });
+            }
+        });
+        return this.Success({
+            message: 'User points',
+            data: userPoints,
+        });
+    }
+}

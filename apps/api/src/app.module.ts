@@ -11,6 +11,7 @@ import { ProfileModule } from './profile/profile.module';
 import { EventModule } from './event/event.module';
 import { TeamModule } from './team/team.module';
 import { CollegeModule } from './college/college.module';
+import { PointModule } from './point/point.module';
 
 @Module({
     imports: [
@@ -69,6 +70,7 @@ import { CollegeModule } from './college/college.module';
         EventModule,
         TeamModule,
         CollegeModule,
+        PointModule,
     ],
     controllers: [AppController],
 })
