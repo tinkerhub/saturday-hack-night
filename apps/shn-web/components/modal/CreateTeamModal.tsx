@@ -173,7 +173,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                                             {...register('repo')}
                                         />
                                     </FormControl>
-                                    <Member loading={loading} />
+                                    <Member isEditable loading={loading} />
                                 </Flex>
                                 <Flex
                                     flexDirection="column"

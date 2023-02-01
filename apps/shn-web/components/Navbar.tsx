@@ -83,7 +83,7 @@ const Navbar = () => {
                         {user ? (
                             <VStack alignItems="flex-end">
                                 <Text as="span" fontSize="16px" fontWeight="bold" color="white">
-                                    {user.name || user.githubId}
+                                    {user.name || user.githubid}
                                 </Text>
                                 <Text
                                     _hover={{ cursor: 'pointer' }}
@@ -194,7 +194,7 @@ const Navbar = () => {
                                             fontWeight="bold"
                                             color="white"
                                         >
-                                            {user.name || user.githubId}
+                                            {user.name || user.githubid}
                                         </Text>
                                         <Text
                                             _hover={{ cursor: 'pointer' }}

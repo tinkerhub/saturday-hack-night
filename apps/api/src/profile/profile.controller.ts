@@ -34,11 +34,11 @@ export class ProfileController {
         }
     }
 
-    @Get(':githubId')
+    @Get(':githubid')
     @UseGuards(new AuthGuard())
-    async readByGithubId(@Param('githubId') githubId: string) {
+    async readByGithubId(@Param('githubid') githubid: string) {
         try {
-            return await this.profileService.readByGithubId(githubId);
+            return await this.profileService.readByGithubId(githubid);
         } catch (err) {
             throw new ReadException(err);
         }

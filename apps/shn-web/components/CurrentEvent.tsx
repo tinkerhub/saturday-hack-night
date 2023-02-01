@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 import { CalendarIcon } from '@chakra-ui/icons';
 import { Event, Team } from '@app/types';
@@ -22,8 +23,9 @@ import { useAuth } from '@app/hooks';
 const CurrentEvent = ({ event }: CurrentEventProps) => {
     const toast = useToast();
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    const { id, title, description, date, image, details, _count } = event;
+    const { id, title, description, date, image, details, status, _count } = event;
     const [team, setTeam] = useState<Team | null>(null);
+    const [isEditable, setIsEditable] = useState(false);
     const { isProfileComplete, user, login } = useAuth();
 
     useEffect(() => {
@@ -31,12 +33,20 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
             if (user) {
                 const { data } = await api.get(`/team/${id}`);
                 if (data.data) setTeam(data.data.team);
+                if (
+                    data.data &&
+                    data.data.team.members[0].role === 'LEADER' &&
+                    data.data.team.members[0].user.githubid === (await user.githubid)
+                ) {
+                    setIsEditable(status === 'REGISTRATION');
+                }
             }
         })();
         return () => {
             setTeam(null);
+            setIsEditable(false);
         };
-    }, [isProfileComplete, user, login, id]);
+    }, [isProfileComplete, user, id, status]);
 
     const {
         isOpen: isOpenUpdateModal,
@@ -70,6 +80,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                     onClose={onCloseUpdateModal}
                     image={image}
                     eventId={id}
+                    isEditable={isEditable}
                 />
             )}
             {user && isOpenCreateModal && (
@@ -133,7 +144,11 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                         textAlign="center"
                         fontFamily="Clash Display"
                     >
-                        {team ? 'Registered 🎉' : 'Register Now'}
+                        {team
+                            ? 'Registered 🎉'
+                            : status === 'REGISTRATION'
+                            ? 'Register Now'
+                            : 'Registration Closed'}
                     </Text>
                 </Box>
             </VStack>
@@ -155,25 +170,32 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                 </Text>
                 <HStack columnGap="15px">
                     <Button
-                        onClick={
-                            // eslint-disable-next-line no-nested-ternary
-                            user
-                                ? // eslint-disable-next-line no-nested-ternary
-                                  team
-                                    ? onOpenUpdateModal
-                                    : isProfileComplete
-                                    ? onOpenCreateModal
-                                    : () =>
-                                          toast({
-                                              title: '✗ Please complete your Profile',
-                                              status: 'error',
-                                              // eslint-disable-next-line @typescript-eslint/no-shadow
-                                              render: ({ title, status }) => (
-                                                  <Toast title={title} status={status} />
-                                              ),
-                                          })
-                                : () => login()
-                        }
+                        onClick={() => {
+                            if (user && team) return onOpenUpdateModal();
+                            if (user && !team && isProfileComplete && status === 'REGISTRATION')
+                                return onOpenCreateModal();
+                            if (user && !isProfileComplete)
+                                return toast({
+                                    title: '✗ Please Complete Your Profile',
+                                    status: 'error',
+                                    // eslint-disable-next-line @typescript-eslint/no-shadow
+                                    render: ({ title, status }) => (
+                                        <Toast title={title} status={status} />
+                                    ),
+                                });
+                            if (!user) {
+                                toast({
+                                    title: '✗ Please Login',
+                                    status: 'error',
+                                    // eslint-disable-next-line @typescript-eslint/no-shadow
+                                    render: ({ title, status }) => (
+                                        <Toast title={title} status={status} />
+                                    ),
+                                });
+                                return login();
+                            }
+                            return null;
+                        }}
                         fontFamily="Clash Display"
                         size="lg"
                         _hover={{
@@ -187,7 +209,19 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                             backdropFilter: 'blur(25px)',
                         }}
                     >
-                        {team ? 'Edit Team' : 'Create Team'}
+                        {user
+                            ? team
+                                ? isEditable
+                                    ? status === 'REGISTRATION'
+                                        ? 'Update Team'
+                                        : 'View Team'
+                                    : 'View Team'
+                                : isProfileComplete
+                                ? status === 'REGISTRATION'
+                                    ? 'Register Team'
+                                    : 'Closed'
+                                : 'Register Team'
+                            : 'Register Team'}
                     </Button>
                     <Button
                         fontFamily="Clash Display"

@@ -17,7 +17,9 @@ const Events: NextPageWithLayout = () => {
         (async () => {
             const { data } = await api.get('/event');
             const fcurrentEvent: Event =
-                data.data.filter((event: Event) => event.status === 'REGISTRATION')[0] || null;
+                data.data.filter(
+                    (event: Event) => event.status === 'REGISTRATION' || 'ACTIVE',
+                )[0] || null;
             const fpastEvents: Event[] = data.data.filter(
                 (event: Event) => event.status === 'RESULT' || event.status === 'PENDING',
             );

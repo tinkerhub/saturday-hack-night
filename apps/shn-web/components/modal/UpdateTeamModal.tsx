@@ -35,9 +35,17 @@ interface ModalType {
     onClose: () => void;
     eventId: string;
     teamId: string;
+    isEditable: boolean;
 }
 
-export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamId }: ModalType) => {
+export const UpdateTeamModal = ({
+    isOpen,
+    onClose,
+    image,
+    eventId,
+    teamId,
+    isEditable,
+}: ModalType) => {
     const methods = useForm<FormType>({
         resolver: yupResolver(TeamValidator),
     });
@@ -241,7 +249,7 @@ export const UpdateTeamModal = ({ isOpen, onClose, image, eventId, teamId }: Mod
                                     </Flex>
                                 </Box>
                                 <Flex flexDirection="column" mt="20px">
-                                    <Member loading={loading} />
+                                    <Member isEditable={isEditable} loading={loading} />
                                 </Flex>
                             </Flex>
                         </ModalBody>

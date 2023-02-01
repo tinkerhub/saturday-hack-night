@@ -14,9 +14,10 @@ import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 
 interface MemberProps {
     loading: boolean;
+    isEditable: boolean;
 }
 
-const Member = ({ loading }: MemberProps) => {
+const Member = ({ loading, isEditable }: MemberProps) => {
     const { control } = useFormContext();
     const { fields, append, remove } = useFieldArray({
         control,
@@ -36,7 +37,7 @@ const Member = ({ loading }: MemberProps) => {
                         render={({ field }) => (
                             <InputGroup key={member[0]} width="325px" marginBottom="20px">
                                 <Input
-                                    disabled={loading}
+                                    disabled={loading || !isEditable}
                                     ref={field.ref}
                                     placeholder="Github Username"
                                     size="lg"

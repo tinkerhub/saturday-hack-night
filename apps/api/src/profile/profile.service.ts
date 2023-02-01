@@ -73,10 +73,10 @@ export class ProfileService {
         });
     }
 
-    async readByGithubId(githubId: string) {
+    async readByGithubId(githubid: string) {
         const data = await this.prisma.user.findMany({
             where: {
-                githubid: githubId,
+                githubid,
             },
         });
         if (data.length === 0) {
