@@ -18,7 +18,6 @@ import {
 } from '@chakra-ui/react';
 
 import React, { useCallback, useEffect } from 'react';
-import Select from 'react-select';
 import AsyncSelect from 'react-select/async';
 
 import { Controller, FormProvider, useForm } from 'react-hook-form';
