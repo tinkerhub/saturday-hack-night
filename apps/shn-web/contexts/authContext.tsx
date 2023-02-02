@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }: Child) => {
         try {
             const authUrl = await getAuthorisationURLWithQueryParamsAndSetState({
                 providerId: 'github',
-                authorisationURL: 'http://localhost:3000/auth',
+                authorisationURL: `${process.env.NEXT_PUBLIC_WEBSITE_DOMAIN}/auth`,
             });
             router.push(authUrl);
         } catch (err: any) {
