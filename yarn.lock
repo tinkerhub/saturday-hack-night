@@ -3191,10 +3191,10 @@
   resolved "https://registry.yarnpkg.com/@webpack-cli/serve/-/serve-1.7.0.tgz#e1993689ac42d2b16e9194376cfb6753f6254db1"
   integrity sha512-oxnCNGj88fL+xzV+dacXs44HcDwf1ovs3AuEzvP7mqXw7fQntqIhQ1BRmynh4qEKQSSSRSWVyXRjmTbZIX9V2Q==
 
-"@webtre/nestjs-mailer-react-adapter@^0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@webtre/nestjs-mailer-react-adapter/-/nestjs-mailer-react-adapter-0.0.7.tgz#e8fba8d1577fbdab930a6739e3a169cc710e0e75"
-  integrity sha512-F/0vbrF3ctHVIyUVZkbhLp/CGbBguxAbKRZ7h4S9OD60LqQ8tIajq06REaMBQmdHAOEIT023/45Jf9Ib8/d0OA==
+"@webtre/nestjs-mailer-react-adapter@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@webtre/nestjs-mailer-react-adapter/-/nestjs-mailer-react-adapter-0.0.9.tgz#3829228b317270994c912f833108db9fc6f710c2"
+  integrity sha512-O2OeocrVpqVNIuoMcrvbexYHA/Il+9aNGAVN3CYyAmws/ix1uwj3asie9/Hkuty065OSBaS4UJ8+fDItfch4hg==
   dependencies:
     "@react-email/render" "^0.0.6"
 
