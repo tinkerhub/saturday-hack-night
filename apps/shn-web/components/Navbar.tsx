@@ -161,6 +161,19 @@ const Navbar = () => {
                                 HOME
                             </Text>
                         </Link>
+                        <Link href="/leaderboard">
+                            <Text
+                                as="span"
+                                color="white"
+                                fontSize="18px"
+                                transition="all 0.2s  ease-in-out"
+                                _hover={{
+                                    color: '#DBF72C',
+                                }}
+                            >
+                                LEADERBOARD
+                            </Text>
+                        </Link>
                         <Link href="/events">
                             <Text
                                 as="span"

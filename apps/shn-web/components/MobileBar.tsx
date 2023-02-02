@@ -12,6 +12,10 @@ const MobileBar = ({ closeModal }: Handler) => {
             path: '/',
         },
         {
+            name: 'LEADERBOARD',
+            path: 'leaderboard',
+        },
+        {
             name: 'EVENTS',
             path: 'events',
         },

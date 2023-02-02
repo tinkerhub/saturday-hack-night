@@ -10,3 +10,4 @@ export { CurrentEvent } from './CurrentEvent';
 export { LoadingAnimation } from './LoadingAnimation';
 export { EventCard } from './EventCard';
 export { ResultItems } from './ResultItems';
+export { UserLeaderboard } from './UserLeaderboard';

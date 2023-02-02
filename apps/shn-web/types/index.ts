@@ -37,3 +37,12 @@ export type Team = {
     projectStatus: string;
     created_at: Date;
 };
+
+export interface UserPoints {
+    id: string;
+    name: string;
+    points: number;
+    githubid: string;
+    avatar: string;
+    college: string;
+}

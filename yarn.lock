@@ -4426,6 +4426,11 @@ css-loader@^6.7.1:
     postcss-value-parser "^4.2.0"
     semver "^7.3.8"
 
+css-paint-polyfill@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/css-paint-polyfill/-/css-paint-polyfill-3.4.0.tgz#2e7dd83c9f6a4a39c19dd38454111d1f8c340021"
+  integrity sha512-B89ymLgMZie41d+QrD//5RWnwykvru5H9Yzd/MMJIgPdVsKB7t4lxuhIAyzy5FnoUbb0MztagNVRe9dI7kMbiA==
+
 css-rules@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/css-rules/-/css-rules-1.1.0.tgz#404b8b1f77bd775f6c6902b7a7b534f5c016b07f"
