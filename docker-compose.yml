@@ -19,50 +19,8 @@ services:
             retries: 5
         networks:
             - app_network
-    api:
-        container_name: api
-        env_file:
-            - .env
-        environment:
-            - DATABASE_URL=${DATABASE_URL}
-            - SUPERTOKENS_APP_NAME = ${SUPERTOKENS_APP_NAME}
-            - SUPERTOKENS_API_KEY = ${SUPERTOKENS_API_KEY}
-            - SUPERTOKENS_API_DOMAIN=${SUPERTOKENS_API_DOMAIN}
-            - SUPERTOKENS_WEBSITE_DOMAIN=${SUPERTOKENS_WEBSITE_DOMAIN}
-            - SUPERTOKENS_CONNECTION_URI=${SUPERTOKENS_CONNECTION_URI}
-            - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}
-            - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
-            - EMAIL_HOST=${EMAIL_HOST}
-            - EMAIL_USERNAME=${EMAIL_USERNAME}
-            - EMAIL_PASSWORD=${EMAIL_PASSWORD}
-            - MAIL_FROM=${MAIL_FROM}
-            - DASHBOARD_API_KEY=${DASHBOARD_API_KEY}
-            - HOST=${HOST}
-        build:
-            context: .
-            dockerfile: ./apps/api/Dockerfile
-        restart: always
-        ports:
-            - 127.0.0.1:3001:3001
-        networks:
-            - app_network
-        depends_on:
-            - db
-    nocodb:
-        image: nocodb/nocodb:latest
-        container_name: shn-noco
-        ports:
-            - '8080:8080'
-        restart: always
-        networks:
-            - app_network
-            - default
-        volumes:
-        - './tmp/noco:/usr/app/data'
 volumes:
     pg-data:
-        driver: local
-    nc-data:
         driver: local
 networks:
     app_network:
