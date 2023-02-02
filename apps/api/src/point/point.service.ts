@@ -87,33 +87,47 @@ export class PointService {
     }
 
     async getCollegePoints() {
-        const points = await this.prisma.points.findMany({
-            take: 10,
-            select: {
-                college: {
-                    select: {
-                        name: true,
-                        id: true,
-                    },
-                },
+        const points = await this.prisma.points.groupBy({
+            by: ['collegeId'],
+            _sum: {
                 points: true,
             },
             orderBy: {
-                points: 'desc',
+                _sum: {
+                    points: 'desc',
+                },
+            },
+            take: 10,
+        });
+
+        const college = await this.prisma.college.findMany({
+            where: {
+                id: {
+                    in: points.map((point) => point.collegeId || ''),
+                },
+            },
+            select: {
+                id: true,
+                name: true,
             },
         });
+
         const collegePoints: {
+            points: number;
             id: string;
             name: string;
         }[] = [];
         points.forEach((point) => {
-            if (point.college) {
+            if (point.collegeId) {
                 collegePoints.push({
-                    id: point.college.id,
-                    name: point.college.name,
+                    // eslint-disable-next-line no-underscore-dangle
+                    points: point._sum.points || 0,
+                    id: point.collegeId,
+                    name: college.find((c) => c.id === point.collegeId)?.name || '',
                 });
             }
         });
+
         return this.Success({
             message: 'College points',
             data: collegePoints,
