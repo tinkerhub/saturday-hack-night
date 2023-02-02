@@ -5,7 +5,6 @@ export type User = {
     name?: string;
     mobile?: string;
     avatar: string;
-    district?: string;
     college?: {
         id: string;
         name: string;

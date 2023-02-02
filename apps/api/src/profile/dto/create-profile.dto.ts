@@ -29,9 +29,5 @@ export class CreateProfileDto {
 
     @ApiProperty()
     @IsString()
-    district?: string;
-
-    @ApiProperty()
-    @IsString()
     mobile?: string;
 }

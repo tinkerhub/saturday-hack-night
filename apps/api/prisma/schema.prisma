@@ -19,7 +19,6 @@ model User {
   avatar              String
   college             College?        @relation(fields: [collegeId], references: [id])
   collegeId           String?
-  district            String?
   participated        TeamMember[]
   invites             Invite[]
   points              Points[]

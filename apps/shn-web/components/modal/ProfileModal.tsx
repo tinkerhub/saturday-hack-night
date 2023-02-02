@@ -86,25 +86,6 @@ const selectStyle = {
     }),
 };
 
-const districts = [
-    { label: 'Select District', value: '' },
-    { label: 'Thiruvananthapuram', value: 'Thiruvananthapuram' },
-    { label: 'Kollam', value: 'Kollam' },
-    { label: 'Pathanamthitta', value: 'Pathanamthitta' },
-    { label: 'Alappuzha', value: 'Alappuzha' },
-    { label: 'Kottayam', value: 'Kottayam' },
-    { label: 'Idukki', value: 'Idukki' },
-    { label: 'Ernakulam', value: 'Ernakulam' },
-    { label: 'Thrissur', value: 'Thrissur' },
-    { label: 'Palakkad', value: 'Palakkad' },
-    { label: 'Malappuram', value: 'Malappuram' },
-    { label: 'Wayanad', value: 'Wayanad' },
-    { label: 'Kozhikode', value: 'Kozhikode' },
-    { label: 'Kannur', value: 'Kannur' },
-    { label: 'Kasaragod', value: 'Kasaragod' },
-    { label: 'Other', value: 'Other' },
-];
-
 export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
     const methods = useForm<FormType>({
         resolver: yupResolver(profileModalValidator),
@@ -138,7 +119,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
         const DbData = {
             mobile: data.mobile,
             collegeId: data?.college.value || '',
-            district: data?.district.value || '',
+            name: data?.name,
         };
         try {
             setLoading(true);
@@ -168,10 +149,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
         if (user) {
             setValue('mobile', user.mobile || '');
             setValue('college', { label: user.college?.name || '', value: user.college?.id || '' });
-            setValue('district', {
-                label: user.district || '',
-                value: user.district || 'Select District',
-            });
+            setValue('name', user.name || '');
         }
     }, [setValue, user]);
 
@@ -278,32 +256,47 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                     justifyContent="space-between"
                                     alignItems="center"
                                 >
-                                    <Controller
-                                        control={control}
-                                        name="district"
-                                        render={({ field, fieldState: { error: disterror } }) => (
-                                            <FormControl
-                                                label="District"
-                                                isInvalid={!!disterror}
-                                                id="District"
-                                            >
-                                                <Select
-                                                    isDisabled={loading}
-                                                    options={districts}
-                                                    defaultValue={districts[0]}
-                                                    unstyled
-                                                    classNamePrefix="react-select"
-                                                    styles={selectStyle}
-                                                    {...field}
-                                                />
-                                                {disterror && (
-                                                    <FormErrorMessage>
-                                                        Please pick an option
-                                                    </FormErrorMessage>
-                                                )}
-                                            </FormControl>
-                                        )}
-                                    />
+                                    <FormControl isRequired label="Full Name" id="Name">
+                                        <Input
+                                            disabled={loading}
+                                            placeholder="Full Name"
+                                            variant="filled"
+                                            height="45px"
+                                            fontWeight="regular"
+                                            transition="0.3s ease-in all"
+                                            defaultValue={user?.mobile}
+                                            fontSize="16px"
+                                            backgroundColor="rgba(255,255,255,0.15)"
+                                            textColor="white"
+                                            fontFamily="Clash Display"
+                                            border="none"
+                                            borderRadius="10px"
+                                            _placeholder={{
+                                                textColor: 'rgba(255, 255, 255, 0.25)',
+                                            }}
+                                            _focus={{
+                                                boxShadow: '0px 3px 8px rgba(219, 247, 44, 0.15)',
+                                                border: '1px solid rgba(219, 247, 44, 0.15)',
+                                            }}
+                                            _hover={{
+                                                backgroundColor: 'rgba(255,255,255,0.25)',
+                                            }}
+                                            {...register('name')}
+                                        />
+                                        <Text
+                                            display={errors.name ? 'block' : 'none'}
+                                            backgroundColor="rgba(226,76,75,0.4)"
+                                            marginTop="15px"
+                                            paddingInline="10px"
+                                            borderRadius="5px"
+                                            paddingBlock="5px"
+                                            fontFamily="Clash Display"
+                                            fontSize="12px"
+                                            textColor="#E24C4B"
+                                        >
+                                            {errors.name?.message}
+                                        </Text>
+                                    </FormControl>
                                     <Controller
                                         control={control}
                                         name="college"
@@ -314,6 +307,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                                 id="College"
                                             >
                                                 <AsyncSelect
+                                                    placeholder="College"
                                                     isDisabled={loading}
                                                     {...field}
                                                     isClearable

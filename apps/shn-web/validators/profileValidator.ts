@@ -14,6 +14,6 @@ const requiredErrorStatement = (value: string): string => `Please enter a valid 
 
 export const profileModalValidator = Yup.object({
     mobile: Yup.string().length(10).required(requiredErrorStatement('Mobile number')),
-    district: PickAnOptionValidator.required('Please pick an option'),
+    name: Yup.string().required(requiredErrorStatement('Name')),
     college: PickAnOptionValidator.required('Please pick an option'),
 });
