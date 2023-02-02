@@ -11,3 +11,4 @@ export { LoadingAnimation } from './LoadingAnimation';
 export { EventCard } from './EventCard';
 export { ResultItems } from './ResultItems';
 export { UserLeaderboard } from './UserLeaderboard';
+export { CampusLeaderboard } from './CampusLeaderboard';

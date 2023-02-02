@@ -46,3 +46,9 @@ export interface UserPoints {
     avatar: string;
     college: string;
 }
+
+export interface CampusPoints {
+    id: string;
+    name: string;
+    points: number;
+}

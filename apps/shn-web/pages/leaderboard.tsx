@@ -1,4 +1,4 @@
-import { UserLeaderboard } from '@app/components';
+import { UserLeaderboard, CampusLeaderboard } from '@app/components';
 import { BaseLayout } from '@app/layouts';
 import {
     Heading,
@@ -116,7 +116,7 @@ const Leaderboard: NextPageWithLayout = () => (
                     <UserLeaderboard />
                 </TabPanel>
                 <TabPanel padding="0">
-                    <p>two!</p>
+                    <CampusLeaderboard />
                 </TabPanel>
             </TabPanels>
         </Tabs>
