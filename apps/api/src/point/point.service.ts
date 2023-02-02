@@ -64,7 +64,7 @@ export class PointService {
             if (team.pitchStatus === 'ABSENT') points -= 50;
             team.members.forEach((member) => {
                 let finalPoints = points;
-                if (member.role === 'LEADER') finalPoints += 50;
+                if (member.role === 'LEADER' && team.projectStatus !== 'DROPPED') finalPoints += 50;
                 newPoints.push({
                     collegeId: member.user.collegeId,
                     userId: member.user.id,

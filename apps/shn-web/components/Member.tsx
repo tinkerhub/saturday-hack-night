@@ -58,15 +58,19 @@ const Member = ({ loading, isEditable }: MemberProps) => {
                                     borderRadius="10px"
                                 />
                                 <InputRightAddon
-                                    cursor={loading ? 'not-allowed' : 'pointer'}
+                                    cursor={loading || !isEditable ? 'not-allowed' : 'pointer'}
                                     border="none"
                                     textColor="#E24C4B"
                                     fontFamily="Clash Display"
-                                    backgroundColor={loading ? '#26272f' : 'rgba(255,255,255,0.25)'}
+                                    backgroundColor={
+                                        loading || !isEditable
+                                            ? '#26272f'
+                                            : 'rgba(255,255,255,0.25)'
+                                    }
                                     fontWeight="bold"
                                     height="48px"
                                     width="auto"
-                                    onClick={() => !loading && remove(index)}
+                                    onClick={() => !loading && isEditable && remove(index)}
                                 >
                                     Remove
                                 </InputRightAddon>

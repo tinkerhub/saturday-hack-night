@@ -76,15 +76,9 @@ export const UpdateTeamModal = ({
                 }
                 setValue('name', data.data.team.name);
                 setValue('repo', data.data.team.repo);
-                const members = data.data.team.members
-                    .filter(
-                        (member: { role: string; user: { githubid: string } }) =>
-                            member.role !== 'LEADER',
-                    )
-                    .map(
-                        (member: { role: string; user: { githubid: string } }) =>
-                            member.user.githubid,
-                    );
+                const members = data.data.team.members.map(
+                    (member: { role: string; user: { githubid: string } }) => member.user.githubid,
+                );
                 setValue('members', members);
             } finally {
                 setLoading(false);
@@ -97,6 +91,10 @@ export const UpdateTeamModal = ({
     }, [user, eventId]);
 
     const updateTeam = async (formData: FormType) => {
+        if (!isEditable) {
+            onClose();
+            return;
+        }
         const dbData = {
             eventId,
             name: undefined,
@@ -270,7 +268,7 @@ export const UpdateTeamModal = ({
                                 }}
                                 fontFamily="Clash Display"
                             >
-                                Update Details
+                                {isEditable ? 'Update Team' : 'Close'}
                             </Button>
                         </ModalFooter>
                     </form>

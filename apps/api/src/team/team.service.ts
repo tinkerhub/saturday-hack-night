@@ -50,6 +50,22 @@ export class TeamService {
         if (invite == null) {
             return new UpdateException('Invalid invite code');
         }
+        const team = await this.prisma.team.findUnique({
+            where: {
+                id: invite.teamId,
+            },
+            select: {
+                _count: {
+                    select: {
+                        members: true,
+                    },
+                },
+            },
+        });
+        // eslint-disable-next-line no-underscore-dangle
+        if ((team?._count.members as number) > 4) {
+            return new UpdateException('Team is full');
+        }
         try {
             const res = await this.prisma.team.update({
                 where: {
