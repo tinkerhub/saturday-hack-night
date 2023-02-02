@@ -165,7 +165,16 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                 >
                     {title}
                 </Heading>
-                <Text fontSize="18px" fontFamily="Clash Display" textColor="white" flexGrow="1">
+
+                <Text
+                    fontSize="18px"
+                    fontFamily="Clash Display"
+                    textColor="white"
+                    flexGrow="1"
+                    style={{
+                        marginTop: '0px',
+                    }}
+                >
                     {description}
                 </Text>
                 <HStack columnGap="15px">
