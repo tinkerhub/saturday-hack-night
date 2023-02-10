@@ -5,3 +5,7 @@ build
 .firebase
 .vscode
 .idea
+out
+.next
+.env
+tmp

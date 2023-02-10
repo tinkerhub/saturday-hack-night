@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+    db:
+        image: postgres
+        volumes:
+            - pg-data:/data/db
+        ports:
+            - 5432:5432
+        env_file:
+            - .env
+        environment:
+            - POSTGRES_USER=${DB_USER}
+            - POSTGRES_PASSWORD=${DB_PASS}
+            - POSTGRES_DB=${DB_NAME}
+        healthcheck:
+            test: ['CMD-SHELL', 'pg_isready -U ${DB_USER}']
+            interval: 5s
+            timeout: 5s
+            retries: 5
+        networks:
+            - app_network
+volumes:
+    pg-data:
+        driver: local
+networks:
+    app_network:

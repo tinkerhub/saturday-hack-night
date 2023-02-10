@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  String          @unique @id
+  email               String          @unique
+  githubid            String          @unique
+  name                String?
+  mobile              String?
+  avatar              String
+  college             College?        @relation(fields: [collegeId], references: [id])
+  collegeId           String?
+  participated        TeamMember[]
+  invites             Invite[]
+  points              Points[]
+  created_at          DateTime        @default(now())
+}
+
+model College {
+  id   String @id
+  name String @unique
+  points Points[]
+  user User[]
+}
+
+model Event {
+  id                  String          @id @unique @db.Uuid @default(uuid())
+  title               String
+  description         String
+  image               String
+  details             String
+  date                DateTime
+  location            String          @default("Online")
+  status              String          @default("PENDING")
+  teams               Team[]
+  participants        TeamMember[]
+  invites             Invite[]
+  points              Points[]
+  created_at          DateTime         @default(now())
+}
+
+model Team {
+  id                  String          @id @unique @db.Uuid @default(uuid())
+  name                String
+  repo                String
+  invite              Invite[]
+  event               Event           @relation(fields: [eventId], references: [id])
+  eventId             String          @db.Uuid
+  members             TeamMember[]
+  pitchStatus         String          @default("PENDING")
+  projectStatus       String          @default("PENDING")
+  created_at          DateTime        @default(now())
+}
+
+model TeamMember{
+  id                  String          @unique @db.Uuid @default(uuid())
+  role                String          @default("MEMBER")
+  team                Team            @relation(fields: [teamId], references: [id])
+  teamId              String          @db.Uuid
+  user                User            @relation(fields: [userId], references: [id])
+  userId              String
+  event               Event           @relation(fields: [eventId], references: [id])
+  eventId             String          @db.Uuid
+  @@unique([userId, eventId])
+  @@unique([userId, teamId])
+  @@id([userId, eventId])
+}
+
+model Invite {
+  id                  String          @unique @db.Uuid @default(uuid())
+  team                Team            @relation(fields: [teamId], references: [id])
+  teamId              String          @db.Uuid
+  user                User            @relation(fields: [userId], references: [id])
+  userId              String
+  event               Event           @relation(fields: [eventId], references: [id])
+  eventId             String          @db.Uuid
+}
+
+model Points {
+  id                  String          @unique @db.Uuid @default(uuid()) @id
+  user                User            @relation(fields: [userId], references: [id])
+  userId              String
+  college             College?        @relation(fields: [collegeId], references: [id])
+  collegeId           String?
+  event               Event           @relation(fields: [eventId], references: [id])
+  eventId             String          @db.Uuid
+  points              Int             @default(0)
+}

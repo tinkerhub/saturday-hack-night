@@ -41,6 +41,8 @@
         ],
         "import/no-extraneous-dependencies": "off",
         "react/require-default-props": "off",
-        "comma-dangle": "error"
+        "comma-dangle": "error",
+        "no-return-await": "off",
+        "@typescript-eslint/return-await": "off"
     }
 }

@@ -1,0 +1,20 @@
+{
+    "extends": "../../tsconfig.json",
+    "include": ["src/**/*.ts", "src/**/*.tsx"],
+    "exclude": ["node_modules"],
+    "compilerOptions": {
+        "jsx": "react-jsx",
+        "module": "commonjs",
+        "declaration": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "target": "ES2017",
+        "outDir": "./dist",
+        "isolatedModules": false,
+        "noUnusedParameters": false,
+        "strictPropertyInitialization": false,
+        "strict": true,
+        "baseUrl": "./"
+    }
+}

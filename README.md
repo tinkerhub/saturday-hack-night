@@ -49,8 +49,8 @@ Saturday Hacknight is a community built Platform for Tinkers to conduct Hacking 
 
 ### Built With
 
--   [Firebase](https://firebase.com/)
--   [Create react app](https://reactjs.org/)
+-   [NextJs](https://nextjs.org/)
+-   [NestJs](https://nestjs.com/)
 -   [Typescript](https://typescript.org/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
