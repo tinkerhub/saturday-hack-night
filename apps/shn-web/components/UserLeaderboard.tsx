@@ -100,7 +100,7 @@ const UserLeaderboard = () => {
             setLoading(true);
             try {
                 const { data } = await api.get('/points/user');
-                setUsers(data.data.data);
+                setUsers(data.data);
                 setLoading(false);
             } catch (err) {
                 setUsers([]);

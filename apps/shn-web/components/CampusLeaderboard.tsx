@@ -62,7 +62,7 @@ const CampusLeaderboard = () => {
             setLoading(true);
             try {
                 const { data } = await api.get('/points/college');
-                setCampus(data.data.data);
+                setCampus(data.data);
                 setLoading(false);
             } catch (err) {
                 setCampus([]);
