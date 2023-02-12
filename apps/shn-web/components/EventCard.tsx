@@ -15,8 +15,7 @@ import { Toast } from '@app/components';
 import { ResultsModal } from '@app/components/modal';
 
 const EventCard = ({ event }: EventCardProps) => {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    const { id, description, image, status, details, _count } = event;
+    const { id, description, image, status, details, projects } = event;
     const { push, query } = useRouter();
     const toast = useToast();
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -97,7 +96,7 @@ const EventCard = ({ event }: EventCardProps) => {
                             fontFamily="Clash Display"
                             fontWeight="medium"
                         >
-                            ✅ {_count!.teams || 0} Teams
+                            ✅ {projects || 0} Projects
                         </Text>
                     </Box>
                     <Text
@@ -165,9 +164,7 @@ const EventCard = ({ event }: EventCardProps) => {
 };
 interface EventCardProps {
     event: Event & {
-        _count?: {
-            teams: number;
-        };
+        projects: number;
     };
 }
 

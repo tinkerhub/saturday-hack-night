@@ -58,17 +58,34 @@ export class EventService {
                 location: true,
                 status: true,
                 details: true,
-                _count: {
+                teams: {
                     select: {
-                        teams: true,
-                        participants: true,
+                        projectStatus: true,
                     },
                 },
             },
         });
+        const res = data.map((event) => ({
+            id: event.id,
+            title: event.title,
+            description: event.description,
+            date: event.date,
+            image: event.image,
+            location: event.location,
+            status: event.status,
+            details: event.details,
+            projects: (() => {
+                const { teams } = event;
+                return teams.filter(
+                    (team) =>
+                        team.projectStatus === 'COMPLETE' || team.projectStatus === 'BEST PROJECT',
+                ).length;
+            })(),
+        }));
+
         return this.Success({
             message: 'Event read successfully',
-            data,
+            data: res,
         });
     }
 

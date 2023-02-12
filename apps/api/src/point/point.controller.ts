@@ -13,33 +13,36 @@ export class PointController {
     @Post(':id')
     @UseGuards(AuthGuard)
     async updatePoints(@Session() session: SessionContainer, @Param('id') eventId: string) {
-        if (!eventId || eventId === '') {
-            throw new EventException('Event id is required');
+        try {
+            if (!eventId || eventId === '') {
+                throw new EventException('Event id is required');
+            }
+            const user = await session.getUserId();
+            const { metadata } = await UserMetadata.getUserMetadata(user);
+            if (metadata.role !== 'admin') {
+                throw new ReadException('You are not authorized to update points');
+            }
+            return await this.pointService.updatePoints(eventId);
+        } catch (error) {
+            throw new ReadException(error);
         }
-        const user = await session.getUserId();
-        const { metadata } = await UserMetadata.getUserMetadata(user);
-        if (metadata.role !== 'admin') {
-            throw new ReadException('You are not authorized to update points');
-        }
-        await this.pointService.updatePoints(eventId);
-        return this.pointService.Success({
-            message: 'Points updated',
-        });
     }
 
     @Get('college')
     async getCollegePoints() {
-        return this.pointService.Success({
-            message: 'College points',
-            data: await this.pointService.getCollegePoints(),
-        });
+        try {
+            return await this.pointService.getCollegePoints();
+        } catch (error) {
+            throw new ReadException(error);
+        }
     }
 
     @Get('user')
     async getUserPoints() {
-        return this.pointService.Success({
-            message: 'User points',
-            data: await this.pointService.getUsersPoints(),
-        });
+        try {
+            return await this.pointService.getUsersPoints();
+        } catch (error) {
+            throw new ReadException(error);
+        }
     }
 }

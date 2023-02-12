@@ -81,7 +81,7 @@ export class PointService {
         await this.prisma.points.createMany({
             data: newPoints,
         });
-        this.Success({
+        return this.Success({
             message: 'Points table updated',
         });
     }

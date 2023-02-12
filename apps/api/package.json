@@ -25,6 +25,7 @@
         "@nestjs/platform-fastify": "^9.2.1",
         "@nestjs/schematics": "^9.0.4",
         "@nestjs/swagger": "^6.1.4",
+        "@nestjs/throttler": "^4.0.0",
         "@prisma/client": "^4.9.0",
         "@react-email/button": "^0.0.6",
         "@react-email/container": "^0.0.7-canary.1",

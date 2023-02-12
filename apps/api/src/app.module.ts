@@ -3,6 +3,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { LoggerModule } from 'nestjs-pino';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { AppController } from './app.controller';
@@ -37,7 +39,6 @@ import { PointModule } from './point/point.module';
                 abortEarly: true,
             },
         }),
-        PrismaModule,
         LoggerModule.forRoot({
             pinoHttp: {
                 transport: {
@@ -51,7 +52,12 @@ import { PointModule } from './point/point.module';
                 },
             },
         }),
-
+        EventEmitterModule.forRoot(),
+        ThrottlerModule.forRoot({
+            ttl: 60,
+            limit: 150,
+        }),
+        PrismaModule,
         AuthModule.forRoot({
             connectionURI: process.env.SUPERTOKENS_CONNECTION_URI as string,
             apiKey: process.env.SUPERTOKENS_API_KEY as string,
@@ -64,7 +70,6 @@ import { PointModule } from './point/point.module';
             githubClientSecret: process.env.GITHUB_CLIENT_SECRET as string,
             DashboardApiKey: process.env.DASHBOARD_API_KEY as string,
         }),
-        EventEmitterModule.forRoot(),
         MailModule,
         ProfileModule,
         EventModule,
@@ -73,5 +78,11 @@ import { PointModule } from './point/point.module';
         PointModule,
     ],
     controllers: [AppController],
+    providers: [
+        {
+            provide: APP_GUARD,
+            useClass: ThrottlerGuard,
+        },
+    ],
 })
 export class AppModule {}
