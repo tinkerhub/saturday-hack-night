@@ -63,6 +63,11 @@ export class EventService {
                         projectStatus: true,
                     },
                 },
+                _count: {
+                    select: {
+                        teams: true,
+                    },
+                },
             },
         });
         const res = data.map((event) => ({
@@ -74,6 +79,8 @@ export class EventService {
             location: event.location,
             status: event.status,
             details: event.details,
+            // eslint-disable-next-line no-underscore-dangle
+            _count: event._count,
             projects: (() => {
                 const { teams } = event;
                 return teams.filter(
