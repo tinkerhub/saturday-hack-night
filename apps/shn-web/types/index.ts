@@ -24,6 +24,7 @@ export type Event = {
     date: Date;
     location: string;
     status: string;
+    projects: number;
     created_at: Date;
 };
 

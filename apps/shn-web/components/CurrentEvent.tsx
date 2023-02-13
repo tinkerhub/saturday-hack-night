@@ -23,7 +23,7 @@ import { useAuth } from '@app/hooks';
 const CurrentEvent = ({ event }: CurrentEventProps) => {
     const toast = useToast();
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    const { id, title, description, date, image, details, status, _count } = event;
+    const { id, title, description, date, image, details, status, location, _count } = event;
     const [team, setTeam] = useState<Team | null>(null);
     const [isEditable, setIsEditable] = useState(false);
     const { isProfileComplete, user, login } = useAuth();
@@ -164,6 +164,19 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
                     fontSize="40px"
                 >
                     {title}
+                </Heading>
+                <Heading
+                    textAlign="left"
+                    textColor="white"
+                    color="#DBF72C"
+                    fontFamily="Clash Display"
+                    fontWeight="semibold"
+                    fontSize="24px"
+                    style={{
+                        marginTop: '0px',
+                    }}
+                >
+                    {location}
                 </Heading>
 
                 <Text
