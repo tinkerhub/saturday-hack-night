@@ -31,6 +31,23 @@ const Events: NextPageWithLayout = () => {
             setPastEvents([]);
         };
     }, []);
+    const handleMouseMove = (e: any) => {
+        const { currentTarget } = e;
+        const rect = currentTarget.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        currentTarget.style.setProperty('--mouse-x', `${x}px`);
+        currentTarget.style.setProperty('--mouse-y', `${y}px`);
+    };
+
+    useEffect(() => {
+        // eslint-disable-next-line no-restricted-syntax
+        for (const card of document.querySelectorAll('.cardBox')) {
+            const cardBody = card as HTMLDivElement;
+            cardBody.onmousemove = (e) => handleMouseMove(e);
+        }
+    }, [pastEvents]);
+
     useEffect(() => {
         const { eventID } = router.query;
         if (eventID) {
