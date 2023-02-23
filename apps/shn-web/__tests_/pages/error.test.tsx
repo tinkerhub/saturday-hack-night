@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Error from '@app/pages/error';
+import Error from '../../pages/error';
 
 describe('404', () => {
     it('renders a heading', () => {
