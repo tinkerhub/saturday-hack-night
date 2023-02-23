@@ -19,4 +19,4 @@ jobs:
       - name: yarn install
         run: yarn install
       - name: web tests
-        run: yarn workspace shn-web test
+        run: yarn workspace shn-web jest
