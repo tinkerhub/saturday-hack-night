@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { Event } from '@app/types';
 import { useRouter } from 'next/router';
-import { Toast } from '@app/components';
+import { Toast } from '@app/components/utils';
 import { ResultsModal } from '@app/components/modal';
 
 const EventCard = ({ event }: EventCardProps) => {

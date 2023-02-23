@@ -20,9 +20,10 @@ import {
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { InferType } from 'yup';
-import { Member, Toast } from '@app/components';
+import { Member } from '@app/components';
 import { useAuth } from '@app/hooks';
-import { TeamValidator } from '@app/validators';
+import { Toast } from '@app/components/utils';
+import { TeamValidator } from '@app/utils/validators';
 import api from '@app/api';
 
 type FormType = InferType<typeof TeamValidator>;

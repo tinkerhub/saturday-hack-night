@@ -22,8 +22,9 @@ import {
 import { FormProvider, useForm } from 'react-hook-form';
 import { InferType } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Member, Toast } from '@app/components';
-import { TeamValidator } from '@app/validators';
+import { Member } from '@app/components';
+import { Toast } from '@app/components/utils';
+import { TeamValidator } from '@app/utils/validators';
 import { useAuth } from '@app/hooks';
 import api from '@app/api';
 

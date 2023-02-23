@@ -24,8 +24,8 @@ import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { InferType } from 'yup';
-import { Toast } from '@app/components';
-import { profileModalValidator } from '@app/validators';
+import { Toast } from '@app/components/utils';
+import { profileModalValidator } from '@app/utils/validators';
 import { useAuth } from '@app/hooks';
 import api from '@app/api';
 import { debounce } from '@app/utils';

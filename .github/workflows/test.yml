@@ -1,5 +1,5 @@
 
-name: Tests
+name: Web Unit Tests
 
 on: [push]
 
@@ -8,7 +8,11 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [16.x]
+
     steps:
     - uses: actions/checkout@v1
     - name: Run Jest
-      uses: stefanoeb/jest-action@1.0.3
+      uses: stefanoeb/jest-action@1.0.3 
