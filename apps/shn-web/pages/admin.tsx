@@ -2,7 +2,7 @@ import { BaseLayout } from '@app/layouts';
 import { Button, Heading, Input, useToast, VStack } from '@chakra-ui/react';
 import api from '@app/api';
 import { useState } from 'react';
-import { Toast } from '@app/components';
+import { Toast } from '@app/components/utils';
 import { NextPageWithLayout } from './_app';
 
 const Admin: NextPageWithLayout = () => {

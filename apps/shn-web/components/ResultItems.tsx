@@ -1,5 +1,5 @@
 import { Box, useToast, Grid, VStack, HStack, Avatar, Button, Text, Link } from '@chakra-ui/react';
-import { Toast } from '@app/components';
+import { Toast } from '@app/components/utils';
 
 const ResultItems = ({ filteredResults }: ItemsProps) => {
     const toast = useToast();

@@ -1,7 +1,9 @@
 import { Button, Container, Heading, Text, VStack, Image, Flex, Grid } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { ReactElement } from 'react';
-import { Card, ParallaxView, Accordion } from '@app/components';
+import { ParallaxView } from '@app/components';
+import { Card } from '@app/components/cards';
+import { Accordion } from '@app/components/utils';
 import { useAuth } from '@app/hooks';
 import { BaseLayout } from '@app/layouts';
 import { NextPageWithLayout } from '@app/pages/_app';
