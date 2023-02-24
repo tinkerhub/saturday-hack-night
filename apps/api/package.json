@@ -26,7 +26,7 @@
         "@nestjs/schematics": "^9.0.4",
         "@nestjs/swagger": "^6.1.4",
         "@nestjs/throttler": "^4.0.0",
-        "@prisma/client": "^4.9.0",
+        "@prisma/client": "^4.10.1",
         "@react-email/button": "^0.0.6",
         "@react-email/container": "^0.0.7-canary.1",
         "@react-email/head": "^0.0.4",
@@ -54,7 +54,7 @@
         "@types/node": "^18.11.18",
         "@types/nodemailer": "^6.4.7",
         "@types/react": "^18.0.27",
-        "prisma": "^4.9.0",
+        "prisma": "^4.10.1",
         "ts-node": "^10.9.1"
     }
 }
