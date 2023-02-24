@@ -1,7 +1,8 @@
 import { VStack, Heading, Grid } from '@chakra-ui/react';
 import { Event } from '@app/types';
 import { useEffect, useState } from 'react';
-import { EventCard, CurrentEvent } from '@app/components';
+import { CurrentEvent } from '@app/components';
+import { EventCard } from '@app/components/cards';
 import api from '@app/api';
 import { BaseLayout } from '@app/layouts';
 import { NextPageWithLayout } from '@app/pages/_app';

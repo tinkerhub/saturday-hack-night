@@ -17,7 +17,7 @@ import {
 import moment from 'moment';
 import api from '@app/api';
 import { CreateTeamModal, UpdateTeamModal } from '@app/components/modal';
-import { Toast } from '@app/components/';
+import { Toast } from '@app/components/utils';
 import { useAuth } from '@app/hooks';
 
 const CurrentEvent = ({ event }: CurrentEventProps) => {

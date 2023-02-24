@@ -5,7 +5,7 @@ interface Handler {
     closeModal: () => void;
 }
 
-const MobileBar = ({ closeModal }: Handler) => {
+export const MobileBar = ({ closeModal }: Handler) => {
     const items = [
         {
             name: 'HOME',
@@ -93,5 +93,3 @@ const MobileBar = ({ closeModal }: Handler) => {
         </Center>
     );
 };
-
-export { MobileBar };

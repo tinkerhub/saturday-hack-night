@@ -1,4 +1,4 @@
-import { LoadingAnimation } from '@app/components';
+import { LoadingAnimation } from '@app/components/utils';
 import { useAuth } from '@app/hooks';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';

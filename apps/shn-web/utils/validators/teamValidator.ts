@@ -8,7 +8,7 @@ const validateMembers = async (members: string[]) => {
     return responses.every((response) => !response.data.data.success);
 };
 
-const TeamValidator = Yup.object({
+export const TeamValidator = Yup.object({
     name: Yup.string()
         .matches(/^[a-z|0-9]+$/gi)
         .required('Team name is required'),
@@ -32,5 +32,3 @@ const TeamValidator = Yup.object({
                 }),
         ),
 });
-
-export { TeamValidator };
