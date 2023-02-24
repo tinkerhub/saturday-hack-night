@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
-import { MobileBar } from '@app/components';
+import { MobileBar } from '@app/layouts/components';
 import { useAuth } from '@app/hooks';
 import { ProfileModal } from '@app/components/modal';
 
