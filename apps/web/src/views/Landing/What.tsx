@@ -50,9 +50,9 @@ const What = () => (
                         textColor="white"
                         marginBlock="18px"
                     >
-                        Saturday Hack Night is a bi weekly hackathon that gives tech-savvy learners
-                        an oppurtunity to explore all the latest technology related concepts
-                        including APIs, frameworks and build some cool projects.
+                        Saturday Hack Night is a bi weekly hackathon that provides a unique
+                        opportunity for tech-savvy learners to expand their knowledge and explore
+                        the latest technology-related concepts, including APIs and frameworks.
                     </Text>
                 </VStack>
                 <Image zIndex="1" height="100%" width="100%" src={physicalhack} />
