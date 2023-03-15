@@ -45,7 +45,7 @@ const Stats = () => (
         </VStack>
         <VStack>
             <Heading fontFamily="Clash Display" textColor="#DBF72C" fontSize="80px">
-                13+
+                20+
             </Heading>
             <Text
                 textColor="white"
@@ -60,7 +60,7 @@ const Stats = () => (
         </VStack>
         <VStack>
             <Heading fontFamily="Clash Display" textColor="#DBF72C" fontSize="80px">
-                01
+                02
             </Heading>
             <Text
                 textColor="white"
