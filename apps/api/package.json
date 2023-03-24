@@ -15,7 +15,7 @@
         "db:migrate": "prisma migrate deploy --schema ./prisma/schema.prisma"
     },
     "dependencies": {
-        "@fastify/static": "^6.7.0",
+        "@fastify/static": "^6.9.0",
         "@nestjs-modules/mailer": "^1.8.1",
         "@nestjs/axios": "^1.0.1",
         "@nestjs/common": "^9.2.1",
@@ -26,15 +26,8 @@
         "@nestjs/schematics": "^9.0.4",
         "@nestjs/swagger": "^6.1.4",
         "@nestjs/throttler": "^4.0.0",
-        "@prisma/client": "^4.9.0",
-        "@react-email/button": "^0.0.6",
-        "@react-email/container": "^0.0.7-canary.1",
-        "@react-email/head": "^0.0.4",
-        "@react-email/html": "^0.0.4",
-        "@react-email/img": "^0.0.4",
-        "@react-email/preview": "^0.0.5",
-        "@react-email/section": "^0.0.7-canary.1",
-        "@react-email/text": "^0.0.4",
+        "@prisma/client": "^4.11.0",
+        "@react-email/components": "^0.0.4",
         "@webtre/nestjs-mailer-react-adapter": "^0.0.9",
         "axios": "^1.2.5",
         "class-transformer": "^0.5.1",
@@ -53,8 +46,7 @@
         "@nestjs/cli": "^9.1.9",
         "@types/node": "^18.11.18",
         "@types/nodemailer": "^6.4.7",
-        "@types/react": "^18.0.27",
-        "prisma": "^4.9.0",
+        "prisma": "^4.11.0",
         "ts-node": "^10.9.1"
     }
 }
