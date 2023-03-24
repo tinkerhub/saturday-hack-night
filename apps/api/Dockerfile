@@ -1,38 +1,22 @@
-FROM node:alpine AS builder
-RUN apk add --no-cache libc6-compat
-RUN apk update
-# Set working directory
+FROM node:16-alpine AS build
+
 WORKDIR /app
-RUN yarn global add turbo
-COPY . .
-RUN turbo prune --scope=api --docker
- 
-# Add lockfile and package.json's of isolated subworkspace
-FROM node:alpine AS installer
-RUN apk add --no-cache libc6-compat
-RUN apk update
-WORKDIR /app
- 
-# First install the dependencies (as they change less often)
-COPY .gitignore .gitignore
-COPY --from=builder /app/out/json/ .
-COPY --from=builder /app/out/yarn.lock ./yarn.lock
+
+COPY apps/api/package.json yarn.lock ./
+COPY apps/api ./
+
 RUN yarn install
- 
-# Build the project
-COPY --from=builder /app/out/full/ .
-RUN yarn turbo run build --filter=api...
- 
-FROM node:alpine AS runner
+RUN yarn prisma migrate deploy
+RUN yarn build
+
+FROM node:16-alpine AS production
+
 WORKDIR /app
- 
-# Don't run production as root
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nestjs
-USER nestjs
- 
-COPY --from=installer /app/apps/api/package.json .
- 
-COPY --from=installer --chown=nestjs:nodejs /app/apps/api/dist ./
- 
-CMD node main.js
+
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/package.json ./package.json
+COPY --from=build /app/prisma ./prisma
+RUN yarn install --production --frozen-lockfile
+RUN yarn prisma generate
+
+CMD ["node", "dist/main"]
