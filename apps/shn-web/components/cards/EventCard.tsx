@@ -99,7 +99,6 @@ const EventCard = ({ event }: EventCardProps) => {
                         Copy Link
                     </Text>
                     <Image zIndex="1" height="120px" src={image} objectFit="cover" />
-
                 </Box>
                 <VStack
                     paddingInline="16px"
