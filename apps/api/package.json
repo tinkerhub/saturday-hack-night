@@ -1,5 +1,5 @@
 {
-    "name": "shn-api",
+    "name": "api",
     "version": "1.0.0",
     "license": "UNLICENSED",
     "private": true,
@@ -46,6 +46,7 @@
         "@nestjs/cli": "^9.1.9",
         "@types/node": "^18.11.18",
         "@types/nodemailer": "^6.4.7",
+        "@types/react": "^18.0.29",
         "prisma": "^4.11.0",
         "ts-node": "^10.9.1"
     }
