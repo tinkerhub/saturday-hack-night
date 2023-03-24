@@ -20,7 +20,15 @@ const faqs = [
     },
     {
         question: 'What should be the team size?',
-        answer: 'You can work individually or in a team of 1-3 members.',
+        answer: 'A Team should have minimum 2 Members & can be a maximum of 4 Member.',
+    },
+    {
+        question: 'Is it Online/Offline?',
+        answer: 'Yes. The first 5 hacknights will be conducted online & the 6th one will be conducted at TinkerSpace.',
+    },
+    {
+        question: 'How do I participate in Offline HackNight?',
+        answer: 'Physical HackNight is restricted to the teams who have submitted their projects in the Online HackNights.',
     },
     {
         question: 'What is the schedule of the program?',
@@ -176,9 +184,10 @@ const Home: NextPageWithLayout = () => {
                                 textColor="white"
                                 marginBlock="18px"
                             >
-                                Saturday Hack Night is a bi weekly hackathon that gives tech-savvy
-                                learners an oppurtunity to explore all the latest technology related
-                                concepts including APIs, frameworks and build some cool projects.
+                                Saturday Hack Night is a bi weekly hackathon that provides a unique
+                                opportunity for tech-savvy learners to expand their knowledge and
+                                explore the latest technology-related concepts, including APIs and
+                                frameworks.
                             </Text>
                         </VStack>
                         <Image
@@ -244,7 +253,7 @@ const Home: NextPageWithLayout = () => {
                     </VStack>
                     <VStack>
                         <Heading fontFamily="Clash Display" textColor="#DBF72C" fontSize="80px">
-                            13+
+                            20+
                         </Heading>
                         <Text
                             textColor="white"
@@ -259,7 +268,7 @@ const Home: NextPageWithLayout = () => {
                     </VStack>
                     <VStack>
                         <Heading fontFamily="Clash Display" textColor="#DBF72C" fontSize="80px">
-                            01
+                            02
                         </Heading>
                         <Text
                             textColor="white"
