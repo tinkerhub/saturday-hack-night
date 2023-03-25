@@ -1,4 +1,5 @@
-import { Button, Container, Heading, Text, VStack, Image, Flex, Grid } from '@chakra-ui/react';
+import { Button, Container, Heading, Text, VStack, Image, Flex, Grid, Box } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { ReactElement } from 'react';
 import { ParallaxView } from '@app/components';
@@ -19,7 +20,15 @@ const faqs = [
     },
     {
         question: 'What should be the team size?',
-        answer: 'You can work individually or in a team of 1-3 members.',
+        answer: 'A Team should have minimum 2 Members & can be a maximum of 4 Member.',
+    },
+    {
+        question: 'Is it Online/Offline?',
+        answer: 'Yes. The first 5 hacknights will be conducted online & the 6th one will be conducted at TinkerSpace.',
+    },
+    {
+        question: 'How do I participate in Offline HackNight?',
+        answer: 'Physical HackNight is restricted to the teams who have submitted their projects in the Online HackNights.',
     },
     {
         question: 'What is the schedule of the program?',
@@ -52,10 +61,20 @@ const Home: NextPageWithLayout = () => {
                     fontFamily="Clash Display"
                     textAlign="center"
                     textColor="white"
+                    _selection={{
+                        textColor: '#DBF72C',
+                    }}
                 >
                     SATURDAY
                     <br />
-                    <span style={{ color: '#DBF72C' }}>HACKNIGHT</span>
+                    <Box
+                        color="#DBF72C"
+                        _selection={{
+                            textColor: 'white',
+                        }}
+                    >
+                        HACKNIGHT
+                    </Box>
                 </Heading>
                 <Container maxW="720px">
                     <Text
@@ -64,6 +83,9 @@ const Home: NextPageWithLayout = () => {
                         fontSize={{
                             base: '18px',
                             lg: '24px',
+                        }}
+                        _selection={{
+                            textColor: '#DBF72C',
                         }}
                     >
                         It’s a bi weekly hackathon that gives tech-savvy learners an oppurtunity to
@@ -99,133 +121,170 @@ const Home: NextPageWithLayout = () => {
                     REGISTER NOW
                 </Button>
             </VStack>
-            <Image top="500px" position="absolute" src="/images/neon01.svg" right="0" zIndex="0" />
-            <VStack
-                marginTop="36px"
-                paddingInline={{ base: '18px', lg: '36px' }}
-                fontFamily="Clash Display"
-                width={{
-                    base: '100vw',
-                    xl: 'container.xl',
+            <motion.div
+                initial={{
+                    opacity: 0,
                 }}
-                alignItems="flex-start"
+                whileInView={{
+                    opacity: 1,
+                }}
+                transition={{
+                    duration: 0.5,
+                }}
+            >
+                <VStack
+                    position="relative"
+                    marginTop="36px"
+                    paddingInline={{ base: '18px', lg: '36px' }}
+                    fontFamily="Clash Display"
+                    width={{
+                        base: '100vw',
+                        xl: 'container.xl',
+                    }}
+                    alignItems="flex-start"
+                >
+                    <Image
+                        top="-100"
+                        position="absolute"
+                        src="/images/neon01.svg"
+                        right="0"
+                        zIndex="0"
+                    />
+                    <Flex
+                        alignItems="flex-start"
+                        flexDirection={{
+                            base: 'column-reverse',
+                            lg: 'row',
+                        }}
+                    >
+                        <VStack
+                            alignItems="flex-start"
+                            justifyContent="center"
+                            minHeight={{ base: '0px', md: '450px' }}
+                        >
+                            <Heading
+                                fontFamily="Clash Display"
+                                textColor="white"
+                                fontSize="40px"
+                                textAlign="left"
+                                zIndex="1"
+                            >
+                                WHAT IS{' '}
+                                <span
+                                    style={{
+                                        color: '#DBF72C',
+                                    }}
+                                >
+                                    SATURDAY HACKNIGHT &nbsp;
+                                </span>
+                                ?
+                            </Heading>
+                            <Text
+                                fontSize={{ base: '18px', lg: '24px' }}
+                                textColor="white"
+                                marginBlock="18px"
+                            >
+                                Saturday Hack Night is a bi weekly hackathon that provides a unique
+                                opportunity for tech-savvy learners to expand their knowledge and
+                                explore the latest technology-related concepts, including APIs and
+                                frameworks.
+                            </Text>
+                        </VStack>
+                        <Image
+                            zIndex="1"
+                            height="100%"
+                            width="100%"
+                            src="/images/physicalHack.png"
+                        />
+                    </Flex>
+                </VStack>
+            </motion.div>
+            <motion.div
+                initial={{
+                    opacity: 0,
+                }}
+                whileInView={{
+                    opacity: 1,
+                }}
+                transition={{
+                    duration: 0.5,
+                }}
             >
                 <Flex
-                    alignItems="flex-start"
-                    flexDirection={{
-                        base: 'column-reverse',
-                        lg: 'row',
+                    marginBlock="28px"
+                    columnGap={{
+                        lg: '50px',
+                        xl: '100px',
                     }}
+                    justifyContent="center"
+                    alignItems="center"
+                    rowGap="25px"
+                    flexDirection={{ base: 'column', lg: 'row' }}
                 >
-                    <VStack
-                        alignItems="flex-start"
-                        justifyContent="center"
-                        minHeight={{ base: '0px', md: '450px' }}
-                    >
-                        <Heading
-                            fontFamily="Clash Display"
-                            textColor="white"
-                            fontSize="40px"
-                            textAlign="left"
-                            zIndex="1"
-                        >
-                            WHAT IS{' '}
-                            <span
-                                style={{
-                                    color: '#DBF72C',
-                                }}
-                            >
-                                SATURDAY HACKNIGHT &nbsp;
-                            </span>
-                            ?
+                    <VStack spacing="36px">
+                        <Heading fontFamily="Clash Display" textColor="#DBF72C" fontSize="80px">
+                            1000+
                         </Heading>
                         <Text
-                            fontSize={{ base: '18px', lg: '24px' }}
                             textColor="white"
-                            marginBlock="18px"
+                            fontFamily="Clash Display"
+                            fontSize="24px"
+                            style={{
+                                marginTop: '0px',
+                            }}
                         >
-                            Saturday Hack Night is a bi weekly hackathon that gives tech-savvy
-                            learners an oppurtunity to explore all the latest technology related
-                            concepts including APIs, frameworks and build some cool projects.
+                            Participants
                         </Text>
                     </VStack>
-                    <Image zIndex="1" height="100%" width="100%" src="/images/physicalHack.png" />
+                    <VStack>
+                        <Heading fontFamily="Clash Display" textColor="#DBF72C" fontSize="80px">
+                            200+
+                        </Heading>
+                        <Text
+                            textColor="white"
+                            fontFamily="Clash Display"
+                            fontSize="24px"
+                            style={{
+                                marginTop: '0px',
+                            }}
+                        >
+                            Projects
+                        </Text>
+                    </VStack>
+                    <VStack>
+                        <Heading fontFamily="Clash Display" textColor="#DBF72C" fontSize="80px">
+                            20+
+                        </Heading>
+                        <Text
+                            textColor="white"
+                            fontFamily="Clash Display"
+                            fontSize="24px"
+                            style={{
+                                marginTop: '0px',
+                            }}
+                        >
+                            HackNights
+                        </Text>
+                    </VStack>
+                    <VStack>
+                        <Heading fontFamily="Clash Display" textColor="#DBF72C" fontSize="80px">
+                            02
+                        </Heading>
+                        <Text
+                            textColor="white"
+                            fontFamily="Clash Display"
+                            fontSize="24px"
+                            whiteSpace="nowrap"
+                            textAlign="center"
+                            style={{
+                                marginTop: '0px',
+                            }}
+                        >
+                            Physical HackNight
+                        </Text>
+                    </VStack>
                 </Flex>
-            </VStack>
-            <Flex
-                marginBlock="28px"
-                columnGap={{
-                    lg: '50px',
-                    xl: '100px',
-                }}
-                justifyContent="center"
-                alignItems="center"
-                rowGap="25px"
-                flexDirection={{ base: 'column', lg: 'row' }}
-            >
-                <VStack spacing="36px">
-                    <Heading fontFamily="Clash Display" textColor="#DBF72C" fontSize="80px">
-                        1000+
-                    </Heading>
-                    <Text
-                        textColor="white"
-                        fontFamily="Clash Display"
-                        fontSize="24px"
-                        style={{
-                            marginTop: '0px',
-                        }}
-                    >
-                        Participants
-                    </Text>
-                </VStack>
-                <VStack>
-                    <Heading fontFamily="Clash Display" textColor="#DBF72C" fontSize="80px">
-                        200+
-                    </Heading>
-                    <Text
-                        textColor="white"
-                        fontFamily="Clash Display"
-                        fontSize="24px"
-                        style={{
-                            marginTop: '0px',
-                        }}
-                    >
-                        Projects
-                    </Text>
-                </VStack>
-                <VStack>
-                    <Heading fontFamily="Clash Display" textColor="#DBF72C" fontSize="80px">
-                        13+
-                    </Heading>
-                    <Text
-                        textColor="white"
-                        fontFamily="Clash Display"
-                        fontSize="24px"
-                        style={{
-                            marginTop: '0px',
-                        }}
-                    >
-                        HackNights
-                    </Text>
-                </VStack>
-                <VStack>
-                    <Heading fontFamily="Clash Display" textColor="#DBF72C" fontSize="80px">
-                        01
-                    </Heading>
-                    <Text
-                        textColor="white"
-                        fontFamily="Clash Display"
-                        fontSize="24px"
-                        whiteSpace="nowrap"
-                        textAlign="center"
-                        style={{
-                            marginTop: '0px',
-                        }}
-                    >
-                        Physical HackNight
-                    </Text>
-                </VStack>
-            </Flex>
+            </motion.div>
             <VStack
                 width={{
                     base: '100vw',

@@ -70,9 +70,8 @@ const Leaderboard: NextPageWithLayout = () => (
                     LEADERBOARD
                 </Heading>
                 <Text textColor="#E9E5E1">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tellus dignissim
-                    pretium consectetur sociis tristique odio neque vulputate urna. Iaculis ac
-                    vulputate ullamcorper non ut scelerisque dignissim duis.
+                    Ascend to the apex of the leaderboard by crafting ingenious projects and obtain
+                    enticing rewards!
                 </Text>
             </VStack>
         </HStack>

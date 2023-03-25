@@ -27,9 +27,29 @@ const EventCard = ({ event }: EventCardProps) => {
             <VStack
                 className="cardBox"
                 maxWidth="300px"
+                position="relative"
                 backgroundColor="rgba(255,255,255,.15)"
                 alignItems="flex-start"
                 borderRadius="10px"
+                _before={{
+                    zIndex: '0',
+                    content: '""',
+                    position: 'absolute',
+                    borderRadius: 'inherit',
+                    top: '0',
+                    left: '0',
+                    opacity: '0',
+                    transition: 'opacity 500ms',
+                    width: '100%',
+                    height: '100%',
+                    background:
+                        'radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.15) , transparent 50%)',
+                }}
+                _hover={{
+                    _before: {
+                        opacity: '1',
+                    },
+                }}
             >
                 <Box
                     position="relative"
@@ -78,7 +98,7 @@ const EventCard = ({ event }: EventCardProps) => {
                     >
                         Copy Link
                     </Text>
-                    <Image height="120px" src={image} objectFit="cover" />
+                    <Image zIndex="1" height="120px" src={image} objectFit="cover" />
                 </Box>
                 <VStack
                     paddingInline="16px"

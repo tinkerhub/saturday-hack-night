@@ -1,8 +1,24 @@
+/* eslint-disable no-restricted-syntax */
 import { Box, useToast, Grid, VStack, HStack, Avatar, Button, Text, Link } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { Toast } from '@app/components/utils';
 
 const ResultItems = ({ filteredResults }: ItemsProps) => {
     const toast = useToast();
+    const handleMouseMove = (e: any) => {
+        const { currentTarget } = e;
+        const rect = currentTarget.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        currentTarget.style.setProperty('--mouse-x', `${x}px`);
+        currentTarget.style.setProperty('--mouse-y', `${y}px`);
+    };
+    useEffect(() => {
+        for (const card of document.querySelectorAll('.resultBox')) {
+            const cardBody = card as HTMLDivElement;
+            cardBody.onmousemove = (e) => handleMouseMove(e);
+        }
+    }, [filteredResults]);
     return (
         <Grid
             templateColumns={{
@@ -27,10 +43,31 @@ const ResultItems = ({ filteredResults }: ItemsProps) => {
         >
             {filteredResults.map((result) => (
                 <VStack
+                    className="resultBox"
+                    position="relative"
                     width="280px"
                     backgroundColor="rgba(255,255,255,.15)"
                     alignItems="flex-start"
                     borderRadius="10px"
+                    _before={{
+                        zIndex: '0',
+                        content: '""',
+                        position: 'absolute',
+                        borderRadius: 'inherit',
+                        top: '0',
+                        left: '0',
+                        opacity: '0',
+                        transition: 'opacity 500ms',
+                        width: '100%',
+                        height: '100%',
+                        background:
+                            'radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.15) , transparent 50%)',
+                    }}
+                    _hover={{
+                        _before: {
+                            opacity: '1',
+                        },
+                    }}
                 >
                     <Box backgroundColor="white" padding="30px" width="100%" borderTopRadius="10px">
                         <Text textAlign="center" fontSize="18px">
