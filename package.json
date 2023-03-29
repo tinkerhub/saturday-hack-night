@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "Saturday HackNight Platform",
     "license": "MIT",
+    "packageManager": "yarn@1.22.19",
     "scripts": {
         "build": "turbo run build",
         "build:api": "turbo run build --filter=api",

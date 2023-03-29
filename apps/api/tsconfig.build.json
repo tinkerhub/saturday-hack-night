@@ -1,7 +1,7 @@
 {
     "extends": "./tsconfig.json",
     "compilerOptions": {
-        "strict": false
+        "strict": true
     },
     "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
 }

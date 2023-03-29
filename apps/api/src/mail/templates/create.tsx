@@ -1,10 +1,4 @@
-import { Container } from '@react-email/container';
-import { Head } from '@react-email/head';
-import { Html } from '@react-email/html';
-import { Preview } from '@react-email/preview';
-import { Text } from '@react-email/text';
-import { Section } from '@react-email/section';
-import { Img } from '@react-email/img';
+import { Container, Head, Html, Preview, Text, Section, Img } from '@react-email/components';
 
 const main = {
     fontFamily: 'Clash Display, Arial, sans-serif',

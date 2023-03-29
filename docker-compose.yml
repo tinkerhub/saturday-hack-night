@@ -10,7 +10,7 @@ services:
             - .env
         environment:
             - POSTGRES_USER=${DB_USER}
-            - POSTGRES_PASSWORD=${DB_PASS}
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
             - POSTGRES_DB=${DB_NAME}
         healthcheck:
             test: ['CMD-SHELL', 'pg_isready -U ${DB_USER}']
@@ -19,6 +19,37 @@ services:
             retries: 5
         networks:
             - app_network
+    api:
+        image: darkphoenix2704/shn-api:v0
+        container_name: api
+        env_file:
+            - .env
+        environment:
+            - DATABASE_URL=${DATABASE_URL}
+            - SUPERTOKENS_APP_NAME = ${SUPERTOKENS_APP_NAME}
+            - SUPERTOKENS_API_KEY = ${SUPERTOKENS_API_KEY}
+            - SUPERTOKENS_API_DOMAIN=${SUPERTOKENS_API_DOMAIN}
+            - SUPERTOKENS_WEBSITE_DOMAIN=${SUPERTOKENS_WEBSITE_DOMAIN}
+            - SUPERTOKENS_CONNECTION_URI=${SUPERTOKENS_CONNECTION_URI}
+            - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}
+            - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
+            - EMAIL_HOST=${EMAIL_HOST}
+            - EMAIL_USERNAME=${EMAIL_USERNAME}
+            - EMAIL_PASSWORD=${EMAIL_PASSWORD}
+            - MAIL_FROM=${MAIL_FROM}
+            - DASHBOARD_API_KEY=${DASHBOARD_API_KEY}
+            - HOST=${HOST}
+        build:
+            context: .
+            dockerfile: ./apps/api/Dockerfile
+        restart: always
+        ports:
+            - 127.0.0.1:3001:3001
+        networks:
+            - app_network
+        depends_on:
+            - db
+
 volumes:
     pg-data:
         driver: local
