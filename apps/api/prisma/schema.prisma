@@ -30,6 +30,7 @@ model College {
   name String @unique
   points Points[]
   user User[]
+  participants TeamMember[]
 }
 
 model Event {
@@ -53,6 +54,7 @@ model Team {
   name                String
   repo                String
   invite              Invite[]
+  notes               String?
   event               Event           @relation(fields: [eventId], references: [id])
   eventId             String          @db.Uuid
   members             TeamMember[]
@@ -70,6 +72,8 @@ model TeamMember{
   userId              String
   event               Event           @relation(fields: [eventId], references: [id])
   eventId             String          @db.Uuid
+  collegeId           String?
+  college             College?        @relation(fields: [collegeId], references: [id])
   @@unique([userId, eventId])
   @@unique([userId, teamId])
   @@id([userId, eventId])
