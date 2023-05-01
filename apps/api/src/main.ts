@@ -23,7 +23,7 @@ async function bootstrap() {
     const config = new DocumentBuilder()
         .setTitle('SHN Platform APIs')
         .setDescription('APIs provided by SHN Platform')
-        .setVersion('0.0.1')
+        .setVersion('1.0.0')
         .build();
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('docs', app, document);

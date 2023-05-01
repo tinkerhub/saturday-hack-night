@@ -1,4 +1,4 @@
-import { Container, Head, Html, Preview, Text, Section, Img } from '@react-email/components';
+import { Container, Head, Html, Preview, Text, Section, Img, Font } from '@react-email/components';
 
 const main = {
     fontFamily: 'Clash Display, Arial, sans-serif',
@@ -12,7 +12,7 @@ const container = {
 };
 const h1 = {
     color: 'white',
-    fontWeight: 800,
+    fontWeight: 700,
     fontSize: '18px',
 };
 const body = {
@@ -53,15 +53,33 @@ interface Props {
 const Create = ({ teamID }: Props) => (
     <Html lang="en">
         <Head>
-            <link
-                href="https://fonts.cdnfonts.com/css/clash-display?styles=106288,106285,106286,106287,106289,106284"
-                rel="stylesheet"
+            <Font
+                fontFamily="Clash Display"
+                fallbackFontFamily="Arial"
+                fontWeight={400}
+                webFont={{
+                    url: 'https://fonts.cdnfonts.com/s/65008/ClashDisplayRegular.woff',
+                    format: 'woff2',
+                }}
             />
-            <style>
-                ` @import
-                url(https://fonts.cdnfonts.com/css/clash-display?styles=106288,106285,106286,106287,106289,106284);
-                `
-            </style>
+            <Font
+                fontFamily="Clash Display"
+                fallbackFontFamily="Arial"
+                fontWeight={600}
+                webFont={{
+                    url: 'https://fonts.cdnfonts.com/s/65008/ClashDisplaySemibold.woff',
+                    format: 'woff2',
+                }}
+            />
+            <Font
+                fontFamily="Clash Display"
+                fallbackFontFamily="Arial"
+                fontWeight={700}
+                webFont={{
+                    url: 'https://fonts.cdnfonts.com/s/65008/ClashDisplayBold.woff',
+                    format: 'woff2',
+                }}
+            />
         </Head>
         <Preview>Welcome to Saturday HackNight</Preview>
         <Section style={main}>
@@ -79,8 +97,8 @@ const Create = ({ teamID }: Props) => (
                         Your team has been created
                     </Text>
                     <Text style={textSeco}>
-                        An Invitation mail to join the team has been send to all Team Members. They
-                        will be part of your team once they accept the invitation.
+                        An unique Invitation mail to join the team has been send to all Team
+                        Members. They will be part of your team once they accept the invitation.
                     </Text>
                 </Container>
                 <Text style={textTert}>
