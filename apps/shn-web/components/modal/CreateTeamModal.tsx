@@ -181,7 +181,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                                     marginTop="20px"
                                     rowGap={{
                                         base: '20px',
-                                        lg: '30px',
+                                        lg: '20px',
                                     }}
                                 >
                                     {errors.name && (

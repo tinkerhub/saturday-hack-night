@@ -88,7 +88,7 @@ export const AuthProvider = ({ children }: Child) => {
             getData,
         }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [doesSessionExist, isUserLoading, user, setUser, isProfileComplete],
+        [doesSessionExist, user, setUser, isProfileComplete],
     );
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

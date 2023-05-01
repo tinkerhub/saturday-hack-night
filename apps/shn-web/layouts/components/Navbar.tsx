@@ -9,20 +9,21 @@ import {
     Avatar,
     Button,
     Box,
-    Link,
     useDisclosure,
 } from '@chakra-ui/react';
-
+import Link from 'next/link';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { MobileBar } from '@app/layouts/components';
 import { useAuth } from '@app/hooks';
 import { ProfileModal } from '@app/components/modal';
+import { useRouter } from 'next/router';
 
 const Navbar = () => {
     const { user, login, logout } = useAuth();
     const [showMenu, setShowMenu] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const imageRef = React.useRef<HTMLImageElement>(null);
+    const router = useRouter();
     const handleWindowResize = useCallback(() => {
         if (window.innerWidth > 991) {
             setShowMenu(false);
@@ -151,7 +152,7 @@ const Navbar = () => {
                         <Link href="/">
                             <Text
                                 as="span"
-                                color="white"
+                                color={router.pathname === '/' ? '#DBF72C' : 'white'}
                                 fontSize="18px"
                                 transition="all 0.2s  ease-in-out"
                                 _hover={{
@@ -164,7 +165,7 @@ const Navbar = () => {
                         <Link href="/leaderboard">
                             <Text
                                 as="span"
-                                color="white"
+                                color={router.pathname === '/leaderboard' ? '#DBF72C' : 'white'}
                                 fontSize="18px"
                                 transition="all 0.2s  ease-in-out"
                                 _hover={{
@@ -177,7 +178,7 @@ const Navbar = () => {
                         <Link href="/events">
                             <Text
                                 as="span"
-                                color="white"
+                                color={router.pathname === '/events' ? '#DBF72C' : 'white'}
                                 fontSize="18px"
                                 transition="all 0.2s  ease-in-out"
                                 _hover={{

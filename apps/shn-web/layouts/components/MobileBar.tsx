@@ -1,11 +1,13 @@
-import { Center, Link, Text } from '@chakra-ui/react';
+import { Center, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 
 interface Handler {
     closeModal: () => void;
 }
 
 export const MobileBar = ({ closeModal }: Handler) => {
+    const router = useRouter();
     const items = [
         {
             name: 'HOME',
@@ -75,17 +77,18 @@ export const MobileBar = ({ closeModal }: Handler) => {
                 >
                     {items.map(({ name, path }) => (
                         <motion.li style={{ listStyle: 'none' }} variants={navItem} key={name}>
-                            <Link href={path} textDecoration="none">
-                                <Text
-                                    fontSize="45px"
-                                    color="white"
-                                    _hover={{ color: '#DBF72C', cursor: 'pointer' }}
-                                    fontFamily="Clash Display"
-                                    onClick={closeModal}
-                                >
-                                    {name}
-                                </Text>
-                            </Link>
+                            <Text
+                                fontSize="45px"
+                                color={router.pathname === path ? '#DBF72C' : 'white'}
+                                _hover={{ color: '#DBF72C', cursor: 'pointer' }}
+                                fontFamily="Clash Display"
+                                onClick={() => {
+                                    closeModal();
+                                    router.push(path);
+                                }}
+                            >
+                                {name}
+                            </Text>
                         </motion.li>
                     ))}
                 </motion.ul>

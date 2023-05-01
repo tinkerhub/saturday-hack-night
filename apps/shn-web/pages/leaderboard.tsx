@@ -14,13 +14,6 @@ import {
 } from '@chakra-ui/react';
 import { NextPageWithLayout } from './_app';
 
-(async () => {
-    if (!('paintWorklet' in CSS)) {
-        await import('css-paint-polyfill');
-    }
-    CSS.paintWorklet.addModule(`/js/squircle.js`);
-})();
-
 const Leaderboard: NextPageWithLayout = () => (
     <VStack
         marginTop="80px"

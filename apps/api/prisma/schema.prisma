@@ -52,12 +52,14 @@ model Team {
   id                  String          @id @unique @db.Uuid @default(uuid())
   name                String
   repo                String
+  comments            String?         // Notes about Team
   invite              Invite[]
   event               Event           @relation(fields: [eventId], references: [id])
   eventId             String          @db.Uuid
   members             TeamMember[]
   pitchStatus         String          @default("PENDING")
-  projectStatus       String          @default("PENDING")
+  projectStatus       String          @default("PENDING") 
+  completionTime      String?         @default("ONTIME") // ONTIME, LATE
   created_at          DateTime        @default(now())
 }
 

@@ -44,10 +44,10 @@ export class TeamService {
                 id: inviteCode,
             },
         });
-        if (invite?.userId !== user.id) {
+        if (invite == null) {
             return new UpdateException('Invalid invite code');
         }
-        if (invite == null) {
+        if (invite?.userId !== user.id) {
             return new UpdateException('Invalid invite code');
         }
         const team = await this.prisma.team.findUnique({
@@ -63,7 +63,7 @@ export class TeamService {
             },
         });
         // eslint-disable-next-line no-underscore-dangle
-        if ((team?._count.members as number) > 4) {
+        if ((team?._count.members as number) >= 4) {
             return new UpdateException('Team is full');
         }
         try {

@@ -92,10 +92,6 @@ export const UpdateTeamModal = ({
     }, [user, eventId]);
 
     const updateTeam = async (formData: FormType) => {
-        if (!isEditable) {
-            onClose();
-            return;
-        }
         const dbData = {
             eventId,
             name: undefined,
@@ -249,6 +245,39 @@ export const UpdateTeamModal = ({
                                 </Box>
                                 <Flex flexDirection="column" mt="20px">
                                     <Member isEditable={isEditable} loading={loading} />
+                                    {errors.members && (
+                                        <Box
+                                            backgroundColor="rgba(226,76,75,0.15)"
+                                            paddingInline="10px"
+                                            borderRadius="5px"
+                                            paddingBlock="5px"
+                                        >
+                                            <Text
+                                                fontFamily="Clash Display"
+                                                fontSize="12px"
+                                                textColor="#E24C4B"
+                                            >
+                                                User not found
+                                            </Text>
+                                        </Box>
+                                    )}
+
+                                    {errors.members && (
+                                        <Box
+                                            backgroundColor="rgba(226,76,75,0.15)"
+                                            paddingInline="10px"
+                                            borderRadius="5px"
+                                            paddingBlock="5px"
+                                        >
+                                            <Text
+                                                fontFamily="Clash Display"
+                                                fontSize="12px"
+                                                textColor="#E24C4B"
+                                            >
+                                                Team should have atleast 1 member
+                                            </Text>
+                                        </Box>
+                                    )}
                                 </Flex>
                             </Flex>
                         </ModalBody>
@@ -257,10 +286,16 @@ export const UpdateTeamModal = ({
                             <Button
                                 size="lg"
                                 backgroundColor="rgba(255, 255, 255, 1)"
-                                type="submit"
+                                type={isEditable ? 'submit' : 'button'}
                                 disabled={loading}
                                 isLoading={loading}
                                 transition="all 0.2s ease"
+                                onClick={() => {
+                                    if (isEditable) {
+                                        return;
+                                    }
+                                    onClose();
+                                }}
                                 _hover={{
                                     backgroundColor: '#DBF72C',
                                 }}

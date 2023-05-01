@@ -4,6 +4,7 @@ import { errorHandler, plugin } from 'supertokens-node/framework/fastify';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { PrismaService } from './prisma/prisma.service';
 
 async function bootstrap() {
     const fastify = new FastifyAdapter({
@@ -22,10 +23,14 @@ async function bootstrap() {
     const config = new DocumentBuilder()
         .setTitle('SHN Platform APIs')
         .setDescription('APIs provided by SHN Platform')
-        .setVersion('0.0.1')
+        .setVersion('1.0.0')
         .build();
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('docs', app, document);
+
+    const prismaService = app.get(PrismaService);
+    await prismaService.enableShutdownHooks(app);
+
     await app.listen(
         (process.env.PORT as string) || 3001,
         (process.env.HOST as string) || '0.0.0.0',

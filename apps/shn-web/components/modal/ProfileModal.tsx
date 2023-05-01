@@ -168,7 +168,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                     minHeight="200px"
                     borderTopRadius="10px"
                     backgroundImage={`
-                    linear-gradient(180deg, rgba(12, 15, 23, 0) 67.85%, #0C0F17 100%),
+                    linear-gradient(180deg, rgba(12, 15, 23, 100) 67.85%, #0C0F17 100%),
                     linear-gradient(180deg, #0C0F17 0%, rgba(12, 15, 23, 0.8) 100%),
                     url('images/codeBg.png') `}
                 >
@@ -207,10 +207,10 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                 flexDirection="column"
                                 alignItems="stretch"
                             >
-                                <FormControl isRequired label="Mobile Number" id="Mobile">
+                                <FormControl isRequired label="Full Name" id="Name">
                                     <Input
                                         disabled={loading}
-                                        placeholder="Mobile Number"
+                                        placeholder="Full Name"
                                         variant="filled"
                                         height="45px"
                                         fontWeight="regular"
@@ -232,10 +232,10 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                         _hover={{
                                             backgroundColor: 'rgba(255,255,255,0.25)',
                                         }}
-                                        {...register('mobile')}
+                                        {...register('name')}
                                     />
                                     <Text
-                                        display={errors.mobile ? 'block' : 'none'}
+                                        display={errors.name ? 'block' : 'none'}
                                         backgroundColor="rgba(226,76,75,0.4)"
                                         marginTop="15px"
                                         paddingInline="10px"
@@ -245,9 +245,10 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                         fontSize="12px"
                                         textColor="#E24C4B"
                                     >
-                                        {errors.mobile?.message}
+                                        {errors.name?.message}
                                     </Text>
                                 </FormControl>
+
                                 <Flex
                                     flexDirection={{ base: 'column', lg: 'row' }}
                                     columnGap="25px"
@@ -255,10 +256,10 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                     justifyContent="space-between"
                                     alignItems="center"
                                 >
-                                    <FormControl isRequired label="Full Name" id="Name">
+                                    <FormControl isRequired label="Mobile Number" id="Mobile">
                                         <Input
                                             disabled={loading}
-                                            placeholder="Full Name"
+                                            placeholder="Mobile Number"
                                             variant="filled"
                                             height="45px"
                                             fontWeight="regular"
@@ -280,10 +281,10 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                             _hover={{
                                                 backgroundColor: 'rgba(255,255,255,0.25)',
                                             }}
-                                            {...register('name')}
+                                            {...register('mobile')}
                                         />
                                         <Text
-                                            display={errors.name ? 'block' : 'none'}
+                                            display={errors.mobile ? 'block' : 'none'}
                                             backgroundColor="rgba(226,76,75,0.4)"
                                             marginTop="15px"
                                             paddingInline="10px"
@@ -293,7 +294,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                                             fontSize="12px"
                                             textColor="#E24C4B"
                                         >
-                                            {errors.name?.message}
+                                            {errors.mobile?.message}
                                         </Text>
                                     </FormControl>
                                     <Controller
