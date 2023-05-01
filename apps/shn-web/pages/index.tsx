@@ -99,6 +99,7 @@ const Home: NextPageWithLayout = () => {
                     fontSize="18px"
                     fontWeight="medium"
                     height="45px"
+                    zIndex={1}
                     transition=".5s all ease"
                     _hover={{
                         boxShadow: '0px 8px 16px rgba(255, 255, 255, 0.15)',

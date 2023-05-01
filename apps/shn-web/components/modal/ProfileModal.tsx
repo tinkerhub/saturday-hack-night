@@ -168,7 +168,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                     minHeight="200px"
                     borderTopRadius="10px"
                     backgroundImage={`
-                    linear-gradient(180deg, rgba(12, 15, 23, 0) 67.85%, #0C0F17 100%),
+                    linear-gradient(180deg, rgba(12, 15, 23, 100) 67.85%, #0C0F17 100%),
                     linear-gradient(180deg, #0C0F17 0%, rgba(12, 15, 23, 0.8) 100%),
                     url('images/codeBg.png') `}
                 >
