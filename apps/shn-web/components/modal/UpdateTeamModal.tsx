@@ -92,10 +92,6 @@ export const UpdateTeamModal = ({
     }, [user, eventId]);
 
     const updateTeam = async (formData: FormType) => {
-        if (!isEditable) {
-            onClose();
-            return;
-        }
         const dbData = {
             eventId,
             name: undefined,
@@ -257,10 +253,16 @@ export const UpdateTeamModal = ({
                             <Button
                                 size="lg"
                                 backgroundColor="rgba(255, 255, 255, 1)"
-                                type="submit"
+                                type={isEditable ? 'submit' : 'button'}
                                 disabled={loading}
                                 isLoading={loading}
                                 transition="all 0.2s ease"
+                                onClick={() => {
+                                    if (isEditable) {
+                                        return;
+                                    }
+                                    onClose();
+                                }}
                                 _hover={{
                                     backgroundColor: '#DBF72C',
                                 }}
