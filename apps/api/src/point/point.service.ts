@@ -38,7 +38,6 @@ export class PointService {
                 eventId: true,
                 members: {
                     select: {
-                        role: true,
                         user: {
                             select: {
                                 id: true,
@@ -58,18 +57,17 @@ export class PointService {
         teams.forEach((team) => {
             let points = 0;
             if (team.projectStatus === 'COMPLETED') points += 100;
-            if (team.pitchStatus === 'COMPLETED') points += 100;
             if (team.projectStatus === 'BEST PROJECT') points += 200;
             if (team.projectStatus === 'DROPPED') points -= 50;
+            if (team.pitchStatus === 'COMPLETED') points += 100;
             if (team.pitchStatus === 'ABSENT') points -= 50;
             team.members.forEach((member) => {
-                let finalPoints = points;
-                if (member.role === 'LEADER' && team.projectStatus !== 'DROPPED') finalPoints += 50;
+                // if (member.role === 'LEADER' && team.projectStatus !== 'DROPPED') finalPoints += 50;
                 newPoints.push({
                     collegeId: member.user.collegeId,
                     userId: member.user.id,
                     eventId: team.eventId,
-                    points: finalPoints,
+                    points,
                 });
             });
         });
