@@ -19,11 +19,11 @@ export const TeamValidator = Yup.object({
         .min(1)
         .max(4)
         .required('Team must have at least one member')
-        .of(Yup.string().nullable(true))
+        .of(Yup.string().nullable())
         .test(
             'members',
             'Members must be valid GitHub usernames',
-            async (members) =>
+            (members) =>
                 new Promise((resolve) => {
                     debounce(async () => {
                         const isValid = await validateMembers(members as string[]);
