@@ -26,8 +26,8 @@ model User {
 }
 
 model College {
-  id   String @id
-  name String @unique
+  id   String @id @unique
+  name String 
   points Points[]
   user User[]
 }
@@ -40,7 +40,7 @@ model Event {
   details             String
   date                DateTime
   location            String          @default("Online")
-  status              String          @default("PENDING")
+  status              String          @default("PENDING") // PENDING, ACTIVE, RESULT, REGISTRATION
   teams               Team[]
   participants        TeamMember[]
   invites             Invite[]
@@ -57,9 +57,9 @@ model Team {
   event               Event           @relation(fields: [eventId], references: [id])
   eventId             String          @db.Uuid
   members             TeamMember[]
-  pitchStatus         String          @default("PENDING")
-  projectStatus       String          @default("PENDING") 
-  completionTime      String?         @default("ONTIME") // ONTIME, LATE
+  pitchStatus         String          @default("PENDING") // COMPLETED, ABSENT, PENDING
+  projectStatus       String          @default("PENDING")  // COMPLETED, BEST PROJECT, DROPPED, PENDING
+  completionTime      String?         @default("PENDING") // ONTIME, LATE, PENDING
   created_at          DateTime        @default(now())
 }
 
