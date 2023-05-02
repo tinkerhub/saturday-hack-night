@@ -44,6 +44,11 @@ const Leaderboard: NextPageWithLayout = () => (
                     base: 'none',
                     md: 'block',
                 }}
+                width={{
+                    base: '0px',
+                    md: '200px',
+                    lg: '250px',
+                }}
                 src="/images/leaderboard.png"
             />
             <VStack alignItems="flex-start">
@@ -51,7 +56,8 @@ const Leaderboard: NextPageWithLayout = () => (
                     background="linear-gradient(91.07deg, #9976E9 0%, #D61F74 99.57%)"
                     fontSize={{
                         base: '36px',
-                        md: '72px',
+                        md: '62px',
+                        lg: '72px',
                     }}
                     fontWeight="700"
                     fontFamily="Clash Display"

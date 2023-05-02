@@ -12,7 +12,7 @@ const Auth = () => {
             const response = await signInAndUp();
             if (response.status === 'OK') {
                 await getData();
-                await router.push('/');
+                await router.back();
             }
         } catch (err: any) {
             router.push('/error');
