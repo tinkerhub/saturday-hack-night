@@ -1,3 +1,5 @@
+/* eslint-disable import/no-import-module-exports */
+
 import supertokens from 'supertokens-node';
 import { NestFactory } from '@nestjs/core';
 import { errorHandler, plugin } from 'supertokens-node/framework/fastify';
@@ -6,6 +8,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { PrismaService } from './prisma/prisma.service';
 
+declare const module: any;
 async function bootstrap() {
     const fastify = new FastifyAdapter({
         logger: false,
@@ -31,9 +34,24 @@ async function bootstrap() {
     const prismaService = app.get(PrismaService);
     await prismaService.enableShutdownHooks(app);
 
-    await app.listen(
-        (process.env.PORT as string) || 3001,
-        (process.env.HOST as string) || '0.0.0.0',
-    );
+    await app.init();
+
+    return {
+        app,
+        fastify: fastify.getInstance(),
+    };
 }
-bootstrap();
+
+async function startServer() {
+    const { app } = await bootstrap();
+    await app.listen(process.env.PORT as string, '0.0.0.0');
+    // eslint-disable-next-line no-console
+    console.log(`Application is running on: ${await app.getUrl()}`);
+    // webpack based hot reloading
+    if (module.hot) {
+        module.hot.accept();
+        module.hot.dispose(() => app.close());
+    }
+}
+
+startServer();
