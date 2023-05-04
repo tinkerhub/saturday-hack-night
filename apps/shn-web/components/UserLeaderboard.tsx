@@ -28,7 +28,9 @@ const UserRow = ({ user, index }: UserRowProps) => (
                 fontFamily="Clash Display"
                 width="44px"
                 display={index > 3 ? 'block' : 'none'}
-            >{`0${index}`}</Text>
+            >
+                {index < 10 ? `0${index}` : index}
+            </Text>
         </Td>
         <Td
             paddingInline="0"
