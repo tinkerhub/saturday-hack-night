@@ -7,7 +7,7 @@
     "scripts": {
         "build": "turbo run build",
         "build:api": "turbo run build --filter=api",
-        "build:shn-web": "turbo run build --filter=shn-web",
+        "build:web": "turbo run build --filter=web",
         "build:web-legacy": "turbo run build --filter=web-legacy",
         "start": "turbo run start",
         "dev": "turbo run dev",
