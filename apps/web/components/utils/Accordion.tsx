@@ -10,6 +10,7 @@ import {
 
 const Accordion = ({ content }: AccordionProps) => (
     <ChakraAccordion
+        allowToggle
         style={{
             marginInline: '9px',
         }}
