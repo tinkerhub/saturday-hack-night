@@ -1,16 +1,21 @@
 {
+    "extends": "../../tsconfig.json",
+    "include": [
+        "next-env.d.ts",
+        "**/*.ts",
+        "**/*.tsx",
+        "pages/index.js",
+        "jest.setup.ts",
+        "jest.config.js"
+    ],
+    "exclude": ["node_modules"],
+    "baseUrl": ".",
     "compilerOptions": {
-        "jsx": "react",
-        "forceConsistentCasingInFileNames": true,
-        "strict": true,
-        "module": "commonjs",
-        "noImplicitAny": true,
-        "outDir": "./build/",
-        "preserveConstEnums": true,
-        "removeComments": true,
-        "sourceMap": true,
-        "target": "ES2015",
-        "esModuleInterop": true
+        "incremental": true,
+        "jsx": "preserve",
+        "paths": {
+            "@app/*": ["./*"]
+        }
     },
-    "include": ["./src/**/**/**/**/*", "index.d.ts"]
+    "typeRoots": ["./node_modules/@types/", "./types.d.ts"]
 }

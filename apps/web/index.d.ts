@@ -1,3 +1,7 @@
-declare module '*.jpg';
-declare module '*.svg';
-declare module '*.png';
+declare module 'css-paint-polyfill';
+
+declare namespace CSS {
+    namespace paintWorklet {
+        export function addModule(url: string): void;
+    }
+}

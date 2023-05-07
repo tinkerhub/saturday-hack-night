@@ -4,7 +4,7 @@
         "indexes": "firestore.indexes.json"
     },
     "hosting": {
-        "predeploy": "yarn build:web",
+        "predeploy": "yarn build:web-legacy",
         "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
         "cleanUrls": true,
         "rewrites": [
@@ -13,11 +13,13 @@
                 "destination": "/index.html"
             }
         ],
-        "public": "apps/web/build",
+        "public": "apps/web-legacy/build",
         "headers": [
             {
                 "source": "**/*",
-                "headers": [{ "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }]
+                "headers": [
+                    { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+                ]
             },
             {
                 "source": "**/*.@(jpg|jpeg|gif|png|svg|webp|js|css|eot|otf|ttf|ttc|woff|woff2|font.css)",
