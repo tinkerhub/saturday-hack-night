@@ -32,7 +32,7 @@ const Events: NextPageWithLayout = () => {
             setPastEvents([]);
         };
     }, []);
-    const handleMouseMove = (e: any) => {
+    const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
         const { currentTarget } = e;
         const rect = currentTarget.getBoundingClientRect();
         const x = e.clientX - rect.left;
@@ -45,7 +45,8 @@ const Events: NextPageWithLayout = () => {
         // eslint-disable-next-line no-restricted-syntax
         for (const card of document.querySelectorAll('.cardBox')) {
             const cardBody = card as HTMLDivElement;
-            cardBody.onmousemove = (e) => handleMouseMove(e);
+            cardBody.onmousemove = (e: MouseEvent) =>
+                handleMouseMove(e as unknown as React.MouseEvent<HTMLElement>);
         }
     }, [pastEvents]);
 
