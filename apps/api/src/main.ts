@@ -7,6 +7,7 @@ import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { PrismaService } from './prisma/prisma.service';
+import { TransformInterceptor } from './interceptors/transform.interceptor';
 
 declare const module: any;
 async function bootstrap() {
@@ -25,6 +26,7 @@ async function bootstrap() {
     await app.register(plugin);
     fastify.setErrorHandler(errorHandler());
 
+    app.useGlobalInterceptors(new TransformInterceptor());
     const config = new DocumentBuilder()
         .setTitle('SHN Platform APIs')
         .setDescription('APIs provided by SHN Platform')

@@ -2,22 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { ReadException } from './exception/read.exception';
 import { PrismaService } from '../prisma/prisma.service';
 
-interface Resp {
-    message: string;
-    data?: any;
-}
-
 @Injectable()
 export class PointService {
     constructor(private readonly prisma: PrismaService) {}
-
-    Success(resp: Resp) {
-        return {
-            success: true,
-            message: resp.message,
-            data: resp.data,
-        };
-    }
 
     async updatePoints(eventId: string) {
         const event = await this.prisma.event.findUnique({
@@ -79,9 +66,9 @@ export class PointService {
         await this.prisma.points.createMany({
             data: newPoints,
         });
-        return this.Success({
+        return {
             message: 'Points table updated',
-        });
+        };
     }
 
     async getCollegePoints() {
@@ -126,10 +113,10 @@ export class PointService {
             }
         });
 
-        return this.Success({
+        return {
             message: 'College points',
             data: collegePoints,
-        });
+        };
     }
 
     async getUsersPoints() {
@@ -175,9 +162,9 @@ export class PointService {
                 });
             }
         });
-        return this.Success({
+        return {
             message: 'User points',
             data: userPoints,
-        });
+        };
     }
 }
