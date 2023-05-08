@@ -101,7 +101,9 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
     const toast = useToast();
 
     const getCollege = async (input: string) => {
-        const { data } = await api.get(`college?search=${input}&limit=20&page=1`);
+        const {
+            data: { data },
+        } = await api.get(`college?search=${input}&limit=20&page=1`);
         const college = await data.map((el: Clg) => ({ label: el.name, value: el.id }));
         return college;
     };
@@ -124,7 +126,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
             setLoading(true);
             setTimeout(() => {}, 3000);
             api.patch('profile', DbData).then((res) => {
-                if (res.data.success) {
+                if (res.data.statusCode === 200) {
                     toast({
                         title: '✅ Profile Updated',
                         status: 'success',

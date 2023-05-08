@@ -13,7 +13,7 @@ const Admin: NextPageWithLayout = () => {
         setLoading(true);
         try {
             const { data } = await api.post(`/points/${eventId}`);
-            if (data.success) {
+            if (data.statusCode === 200) {
                 toast({
                     title: 'Leaderboard Updated',
                     status: 'success',

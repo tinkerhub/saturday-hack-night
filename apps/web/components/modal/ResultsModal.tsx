@@ -35,7 +35,7 @@ export const ResultsModal = ({ id, onClose, isOpen, image }: ResultsModalProps) 
         (async () => {
             try {
                 const { data } = await api.get(`/event/projects/${id}`);
-                if (data.success) {
+                if (data.statusCode === 200) {
                     setProjects(data.data);
                 }
             } catch (error) {

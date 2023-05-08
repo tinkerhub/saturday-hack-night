@@ -53,7 +53,7 @@ export const CreateTeamModal = ({ isOpen, onClose, eventId }: CreateTeamModalPro
                 members: Array.from(teamMembers),
                 eventId,
             });
-            if (data.data) {
+            if (data.statusCode === 200) {
                 toast({
                     title: '✅ Team Registered',
                     status: 'success',
