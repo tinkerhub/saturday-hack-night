@@ -16,6 +16,7 @@ async function bootstrap() {
     const app = await NestFactory.create<NestFastifyApplication>(AppModule, fastify, {
         bufferLogs: true,
     });
+
     app.enableCors({
         origin: process.env.SUPERTOKENS_WEBSITE_DOMAIN,
         allowedHeaders: ['content-type', ...supertokens.getAllCORSHeaders()],
@@ -23,6 +24,7 @@ async function bootstrap() {
     });
     await app.register(plugin);
     fastify.setErrorHandler(errorHandler());
+
     const config = new DocumentBuilder()
         .setTitle('SHN Platform APIs')
         .setDescription('APIs provided by SHN Platform')
@@ -45,9 +47,6 @@ async function bootstrap() {
 async function startServer() {
     const { app } = await bootstrap();
     await app.listen(process.env.PORT as string, '0.0.0.0');
-    // eslint-disable-next-line no-console
-    console.log(`Application is running on: ${await app.getUrl()}`);
-    // webpack based hot reloading
     if (module.hot) {
         module.hot.accept();
         module.hot.dispose(() => app.close());
