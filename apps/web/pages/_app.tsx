@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
 import type { AppProps, NextWebVitalsMetric } from 'next/app';
-import Head from 'next/head';
 import { NextPage } from 'next';
 import initAuth from '@app/auth';
 import { AuthProvider } from '@app/contexts';
@@ -33,9 +32,6 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
 
     return (
         <ChakraProvider>
-            <Head>
-                <link rel="icon" type="image/x-icon" href="/images/logo.png" />
-            </Head>
             <GoogleAnalytics trackPageViews />
             <DefaultSeo
                 title="Saturday HackNight"

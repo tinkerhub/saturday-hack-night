@@ -1,4 +1,5 @@
-import { HStack, Image, Link, Text } from '@chakra-ui/react';
+import { HStack, Image, Text } from '@chakra-ui/react';
+import Link from 'next/link';
 import React from 'react';
 
 const Footer = () => (
@@ -13,12 +14,7 @@ const Footer = () => (
         justifyContent="space-between"
     >
         <Image width="85px" src="images/TH.svg" alt="TinkerHub Logo" />
-        <Link
-            href="https://tinkerhub.org"
-            _hover={{
-                textDecoration: 'none',
-            }}
-        >
+        <Link href="https://tinkerhub.org">
             <Text
                 fontSize={{
                     base: '12px',

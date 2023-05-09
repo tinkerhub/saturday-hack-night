@@ -1,22 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 
-interface Resp {
-    message: string;
-    data?: unknown;
-}
-
 @Injectable()
 export class EventService {
     constructor(private readonly prismaService: PrismaService) {}
-
-    Success(resp: Resp) {
-        return {
-            success: true,
-            message: resp.message,
-            data: resp.data,
-        };
-    }
 
     async read(id: string) {
         const data = await this.prismaService.event.findUnique({
@@ -38,10 +25,10 @@ export class EventService {
                 },
             },
         });
-        return this.Success({
+        return {
             message: 'Event read successfully',
             data,
-        });
+        };
     }
 
     async readAll() {
@@ -90,10 +77,10 @@ export class EventService {
             })(),
         }));
 
-        return this.Success({
+        return {
             message: 'Event read successfully',
             data: res,
-        });
+        };
     }
 
     async readProjects(id: string) {
@@ -126,10 +113,10 @@ export class EventService {
         });
 
         if (data.length === 0) {
-            return this.Success({
+            return {
                 message: 'No Projects found',
                 data: [],
-            });
+            };
         }
         const projects = data.map(
             (team: {
@@ -162,9 +149,9 @@ export class EventService {
                 ),
             }),
         );
-        return this.Success({
+        return {
             message: 'Projects read successfully',
             data: projects,
-        });
+        };
     }
 }

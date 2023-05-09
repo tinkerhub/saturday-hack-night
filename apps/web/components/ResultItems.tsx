@@ -5,9 +5,9 @@ import { Toast } from '@app/components/utils';
 
 const ResultItems = ({ filteredResults }: ItemsProps) => {
     const toast = useToast();
-    const handleMouseMove = (e: any) => {
+    const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
         const { currentTarget } = e;
-        const rect = currentTarget.getBoundingClientRect();
+        const rect = currentTarget!.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
         currentTarget.style.setProperty('--mouse-x', `${x}px`);
@@ -16,7 +16,8 @@ const ResultItems = ({ filteredResults }: ItemsProps) => {
     useEffect(() => {
         for (const card of document.querySelectorAll('.resultBox')) {
             const cardBody = card as HTMLDivElement;
-            cardBody.onmousemove = (e) => handleMouseMove(e);
+            cardBody.onmousemove = (e: MouseEvent) =>
+                handleMouseMove(e as unknown as React.MouseEvent<HTMLElement>);
         }
     }, [filteredResults]);
     return (

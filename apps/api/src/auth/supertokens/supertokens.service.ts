@@ -69,8 +69,7 @@ export class SupertokensService {
                                             avatar: data.avatar_url || null,
                                             githubid: data.login || null,
                                         };
-                                        const temp = await this.profileSevice.create(github);
-                                        this.logger.log(temp.message);
+                                        await this.profileSevice.create(github);
                                     }
                                 }
                                 return response;

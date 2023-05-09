@@ -26,6 +26,7 @@ export default class Document extends NextDocument {
                         `}
                     </style>
                     <link href="/style/clashDisplay.css" rel="stylesheet" />
+                    <link rel="icon" type="image/x-icon" href="/images/logo.png" />
                 </Head>
                 <body>
                     <Main />

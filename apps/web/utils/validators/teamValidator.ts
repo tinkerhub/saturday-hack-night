@@ -22,7 +22,7 @@ export const TeamValidator = Yup.object({
         .of(Yup.string().nullable())
         .test(
             'members',
-            'Members must be valid GitHub usernames',
+            'Members must be valid GitHub Usernames. Make sure all members have a GitHub account and are logged into SHN Website.',
             (members) =>
                 new Promise((resolve) => {
                     debounce(async () => {
