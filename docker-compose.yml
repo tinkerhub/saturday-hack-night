@@ -20,7 +20,6 @@ services:
         networks:
             - app_network
     api:
-        image: darkphoenix2704/shn-api:v0
         container_name: api
         env_file:
             - .env
@@ -37,7 +36,6 @@ services:
             - EMAIL_USERNAME=${EMAIL_USERNAME}
             - EMAIL_PASSWORD=${EMAIL_PASSWORD}
             - MAIL_FROM=${MAIL_FROM}
-            - DASHBOARD_API_KEY=${DASHBOARD_API_KEY}
             - HOST=${HOST}
         build:
             context: .
