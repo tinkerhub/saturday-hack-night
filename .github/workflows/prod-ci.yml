@@ -5,8 +5,8 @@ on:
 
 env:
     CONTAINER_IMAGE: shn-api
-    CONTAINER_NAME: api
-    CONTAINER_PORT: 8000
+    CONTAINER_NAME: shn-api
+    CONTAINER_PORT: 8070
 
 jobs:
     build:

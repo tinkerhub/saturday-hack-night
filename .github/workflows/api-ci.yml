@@ -35,16 +35,16 @@ jobs:
               name: Set tag for dev env
               run: |
                   echo "IMAGE=shn-api-dev" >> $GITHUB_ENV
-                  echo "NAME=dev-api" >> $GITHUB_ENV
-                  echo "PORT=8010" >> $GITHUB_ENV
+                  echo "NAME=shn-dev-api" >> $GITHUB_ENV
+                  echo "PORT=8060" >> $GITHUB_ENV
               if: ${{ github.ref_name == 'dev-api' }}
 
             - id: stage_image_tag
               name: Set tag for stage env
               run: |
                   echo "IMAGE=shn-api-stage" >> $GITHUB_ENV
-                  echo "NAME=stage-api" >> $GITHUB_ENV
-                  echo "PORT=8000" >> $GITHUB_ENV
+                  echo "NAME=shn-stage-api" >> $GITHUB_ENV
+                  echo "PORT=8065" >> $GITHUB_ENV
               if: ${{ github.ref_name == 'main' }}
 
             - id: image_tag
