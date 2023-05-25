@@ -1,13 +1,14 @@
 import { Button, Container, Heading, Text, VStack, Image, Flex, Grid, Box } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
-import { ReactElement } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { ParallaxView } from '@app/components';
 import { Card } from '@app/components/cards';
 import { Accordion } from '@app/components/utils';
 import { useAuth } from '@app/hooks';
 import { BaseLayout } from '@app/layouts';
 import { NextPageWithLayout } from '@app/pages/_app';
+import Link from 'next/link';
 
 const faqs = [
     {
@@ -24,7 +25,7 @@ const faqs = [
     },
     {
         question: 'Is it Online/Offline?',
-        answer: 'Yes. The first 5 hacknights will be conducted online & the 6th one will be conducted at TinkerSpace.',
+        answer: 'The first 5 hacknights will be conducted online & the 6th one will be conducted at TinkerSpace.',
     },
     {
         question: 'How do I participate in Offline HackNight?',
@@ -43,6 +44,23 @@ const faqs = [
 const Home: NextPageWithLayout = () => {
     const { user, login } = useAuth();
     const router = useRouter();
+    const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+        const { currentTarget } = e;
+        const rect = currentTarget.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        currentTarget.style.setProperty('--mouse-x', `${x}px`);
+        currentTarget.style.setProperty('--mouse-y', `${y}px`);
+    };
+
+    useEffect(() => {
+        // eslint-disable-next-line no-restricted-syntax
+        for (const card of document.querySelectorAll('.card')) {
+            const cardBody = card as HTMLDivElement;
+            cardBody.onmousemove = (e: MouseEvent) =>
+                handleMouseMove(e as unknown as React.MouseEvent<HTMLElement>);
+        }
+    }, []);
     return (
         <>
             <VStack
@@ -62,7 +80,7 @@ const Home: NextPageWithLayout = () => {
                     textAlign="center"
                     textColor="white"
                     _selection={{
-                        textColor: '#DBF72C',
+                        textColor: 'white',
                     }}
                 >
                     SATURDAY
@@ -70,7 +88,7 @@ const Home: NextPageWithLayout = () => {
                     <Box
                         color="#DBF72C"
                         _selection={{
-                            textColor: 'white',
+                            textColor: '#DBF72C',
                         }}
                     >
                         HACKNIGHT
@@ -85,7 +103,7 @@ const Home: NextPageWithLayout = () => {
                             lg: '24px',
                         }}
                         _selection={{
-                            textColor: '#DBF72C',
+                            textColor: '#E9E5E1',
                         }}
                     >
                         It’s a bi weekly hackathon that gives tech-savvy learners an oppurtunity to
@@ -185,10 +203,10 @@ const Home: NextPageWithLayout = () => {
                                 textColor="white"
                                 marginBlock="18px"
                             >
-                                Saturday Hack Night is a bi weekly hackathon that provides a unique
-                                opportunity for tech-savvy learners to expand their knowledge and
-                                explore the latest technology-related concepts, including APIs and
-                                frameworks.
+                                Saturday HackNight is a platform for tech enthusiasts to explore the
+                                latest technology-related concepts, collaborate with others to
+                                develop their ideas and projects, and stay up-to-date on the latest
+                                tech trends.
                             </Text>
                         </VStack>
                         <Image
@@ -254,7 +272,7 @@ const Home: NextPageWithLayout = () => {
                     </VStack>
                     <VStack>
                         <Heading fontFamily="Clash Display" textColor="#DBF72C" fontSize="80px">
-                            20+
+                            25+
                         </Heading>
                         <Text
                             textColor="white"
@@ -353,7 +371,7 @@ const Home: NextPageWithLayout = () => {
                     textColor="white"
                     textAlign="left"
                     width="100vw"
-                    paddingInline={{ base: '18px', lg: '36px' }}
+                    paddingInline={{ base: '18px', lg: '18px' }}
                     fontSize="40px"
                 >
                     HEAR FROM{' '}
@@ -367,17 +385,95 @@ const Home: NextPageWithLayout = () => {
                 </Heading>
                 <VStack>
                     <ParallaxView
-                        text="A bi-weekly hackathon that gives tech-savvy learners an opportunity to explore all the latest technology related concepts including APIs, frameworks and build some cool projects."
-                        duration={10}
-                    />
-                    <ParallaxView
-                        text="You. Are you passionate about tech? Do you like to build something unique? Are you that curious cat who loves to explore uncharted territory? Then this is your opportunity."
-                        duration={15}
-                    />
-                    <ParallaxView
-                        text="Saturday evening 6 PM to 11 PM every odd saturday you will be able to take part in the program. Yes it is a recurring event and yes, you are welcome every time."
+                        text="In one word, adipoli.The name speaking for itself, it's really cool opportunity to tinker with tools and build intresting stuff."
                         duration={20}
                     />
+                    <ParallaxView
+                        text="Physical Saturday Hacknight was an unforgettable experience that fueled our motivation and nurtured our ability to work effectively as a team under tight deadlines.  I highly recommend this program to all developers and enthusiasts who want to experience the thrill of creating impactful solutions."
+                        duration={60}
+                    />
+                    <ParallaxView
+                        text="By participating in multiple SHNs, I have had the opportunity to learn various APIs and tech-frameworks within a limited time. The team-based approach has also encouraged collaboration and peer learning, providing an excellent platform for brainstorming ideas and developing skills."
+                        duration={50}
+                    />
+                </VStack>
+            </VStack>
+            <VStack alignItems="center" justifyContent="center" marginBlock="16px">
+                <Heading
+                    fontFamily="Clash Display"
+                    textColor="white"
+                    textAlign="left"
+                    width="100vw"
+                    paddingInline={{ base: '18px', lg: '36px' }}
+                    fontSize="40px"
+                >
+                    OUR PREVIOUS{' '}
+                    <span
+                        style={{
+                            color: '#DBF72C',
+                        }}
+                    >
+                        PARTNERS 🤝
+                    </span>
+                </Heading>
+                <Link href="https://tinkerhub-foundation.notion.site/Saturday-HackNight-Partnership-4d046b8d4a95455fbfb6d9faa3018c97">
+                    <Text
+                        fontSize={{ base: '18px', lg: '24px' }}
+                        textAlign="left"
+                        width="100vw"
+                        fontFamily="Clash Display"
+                        paddingInline={{ base: '18px', lg: '36px' }}
+                        textColor="white"
+                        marginBlockEnd="16px"
+                        style={{
+                            marginTop: '0px',
+                        }}
+                        _hover={{
+                            textDecoration: 'underline',
+                            textColor: '#DBF72C',
+                        }}
+                    >
+                        Click here to know more about partnership
+                    </Text>
+                </Link>
+                <VStack
+                    position="relative"
+                    className="card"
+                    marginInline="18px"
+                    background="rgba(255, 255, 255, 0.1)"
+                    borderRadius="17px"
+                    width="95%"
+                    paddingBlock={{
+                        base: '18px',
+                        lg: '36px',
+                    }}
+                    paddingInline={{
+                        base: '18px',
+                        lg: '36px',
+                    }}
+                    _before={{
+                        zIndex: '0',
+                        content: '""',
+                        position: 'absolute',
+                        borderRadius: 'inherit',
+                        top: '0',
+                        left: '0',
+                        opacity: '0',
+                        transition: 'opacity 500ms',
+                        width: '100%',
+                        height: '100%',
+                        background:
+                            'radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.15) , transparent 50%)',
+                    }}
+                    _hover={{
+                        _before: {
+                            opacity: '1',
+                        },
+                    }}
+                >
+                    <Link href="https://engagespot.co/">
+                        <Image src="/images/partners/engageSpot.svg" alt="Engagespot" />
+                    </Link>
                 </VStack>
             </VStack>
             <VStack

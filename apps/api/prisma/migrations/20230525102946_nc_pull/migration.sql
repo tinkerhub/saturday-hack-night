@@ -1,0 +1,37 @@
+/*
+  Warnings:
+
+  - Made the column `location` on table `Event` required. This step will fail if there are existing NULL values in that column.
+
+*/
+-- AlterTable
+ALTER TABLE "College" ALTER COLUMN "name" SET DATA TYPE VARCHAR;
+
+-- AlterTable
+ALTER TABLE "Event" ALTER COLUMN "id" SET DEFAULT (gen_random_uuid())::uuid,
+ALTER COLUMN "title" SET DATA TYPE VARCHAR,
+ALTER COLUMN "description" SET DATA TYPE VARCHAR,
+ALTER COLUMN "image" SET DATA TYPE VARCHAR,
+ALTER COLUMN "details" SET DATA TYPE VARCHAR,
+ALTER COLUMN "location" SET NOT NULL,
+ALTER COLUMN "location" SET DATA TYPE VARCHAR,
+ALTER COLUMN "status" SET DATA TYPE VARCHAR;
+
+-- AlterTable
+ALTER TABLE "Team" ALTER COLUMN "id" SET DEFAULT (gen_random_uuid())::uuid,
+ALTER COLUMN "name" SET DATA TYPE VARCHAR,
+ALTER COLUMN "repo" SET DATA TYPE VARCHAR,
+ALTER COLUMN "pitchStatus" SET DATA TYPE VARCHAR,
+ALTER COLUMN "projectStatus" SET DATA TYPE VARCHAR,
+ALTER COLUMN "comments" SET DATA TYPE VARCHAR,
+ALTER COLUMN "completionTime" SET DATA TYPE VARCHAR;
+
+-- AlterTable
+ALTER TABLE "TeamMember" ALTER COLUMN "role" SET DATA TYPE VARCHAR;
+
+-- AlterTable
+ALTER TABLE "User" ALTER COLUMN "email" SET DATA TYPE VARCHAR,
+ALTER COLUMN "githubid" SET DATA TYPE VARCHAR,
+ALTER COLUMN "name" SET DATA TYPE VARCHAR,
+ALTER COLUMN "mobile" SET DATA TYPE VARCHAR,
+ALTER COLUMN "avatar" SET DATA TYPE VARCHAR;
