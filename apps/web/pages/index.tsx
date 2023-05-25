@@ -25,7 +25,7 @@ const faqs = [
     },
     {
         question: 'Is it Online/Offline?',
-        answer: 'Yes. The first 5 hacknights will be conducted online & the 6th one will be conducted at TinkerSpace.',
+        answer: 'The first 5 hacknights will be conducted online & the 6th one will be conducted at TinkerSpace.',
     },
     {
         question: 'How do I participate in Offline HackNight?',
