@@ -413,7 +413,7 @@ const Home: NextPageWithLayout = () => {
                             color: '#DBF72C',
                         }}
                     >
-                        PARTNERS 🔊
+                        PARTNERS 🤝
                     </span>
                 </Heading>
                 <Link href="https://tinkerhub-foundation.notion.site/Saturday-HackNight-Partnership-4d046b8d4a95455fbfb6d9faa3018c97">
