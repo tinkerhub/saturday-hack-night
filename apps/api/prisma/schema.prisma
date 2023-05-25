@@ -1,8 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["jsonProtocol"]
 }
 
@@ -12,89 +9,88 @@ datasource db {
 }
 
 model User {
-  id                  String          @unique @id
-  email               String          @unique
-  githubid            String          @unique
-  name                String?
-  mobile              String?
-  avatar              String
-  college             College?        @relation(fields: [collegeId], references: [id])
-  collegeId           String?
-  participated        TeamMember[]
-  invites             Invite[]
-  points              Points[]
-  created_at          DateTime        @default(now())
+  id           String       @id @unique
+  email        String       @unique @db.VarChar
+  githubid     String       @unique @db.VarChar
+  name         String?      @db.VarChar
+  mobile       String?      @db.VarChar
+  avatar       String       @db.VarChar
+  collegeId    String?
+  created_at   DateTime     @default(now())
+  invites      Invite[]
+  points       Points[]
+  participated TeamMember[]
+  college      College?     @relation(fields: [collegeId], references: [id])
 }
 
 model College {
-  id   String @id @unique
-  name String 
+  id     String   @id @unique
+  name   String   @db.VarChar
   points Points[]
-  user User[]
+  user   User[]
 }
 
 model Event {
-  id                  String          @id @unique @db.Uuid @default(uuid())
-  title               String
-  description         String
-  image               String
-  details             String
-  date                DateTime
-  location            String          @default("Online")
-  status              String          @default("PENDING") // PENDING, ACTIVE, RESULT, REGISTRATION
-  teams               Team[]
-  participants        TeamMember[]
-  invites             Invite[]
-  points              Points[]
-  created_at          DateTime         @default(now())
+  id           String       @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title        String       @db.VarChar
+  description  String       @db.VarChar
+  image        String?      @db.VarChar
+  details      String?      @db.VarChar
+  date         DateTime
+  location     String       @db.VarChar
+  status       String?      @default("PENDING")
+  created_at   DateTime     @default(now())
+  invites      Invite[]
+  points       Points[]
+  teams        Team[]
+  participants TeamMember[]
 }
 
 model Team {
-  id                  String          @id @unique @db.Uuid @default(uuid())
-  name                String
-  repo                String
-  comments            String?         // Notes about Team
-  invite              Invite[]
-  event               Event           @relation(fields: [eventId], references: [id])
-  eventId             String          @db.Uuid
-  members             TeamMember[]
-  pitchStatus         String          @default("PENDING") // COMPLETED, ABSENT, PENDING
-  projectStatus       String          @default("PENDING") // COMPLETED, BEST PROJECT, DROPPED, PENDING
-  completionTime      String?         @default("PENDING") // ONTIME, LATE, PENDING
-  created_at          DateTime        @default(now())
+  id             String       @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name           String       @db.VarChar
+  repo           String       @db.VarChar
+  eventId        String       @db.Uuid
+  pitchStatus    String?      @default("PENDING") // COMPLETED, PENDING, ABSENT
+  projectStatus  String?      @default("PENDING") // COMPLETED, BEST PROJECT, DROPPED, PENDING
+  created_at     DateTime     @default(now())
+  comments       String?      @db.VarChar
+  completionTime String?      @default("PENDING") // ONTIME, LATE, PENDING
+  invite         Invite[]
+  event          Event        @relation(fields: [eventId], references: [id])
+  members        TeamMember[]
 }
 
-model TeamMember{
-  id                  String          @unique @db.Uuid @default(uuid())
-  role                String          @default("MEMBER")
-  team                Team            @relation(fields: [teamId], references: [id])
-  teamId              String          @db.Uuid
-  user                User            @relation(fields: [userId], references: [id])
-  userId              String
-  event               Event           @relation(fields: [eventId], references: [id])
-  eventId             String          @db.Uuid
+model TeamMember {
+  id      String  @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  role    String? @default("MEMBER") // LEAD, MEMBER
+  teamId  String  @db.Uuid
+  userId  String
+  eventId String  @db.Uuid
+  event   Event   @relation(fields: [eventId], references: [id])
+  team    Team    @relation(fields: [teamId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
   @@unique([userId, eventId])
   @@unique([userId, teamId])
-  @@id([userId, eventId])
 }
 
 model Invite {
-  id                  String          @unique @db.Uuid @default(uuid())
-  team                Team            @relation(fields: [teamId], references: [id])
-  teamId              String          @db.Uuid
-  user                User            @relation(fields: [userId], references: [id])
-  userId              String
-  event               Event           @relation(fields: [eventId], references: [id])
-  eventId             String          @db.Uuid
+  id      String @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  teamId  String @db.Uuid
+  userId  String
+  eventId String @db.Uuid
+  event   Event  @relation(fields: [eventId], references: [id])
+  team    Team   @relation(fields: [teamId], references: [id])
+  user    User   @relation(fields: [userId], references: [id])
 }
 
 model Points {
-  id                  String          @unique @db.Uuid @default(uuid()) @id
-  user                User            @relation(fields: [userId], references: [id])
-  userId              String
-  college             College?        @relation(fields: [collegeId], references: [id])
-  collegeId           String?
-  event               Event           @relation(fields: [eventId], references: [id])
-  eventId             String          @db.Uuid
-  points              Int             @default(0)
+  id        String   @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId    String
+  collegeId String?
+  eventId   String   @db.Uuid
+  points    Int      @default(0)
+  college   College? @relation(fields: [collegeId], references: [id])
+  event     Event    @relation(fields: [eventId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 }

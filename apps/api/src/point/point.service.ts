@@ -22,6 +22,7 @@ export class PointService {
             select: {
                 projectStatus: true,
                 pitchStatus: true,
+                completionTime: true,
                 eventId: true,
                 members: {
                     select: {
@@ -43,6 +44,7 @@ export class PointService {
         }[] = [];
         teams.forEach((team) => {
             let points = 0;
+            if (team.completionTime === 'LATE') return;
             if (team.projectStatus === 'COMPLETED') points += 100;
             if (team.projectStatus === 'BEST PROJECT') points += 200;
             if (team.projectStatus === 'DROPPED') points -= 50;
