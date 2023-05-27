@@ -14,10 +14,10 @@ export const MobileBar = ({ closeModal }: Handler) => {
             name: 'HOME',
             path: '/',
         },
-        {
+        /*         {
             name: 'LEADERBOARD',
             path: 'leaderboard',
-        },
+        }, */
         {
             name: 'EVENTS',
             path: 'events',

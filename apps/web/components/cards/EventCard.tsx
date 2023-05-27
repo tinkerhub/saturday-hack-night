@@ -39,6 +39,7 @@ const EventCard = ({ event }: EventCardProps) => {
                     top: '0',
                     left: '0',
                     opacity: '0',
+                    pointerEvents: 'none',
                     transition: 'opacity 500ms',
                     width: '100%',
                     height: '100%',
@@ -77,7 +78,7 @@ const EventCard = ({ event }: EventCardProps) => {
                         }}
                         css={{
                             '.cardBox: hover &': {
-                                display: status === 'RESULT' ? 'block' : 'none',
+                                display: status === 'RESULTS' ? 'block' : 'none',
                             },
                         }}
                         onClick={() =>

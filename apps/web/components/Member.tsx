@@ -92,7 +92,7 @@ const Member = ({ loading, isEditable }: MemberProps) => {
                     borderRadius="10px"
                     transition="all 0.2s ease-in-out"
                     background="rgba(219, 247, 44, 0.15)"
-                    onClick={() => (loading ? null : append(''))}
+                    onClick={() => (loading || !isEditable ? null : append(''))}
                     _hover={{
                         background: 'rgba(255, 255, 255, 0.15)',
                         border: '1px dashed #DBF72C',

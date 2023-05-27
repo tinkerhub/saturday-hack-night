@@ -27,7 +27,7 @@ const Join: NextPageWithLayout = () => {
         }
         try {
             const { data } = await api.post(`/team/join/${invite}`);
-            if (data.statusCode === 200) {
+            if (data.success) {
                 setError(10);
                 router.push('/events');
             }

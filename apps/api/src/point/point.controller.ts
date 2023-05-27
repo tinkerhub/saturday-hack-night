@@ -17,7 +17,9 @@ export class PointController {
             throw new EventException('Event id is required');
         }
         const user = await session.getUserId();
+        console.log(user);
         const { metadata } = await UserMetadata.getUserMetadata(user);
+        console.log(metadata);
         if (metadata.role !== 'admin') {
             throw new ReadException('You are not authorized to update points');
         }

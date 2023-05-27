@@ -134,26 +134,35 @@ export class PointService {
     }
 
     async getUsersPoints() {
-        const points = await this.prisma.points.findMany({
+        const tempPonts = await this.prisma.points.groupBy({
             take: 10,
-            select: {
-                user: {
-                    select: {
-                        name: true,
-                        id: true,
-                        avatar: true,
-                        githubid: true,
-                        college: {
-                            select: {
-                                name: true,
-                            },
-                        },
-                    },
-                },
+            by: ['userId'],
+            _sum: {
                 points: true,
             },
             orderBy: {
-                points: 'desc',
+                _sum: {
+                    points: 'desc',
+                },
+            },
+        });
+        const ids = tempPonts.map((point) => point.userId);
+        const users = await this.prisma.user.findMany({
+            where: {
+                id: {
+                    in: ids,
+                },
+            },
+            select: {
+                id: true,
+                name: true,
+                githubid: true,
+                avatar: true,
+                college: {
+                    select: {
+                        name: true,
+                    },
+                },
             },
         });
         const userPoints: {
@@ -164,18 +173,18 @@ export class PointService {
             college: string | null;
             points: number;
         }[] = [];
-        points.forEach((point) => {
-            if (point.user) {
-                userPoints.push({
-                    id: point.user.id,
-                    name: point.user.name || null,
-                    githubid: point.user.githubid,
-                    avatar: point.user.avatar,
-                    college: point.user.college?.name || null,
-                    points: point.points,
-                });
-            }
+        users.forEach((user) => {
+            const point = tempPonts.find((p) => p.userId === user.id);
+            userPoints.push({
+                id: user.id,
+                name: user.name || null,
+                githubid: user.githubid,
+                avatar: user.avatar,
+                college: user.college?.name || null,
+                points: point?._sum.points || 0,
+            });
         });
+        userPoints.sort((a, b) => b.points - a.points);
         return this.Success({
             message: 'User points',
             data: userPoints,
