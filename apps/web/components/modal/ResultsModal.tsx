@@ -25,7 +25,7 @@ export interface Projects {
         avatar: string;
     }[];
 }
-const ProjectStatus = ['BEST PROJECT', 'COMPLETE'];
+const ProjectStatus = ['BEST PROJECT', 'COMPLETED'];
 
 export const ResultsModal = ({ id, onClose, isOpen, image }: ResultsModalProps) => {
     const router = useRouter();
@@ -35,7 +35,7 @@ export const ResultsModal = ({ id, onClose, isOpen, image }: ResultsModalProps) 
         (async () => {
             try {
                 const { data } = await api.get(`/event/projects/${id}`);
-                if (data.statusCode === 200) {
+                if (data.success) {
                     setProjects(data.data);
                 }
             } catch (error) {

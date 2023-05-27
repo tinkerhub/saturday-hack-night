@@ -12,6 +12,7 @@ import {
     TabPanels,
     Tabs,
 } from '@chakra-ui/react';
+import Link from 'next/link';
 import { useEffect } from 'react';
 import { NextPageWithLayout } from './_app';
 
@@ -69,6 +70,7 @@ const Leaderboard: NextPageWithLayout = () => {
                     opacity: '0',
                     transition: 'opacity 500ms',
                     width: '100%',
+                    pointerEvents: 'none',
                     height: '100%',
                     background:
                         'radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.15) , transparent 50%)',
@@ -111,6 +113,12 @@ const Leaderboard: NextPageWithLayout = () => {
                     <Text textColor="#E9E5E1">
                         Ascend to the apex of the leaderboard by crafting ingenious projects and
                         obtain enticing rewards!
+                        <br />
+                        <Link href="/leaderboard">
+                            <Text as="span" textColor="#DBF72C" cursor="pointer">
+                                Click here to know more!
+                            </Text>
+                        </Link>
                     </Text>
                 </VStack>
             </HStack>

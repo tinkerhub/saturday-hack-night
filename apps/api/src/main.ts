@@ -7,9 +7,7 @@ import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { PrismaService } from './prisma/prisma.service';
-import { TransformInterceptor } from './interceptors/transform.interceptor';
 
-declare const module: any;
 async function bootstrap() {
     const fastify = new FastifyAdapter({
         logger: false,
@@ -26,7 +24,6 @@ async function bootstrap() {
     await app.register(plugin);
     fastify.setErrorHandler(errorHandler());
 
-    app.useGlobalInterceptors(new TransformInterceptor());
     const config = new DocumentBuilder()
         .setTitle('SHN Platform APIs')
         .setDescription('APIs provided by SHN Platform')
@@ -38,21 +35,10 @@ async function bootstrap() {
     const prismaService = app.get(PrismaService);
     await prismaService.enableShutdownHooks(app);
 
-    await app.init();
-
-    return {
-        app,
-        fastify: fastify.getInstance(),
-    };
+    await app.listen(
+        (process.env.PORT as string) || 3001,
+        (process.env.HOST as string) || '0.0.0.0',
+    );
 }
 
-async function startServer() {
-    const { app } = await bootstrap();
-    await app.listen(process.env.PORT as string, '0.0.0.0');
-    if (module.hot) {
-        module.hot.accept();
-        module.hot.dispose(() => app.close());
-    }
-}
-
-startServer();
+bootstrap();

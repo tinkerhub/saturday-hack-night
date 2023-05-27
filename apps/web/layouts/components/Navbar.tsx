@@ -162,7 +162,7 @@ const Navbar = () => {
                                 HOME
                             </Text>
                         </Link>
-                        <Link href="/leaderboard">
+                        {/* <Link href="/leaderboard">
                             <Text
                                 as="span"
                                 color={router.pathname === '/leaderboard' ? '#DBF72C' : 'white'}
@@ -174,7 +174,7 @@ const Navbar = () => {
                             >
                                 LEADERBOARD
                             </Text>
-                        </Link>
+                        </Link> */}
                         <Link href="/events">
                             <Text
                                 as="span"

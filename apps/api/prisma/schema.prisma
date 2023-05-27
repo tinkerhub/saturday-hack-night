@@ -63,7 +63,7 @@ model Team {
 
 model TeamMember {
   id      String  @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  role    String? @default("MEMBER") // LEAD, MEMBER
+  role    String? @default("MEMBER") // LEADER, MEMBER
   teamId  String  @db.Uuid
   userId  String
   eventId String  @db.Uuid

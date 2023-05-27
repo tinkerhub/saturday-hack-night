@@ -1,9 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 
+interface Resp {
+    message: string;
+    data?: unknown;
+}
+
 @Injectable()
 export class EventService {
     constructor(private readonly prismaService: PrismaService) {}
+    Success(resp: Resp) {
+        return {
+            success: true,
+            message: resp.message,
+            data: resp.data,
+        };
+    }
 
     async read(id: string) {
         const data = await this.prismaService.event.findUnique({
@@ -25,10 +37,10 @@ export class EventService {
                 },
             },
         });
-        return {
+        return this.Success({
             message: 'Event read successfully',
             data,
-        };
+        });
     }
 
     async readAll() {
@@ -72,15 +84,15 @@ export class EventService {
                 const { teams } = event;
                 return teams.filter(
                     (team) =>
-                        team.projectStatus === 'COMPLETE' || team.projectStatus === 'BEST PROJECT',
+                        team.projectStatus === 'COMPLETED' || team.projectStatus === 'BEST PROJECT',
                 ).length;
             })(),
         }));
 
-        return {
+        return this.Success({
             message: 'Event read successfully',
             data: res,
-        };
+        });
     }
 
     async readProjects(id: string) {
@@ -88,7 +100,7 @@ export class EventService {
             where: {
                 eventId: id,
                 projectStatus: {
-                    in: ['COMPLETE', 'BEST PROJECT'],
+                    in: ['COMPLETED', 'BEST PROJECT'],
                 },
             },
             select: {
@@ -113,10 +125,10 @@ export class EventService {
         });
 
         if (data.length === 0) {
-            return {
+            return this.Success({
                 message: 'No Projects found',
                 data: [],
-            };
+            });
         }
         const projects = data.map((team) => ({
             name: team.name,
@@ -136,9 +148,9 @@ export class EventService {
                 }),
             ),
         }));
-        return {
+        return this.Success({
             message: 'Projects read successfully',
             data: projects,
-        };
+        });
     }
 }

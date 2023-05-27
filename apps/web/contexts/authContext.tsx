@@ -27,13 +27,13 @@ export const AuthProvider = ({ children }: Child) => {
     const getData = async () => {
         try {
             const { data } = await api.get('/profile');
-            if (data.statusCode !== 200) {
+            if (!data.success) {
                 throw new Error();
             }
-            if (data.statusCode === 200 && data.data === null) {
+            if (data.success && data.data === null) {
                 router.push('/error');
             }
-            if (data.statusCode === 200 && data.data) {
+            if (data.success && data.data) {
                 setUser(data.data);
                 if (data.data.mobile) setIsProfileComplete(true);
             }

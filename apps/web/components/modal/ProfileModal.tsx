@@ -126,7 +126,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
             setLoading(true);
             setTimeout(() => {}, 3000);
             api.patch('profile', DbData).then((res) => {
-                if (res.data.statusCode === 200) {
+                if (res.data.success) {
                     toast({
                         title: '✅ Profile Updated',
                         status: 'success',

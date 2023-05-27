@@ -24,7 +24,7 @@ const Events: NextPageWithLayout = () => {
                     (event: Event) => event.status === 'REGISTRATION' || event.status === 'ACTIVE',
                 )[0] || null;
             const fpastEvents: Event[] = data.filter(
-                (event: Event) => event.status === 'RESULT' || event.status === 'PENDING',
+                (event: Event) => event.status === 'RESULTS' || event.status === 'PENDING',
             );
             setCurrentEvent(fcurrentEvent);
             setPastEvents(fpastEvents);
