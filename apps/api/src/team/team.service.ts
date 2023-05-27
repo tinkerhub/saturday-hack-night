@@ -9,6 +9,11 @@ import { UpdateTeamDto } from './dto/update-team.dto';
 import { CreateException } from './exception/create.exception';
 import { UpdateException } from './exception/update.exception';
 
+interface Resp {
+    message: string;
+    data?: any;
+}
+
 @Injectable()
 export class TeamService {
     constructor(
@@ -16,6 +21,14 @@ export class TeamService {
         private eventEmitter: EventEmitter2,
         private mailService: MailService,
     ) {}
+
+    Success(resp: Resp) {
+        return {
+            success: true,
+            message: resp.message,
+            data: resp.data,
+        };
+    }
 
     async join(authId: string, inviteCode: string) {
         const user = await this.prisma.user.findUnique({
@@ -73,10 +86,9 @@ export class TeamService {
                     id: inviteCode,
                 },
             });
-            return {
-                message: 'Team joined successfully',
-                data: res,
-            };
+            return this.Success({
+                message: 'User joined successfully',
+            } as Resp);
         } catch (error) {
             return new UpdateException('User already in a Team');
         }
@@ -157,10 +169,10 @@ export class TeamService {
             },
         });
         this.eventEmitter.emit('team.create', new TeamCreatedEvent(res.id, members));
-        return {
+        return this.Success({
             message: 'Team created successfully',
             data: res,
-        };
+        });
     }
 
     async read(eventId: string, authid: string) {
@@ -189,10 +201,10 @@ export class TeamService {
                 },
             },
         });
-        return {
+        return this.Success({
             message: 'Team Read successfully',
             data,
-        };
+        });
     }
 
     async update(authid: string, updateTeamDto: UpdateTeamDto) {
@@ -202,15 +214,27 @@ export class TeamService {
             return new UpdateException("Team Doesn't exist found");
         }
         const member = data.members;
-        const isLeader = member.find((mem) => mem.role === 'LEADER' && mem.user.id === authid);
+        const isLeader = member.find(
+            (mem: {
+                role: string | null;
+                user: {
+                    id: string;
+                    githubid: string;
+                    email: string;
+                };
+            }) => mem.role === 'LEADER' && mem.user.id === authid,
+        );
         if (isLeader == null) {
             return new UpdateException("User don't have permission to update");
         }
-        this.eventEmitter.emit('team.update', new TeamUpdatedEvent(data.id, members || []));
-        return {
+        const prevMembers = member.map((mem: { user: { githubid: string } }) => mem.user.githubid);
+        const fMembers = members?.filter((mem) => !prevMembers.includes(mem));
+
+        this.eventEmitter.emit('team.update', new TeamUpdatedEvent(data.id, fMembers || []));
+        return this.Success({
             message: 'Team updated successfully',
             data,
-        };
+        });
     }
 
     async findOne(teamId: string) {
@@ -236,10 +260,10 @@ export class TeamService {
                 },
             },
         });
-        return {
+        return this.Success({
             message: 'Team Read successfully',
             data: typeof data === 'undefined' ? null : data,
-        };
+        });
     }
 
     @OnEvent('team.create')

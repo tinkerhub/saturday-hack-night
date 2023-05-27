@@ -6,9 +6,21 @@ import { PrismaService } from '../prisma/prisma.service';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { ReadException } from './exception/read.exception';
 
+interface Resp {
+    message: string;
+    data?: any;
+}
 @Injectable()
 export class ProfileService {
     constructor(private prisma: PrismaService) {}
+
+    Success(resp: Resp) {
+        return {
+            success: true,
+            message: resp.message,
+            data: resp.data,
+        };
+    }
 
     async read(authid: string) {
         const data = await this.prisma.user.findUnique({
@@ -19,10 +31,10 @@ export class ProfileService {
                 college: true,
             },
         });
-        return {
+        return this.Success({
             message: 'User read successfully',
             data,
-        };
+        });
     }
 
     async create(createProfileDto: CreateProfileDto) {
@@ -33,10 +45,10 @@ export class ProfileService {
         const data = await this.prisma.user.create({
             data: createProfileDto,
         });
-        return {
+        return this.Success({
             message: 'User created successfully',
             data,
-        };
+        });
     }
 
     async update(updateProfileDto: UpdateProfileDto, authid: string) {
@@ -54,10 +66,10 @@ export class ProfileService {
             },
             data: updateProfileDto,
         });
-        return {
+        return this.Success({
             message: 'User updated successfully',
             data,
-        };
+        });
     }
 
     async readByGithubId(githubid: string) {
@@ -69,12 +81,12 @@ export class ProfileService {
         if (data.length === 0) {
             throw new ReadException('User does not exist');
         }
-        return {
+        return this.Success({
             message: 'User read successfully',
             data: {
                 user: data[0].githubid,
                 status: true,
             },
-        };
+        });
     }
 }
