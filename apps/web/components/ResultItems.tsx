@@ -41,6 +41,7 @@ const ResultItems = ({ filteredResults }: ItemsProps) => {
                 base: '16px',
                 lg: '32px',
             }}
+            justifyItems="center"
         >
             {filteredResults.map((result) => (
                 <VStack

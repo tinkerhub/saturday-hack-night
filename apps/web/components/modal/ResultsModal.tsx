@@ -94,7 +94,7 @@ export const ResultsModal = ({ id, onClose, isOpen, image }: ResultsModalProps) 
                             if (filteredResults.length > 0) {
                                 const statusText =
                                     status === 'BEST PROJECT'
-                                        ? 'Best Group Projects⭐'
+                                        ? 'Best Projects⭐'
                                         : 'Completed Projects⭐';
                                 return (
                                     <VStack alignItems="flex-start">
