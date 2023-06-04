@@ -135,16 +135,26 @@ export class PointService {
 
     async getUsersPoints() {
         const tempPonts = await this.prisma.points.groupBy({
-            take: 10,
             by: ['userId'],
             _sum: {
                 points: true,
             },
-            orderBy: {
-                _sum: {
-                    points: 'desc',
-                },
+            _count: {
+                eventId: true,
             },
+            orderBy: [
+                {
+                    _sum: {
+                        points: 'desc',
+                    },
+                },
+                {
+                    _count: {
+                        eventId: 'asc',
+                    },
+                },
+            ],
+            take: 10,
         });
         const ids = tempPonts.map((point) => point.userId);
         const users = await this.prisma.user.findMany({

@@ -124,7 +124,8 @@ const Invite = ({ teamName, lead, inviteCode, teamID }: Props) => (
                 <Container style={body}>
                     <Text style={mainText}>
                         You have been invited to join team
-                        <span style={accent}>{teamName}</span> by <span style={accent}>{lead}</span>
+                        <span style={accent}>{teamName}</span>&nbsp; by{' '}
+                        <span style={accent}>{lead}</span>
                     </Text>
                     <Text style={textSeco}>
                         Team-up with your crew and ship the product of this week in Saturday Hack
