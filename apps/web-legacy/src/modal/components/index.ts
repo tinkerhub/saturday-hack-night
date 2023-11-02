@@ -1,1 +1,0 @@
-export { Items } from './ResulItems';
