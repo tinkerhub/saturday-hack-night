@@ -1,43 +1,25 @@
 {
-    "name": "saturday-hacknight",
-    "version": "1.0.0",
-    "description": "Saturday HackNight Platform",
-    "license": "MIT",
-    "packageManager": "yarn@1.22.19",
-    "scripts": {
-        "build": "turbo run build",
-        "build:api": "turbo run build --filter=api",
-        "build:web": "turbo run build --filter=web",
-        "build:web-legacy": "turbo run build --filter=web-legacy",
-        "start": "turbo run start",
-        "dev": "turbo run dev",
-        "lint": "turbo run lint",
-        "prepack": "husky install",
-        "format": "turbo run format"
-    },
-    "private": true,
-    "workspaces": [
-        "apps/*",
-        "packages/*"
-    ],
-    "devDependencies": {
-        "@commitlint/cli": "^17.4.2",
-        "@commitlint/config-conventional": "^17.4.2",
-        "eslint": "^8.32.0",
-        "husky": "^8.0.3",
-        "lint-staged": "^13.1.0",
-        "prettier": "^2.8.3",
-        "turbo": "^1.7.0",
-        "typescript": "^4.9.4",
-        "@typescript-eslint/eslint-plugin": "^5.49.0",
-        "@typescript-eslint/parser": "^5.49.0",
-        "eslint-config-airbnb": "^19.0.4",
-        "eslint-config-airbnb-typescript": "^17.0.0",
-        "eslint-config-prettier": "^8.6.0",
-        "eslint-plugin-import": "^2.27.5",
-        "eslint-plugin-jsx-a11y": "^6.7.1",
-        "eslint-plugin-react-hooks": "^4.6.0",
-        "eslint-plugin-prettier": "^4.2.1",
-        "eslint-plugin-react": "^7.32.1"
-    }
+  "name": "saturday-hacknight",
+  "version": "1.0.0",
+  "description": "Saturday HackNight Platform",
+  "license": "MIT",
+  "scripts": {
+    "build": "turbo run build",
+    "build:web": "turbo run build --filter=web",
+    "build:web-legacy": "turbo run build --filter=web-legacy",
+    "start": "turbo run start",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "turbo run format"
+  },
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "eslint-config-custom": "*",
+    "prettier": "latest",
+    "turbo": "latest"
+  }
 }
