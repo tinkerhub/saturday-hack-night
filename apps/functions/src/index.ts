@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 
@@ -58,7 +57,7 @@ export const onNewUser = functions.auth.user().onCreate(async (user) => {
     const parts = user.photoURL?.split('/') as unknown as string;
     const idNo = parts[parts.length - 1].split('?')[0];
 
-    const github = await fetch(`https://api.github.com/user/${idNo}`).then((response) =>
+    const github: any = await fetch(`https://api.github.com/user/${idNo}`).then((response) =>
         response.json(),
     );
     const data = {
