@@ -49,9 +49,9 @@ Saturday Hacknight is a community built Platform for Tinkers to conduct Hacking 
 
 ### Built With
 
--   [NextJs](https://nextjs.org/)
--   [NestJs](https://nestjs.com/)
--   [Typescript](https://typescript.org/)
+- [NextJs](https://nextjs.org/)
+- [NestJs](https://nestjs.com/)
+- [Typescript](https://typescript.org/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -70,25 +70,25 @@ You need to install
 
 1. Clone the repo
 
-    ```sh
-    git clone https://github.com/tinkerhub/saturday-hack-night.git
-    ```
+   ```sh
+   git clone https://github.com/tinkerhub/saturday-hack-night.git
+   ```
 
 2. Install all the NPM packages all the applications.
 
-    > We are using Yarn workspace and turborepo to manage the applications in monorepo.
+   > We are using Yarn workspace and turborepo to manage the applications in monorepo.
 
-    ```sh
-    yarn install
-    ```
+   ```sh
+   yarn install
+   ```
 
 3. Copy the `.env.example` for each applications to `.env` in the same directory and fill the values required
 
 4. Start the web application dev server and open `http://localhost:3000`
 
-    ```sh
-    yarn workspace web dev
-    ```
+   ```sh
+   yarn workspace web dev
+   ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
