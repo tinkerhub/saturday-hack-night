@@ -13,19 +13,26 @@ import {
 import React, { useEffect, useState } from "react";
 import { ResultItems } from "@app/components";
 import { useRouter } from "next/router";
+import { useCollectionDataOnce } from "react-firebase-hooks/firestore";
+import { collection, doc, getDoc, query, where } from "firebase/firestore";
+import { db } from "@app/api";
 
 export interface Projects {
   name: string;
   repo: string;
-  projectStatus: string;
+  projectStatus: number;
   members: {
     name: string;
-    githubid: string;
+    githubID: string;
     avatar: string;
   }[];
 }
-const ProjectStatus = ["BEST PROJECT", "COMPLETED"];
-
+const ProjectStatus = [
+    { code: 101, status: 'Best Overall Project⭐' },
+    { code: 102, status: 'Best Group Projects⭐' },
+    { code: 100, status: 'Best Individual Projects⭐' },
+    { code: 50, status: 'Completed Projects⭐' },
+];
 export const ResultsModal = ({
   id,
   onClose,
@@ -33,27 +40,46 @@ export const ResultsModal = ({
   image,
 }: ResultsModalProps) => {
   const router = useRouter();
-  const [projects, setProjects] = useState<Array<Projects> | null>(null);
-  const [loading, setLoading] = useState(true);
+
+  const [projectWithUser, setProjectWithUser] = useState<Projects[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [projects, isProjectsLoading] = useCollectionDataOnce(query(collection(db, `events/${id}/teams`), where("projectStatus", ">=", 50)));
+
   useEffect(() => {
-    (async () => {
+    if(projects) {
       try {
-        // TODO: Uncomment this when the API is ready
-        /* const { data } = await api.get(`/event/projects/${id}`);
-                if (data.success) {
-                    setProjects(data.data);
-                } */
-      } catch (error) {
-        setProjects(null);
+        const getProjectsWithUser = async () => {
+          const newProjects = await Promise.all(
+            projects.map(async (project) => {
+              const newMembers = await Promise.all(
+                project.members.map(async (memberUid: string) => {
+                  const member = await getDoc(doc(db, "users", memberUid)).then((doc) => doc.data());
+                  return {
+                    name: member?.name,
+                    githubID: member?.githubID,
+                    avatar: member?.avatar,
+                  }
+                }),
+              );
+              return {
+                name: project.name,
+                repo: project.repo,
+                projectStatus: project.projectStatus,
+                members: newMembers,
+              };
+            }),
+          );
+          setProjectWithUser(newProjects);
+        };
+        getProjectsWithUser();
+      } catch(e) {
+        console.log(e);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
-    })();
-    return () => {
-      setLoading(false);
-      setProjects(null);
-    };
-  }, [id]);
+    }
+  }, [projects, isProjectsLoading]);
+
   return (
     <Drawer
       size="full"
@@ -91,22 +117,22 @@ export const ResultsModal = ({
           borderRadius="full"
         />
         <DrawerBody>
-          {loading ? (
+          {isLoading ? (
             <Center height="50vh">
               <CircularProgress isIndeterminate color="#A6BA30" size="80px" />
             </Center>
           ) : (
             ProjectStatus.map((status) => {
-              const filteredResults = projects!.filter(
-                (result) => result.projectStatus === status,
+              const filteredResults = (projectWithUser ?? []).filter(
+                (result) => result.projectStatus === status.code,
               ) as Array<Projects>;
               if (filteredResults.length > 0) {
                 const statusText =
-                  status === "BEST PROJECT"
+                  status.code > 50
                     ? "Best Projects⭐"
                     : "Completed Projects⭐";
                 return (
-                  <VStack alignItems="flex-start">
+                  <VStack key={status.code} alignItems="flex-start">
                     <Heading
                       fontFamily="Clash Display"
                       textColor="rgba(255, 255, 255, 1)"

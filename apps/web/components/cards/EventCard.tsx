@@ -22,14 +22,12 @@ const EventCard = ({ event }: EventCardProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      {isOpen && (
         <ResultsModal
           id={event.id}
           onClose={onClose}
           isOpen={isOpen}
-          image={image}
+          image={imageWhite}
         />
-      )}
       <VStack
         className="cardBox"
         maxWidth="300px"

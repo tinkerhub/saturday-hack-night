@@ -55,6 +55,7 @@ const ResultItems = ({ filteredResults }: ItemsProps) => {
     >
       {filteredResults.map((result) => (
         <VStack
+          key={result.repo}
           className="resultBox"
           position="relative"
           width="280px"
@@ -102,7 +103,7 @@ const ResultItems = ({ filteredResults }: ItemsProps) => {
           >
             {result.members.map((member) => (
               <Link
-                href={`https://www.github.com/${member.githubid}`}
+                href={`https://www.github.com/${member.githubID}`}
                 isExternal
               >
                 <HStack key={member.name}>
@@ -110,14 +111,14 @@ const ResultItems = ({ filteredResults }: ItemsProps) => {
                     height="30px"
                     width="30px"
                     src={member.avatar}
-                    name={member.githubid}
+                    name={member.name ?? member.githubID}
                   />
                   <Text
                     fontSize="14px"
                     fontFamily="Clash Display"
                     textColor="white"
                   >
-                    {member.githubid}
+                    {member.name ?? member.githubID}
                   </Text>
                 </HStack>
               </Link>
@@ -193,10 +194,10 @@ interface ItemsProps {
 export interface Projects {
   name: string;
   repo: string;
-  projectStatus: string;
+  projectStatus: number;
   members: {
     name: string;
-    githubid: string;
+    githubID: string;
     avatar: string;
   }[];
 }
