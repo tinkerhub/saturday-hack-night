@@ -1,7 +1,6 @@
 import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
-
-import fetch from "node-fetch";
+import * as googleApi from "googleapis";
 
 const app = admin.initializeApp();
 const firestore = app.firestore();
@@ -52,6 +51,34 @@ async function queueMails(
         },
       },
     });
+  }
+}
+
+async function inviteCalender(email: string, eventId: string) {
+  try {
+    const calender = new googleApi.calendar_v3.Calendar({
+      auth: new googleApi.Auth.GoogleAuth({
+        scopes: ["https://www.googleapis.com/auth/calendar"],
+      }),
+    });
+
+    const event = await calender.events.get({ eventId, calendarId: "primary" });
+
+    if (event.data.attendees) {
+      event.data.attendees.push({ email });
+    } else {
+      event.data.attendees = [{ email }];
+    }
+
+    await calender.events.update({
+      eventId,
+      calendarId: "primary",
+      requestBody: event.data,
+    });
+    return true;
+  } catch (error) {
+    console.error(error);
+    return false;
   }
 }
 
@@ -109,6 +136,11 @@ export const onTeamCreated = functions.firestore
       false,
     );
 
+    const leadEmail = (await firestore.doc(`users/${snapshot.get("lead")}`).get()).get("email");
+    const calEventId = (await firestore.doc(`events/${context.params.eventID}`).get()).get("calendarEventId");
+
+    await inviteCalender(leadEmail, calEventId);
+
     return bulk
       .commit()
       .catch((err) =>
@@ -124,6 +156,12 @@ export const onTeamEdited = functions.firestore
 
     const newMembers = change.after.get("members");
     const oldMember = change.before.get("members");
+
+    const calEventId = (await firestore.doc(`events/${context.params.eventID}`).get()).get("calendarEventId");
+
+    for (const uid of newMembers) {
+      await inviteCalender((await firestore.doc(`users/${uid}`).get()).get("email"), calEventId);
+    }
 
     const added = newMembers.filter((x: string) => !oldMember.includes(x));
     const removed = oldMember.filter((x: string) => !newMembers.includes(x));
@@ -201,6 +239,13 @@ export const joinTeam = functions.https.onCall(async (data, context) => {
   const member = firestore.doc(
     `events/${data.eventID}/teams/${data.teamID}/members/${context.auth?.uid}`,
   );
+
+  const event = await firestore.doc(`events/${data.eventID}`).get();
+
+  const user = firestore.doc(`users/${context.auth?.uid}`);
+
+  await inviteCalender((await user.get()).get("email"), (event.data() as any ).calendarEventId);
+
   const team = firestore.doc(`users/${context.auth?.uid}/teams/${data.teamID}`);
 
   batch.update(member, { accepted: true }).create(team, {});
