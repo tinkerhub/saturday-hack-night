@@ -5,36 +5,21 @@ import { CurrentEvent } from "@app/components";
 import { EventCard } from "@app/components/cards";
 import { BaseLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@app/pages/_app";
+import { useCollection } from "react-firebase-hooks/firestore";
 import { useRouter } from "next/router";
 import { ResultsModal } from "@app/components/modal";
+import { collection, orderBy, query } from "firebase/firestore";
+import { db } from "@app/api";
 
 const Events: NextPageWithLayout = () => {
   const router = useRouter();
+
+  const [events, isEventsLoading] = useCollection(
+    query(collection(db, "events"), orderBy("time", "desc")),
+  );
+
   const [currentEvent, setCurrentEvent] = useState<Event | null>(null);
-  const [pastEvents, setPastEvents] = useState<Event[]>([]);
   const [modalData, setModalData] = useState<Event | null>(null);
-  useEffect(() => {
-    (async () => {
-      /* const {
-        data: { data },
-      } = await api.get("/event");
-      const fcurrentEvent: Event =
-        data.filter(
-          (event: Event) =>
-            event.status === "REGISTRATION" || event.status === "ACTIVE",
-        )[0] || null;
-      const fpastEvents: Event[] = data.filter(
-        (event: Event) =>
-          event.status === "RESULTS" || event.status === "PENDING",
-      ); */
-      setCurrentEvent(null);
-      setPastEvents([]);
-    })();
-    return () => {
-      setCurrentEvent(null);
-      setPastEvents([]);
-    };
-  }, []);
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     const { currentTarget } = e;
     const rect = currentTarget.getBoundingClientRect();
@@ -45,27 +30,38 @@ const Events: NextPageWithLayout = () => {
   };
 
   useEffect(() => {
-    // eslint-disable-next-line no-restricted-syntax
     for (const card of document.querySelectorAll(".cardBox")) {
       const cardBody = card as HTMLDivElement;
       cardBody.onmousemove = (e: MouseEvent) =>
         handleMouseMove(e as unknown as React.MouseEvent<HTMLElement>);
     }
-  }, [pastEvents]);
+
+    if (events && events.docs.length > 0) {
+      const currentEvent = events.docs.find((e) => {
+        const event = e.data() as Event;
+        return event.status === "REGISTRATION" || event.status === "ACTIVE";
+      });
+      if (currentEvent) {
+        setCurrentEvent({
+          ...currentEvent.data(),
+          id: currentEvent.id,
+        } as Event);
+      }
+    }
+  }, [events, isEventsLoading]);
 
   useEffect(() => {
     const { eventID } = router.query;
     if (eventID) {
-      const event = pastEvents.find((e: Event) => e.id === eventID);
+      const event = events?.docs.find((e) => e.id === eventID);
       if (event) {
-        setModalData(event);
+        setModalData(event.data() as Event);
       }
     }
     return () => {
       setModalData(null);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pastEvents]);
+  }, [events, router.query]);
   return (
     <>
       {modalData && (
@@ -103,7 +99,7 @@ const Events: NextPageWithLayout = () => {
           <CurrentEvent event={currentEvent} />
         </VStack>
       )}
-      {pastEvents.length > 0 && (
+      {events && events.docs.length > 0 && (
         <VStack
           marginTop="50px"
           alignItems="center"
@@ -149,9 +145,17 @@ const Events: NextPageWithLayout = () => {
               lg: "32px",
             }}
           >
-            {pastEvents.map((event: Event) => (
-              <EventCard key={event.id} event={event} />
-            ))}
+            {events.docs
+              .filter((e) => {
+                const event = e.data() as Event;
+                return event.status === "RESULT";
+              })
+              .map((event) => (
+                <EventCard
+                  key={event.id}
+                  event={{ ...event.data(), id: event.id } as Event}
+                />
+              ))}
           </Grid>
         </VStack>
       )}

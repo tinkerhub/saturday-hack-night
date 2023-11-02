@@ -15,7 +15,8 @@ import { Toast } from "@app/components/utils";
 import { ResultsModal } from "@app/components/modal";
 
 const EventCard = ({ event }: EventCardProps) => {
-  const { id, description, image, status, details, projects } = event;
+  const { id, about, name, image, status, imageWhite, moreInfo, projectCount } =
+    event;
   const { push, query } = useRouter();
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -83,7 +84,7 @@ const EventCard = ({ event }: EventCardProps) => {
             }}
             css={{
               ".cardBox: hover &": {
-                display: status === "RESULTS" ? "block" : "none",
+                display: status === "RESULT" ? "block" : "none",
               },
             }}
             onClick={() =>
@@ -94,7 +95,6 @@ const EventCard = ({ event }: EventCardProps) => {
                     title: "✅Copied to clipboard!",
                     status: "success",
                     position: "bottom",
-                    // eslint-disable-next-line @typescript-eslint/no-shadow
                     render: ({ title, status }) => (
                       <Toast title={title} status={status} />
                     ),
@@ -104,7 +104,13 @@ const EventCard = ({ event }: EventCardProps) => {
           >
             Copy Link
           </Text>
-          <Image zIndex="1" height="120px" src={image} objectFit="cover" />
+          <Image
+            alt={name}
+            zIndex="1"
+            height="120px"
+            src={image}
+            objectFit="cover"
+          />
         </Box>
         <VStack
           paddingInline="16px"
@@ -122,7 +128,7 @@ const EventCard = ({ event }: EventCardProps) => {
               fontFamily="Clash Display"
               fontWeight="medium"
             >
-              ✅ {projects || 0} Projects
+              ✅ {projectCount || 0} Projects
             </Text>
           </Box>
           <Text
@@ -133,7 +139,7 @@ const EventCard = ({ event }: EventCardProps) => {
             fontWeight="medium"
             noOfLines={3}
           >
-            {description}
+            {about}
           </Text>
           <HStack
             width="100%"
@@ -178,7 +184,7 @@ const EventCard = ({ event }: EventCardProps) => {
                 boxShadow: "0px 8px 16px rgba(219, 247, 44, 0.15)",
                 backdropFilter: "blur(25px)",
               }}
-              onClick={() => window.open(details, "_blank")}
+              onClick={() => window.open(moreInfo, "_blank")}
             >
               More Info
             </Button>
@@ -189,9 +195,7 @@ const EventCard = ({ event }: EventCardProps) => {
   );
 };
 interface EventCardProps {
-  event: Event & {
-    projects: number;
-  };
+  event: Event;
 }
 
 export { EventCard };

@@ -1,7 +1,6 @@
-/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from "react";
 import { CalendarIcon } from "@chakra-ui/icons";
-import { Event, Team } from "@app/types";
+import { Event } from "@app/types";
 import {
   Flex,
   HStack,
@@ -14,48 +13,42 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import moment from "moment";
 import { CreateTeamModal, UpdateTeamModal } from "@app/components/modal";
 import { Toast } from "@app/components/utils";
 import { useAuth } from "@app/hooks";
+import {
+  useCollection,
+  useDocument,
+  useDocumentData,
+} from "react-firebase-hooks/firestore";
+import { collection, doc } from "firebase/firestore";
+import { db } from "@app/api";
 
 const CurrentEvent = ({ event }: CurrentEventProps) => {
   const toast = useToast();
-  const {
-    id,
-    title,
-    description,
-    date,
-    image,
-    details,
-    status,
-    location,
-    _count,
-  } = event;
-  const [team, setTeam] = useState<Team | null>(null);
+  const { id, name, about, time, imageWhite, moreInfo, status, location } =
+    event;
   const [isEditable, setIsEditable] = useState(false);
   const { isProfileComplete, user, login } = useAuth();
 
+  const [teams] = useCollection(collection(db, "events", id, "teams"));
+
+  const [registeredTeam] = useDocument(
+    doc(db, "users", user ? user.uid : "xxxxxxxxxxxxxxxxxxxxxxxx", "teams", id),
+  );
+
   useEffect(() => {
     (async () => {
-      if (user) {
-        // TODO : Add API call to get team details
-        /* const { data } = await api.get(`/team/${id}`);
-                if (data.data) setTeam(data.data.team);
-                if (
-                    data.data &&
-                    data.data.team.members[0].role === 'LEADER' &&
-                    data.data.team.members[0].user.githubid === (await user.githubid)
-                ) {
-                    setIsEditable(status === 'REGISTRATION');
-                } */
+      if (user && registeredTeam) {
+        if (registeredTeam.data()) {
+          setIsEditable(status === "REGISTRATION");
+        }
       }
     })();
     return () => {
-      setTeam(null);
       setIsEditable(false);
     };
-  }, [isProfileComplete, user, id, status]);
+  }, [user, status, registeredTeam]);
 
   const {
     isOpen: isOpenUpdateModal,
@@ -82,12 +75,12 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
       paddingBlockStart="18px"
       justifyContent="space-between"
     >
-      {team && isOpenUpdateModal && (
+      {registeredTeam && isOpenUpdateModal && (
         <UpdateTeamModal
-          teamId={team.id}
+          teamId={registeredTeam.id}
           isOpen={isOpenUpdateModal}
           onClose={onCloseUpdateModal}
-          image={image}
+          image={imageWhite}
           eventId={id}
           isEditable={isEditable}
         />
@@ -117,7 +110,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
         >
           <HStack textColor="white">
             <CalendarIcon height="15px" width="15px" />
-            <Text fontSize="12px">{moment(date).format("ll")}</Text>
+            <Text fontSize="12px">{time.toDate().toDateString()}</Text>
           </HStack>
           <HStack
             padding="10px"
@@ -132,7 +125,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
               alt="Circle"
             />
             <Text fontSize="12px" textColor="#DBF72C">
-              {_count!.teams || 0} Teams Registered
+              {teams?.size || 0} Teams Registered
             </Text>
           </HStack>
         </HStack>
@@ -140,14 +133,14 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
           alt="Event Image"
           marginInline="16px"
           width="100%"
-          src={image}
+          src={imageWhite}
           objectFit="contain"
           flexGrow="1"
           paddingInline="8px"
         />
         <Box
           width="100%"
-          backgroundColor={team ? "#DBF72C" : "#E24C4B"}
+          backgroundColor={registeredTeam ? "#DBF72C" : "#E24C4B"}
           borderBottomStartRadius="10px"
           padding="5px"
           borderBottomEndRadius="10px"
@@ -159,7 +152,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
             textAlign="center"
             fontFamily="Clash Display"
           >
-            {team
+            {registeredTeam
               ? "Registered 🎉"
               : status === "REGISTRATION"
               ? "Register Now"
@@ -178,7 +171,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
           fontFamily="Clash Display"
           fontSize="40px"
         >
-          {title}
+          {name}
         </Heading>
         <Heading
           textAlign="left"
@@ -203,15 +196,15 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
             marginTop: "0px",
           }}
         >
-          {description}
+          {about}
         </Text>
         <HStack columnGap="15px">
           <Button
             onClick={() => {
-              if (user && team) return onOpenUpdateModal();
+              if (user && registeredTeam) return onOpenUpdateModal();
               if (
                 user &&
-                !team &&
+                !registeredTeam &&
                 isProfileComplete &&
                 status === "REGISTRATION"
               )
@@ -250,7 +243,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
             }}
           >
             {user
-              ? team
+              ? registeredTeam
                 ? isEditable
                   ? status === "REGISTRATION"
                     ? "Update Team"
@@ -280,7 +273,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
               backdropFilter: "blur(25px)",
             }}
             onClick={() => {
-              window.open(details, "_blank");
+              window.open(moreInfo, "_blank");
             }}
           >
             More Info

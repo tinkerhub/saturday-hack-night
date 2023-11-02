@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export type User = {
   uid: string;
   email: string;
@@ -21,15 +23,15 @@ export type Child = {
 
 export type Event = {
   id: string;
-  title: string;
-  description: string;
+  name: string;
+  about: string;
   image: string;
-  details: string;
-  date: Date;
+  imageWhite: string;
+  moreInfo: string;
+  projectCount: number;
+  time: Timestamp;
   location: string;
   status: string;
-  projects: number;
-  created_at: Date;
 };
 
 export type Team = {

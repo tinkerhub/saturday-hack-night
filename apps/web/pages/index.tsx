@@ -284,7 +284,7 @@ const Home: NextPageWithLayout = () => {
               textColor="#DBF72C"
               fontSize="80px"
             >
-              200+
+              250+
             </Heading>
             <Text
               textColor="white"
@@ -303,7 +303,7 @@ const Home: NextPageWithLayout = () => {
               textColor="#DBF72C"
               fontSize="80px"
             >
-              25+
+              28+
             </Heading>
             <Text
               textColor="white"
@@ -322,7 +322,7 @@ const Home: NextPageWithLayout = () => {
               textColor="#DBF72C"
               fontSize="80px"
             >
-              02
+              03
             </Heading>
             <Text
               textColor="white"
