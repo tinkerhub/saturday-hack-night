@@ -1,13 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "@firebase/auth";
-import {
-  collection,
-  getDocs,
-  getFirestore,
-  doc,
-  getDoc,
-} from "@firebase/firestore";
+import { getFunctions } from "firebase/functions";
+import { getFirestore } from "@firebase/firestore";
 import Typesense from "typesense";
 import { College } from "@app/types";
 
@@ -25,6 +20,7 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+export const functions = getFunctions(app);
 export const typesense = new Typesense.Client({
   nodes: [
     {

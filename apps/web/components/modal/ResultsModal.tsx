@@ -28,10 +28,10 @@ export interface Projects {
   }[];
 }
 const ProjectStatus = [
-    { code: 101, status: 'Best Overall Project⭐' },
-    { code: 102, status: 'Best Group Projects⭐' },
-    { code: 100, status: 'Best Individual Projects⭐' },
-    { code: 50, status: 'Completed Projects⭐' },
+  { code: 101, status: "Best Overall Project⭐" },
+  { code: 102, status: "Best Group Projects⭐" },
+  { code: 100, status: "Best Individual Projects⭐" },
+  { code: 50, status: "Completed Projects⭐" },
 ];
 export const ResultsModal = ({
   id,
@@ -43,22 +43,29 @@ export const ResultsModal = ({
 
   const [projectWithUser, setProjectWithUser] = useState<Projects[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [projects] = useCollectionDataOnce(query(collection(db, `events/${id}/teams`), where("projectStatus", ">=", 50)));
+  const [projects] = useCollectionDataOnce(
+    query(
+      collection(db, `events/${id}/teams`),
+      where("projectStatus", ">=", 50),
+    ),
+  );
 
   useEffect(() => {
-    if(projects) {
+    if (projects) {
       try {
         const getProjectsWithUser = async () => {
           const newProjects = await Promise.all(
             projects.map(async (project) => {
               const newMembers = await Promise.all(
                 project.members.map(async (memberUid: string) => {
-                  const member = await getDoc(doc(db, "users", memberUid)).then((doc) => doc.data());
+                  const member = await getDoc(doc(db, "users", memberUid)).then(
+                    (doc) => doc.data(),
+                  );
                   return {
                     name: member?.name,
                     githubID: member?.githubID,
                     avatar: member?.avatar,
-                  }
+                  };
                 }),
               );
               return {
@@ -72,7 +79,7 @@ export const ResultsModal = ({
           setProjectWithUser(newProjects);
         };
         getProjectsWithUser();
-      } catch(e) {
+      } catch (e) {
         console.log(e);
       } finally {
         setIsLoading(false);
@@ -128,9 +135,7 @@ export const ResultsModal = ({
               ) as Array<Projects>;
               if (filteredResults.length > 0) {
                 const statusText =
-                  status.code > 50
-                    ? "Best Projects⭐"
-                    : "Completed Projects⭐";
+                  status.code > 50 ? "Best Projects⭐" : "Completed Projects⭐";
                 return (
                   <VStack key={status.code} alignItems="flex-start">
                     <Heading

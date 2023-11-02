@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { ChakraProvider } from "@chakra-ui/react";
-import type { AppProps, NextWebVitalsMetric } from "next/app";
+import type { AppProps } from "next/app";
 import { NextPage } from "next";
 import { AuthProvider } from "@app/contexts";
 import { DefaultSeo } from "next-seo";

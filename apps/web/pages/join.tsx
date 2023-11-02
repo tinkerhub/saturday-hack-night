@@ -1,37 +1,45 @@
-/* eslint-disable no-nested-ternary */
 import { Button, Heading, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { BaseLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@app/pages/_app";
 import { useState } from "react";
 import { useAuth } from "@app/hooks";
+import { httpsCallable } from "firebase/functions";
+import { functions } from "@app/api";
 
 const Join: NextPageWithLayout = () => {
   const router = useRouter();
   const { user } = useAuth();
-  const { invite } = router.query;
-  const [error, setError] = useState(0);
+  const { eventID, teamID } = router.query;
+  const [status, setStatus] = useState({ state: 0, message: "" });
   const [loading, setLoading] = useState(false);
 
-  // eslint-disable-next-line consistent-return
   const joinTeam = async () => {
     setLoading(true);
     if (!user) {
-      setError(1);
-      return setLoading(false);
-    }
-    if (!invite) {
-      setError(2);
+      setStatus({
+        state: 1,
+        message: "Please login to join team",
+      });
       return setLoading(false);
     }
     try {
-      /* const { data } = await api.post(`/team/join/${invite}`);
-      if (data.success) {
-        setError(10);
-        router.push("/events");
-      } */
+      if (!eventID || !teamID)
+        setStatus({ state: -1, message: "TeamID and EventID are required." });
+      else if (status.state === 0 && user !== undefined) {
+        if (user)
+          httpsCallable(
+            functions,
+            "joinTeam",
+          )({ teamID, eventID })
+            .then(() => setStatus({ state: 1, message: "Done" }))
+            .catch((error) => setStatus({ state: -1, message: error.message }));
+      }
     } catch (err) {
-      return setError(3);
+      return setStatus({
+        state: 2,
+        message: "Invalid invite",
+      });
     } finally {
       setLoading(false);
     }
@@ -58,13 +66,13 @@ const Join: NextPageWithLayout = () => {
         fontWeight="500"
         fontSize="40px"
       >
-        {error === 0
+        {status.state === 0
           ? "Join Team"
-          : error === 1
+          : status.state === 1
           ? "Please login to join team"
-          : error === 2
+          : status.state === 2
           ? "Invalid invite"
-          : error === 3
+          : status.state === 3
           ? "Invalid invite or you are already in a team"
           : "You have joined the team"}
       </Heading>

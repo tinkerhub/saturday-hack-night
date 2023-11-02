@@ -64,6 +64,7 @@ const Events: NextPageWithLayout = () => {
     return () => {
       setModalData(null);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [events]);
   return (
     <>

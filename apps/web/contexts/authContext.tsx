@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { createContext, useState, useEffect, useMemo } from "react";
+import React, { createContext, useMemo } from "react";
 import { useRouter } from "next/router";
 import { Child, User } from "@app/types";
 import { auth, db } from "@app/api";
@@ -57,6 +56,7 @@ export const AuthProvider = ({ children }: Child) => {
       isUserLoading,
       logout,
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [user, isProfileComplete, isUserLoading],
   );
 
