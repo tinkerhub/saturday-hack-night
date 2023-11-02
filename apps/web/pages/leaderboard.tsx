@@ -82,7 +82,7 @@ const Leaderboard: NextPageWithLayout = () => {
         }}
       >
         <Image
-        alt="Leaderboard"
+          alt="Leaderboard"
           display={{
             base: "none",
             md: "block",

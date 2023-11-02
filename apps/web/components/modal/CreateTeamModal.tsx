@@ -24,6 +24,8 @@ import { Member } from "@app/components";
 import { useAuth } from "@app/hooks";
 import { Toast } from "@app/components/utils";
 import { TeamValidator } from "@app/utils/validators";
+import { addDoc, collection, doc, getDoc } from "firebase/firestore";
+import { db } from "@app/api";
 
 type FormType = InferType<typeof TeamValidator>;
 
@@ -50,22 +52,27 @@ export const CreateTeamModal = ({
     const { name, repo, members } = formData;
     const teamMembers = new Set(members);
     try {
-      // TODO Create Team
-      /* const { data } = await api.post('/team', {
-                name,
-                repo,
-                members: Array.from(teamMembers),
-                eventId,
-            });
-            if (data.success) {
-                toast({
-                    title: '✅ Team Registered',
-                    status: 'success',
-                    render: ({ title, status }) => <Toast title={title} status={status} />,
-                });
-                window.location.reload();
-                onClose();
-            } */
+      const memberUids = [];
+      for (const member of teamMembers) {
+        if (!member) continue;
+        const memberDoc = await getDoc(doc(db, "users", member));
+        if (memberDoc.exists()) {
+          memberUids.push(memberDoc.id);
+        }
+      }
+      await addDoc(collection(db, "events", eventId, "teams"), {
+        name,
+        repo,
+        members: memberUids,
+        lead: user?.uid,
+      });
+      toast({
+        title: "✅ Team Registered",
+        status: "success",
+        render: ({ title, status }) => <Toast title={title} status={status} />,
+      });
+      window.location.reload();
+      onClose();
     } catch (err) {
       toast({
         title: "✗ Team Registration Failed",
