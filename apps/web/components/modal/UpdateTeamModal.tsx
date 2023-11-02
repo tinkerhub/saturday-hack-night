@@ -26,6 +26,17 @@ import { Member } from "@app/components";
 import { Toast } from "@app/components/utils";
 import { TeamValidator } from "@app/utils/validators";
 import { useAuth } from "@app/hooks";
+import { useDocumentData } from "react-firebase-hooks/firestore";
+import { db } from "@app/api";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 
 type FormType = InferType<typeof TeamValidator>;
 
@@ -55,61 +66,53 @@ export const UpdateTeamModal = ({
     setValue,
     formState: { errors },
   } = methods;
-  const [loading, setLoading] = useState(true);
   const { user } = useAuth();
+  const [team, isTeamLoading] = useDocumentData(
+    doc(db, "events", eventId, "teams", teamId),
+  );
+  const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
 
   useEffect(() => {
     (async () => {
-      if (!user) return;
-      try {
-        setLoading(true);
-        /* const { data } = await api.get(`/team/${eventId}`);
-                if (!data.data.team) {
-                    toast({
-                        title: '✗ You are not part of any team',
-                        status: 'error',
-                        render: ({ title, status }) => <Toast title={title} status={status} />,
-                    });
-                    onClose();
-                    return;
-                }
-                setValue('name', data.data.team.name);
-                setValue('repo', data.data.team.repo);
-                const members = data.data.team.members.map(
-                    (member: { role: string; user: { githubid: string } }) => member.user.githubid,
-                );
-                setValue('members', members); */
-      } finally {
-        setLoading(false);
+      if (!user) {
+        onClose();
+        return;
       }
+      if (!team || isTeamLoading) {
+        return;
+      }
+      setValue("name", team.name);
+      setValue("repo", team.repo);
+      const members = [];
+
+      for (const id of team.members) {
+        const member = await getDoc(doc(db, "users", id));
+        members.push(member.data()?.githubID);
+      }
+      setValue("members", members);
     })();
-    return () => {
-      setLoading(false);
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, eventId]);
+  }, [team, isTeamLoading]);
 
   const updateTeam = async (formData: FormType) => {
-    const dbData = {
-      eventId,
-      name: undefined,
-      repo: undefined,
-      teamId,
-      members: formData.members,
-    };
-    setLoading(true);
     try {
-      // TODO Update Team
-      /* const { data } = await api.patch(`/team`, dbData);
-            if (!data.success) {
-                toast({
-                    title: '✗ Team Update Error',
-                    status: 'error',
-                    render: ({ title, status }) => <Toast title={title} status={status} />,
-                });
-                return;
-            } */
+      setIsLoading(true);
+      const team = doc(db, "events", eventId, "teams", teamId);
+      const memberUids = [];
+      for (const member of formData.members) {
+        if (member === user!.githubID) continue;
+        const tempMem = await getDocs(
+          query(collection(db, "users"), where("githubID", "==", member)),
+        );
+        if (tempMem.docs.length === 0) {
+          continue;
+        }
+        memberUids.push(tempMem.docs[0].id);
+      }
+      updateDoc(team, {
+        members: memberUids,
+      });
       toast({
         title: "✅ Team Updated",
         status: "success",
@@ -122,7 +125,7 @@ export const UpdateTeamModal = ({
         render: ({ title, status }) => <Toast title={title} status={status} />,
       });
     } finally {
-      setLoading(false);
+      setIsLoading(false);
       onClose();
     }
   };
@@ -262,7 +265,10 @@ export const UpdateTeamModal = ({
                   </Flex>
                 </Box>
                 <Flex flexDirection="column" mt="20px">
-                  <Member isEditable={isEditable} loading={loading} />
+                  <Member
+                    isEditable={isEditable}
+                    loading={isTeamLoading || isLoading}
+                  />
                 </Flex>
               </Flex>
             </ModalBody>
@@ -272,8 +278,8 @@ export const UpdateTeamModal = ({
                 size="lg"
                 backgroundColor="rgba(255, 255, 255, 1)"
                 type={isEditable ? "submit" : "button"}
-                disabled={loading}
-                isLoading={loading}
+                disabled={isTeamLoading || isLoading}
+                isLoading={isTeamLoading || isLoading}
                 transition="all 0.2s ease"
                 onClick={() => {
                   if (isEditable) {

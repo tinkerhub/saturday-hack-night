@@ -16,11 +16,7 @@ import {
 import { CreateTeamModal, UpdateTeamModal } from "@app/components/modal";
 import { Toast } from "@app/components/utils";
 import { useAuth } from "@app/hooks";
-import {
-  useCollection,
-  useDocument,
-  useDocumentData,
-} from "react-firebase-hooks/firestore";
+import { useCollection, useDocumentData } from "react-firebase-hooks/firestore";
 import { collection, doc } from "firebase/firestore";
 import { db } from "@app/api";
 
@@ -33,16 +29,14 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
 
   const [teams] = useCollection(collection(db, "events", id, "teams"));
 
-  const [registeredTeam] = useDocument(
+  const [registeredTeam] = useDocumentData(
     doc(db, "users", user ? user.uid : "xxxxxxxxxxxxxxxxxxxxxxxx", "teams", id),
   );
 
   useEffect(() => {
     (async () => {
       if (user && registeredTeam) {
-        if (registeredTeam.data()) {
-          setIsEditable(status === "REGISTRATION");
-        }
+        setIsEditable(status === "REGISTRATION");
       }
     })();
     return () => {
@@ -77,7 +71,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
     >
       {registeredTeam && isOpenUpdateModal && (
         <UpdateTeamModal
-          teamId={registeredTeam.id}
+          teamId={registeredTeam.teamID}
           isOpen={isOpenUpdateModal}
           onClose={onCloseUpdateModal}
           image={imageWhite}
@@ -285,7 +279,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
 };
 
 export interface CurrentEventProps {
-  event: Event & { _count?: { teams: number } };
+  event: Event;
 }
 
 export { CurrentEvent };

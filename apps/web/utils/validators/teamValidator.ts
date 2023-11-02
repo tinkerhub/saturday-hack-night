@@ -1,21 +1,22 @@
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import * as Yup from "yup";
 import { debounce } from "@app/utils";
+import { db } from "@app/api";
 
 const validateMembers = async (members: string[]) => {
-  /* const promises = (members || []).map((member) => api.get(`profile/${member}`)); */
-
-  const promises = (members || []).map((member) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          data: {
-            data: {
-              success: member !== "invalid",
-            },
-          },
-        });
-      }, 1000);
-    });
+  const promises = (members || []).map(async (member) => {
+    const user = await getDocs(
+      query(collection(db, "users"), where("githubID", "==", member)),
+    );
+    if (user.docs.length === 0) return false;
+    return true;
   });
   const responses = (await Promise.all(promises)) as Array<boolean>;
   return responses.every((response) => response);
