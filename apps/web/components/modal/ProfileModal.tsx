@@ -79,8 +79,13 @@ const selectStyle = {
   }),
   option: (styles: any) => ({
     ...styles,
+    color: "white",
     border: "1px solid rgba(255, 255, 255, 0.15)",
     backgroundColor: "rgba(255,255,255,0.15)",
+  }),
+  input: (styles: any) => ({
+    ...styles,
+    color: "white",
   }),
 };
 
