@@ -62,6 +62,7 @@ const Navbar = () => {
         <Flex alignItems="center" justifyContent="space-between">
           <Link href="/">
             <Image
+              alt="Saturday HackNight"
               src="/images/logo.svg"
               height="32px"
               transition="all 0.4s ease-in"
@@ -84,7 +85,7 @@ const Navbar = () => {
             {user ? (
               <VStack alignItems="flex-end">
                 <Text as="span" fontSize="16px" fontWeight="bold" color="white">
-                  {user.name || user.githubid}
+                  {user.name || user.githubID}
                 </Text>
                 <Text
                   _hover={{ cursor: "pointer" }}
@@ -208,7 +209,7 @@ const Navbar = () => {
                       fontWeight="bold"
                       color="white"
                     >
-                      {user.name || user.githubid}
+                      {user.name || user.githubID}
                     </Text>
                     <Text
                       _hover={{ cursor: "pointer" }}

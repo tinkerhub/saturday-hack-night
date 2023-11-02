@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { BaseLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@app/pages/_app";
 import { useState } from "react";
-import api from "@app/api";
 import { useAuth } from "@app/hooks";
 
 const Join: NextPageWithLayout = () => {
@@ -26,11 +25,11 @@ const Join: NextPageWithLayout = () => {
       return setLoading(false);
     }
     try {
-      const { data } = await api.post(`/team/join/${invite}`);
+      /* const { data } = await api.post(`/team/join/${invite}`);
       if (data.success) {
         setError(10);
         router.push("/events");
-      }
+      } */
     } catch (err) {
       return setError(3);
     } finally {

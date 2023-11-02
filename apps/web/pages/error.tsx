@@ -34,7 +34,7 @@ const Error: NextPageWithLayout = () => {
         }}
         fontWeight="700"
       >
-        404
+        Error
       </Heading>
       <Button
         width="250px"
