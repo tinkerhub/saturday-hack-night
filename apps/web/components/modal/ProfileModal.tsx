@@ -20,6 +20,8 @@ import {
 import React, { useCallback, useEffect } from "react";
 import AsyncSelect from "react-select/async";
 
+import { db, getCollege } from "@app/api";
+
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -28,6 +30,7 @@ import { Toast } from "@app/components/utils";
 import { profileModalValidator } from "@app/utils/validators";
 import { useAuth } from "@app/hooks";
 import { debounce } from "@app/utils";
+import { doc, setDoc } from "firebase/firestore";
 
 type FormType = InferType<typeof profileModalValidator>;
 
@@ -92,49 +95,42 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
     setValue,
     formState: { errors },
   } = methods;
-  const { user, setUser } = useAuth();
+  const { user } = useAuth();
   const [loading, setLoading] = React.useState(false);
   const toast = useToast();
 
-  const getCollege = async (input: string) => {
-    // TODO: Fetch from Firebase
-    /* const {
-            data: { data },
-        } = await api.get(`college?search=${input}&limit=20&page=1`);
-        const college = await data.map((el: Clg) => ({ label: el.name, value: el.id })); */
-    return [];
-  };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const loadOptionsDebounced = useCallback(
+  const loadCollegedebounced = useCallback(
     debounce((inputValue: string, callback: (options: any) => void) => {
       getCollege(inputValue).then((options) => {
         callback(options);
       });
-    }, 500),
+    }),
     [],
   );
   const updateProfile = async (data: FormType) => {
     const DbData = {
-      mobile: data.mobile,
-      collegeId: data?.college.value || "",
+      phno: data.phno,
+      campusID: data?.campusID.value || "",
+      campusName: data?.campusID.label || "",
       name: data?.name,
     };
     try {
       setLoading(true);
       setTimeout(() => {}, 3000);
-      // TODO: Update Profile in Firebase
-      /* api.patch('profile', DbData).then((res) => {
-                if (res.data.success) {
-                    toast({
-                        title: '✅ Profile Updated',
-                        status: 'success',
-                        render: ({ title, status }) => <Toast title={title} status={status} />,
-                    });
-                    setUser(res.data.data);
-                    onClose();
-                }
-                setLoading(false);
-            }); */
+
+      await setDoc(
+        doc(db, "users", user?.uid ?? "xxxxxxxxxxxxxxxxxxxxxxxxxx"),
+        DbData,
+        { merge: true },
+      );
+      toast({
+        title: "✅ Profile Updated",
+        status: "success",
+        render: ({ title, status }) => <Toast title={title} status={status} />,
+      });
+      onClose();
+      setLoading(false);
     } catch (err) {
       toast({
         title: "❌ Something went wrong",
@@ -146,8 +142,8 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
   };
   useEffect(() => {
     if (user) {
-      setValue("mobile", user.phno || "");
-      setValue("college", {
+      setValue("phno", user.phno || "");
+      setValue("campusID", {
         label: user.campusName || "",
         value: user.campusID || "",
       });
@@ -288,10 +284,10 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                       _hover={{
                         backgroundColor: "rgba(255,255,255,0.25)",
                       }}
-                      {...register("mobile")}
+                      {...register("phno")}
                     />
                     <Text
-                      display={errors.mobile ? "block" : "none"}
+                      display={errors.phno ? "block" : "none"}
                       backgroundColor="rgba(226,76,75,0.4)"
                       marginTop="15px"
                       paddingInline="10px"
@@ -301,12 +297,12 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                       fontSize="12px"
                       textColor="#E24C4B"
                     >
-                      {errors.mobile?.message}
+                      {errors.phno?.message}
                     </Text>
                   </FormControl>
                   <Controller
                     control={control}
-                    name="college"
+                    name="campusID"
                     render={({ field, fieldState: { error: collegeErr } }) => (
                       <FormControl
                         label="College"
@@ -319,7 +315,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                           {...field}
                           isClearable
                           defaultOptions
-                          loadOptions={loadOptionsDebounced}
+                          loadOptions={loadCollegedebounced}
                           styles={{
                             ...selectStyle,
                           }}

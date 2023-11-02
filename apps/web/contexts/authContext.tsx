@@ -20,7 +20,13 @@ export const AuthContext = createContext({} as Prop);
 export const AuthProvider = ({ children }: Child) => {
   const router = useRouter();
   const [user] = useDocument(
-    doc(db, "users", auth.currentUser ? auth.currentUser.uid : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"),
+    doc(
+      db,
+      "users",
+      auth.currentUser
+        ? auth.currentUser.uid
+        : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    ),
   );
 
   const [signInWithGithub] = useSignInWithGithub(auth);
