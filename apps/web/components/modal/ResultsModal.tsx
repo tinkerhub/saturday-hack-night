@@ -43,7 +43,7 @@ export const ResultsModal = ({
 
   const [projectWithUser, setProjectWithUser] = useState<Projects[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [projects, isProjectsLoading] = useCollectionDataOnce(query(collection(db, `events/${id}/teams`), where("projectStatus", ">=", 50)));
+  const [projects] = useCollectionDataOnce(query(collection(db, `events/${id}/teams`), where("projectStatus", ">=", 50)));
 
   useEffect(() => {
     if(projects) {
@@ -78,7 +78,7 @@ export const ResultsModal = ({
         setIsLoading(false);
       }
     }
-  }, [projects, isProjectsLoading]);
+  }, [projects]);
 
   return (
     <Drawer

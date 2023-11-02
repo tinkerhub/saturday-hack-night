@@ -55,13 +55,16 @@ const Events: NextPageWithLayout = () => {
     if (eventID) {
       const event = events?.docs.find((e) => e.id === eventID);
       if (event) {
-        setModalData(event.data() as Event);
+        setModalData({
+          ...event.data(),
+          id: event.id,
+        } as Event);
       }
     }
     return () => {
       setModalData(null);
     };
-  }, [events, router.query]);
+  }, [events]);
   return (
     <>
       {modalData && (
@@ -69,7 +72,7 @@ const Events: NextPageWithLayout = () => {
           id={modalData.id}
           isOpen
           onClose={() => setModalData(null)}
-          image={modalData.image}
+          image={modalData.imageWhite}
         />
       )}
       {currentEvent && (
