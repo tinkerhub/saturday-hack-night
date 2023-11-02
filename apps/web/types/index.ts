@@ -1,14 +1,18 @@
 export type User = {
-  id: string;
+  uid: string;
   email: string;
-  githubid: string;
+  githubID: string;
   name?: string;
-  mobile?: string;
+  phno?: string;
   avatar: string;
-  college?: {
-    id: string;
-    name: string;
-  };
+  district?: string;
+  campusID?: string;
+  campusName?: string;
+};
+
+export type College = {
+  id: string;
+  name: string;
 };
 
 export type Child = {

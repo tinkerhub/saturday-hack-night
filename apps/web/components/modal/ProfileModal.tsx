@@ -35,11 +35,6 @@ interface ProfileMod {
   isOpen: boolean;
   onClose: () => void;
 }
-
-interface Clg {
-  name: string;
-  id: string;
-}
 const selectStyle = {
   control: (styles: any, state: { isFocused: any }) => ({
     ...styles,
@@ -151,10 +146,10 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
   };
   useEffect(() => {
     if (user) {
-      setValue("mobile", user.mobile || "");
+      setValue("mobile", user.phno || "");
       setValue("college", {
-        label: user.college?.name || "",
-        value: user.college?.id || "",
+        label: user.campusName || "",
+        value: user.campusID || "",
       });
       setValue("name", user.name || "");
     }
@@ -227,7 +222,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                     height="45px"
                     fontWeight="regular"
                     transition="0.3s ease-in all"
-                    defaultValue={user?.mobile}
+                    defaultValue={user?.phno}
                     fontSize="16px"
                     backgroundColor="rgba(255,255,255,0.15)"
                     textColor="white"
@@ -276,7 +271,7 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileMod) => {
                       height="45px"
                       fontWeight="regular"
                       transition="0.3s ease-in all"
-                      defaultValue={user?.mobile}
+                      defaultValue={user?.phno}
                       fontSize="16px"
                       backgroundColor="rgba(255,255,255,0.15)"
                       textColor="white"

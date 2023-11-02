@@ -1,92 +1,57 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { createContext, useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/router";
 import { Child, User } from "@app/types";
+import { auth, db } from "@app/api";
+import { useSignInWithGithub, useSignOut } from "react-firebase-hooks/auth";
+import { useDocument } from "react-firebase-hooks/firestore";
+import { doc } from "firebase/firestore";
 
 interface Prop {
   user: User | null;
-  isUserLoading: boolean;
-  setUser: React.Dispatch<User | null>;
   login: () => Promise<void>;
   logout: () => Promise<void>;
   isProfileComplete: boolean;
-  getData: () => Promise<void>;
+  isUserLoading: boolean;
 }
 
 export const AuthContext = createContext({} as Prop);
 
 export const AuthProvider = ({ children }: Child) => {
   const router = useRouter();
-  const [user, setUser] = useState<User | null>(null);
-  const [isUserLoading, setUserLoading] = useState<boolean>(false);
-  const [isProfileComplete, setIsProfileComplete] = useState<boolean>(false);
+  const [user] = useDocument(
+    doc(db, "users", auth.currentUser ? auth.currentUser.uid : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"),
+  );
 
-  const getData = async () => {
-    try {
-      /* const { data } = await api.get('/profile');
-            if (!data.success) {
-                throw new Error();
-            }
-            if (data.success && data.data === null) {
-                router.push('/error');
-            }
-            if (data.success && data.data) {
-                setUser(data.data);
-                if (data.data.mobile) setIsProfileComplete(true);
-            } */
+  const [signInWithGithub] = useSignInWithGithub(auth);
+  const [signOut, isUserLoading] = useSignOut(auth);
 
-      setIsProfileComplete(true);
-    } catch {
-      router.push("/error");
-    }
-  };
+  const isProfileComplete = useMemo(() => {
+    if (!user) return false;
+    return user.data()?.phno;
+  }, [user]);
 
   const login = async () => {
-    setUserLoading(true);
     try {
-      /* const authUrl = await getAuthorisationURLWithQueryParamsAndSetState({
-                providerId: 'github',
-                authorisationURL: `${process.env.NEXT_PUBLIC_WEBSITE_DOMAIN}/auth`,
-            });
-            router.push(authUrl); */
+      signInWithGithub(["user:email"]);
     } catch (err: any) {
       router.push("/error");
-    } finally {
-      setUserLoading(false);
     }
   };
 
   const logout = async () => {
-    setUserLoading(true);
-    /* await Session.signOut(); */
-    setUserLoading(false);
-    setUser(null);
+    await signOut();
   };
-
-  useEffect(() => {
-    (async () => {
-      /* if (await doesSessionExist()) {
-                await getData();
-            } */
-    })();
-    return () => {
-      setUser(null);
-      setUserLoading(true);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const value = useMemo(
     () => ({
-      user,
-      isUserLoading,
+      user: user?.data() as User | null,
       isProfileComplete,
-      setUser,
       login,
+      isUserLoading,
       logout,
-      getData,
     }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [user, setUser, isProfileComplete],
+    [user, isProfileComplete, isUserLoading],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -3,7 +3,6 @@ import { Event } from "@app/types";
 import { useEffect, useState } from "react";
 import { CurrentEvent } from "@app/components";
 import { EventCard } from "@app/components/cards";
-import api from "@app/api";
 import { BaseLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@app/pages/_app";
 import { useRouter } from "next/router";
@@ -16,7 +15,7 @@ const Events: NextPageWithLayout = () => {
   const [modalData, setModalData] = useState<Event | null>(null);
   useEffect(() => {
     (async () => {
-      const {
+      /* const {
         data: { data },
       } = await api.get("/event");
       const fcurrentEvent: Event =
@@ -27,9 +26,9 @@ const Events: NextPageWithLayout = () => {
       const fpastEvents: Event[] = data.filter(
         (event: Event) =>
           event.status === "RESULTS" || event.status === "PENDING",
-      );
-      setCurrentEvent(fcurrentEvent);
-      setPastEvents(fpastEvents);
+      ); */
+      setCurrentEvent(null);
+      setPastEvents([]);
     })();
     return () => {
       setCurrentEvent(null);
