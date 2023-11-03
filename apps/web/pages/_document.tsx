@@ -29,6 +29,16 @@ export default class Document extends NextDocument {
           </style>
           <link href="/style/clashDisplay.css" rel="stylesheet" />
           <link rel="icon" type="image/x-icon" href="/images/logo.png" />
+          <Script src="https://www.googletagmanager.com/gtag/js?id=GTM-K7C335P" />
+          <Script id="google-analytics">
+            {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+ 
+          gtag('config', 'GTM-K7C335P');
+        `}
+          </Script>
         </Head>
         <body>
           <Main />

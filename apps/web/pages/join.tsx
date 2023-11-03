@@ -37,7 +37,7 @@ const Join: NextPageWithLayout = () => {
         if (user)
           httpsCallable(
             functions,
-            "joinTeam"
+            "joinTeam",
           )({ teamID, eventID })
             .then(() => setStatus({ state: 1, message: "Success" }))
             .catch((error) => setStatus({ state: -1, message: error.message }));
