@@ -4,8 +4,9 @@
     "indexes": "firestore.indexes.json"
   },
   "functions": {
-    "predeploy": ["npm --prefix \"$RESOURCE_DIR\" run build"],
-    "source": "apps/functions"
+    "predeploy": ["yarn build"],
+    "source": "apps/functions",
+    "runtime": "nodejs18"
   },
   "emulators": {
     "auth": {
