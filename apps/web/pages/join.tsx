@@ -1,4 +1,10 @@
-import { Button, Heading, VStack } from "@chakra-ui/react";
+import {
+  Button,
+  CircularProgress,
+  Heading,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { BaseLayout } from "@app/layouts";
 import { NextPageWithLayout } from "@app/pages/_app";
@@ -6,12 +12,13 @@ import { useState } from "react";
 import { useAuth } from "@app/hooks";
 import { httpsCallable } from "firebase/functions";
 import { functions } from "@app/api";
+import { CheckCircleIcon, CloseIcon } from "@chakra-ui/icons";
 
 const Join: NextPageWithLayout = () => {
   const router = useRouter();
   const { user } = useAuth();
   const { eventID, teamID } = router.query;
-  const [status, setStatus] = useState({ state: 0, message: "" });
+  const [status, setStatus] = useState({ state: -5, message: "" });
   const [loading, setLoading] = useState(false);
 
   const joinTeam = async () => {
@@ -25,14 +32,14 @@ const Join: NextPageWithLayout = () => {
     }
     try {
       if (!eventID || !teamID)
-        setStatus({ state: -1, message: "TeamID and EventID are required." });
+        setStatus({ state: -1, message: "TeamID and EventID are required" });
       else if (status.state === 0 && user !== undefined) {
         if (user)
           httpsCallable(
             functions,
-            "joinTeam",
+            "joinTeam"
           )({ teamID, eventID })
-            .then(() => setStatus({ state: 1, message: "Done" }))
+            .then(() => setStatus({ state: 1, message: "Success" }))
             .catch((error) => setStatus({ state: -1, message: error.message }));
       }
     } catch (err) {
@@ -66,15 +73,49 @@ const Join: NextPageWithLayout = () => {
         fontWeight="500"
         fontSize="40px"
       >
-        {status.state === 0
-          ? "Join Team"
-          : status.state === 1
-          ? "Please login to join team"
-          : status.state === 2
-          ? "Invalid invite"
-          : status.state === 3
-          ? "Invalid invite or you are already in a team"
-          : "You have joined the team"}
+        {status.state === -5 && (
+          <Text
+            textAlign="center"
+            fontFamily="Clash Display"
+            fontSize="40px"
+            color="white"
+          >
+            Join Team
+          </Text>
+        )}
+        {status.state === 0 && (
+          <Text
+            textAlign="center"
+            fontFamily="Clash Display"
+            fontSize="40px"
+            color="white"
+          >
+            <CircularProgress isIndeterminate /> <br />
+            Joining Team...
+          </Text>
+        )}
+        {status.state === 1 && (
+          <Text
+            textAlign="center"
+            fontFamily="Clash Display"
+            fontSize="40px"
+            color="white"
+          >
+            Team Joined <br />
+            <CheckCircleIcon />
+          </Text>
+        )}
+        {status.state === -1 && (
+          <Text
+            textAlign="center"
+            fontFamily="Clash Display"
+            fontSize="40px"
+            color="white"
+          >
+            {status.message} <br />
+            <CloseIcon color="red" />
+          </Text>
+        )}
       </Heading>
       <Button
         isLoading={loading}
