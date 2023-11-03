@@ -8,9 +8,7 @@
     "build:web": "turbo run build --filter=web",
     "build:web-legacy": "turbo run build --filter=web-legacy",
     "start": "turbo run start",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "format": "turbo run format"
+    "dev": "turbo run dev"
   },
   "private": true,
   "workspaces": [
