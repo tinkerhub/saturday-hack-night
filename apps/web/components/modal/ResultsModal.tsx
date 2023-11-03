@@ -16,23 +16,18 @@ import { useRouter } from "next/router";
 import { useCollectionDataOnce } from "react-firebase-hooks/firestore";
 import { collection, doc, getDoc, query, where } from "firebase/firestore";
 import { db } from "@app/api";
+import { groupBy } from "@app/utils";
 
 export interface Projects {
   name: string;
   repo: string;
-  projectStatus: number;
+  status: string;
   members: {
     name: string;
     githubID: string;
     avatar: string;
   }[];
 }
-const ProjectStatus = [
-  { code: 101, status: "Best Overall Project⭐" },
-  { code: 102, status: "Best Group Projects⭐" },
-  { code: 100, status: "Best Individual Projects⭐" },
-  { code: 50, status: "Completed Projects⭐" },
-];
 export const ResultsModal = ({
   id,
   onClose,
@@ -46,35 +41,42 @@ export const ResultsModal = ({
   const [projects] = useCollectionDataOnce(
     query(
       collection(db, `events/${id}/teams`),
-      where("projectStatus", ">=", 50),
-    ),
+      where("status", "in", ["BEST PROJECT", "COMPLETE"])
+    )
   );
-
   useEffect(() => {
     if (projects) {
       try {
+        setIsLoading(true);
         const getProjectsWithUser = async () => {
           const newProjects = await Promise.all(
             projects.map(async (project) => {
-              const newMembers = await Promise.all(
-                project.members.map(async (memberUid: string) => {
-                  const member = await getDoc(doc(db, "users", memberUid)).then(
-                    (doc) => doc.data(),
-                  );
-                  return {
-                    name: member?.name,
-                    githubID: member?.githubID,
-                    avatar: member?.avatar,
-                  };
-                }),
+              const finMem = project.members.map(async (memberUid: string) => {
+                const member = await getDoc(doc(db, "users", memberUid)).then(
+                  (doc) => doc.data()
+                );
+                return {
+                  name: member?.name,
+                  githubID: member?.githubID,
+                  avatar: member?.avatar,
+                };
+              });
+              const lead = await getDoc(doc(db, "users", project.lead)).then(
+                (doc) => doc.data()
               );
+              const leadData = {
+                name: lead?.name,
+                githubID: lead?.githubID,
+                avatar: lead?.avatar,
+              };
+              const newMembers = await Promise.all(finMem);
               return {
                 name: project.name,
                 repo: project.repo,
-                projectStatus: project.projectStatus,
-                members: newMembers,
+                status: project.status,
+                members: [leadData, ...newMembers],
               };
-            }),
+            })
           );
           setProjectWithUser(newProjects);
         };
@@ -129,15 +131,15 @@ export const ResultsModal = ({
               <CircularProgress isIndeterminate color="#A6BA30" size="80px" />
             </Center>
           ) : (
-            ProjectStatus.map((status) => {
-              const filteredResults = (projectWithUser ?? []).filter(
-                (result) => result.projectStatus === status.code,
-              ) as Array<Projects>;
-              if (filteredResults.length > 0) {
+            groupBy(projectWithUser, "status")
+              .sort()
+              .map((group) => {
                 const statusText =
-                  status.code > 50 ? "Best Projects⭐" : "Completed Projects⭐";
+                  group[0].status === "BEST PROJECT"
+                    ? "Best Projects⭐"
+                    : "Completed Projects⭐";
                 return (
-                  <VStack key={status.code} alignItems="flex-start">
+                  <VStack key={group[0].status} alignItems="flex-start">
                     <Heading
                       fontFamily="Clash Display"
                       textColor="rgba(255, 255, 255, 1)"
@@ -149,12 +151,10 @@ export const ResultsModal = ({
                       {statusText}
                     </Heading>
 
-                    <ResultItems filteredResults={filteredResults} />
+                    <ResultItems filteredResults={group} />
                   </VStack>
                 );
-              }
-              return null;
-            })
+              })
           )}
         </DrawerBody>
       </DrawerContent>
