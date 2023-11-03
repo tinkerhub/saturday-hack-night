@@ -193,7 +193,7 @@ interface ItemsProps {
 export interface Projects {
   name: string;
   repo: string;
-  projectStatus: number;
+  status: string;
   members: {
     name: string;
     githubID: string;
