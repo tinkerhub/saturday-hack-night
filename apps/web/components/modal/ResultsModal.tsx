@@ -38,43 +38,43 @@ export const ResultsModal = ({
 
   const [projectWithUser, setProjectWithUser] = useState<Projects[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [completeProjects] = useCollectionDataOnce(
+  const [projects] = useCollectionDataOnce(
     query(
       collection(db, `events/${id}/teams`),
-      where("status", "==", "COMPLETE")
-    )
-  );
-  const [bestProjects] = useCollectionDataOnce(
-    query(
-      collection(db, `events/${id}/teams`),
-      where("status", "==", "BEST PROJECT")
+      where("status", "in", ["BEST PROJECT", "COMPLETE"])
     )
   );
   useEffect(() => {
-    const projects = [...(completeProjects ?? []), ...(bestProjects ?? [])];
     if (projects) {
       try {
         setIsLoading(true);
         const getProjectsWithUser = async () => {
           const newProjects = await Promise.all(
             projects.map(async (project) => {
-              const newMembers = await Promise.all(
-                project.members.map(async (memberUid: string) => {
-                  const member = await getDoc(doc(db, "users", memberUid)).then(
-                    (doc) => doc.data()
-                  );
-                  return {
-                    name: member?.name,
-                    githubID: member?.githubID,
-                    avatar: member?.avatar,
-                  };
-                })
+              const finMem = project.members.map(async (memberUid: string) => {
+                const member = await getDoc(doc(db, "users", memberUid)).then(
+                  (doc) => doc.data()
+                );
+                return {
+                  name: member?.name,
+                  githubID: member?.githubID,
+                  avatar: member?.avatar,
+                };
+              });
+              const lead = await getDoc(doc(db, "users", project.lead)).then(
+                (doc) => doc.data()
               );
+              const leadData = {
+                name: lead?.name,
+                githubID: lead?.githubID,
+                avatar: lead?.avatar,
+              };
+              const newMembers = await Promise.all(finMem);
               return {
                 name: project.name,
                 repo: project.repo,
                 status: project.status,
-                members: newMembers,
+                members: [leadData, ...newMembers],
               };
             })
           );
@@ -87,7 +87,7 @@ export const ResultsModal = ({
         setIsLoading(false);
       }
     }
-  }, [completeProjects, bestProjects]);
+  }, [projects]);
 
   return (
     <Drawer
