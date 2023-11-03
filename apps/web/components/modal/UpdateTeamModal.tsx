@@ -68,7 +68,7 @@ export const UpdateTeamModal = ({
   } = methods;
   const { user } = useAuth();
   const [team, isTeamLoading] = useDocumentData(
-    doc(db, "events", eventId, "teams", teamId),
+    doc(db, "events", eventId, "teams", teamId)
   );
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
@@ -103,7 +103,7 @@ export const UpdateTeamModal = ({
       for (const member of formData.members) {
         if (member === user!.githubID) continue;
         const tempMem = await getDocs(
-          query(collection(db, "users"), where("githubID", "==", member)),
+          query(collection(db, "users"), where("githubID", "==", member))
         );
         if (tempMem.docs.length === 0) {
           continue;
@@ -111,6 +111,8 @@ export const UpdateTeamModal = ({
         memberUids.push(tempMem.docs[0].id);
       }
       updateDoc(team, {
+        lead: user!.uid,
+        updated: true,
         members: memberUids,
       });
       toast({

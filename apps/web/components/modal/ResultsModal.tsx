@@ -41,8 +41,8 @@ export const ResultsModal = ({
   const [projects] = useCollectionDataOnce(
     query(
       collection(db, `events/${id}/teams`),
-      where("status", "in", ["BEST PROJECT", "COMPLETE"])
-    )
+      where("status", "in", ["BEST PROJECT", "COMPLETE"]),
+    ),
   );
   useEffect(() => {
     if (projects) {
@@ -53,7 +53,7 @@ export const ResultsModal = ({
             projects.map(async (project) => {
               const finMem = project.members.map(async (memberUid: string) => {
                 const member = await getDoc(doc(db, "users", memberUid)).then(
-                  (doc) => doc.data()
+                  (doc) => doc.data(),
                 );
                 return {
                   name: member?.name,
@@ -62,7 +62,7 @@ export const ResultsModal = ({
                 };
               });
               const lead = await getDoc(doc(db, "users", project.lead)).then(
-                (doc) => doc.data()
+                (doc) => doc.data(),
               );
               const leadData = {
                 name: lead?.name,
@@ -76,7 +76,7 @@ export const ResultsModal = ({
                 status: project.status,
                 members: [leadData, ...newMembers],
               };
-            })
+            }),
           );
           setProjectWithUser(newProjects);
         };
