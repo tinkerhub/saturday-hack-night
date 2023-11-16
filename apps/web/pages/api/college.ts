@@ -33,7 +33,7 @@ export default async function handler(
       )
     ).json();
 
-    colleges.push(...res.colleges);
+    colleges.push(...res);
   }
 
   colleges = colleges.filter((college) =>
