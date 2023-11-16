@@ -135,8 +135,7 @@ export const onTeamEdited = functions.firestore
       bulk.update(firestore.doc(`/events/${context.params.eventID}`), {
         projectCount: admin.firestore.FieldValue.increment(1),
       });
-    }
-    else if (
+    } else if (
       (oldStatus === "BEST PROJECT" || oldStatus === "COMPLETE") &&
       (newStatus === "DROPPED" || newStatus === "PENDING" || !newStatus)
     ) {
@@ -228,4 +227,21 @@ export const joinTeam = functions.https.onCall(async (data, context) => {
   });
 
   return { success: true };
+});
+
+export const getColleges = functions.https.onCall(async (data, context) => {
+  const district = data.district;
+
+  const colleges = await firestore
+    .collection("college")
+    .where("district", "==", district)
+    .get();
+
+  const collegeList = colleges.docs.map((doc) => {
+    const { name } = doc.data();
+
+    return { label: name, value: doc.id };
+  });
+
+  return collegeList;
 });
