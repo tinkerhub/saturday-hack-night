@@ -35,23 +35,13 @@ export const typesense = new Typesense.Client({
 
 export async function getCollege(search: string) {
   try {
-    const searchParameters = {
-      q: search,
-      query_by: "name", // Assuming "name" is the field in colleges collection you want to search
-      prefix: true, // Assuming you want prefix-based search
-    };
-
-    const result = await typesense
-      .collections("colleges")
-      .documents()
-      .search(searchParameters);
-
-    return (
-      result.hits?.map((hit) => ({
-        label: (hit.document as College).name,
-        value: (hit.document as College).id,
-      })) || []
-    );
+    const res = await fetch(`/api/college?search=${search}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    return await res.json();
   } catch (error) {
     console.error("Error fetching colleges from Typesense:", error);
     return [];
