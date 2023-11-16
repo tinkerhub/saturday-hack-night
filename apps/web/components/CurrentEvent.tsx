@@ -30,7 +30,7 @@ const CurrentEvent = ({ event }: CurrentEventProps) => {
   const [teams] = useCollection(collection(db, "events", id, "teams"));
 
   const [registeredTeam] = useDocumentData(
-    doc(db, "users", user ? user.uid : "xxxxxxxxxxxxxxxxxxxxxxxx", "teams", id)
+    doc(db, "users", user ? user.uid : "xxxxxxxxxxxxxxxxxxxxxxxx", "teams", id),
   );
 
   useEffect(() => {
