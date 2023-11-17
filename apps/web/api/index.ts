@@ -20,15 +20,14 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const functions = getFunctions(app);
 
-
 export async function getCollege(search: string) {
   try {
     const res = await fetch(`/api/college?search=${search}`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-    })
+    });
     return await res.json();
   } catch (error) {
     console.error("Error fetching colleges from Typesense:", error);

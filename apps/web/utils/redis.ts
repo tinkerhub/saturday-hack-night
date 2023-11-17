@@ -1,5 +1,5 @@
-import Redis, { RedisOptions } from 'ioredis';
- 
+import Redis, { RedisOptions } from "ioredis";
+
 function getRedisConfiguration(): {
   port: number;
   host: string;
@@ -7,8 +7,8 @@ function getRedisConfiguration(): {
 } {
   return {
     port: 18100,
-    host: process.env.REDIS_URL ?? '',
-    password: process.env.REDIS_KEY ?? ''
+    host: process.env.REDIS_URL ?? "",
+    password: process.env.REDIS_KEY ?? "",
   };
 }
 
@@ -19,13 +19,10 @@ export async function getRedisValue(key: string): Promise<string | null> {
 }
 
 export async function setRedisValue(key: string, value: string): Promise<void> {
-  redis.set(key, value, 'EX', 604800);
+  redis.set(key, value, "EX", 604800);
 }
 
-
-export function createRedisInstance(
-  config = getRedisConfiguration()
-) {
+export function createRedisInstance(config = getRedisConfiguration()) {
   try {
     const options: RedisOptions = {
       host: config.host,
@@ -37,25 +34,25 @@ export function createRedisInstance(
         if (times > 3) {
           throw new Error(`[Redis] Could not connect after ${times} attempts`);
         }
- 
+
         return Math.min(times * 200, 1000);
       },
     };
- 
+
     if (config.port) {
       options.port = config.port;
     }
- 
+
     if (config.password) {
       options.password = config.password;
     }
- 
+
     const redis = new Redis(options);
- 
-    redis.on('error', (error: unknown) => {
-      console.warn('[Redis] Error connecting', error);
+
+    redis.on("error", (error: unknown) => {
+      console.warn("[Redis] Error connecting", error);
     });
- 
+
     return redis;
   } catch (e) {
     throw new Error(`[Redis] Could not create a Redis instance`);

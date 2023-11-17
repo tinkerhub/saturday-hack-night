@@ -1,7 +1,6 @@
 import { getRedisValue, setRedisValue } from "@app/utils/redis";
 import { NextApiRequest, NextApiResponse } from "next";
 
-
 const CACHE_EXPIRATION_TIME = 604800; // 7 days in seconds
 
 const districts = [
@@ -22,9 +21,11 @@ const districts = [
   "Other",
 ];
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   const { search } = req.query;
-
 
   const cacheKey = generateCacheKey(search as string);
 
@@ -34,11 +35,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (cachedDataJSON) {
     try {
       cachedData = JSON.parse(cachedDataJSON);
-      const isCachedDataValid = Date.now() - cachedData.timestamp < CACHE_EXPIRATION_TIME * 1000; // Convert seconds to milliseconds
+      const isCachedDataValid =
+        Date.now() - cachedData.timestamp < CACHE_EXPIRATION_TIME * 1000; // Convert seconds to milliseconds
       if (isCachedDataValid) {
         // Return cached data
-        res.setHeader("Cache-Control", "s-maxage=86400")
-        res.setHeader("X-Cached-Data", "true")
+        res.setHeader("Cache-Control", "s-maxage=86400");
+        res.setHeader("X-Cached-Data", "true");
         return res.json(cachedData.data);
       }
     } catch (error) {
@@ -51,35 +53,48 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const colleges = await fetchCollegesData(search as string);
 
   // Cache updated data for 24 hours using the specific search query key
-  await setRedisValue(cacheKey, JSON.stringify({ data: colleges, timestamp: Date.now() }));
+  await setRedisValue(
+    cacheKey,
+    JSON.stringify({ data: colleges, timestamp: Date.now() }),
+  );
 
   // Set response headers and send the optimized response
   res.setHeader("Cache-Control", "s-maxage=86400");
   res.setHeader("X-Cached-Data", "false");
 
-  res.status(200).json(colleges.map(({ label, value }: { label: string; value: string}) => ({ label, value })));
+  res
+    .status(200)
+    .json(
+      colleges.map(({ label, value }: { label: string; value: string }) => ({
+        label,
+        value,
+      })),
+    );
 }
 
 function generateCacheKey(search: string | undefined): string {
-  return `colleges-${search || 'all'}`;
+  return `colleges-${search || "all"}`;
 }
 
 async function fetchCollegesData(search: string | undefined) {
-
   const baseData = await getRedisValue("colleges-all");
   let cachedData;
-if (baseData) {
+  if (baseData) {
     try {
       cachedData = JSON.parse(baseData);
-      const isCachedDataValid = Date.now() - cachedData.timestamp < CACHE_EXPIRATION_TIME * 1000; // Convert seconds to milliseconds
+      const isCachedDataValid =
+        Date.now() - cachedData.timestamp < CACHE_EXPIRATION_TIME * 1000; // Convert seconds to milliseconds
       if (isCachedDataValid) {
-
-        const colleges = (cachedData.data?? []).filter((college: { label: string; value: string }) => college.label.toLowerCase().includes((search ?? '').toLowerCase())).slice(0, 9);
+        const colleges = (cachedData.data ?? [])
+          .filter((college: { label: string; value: string }) =>
+            college.label.toLowerCase().includes((search ?? "").toLowerCase()),
+          )
+          .slice(0, 9);
         colleges.push({
           label: "Other",
           value: "Other",
         });
-        return colleges
+        return colleges;
       }
     } catch (error) {
       cachedData = null;
@@ -88,7 +103,7 @@ if (baseData) {
 
   const fetchPromises = districts.map(async (district) => {
     const response = await fetch(
-      `https://us-central1-saturday-hack-night.cloudfunctions.net/getColleges?district=${district}`
+      `https://us-central1-saturday-hack-night.cloudfunctions.net/getColleges?district=${district}`,
     );
     return response.json();
   });
@@ -96,11 +111,14 @@ if (baseData) {
   const results = await Promise.all(fetchPromises);
   let colleges = results.flat();
 
-  setRedisValue("colleges-all", JSON.stringify({ data: colleges, timestamp: Date.now() }));
+  setRedisValue(
+    "colleges-all",
+    JSON.stringify({ data: colleges, timestamp: Date.now() }),
+  );
 
   colleges = colleges
     .filter((college) =>
-      college.label.toLowerCase().includes((search ?? '').toLowerCase())
+      college.label.toLowerCase().includes((search ?? "").toLowerCase()),
     )
     .slice(0, 9);
 
