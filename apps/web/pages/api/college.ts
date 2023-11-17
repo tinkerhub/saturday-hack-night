@@ -1,4 +1,8 @@
+import { getRedisValue, setRedisValue } from "@app/utils/redis";
 import { NextApiRequest, NextApiResponse } from "next";
+
+
+const CACHE_EXPIRATION_TIME = 604800; // 7 days in seconds
 
 const districts = [
   "Thiruvananthapuram",
@@ -21,29 +25,89 @@ const districts = [
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { search } = req.query;
 
-  try {
-    const fetchPromises = districts.map(async (district) => {
-      const response = await fetch(`https://us-central1-saturday-hack-night.cloudfunctions.net/getColleges?district=${district}`);
-      return response.json();
-    });
 
-    const results = await Promise.all(fetchPromises);
-    let colleges = results.flat();
+  const cacheKey = generateCacheKey(search as string);
 
-    colleges = colleges
-      .filter((college) => college.label.toLowerCase().includes((search as string).toLowerCase()))
-      .slice(0, 9);
+  const cachedDataJSON = await getRedisValue(cacheKey);
+  let cachedData;
 
-    colleges.push({
-      label: "Other",
-      value: "Other",
-    });
-
-    // Set response headers and send the optimized response
-    res.setHeader("Cache-Control", "s-maxage=86400");
-    res.status(200).json(colleges.map(({ label, value }) => ({ label, value })));
-  } catch (e) {
-    console.error('Error fetching data:', e);
-    res.status(500).json({ error: 'Internal Server Error' });
+  if (cachedDataJSON) {
+    try {
+      cachedData = JSON.parse(cachedDataJSON);
+      const isCachedDataValid = Date.now() - cachedData.timestamp < CACHE_EXPIRATION_TIME * 1000; // Convert seconds to milliseconds
+      if (isCachedDataValid) {
+        // Return cached data
+        res.setHeader("Cache-Control", "s-maxage=86400")
+        res.setHeader("X-Cached-Data", "true")
+        return res.json(cachedData.data);
+      }
+    } catch (error) {
+      // Cached data is invalid, discard it
+      cachedData = null;
+    }
   }
+
+  // Fetch data from Firebase if cache is not valid
+  const colleges = await fetchCollegesData(search as string);
+
+  // Cache updated data for 24 hours using the specific search query key
+  await setRedisValue(cacheKey, JSON.stringify({ data: colleges, timestamp: Date.now() }));
+
+  // Set response headers and send the optimized response
+  res.setHeader("Cache-Control", "s-maxage=86400");
+  res.setHeader("X-Cached-Data", "false");
+
+  res.status(200).json(colleges.map(({ label, value }: { label: string; value: string}) => ({ label, value })));
+}
+
+function generateCacheKey(search: string | undefined): string {
+  return `colleges-${search || 'all'}`;
+}
+
+async function fetchCollegesData(search: string | undefined) {
+
+  const baseData = await getRedisValue("colleges-all");
+  let cachedData;
+if (baseData) {
+    try {
+      cachedData = JSON.parse(baseData);
+      const isCachedDataValid = Date.now() - cachedData.timestamp < CACHE_EXPIRATION_TIME * 1000; // Convert seconds to milliseconds
+      if (isCachedDataValid) {
+
+        const colleges = (cachedData.data?? []).filter((college: { label: string; value: string }) => college.label.toLowerCase().includes((search ?? '').toLowerCase())).slice(0, 9);
+        colleges.push({
+          label: "Other",
+          value: "Other",
+        });
+        return colleges
+      }
+    } catch (error) {
+      cachedData = null;
+    }
+  }
+
+  const fetchPromises = districts.map(async (district) => {
+    const response = await fetch(
+      `https://us-central1-saturday-hack-night.cloudfunctions.net/getColleges?district=${district}`
+    );
+    return response.json();
+  });
+
+  const results = await Promise.all(fetchPromises);
+  let colleges = results.flat();
+
+  setRedisValue("colleges-all", JSON.stringify({ data: colleges, timestamp: Date.now() }));
+
+  colleges = colleges
+    .filter((college) =>
+      college.label.toLowerCase().includes((search ?? '').toLowerCase())
+    )
+    .slice(0, 9);
+
+  colleges.push({
+    label: "Other",
+    value: "Other",
+  });
+
+  return colleges;
 }
