@@ -18,41 +18,32 @@ const districts = [
   "Other",
 ];
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { search } = req.query;
 
-  let colleges: Array<{ label: string; value: string }> = [];
   try {
-    for (let i = 0; i < districts.length; i++) {
-      const res = await (
-        await fetch(
-          `https://us-central1-saturday-hack-night.cloudfunctions.net/getColleges?district=${districts[i]}`,
-        )
-      ).json();
+    const fetchPromises = districts.map(async (district) => {
+      const response = await fetch(`https://us-central1-saturday-hack-night.cloudfunctions.net/getColleges?district=${district}`);
+      return response.json();
+    });
 
-      colleges.push(...res);
-    }
+    const results = await Promise.all(fetchPromises);
+    let colleges = results.flat();
 
-    colleges = colleges.filter((college) =>
-      college.label.toLowerCase().includes((search as string).toLowerCase()),
-    );
-
-    colleges.slice(0, 9);
+    colleges = colleges
+      .filter((college) => college.label.toLowerCase().includes((search as string).toLowerCase()))
+      .slice(0, 9);
 
     colleges.push({
       label: "Other",
       value: "Other",
     });
 
+    // Set response headers and send the optimized response
     res.setHeader("Cache-Control", "s-maxage=86400");
-    res.status(200).json(colleges);
+    res.status(200).json(colleges.map(({ label, value }) => ({ label, value })));
   } catch (e) {
-    res.status(200).json([{
-        label: 'Other',
-        value: 'Other'
-    }]);
+    console.error('Error fetching data:', e);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 }

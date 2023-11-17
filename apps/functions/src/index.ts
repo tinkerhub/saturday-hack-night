@@ -229,8 +229,10 @@ export const joinTeam = functions.https.onCall(async (data, context) => {
   return { success: true };
 });
 
-export const getColleges = functions.https.onCall(async (data, context) => {
-  const district = data.district;
+export const getColleges = functions.https.onRequest(async (req, res) => {
+  const district = req.query.district;
+
+  if (!district) res.status(200).send([])
 
   const colleges = await firestore
     .collection("college")
@@ -243,5 +245,5 @@ export const getColleges = functions.https.onCall(async (data, context) => {
     return { label: name, value: doc.id };
   });
 
-  return collegeList;
+ res.status(200).send(collegeList);
 });
