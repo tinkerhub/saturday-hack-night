@@ -232,7 +232,7 @@ export const joinTeam = functions.https.onCall(async (data, context) => {
 export const getColleges = functions.https.onRequest(async (req, res) => {
   const district = req.query.district;
 
-  if (!district) res.status(200).send([])
+  if (!district) res.status(200).send([]);
 
   const colleges = await firestore
     .collection("college")
@@ -245,5 +245,5 @@ export const getColleges = functions.https.onRequest(async (req, res) => {
     return { label: name, value: doc.id };
   });
 
- res.status(200).send(collegeList);
+  res.status(200).send(collegeList);
 });
