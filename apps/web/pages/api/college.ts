@@ -86,11 +86,13 @@ async function fetchCollegesData(search: string | undefined) {
       if (isCachedDataValid) {
         const fuse = new Fuse(cachedData.data ?? [], {
           keys: ["label"],
-          threshold: 0.3,
+          threshold: 0.1,
+          isCaseSensitive: false,
+          minMatchCharLength: 3,
+          shouldSort: true,
         });
 
         const result = fuse.search(search ?? "");
-
 
         const matchedColleges = result.map((item) => item.item);
 
@@ -122,7 +124,10 @@ async function fetchCollegesData(search: string | undefined) {
 
   const fuse = new Fuse(colleges ?? [], {
     keys: ["label"],
-    threshold: 0.3,
+    threshold: 0.001,
+    isCaseSensitive: false,
+    minMatchCharLength: 3,
+    shouldSort: true,
   });
 
   const result = fuse.search(search ?? "");
