@@ -1,5 +1,6 @@
 import { getRedisValue, setRedisValue } from "@app/utils/redis";
 import { NextApiRequest, NextApiResponse } from "next";
+import Fuse from "fuse.js";
 
 const CACHE_EXPIRATION_TIME = 604800; // 7 days in seconds
 
@@ -62,14 +63,12 @@ export default async function handler(
   res.setHeader("Cache-Control", "s-maxage=86400");
   res.setHeader("X-Cached-Data", "false");
 
-  res
-    .status(200)
-    .json(
-      colleges.map(({ label, value }: { label: string; value: string }) => ({
-        label,
-        value,
-      })),
-    );
+  res.status(200).json(
+    colleges.map(({ label, value }: { label: string; value: string }) => ({
+      label,
+      value,
+    })),
+  );
 }
 
 function generateCacheKey(search: string | undefined): string {
@@ -85,16 +84,21 @@ async function fetchCollegesData(search: string | undefined) {
       const isCachedDataValid =
         Date.now() - cachedData.timestamp < CACHE_EXPIRATION_TIME * 1000; // Convert seconds to milliseconds
       if (isCachedDataValid) {
-        const colleges = (cachedData.data ?? [])
-          .filter((college: { label: string; value: string }) =>
-            college.label.toLowerCase().includes((search ?? "").toLowerCase()),
-          )
-          .slice(0, 9);
-        colleges.push({
+        const fuse = new Fuse(cachedData.data ?? [], {
+          keys: ["label"],
+          threshold: 0.3,
+        });
+
+        const result = fuse.search(search ?? "");
+
+
+        const matchedColleges = result.map((item) => item.item);
+
+        matchedColleges.push({
           label: "Other",
           value: "Other",
         });
-        return colleges;
+        return matchedColleges;
       }
     } catch (error) {
       cachedData = null;
@@ -116,16 +120,19 @@ async function fetchCollegesData(search: string | undefined) {
     JSON.stringify({ data: colleges, timestamp: Date.now() }),
   );
 
-  colleges = colleges
-    .filter((college) =>
-      college.label.toLowerCase().includes((search ?? "").toLowerCase()),
-    )
-    .slice(0, 9);
+  const fuse = new Fuse(colleges ?? [], {
+    keys: ["label"],
+    threshold: 0.3,
+  });
 
-  colleges.push({
+  const result = fuse.search(search ?? "");
+
+  const matchedColleges = result.map((item) => item.item);
+
+  matchedColleges.push({
     label: "Other",
     value: "Other",
   });
 
-  return colleges;
+  return matchedColleges;
 }
