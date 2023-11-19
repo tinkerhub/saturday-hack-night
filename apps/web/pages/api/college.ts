@@ -86,7 +86,7 @@ async function fetchCollegesData(search: string | undefined) {
       if (isCachedDataValid) {
         const fuse = new Fuse(cachedData.data ?? [], {
           keys: ["label"],
-          threshold: 0.1,
+          ignoreLocation: true,
           isCaseSensitive: false,
           minMatchCharLength: 3,
           shouldSort: true,
@@ -124,7 +124,7 @@ async function fetchCollegesData(search: string | undefined) {
 
   const fuse = new Fuse(colleges ?? [], {
     keys: ["label"],
-    threshold: 0.001,
+    ignoreLocation: true,
     isCaseSensitive: false,
     minMatchCharLength: 3,
     shouldSort: true,
