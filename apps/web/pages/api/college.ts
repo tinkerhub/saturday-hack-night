@@ -88,7 +88,6 @@ async function fetchCollegesData(search: string | undefined) {
           keys: ["label"],
           ignoreLocation: true,
           isCaseSensitive: false,
-          minMatchCharLength: 3,
           shouldSort: true,
         });
 
@@ -126,7 +125,6 @@ async function fetchCollegesData(search: string | undefined) {
     keys: ["label"],
     ignoreLocation: true,
     isCaseSensitive: false,
-    minMatchCharLength: 3,
     shouldSort: true,
   });
 
