@@ -2,7 +2,7 @@ import { getRedisValue, setRedisValue } from "@app/utils/redis";
 import { NextApiRequest, NextApiResponse } from "next";
 import Fuse from "fuse.js";
 
-const CACHE_EXPIRATION_TIME = 604800; // 7 days in seconds
+const CACHE_EXPIRATION_TIME = 2419200; // 1 Month in seconds
 
 const districts = [
   "Thiruvananthapuram",
