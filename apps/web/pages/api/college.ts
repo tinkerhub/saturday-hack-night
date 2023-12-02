@@ -2,7 +2,7 @@ import { getRedisValue, setRedisValue } from "@app/utils/redis";
 import { NextApiRequest, NextApiResponse } from "next";
 import Fuse from "fuse.js";
 
-const CACHE_EXPIRATION_TIME = 604800; // 7 days in seconds
+const CACHE_EXPIRATION_TIME = 2419200; // 1 Month in seconds
 
 const districts = [
   "Thiruvananthapuram",
@@ -86,9 +86,8 @@ async function fetchCollegesData(search: string | undefined) {
       if (isCachedDataValid) {
         const fuse = new Fuse(cachedData.data ?? [], {
           keys: ["label"],
-          threshold: 0.1,
+          ignoreLocation: true,
           isCaseSensitive: false,
-          minMatchCharLength: 3,
           shouldSort: true,
         });
 
@@ -124,9 +123,8 @@ async function fetchCollegesData(search: string | undefined) {
 
   const fuse = new Fuse(colleges ?? [], {
     keys: ["label"],
-    threshold: 0.001,
+    ignoreLocation: true,
     isCaseSensitive: false,
-    minMatchCharLength: 3,
     shouldSort: true,
   });
 
