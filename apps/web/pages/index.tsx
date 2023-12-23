@@ -451,7 +451,7 @@ const Home: NextPageWithLayout = () => {
             PARTNERS 🤝
           </span>
         </Heading>
-        <Link href="https://tinkerhub-foundation.notion.site/Saturday-HackNight-Partnership-4d046b8d4a95455fbfb6d9faa3018c97">
+        <Link href="https://dub.sh/shn-partnership">
           <Text
             fontSize={{ base: "18px", lg: "24px" }}
             textAlign="left"
