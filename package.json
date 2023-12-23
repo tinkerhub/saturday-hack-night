@@ -18,7 +18,6 @@
   "devDependencies": {
     "eslint-config-custom": "*",
     "prettier": "latest",
-    "turbo": "latest"
-    
+    "turbo": "latest" 
   }
 }
