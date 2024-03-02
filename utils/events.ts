@@ -60,3 +60,28 @@ export const getCurrentEvent = async (user: User | null) => {
         team: null
     };
 }
+
+export const getEvents = async () => {
+    const events = await db.event.findMany({
+        where: {
+            status: 'RESULTS',
+        },
+        select:{
+            id: true,
+            title: true,
+            date: true,
+            image: true,
+            description: true,
+            details: true,
+            _count: {
+                select: {
+                    teams: true
+                }
+            }
+        }
+    })
+
+    console.log(events);
+
+    return events;
+};

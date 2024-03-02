@@ -1,13 +1,14 @@
 import { validateRequest } from "@/utils/lucia";
 import { CurrentEvent } from "./ui/CurrentEvent";
-import { getCurrentEvent } from "@/utils/events";
+import { getCurrentEvent, getEvents } from "@/utils/events";
+import { EventCard } from "./ui/EventCard";
 
 const EventsPage = async () => {
 	const { user } = await validateRequest();
 
 	const currentEvent = await getCurrentEvent(user);
 
-	console.log(currentEvent);
+	const events = await getEvents();
 
 	return (
 		<div
@@ -24,6 +25,20 @@ const EventsPage = async () => {
 						Ongoing Events 🚀
 					</h1>
 					<CurrentEvent user={user} data={currentEvent} />
+				</div>
+			)}
+
+			{events && events.length > 0 && (
+				<div className="mt-8 w-full container mx-auto flex flex-col items-center">
+					<h1 className="text-4xl font-bold text-white w-full text-left">
+						Explored Areas 🌟
+					</h1>
+
+					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-12 py-4 lg:py-9 px-4 lg:px-8">
+						{events.map((event) => (
+							<EventCard key={event.id} event={event} />
+						))}
+					</div>
 				</div>
 			)}
 		</div>
