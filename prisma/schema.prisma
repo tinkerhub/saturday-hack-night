@@ -10,6 +10,17 @@ datasource db {
 
 model User {
   id       String    @id   @db.VarChar
+  email    String    @unique @db.VarChar
+  name     String   @db.VarChar
+
+  mobile   String?   @db.VarChar
+  avatar   String   @db.VarChar
+
+  githubId String   @db.VarChar
+
+  collegeId String? @db.VarChar
+  college College? @relation(fields: [collegeId], references: [id])
+
   sessions Session[]
   accounts Account[]
 
@@ -30,20 +41,25 @@ model Session {
 model Account {
   id String @id
 
-  providerUserId String   @db.VarChar
+  providerUserId String   @db.VarChar @unique
   providerAccessToken  String? @db.VarChar
   providerRefreshToken String? @db.VarChar
 
   provider String   @db.VarChar
+
+  profileMeta Json @db.Json
 
   userId String   @db.VarChar
   user User @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@unique([provider, userId])
 }
 
 model College {
   id     String   @id @unique
   name   String   @db.VarChar
+  users  User[]
 }
