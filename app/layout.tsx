@@ -5,6 +5,7 @@ import "../public/style/clashDisplay.css";
 import Script from "next/script";
 import { Navbar } from "./ui/Navbar";
 import { validateRequest } from "@/utils/lucia";
+import { Footer } from "./ui/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -40,6 +41,7 @@ export default async function RootLayout({
 			<body>
 				<Navbar user={user} />
 				{children}
+				<Footer />
 			</body>
 		</html>
 	);

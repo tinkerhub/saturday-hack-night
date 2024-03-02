@@ -1,4 +1,4 @@
-interface GithubOAuthUser {
+export interface GithubOAuthUser {
     login: string;
     id: number;
     node_id: string;
@@ -30,4 +30,29 @@ interface GithubOAuthUser {
     following: number;
     created_at: string;
     updated_at: string;
+}
+
+export interface CurrentEvent {
+    id: string;
+    title: string;
+    description: string;
+    image: string;
+    imageWhite: string;
+    details: string;
+    date: Date;
+    location: string;
+    status: string | null;
+    _count: {
+        teams: number;
+    };
+} 
+
+export interface RegisteredTeam {
+   id: string;
+    repo: string;
+    eventId: string;
+    members: {
+        role: string | null;
+        userId: string;
+    }[];
 }

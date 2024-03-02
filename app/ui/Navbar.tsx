@@ -31,7 +31,7 @@ export const Navbar = ({
 
 	return (
 		<div className="fixed w-full h-20 flex items-stretch px-4 md:px-8 z-50 bg-secondary/75 backdrop-blur-md">
-			<div className="flex items-center justify-between w-full">
+			<div className="flex container w-full mx-auto items-center justify-between">
 				{/* Logo Section */}
 				<Link href="/" className="flex items-center">
 					<Image
