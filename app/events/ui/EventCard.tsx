@@ -16,13 +16,14 @@ export const EventCard = ({
 		_count: { teams: projectCount },
 	},
 }: {
-	event: Exclude<
-		Event,
-		{
-			createdAt: Date;
-			updatedAt: Date;
-		}
-	> & {
+	event: {
+		id: string;
+		title: string;
+		description: string;
+		image: string;
+		details: string;
+		date: Date;
+		status: string | null;
 		_count: {
 			teams: number;
 		};

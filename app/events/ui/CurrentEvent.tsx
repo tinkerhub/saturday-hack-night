@@ -9,6 +9,7 @@ import {
 	RegisteredTeam,
 } from "@/utils/types";
 import dayjs from "dayjs";
+import { redirect } from "next/navigation";
 
 export const CurrentEvent = ({
 	user,
@@ -16,8 +17,29 @@ export const CurrentEvent = ({
 }: {
 	user: User | null;
 	data: {
-		event: CurrentEventType;
-		registeredTeam: RegisteredTeam | null;
+		event: {
+			id: string;
+			title: string;
+			description: string;
+			image: string;
+			details: string;
+			status: string | null;
+			_count: {
+				teams: number;
+			};
+			imageWhite: string;
+			date: Date;
+			location: string;
+		} | null;
+		registeredTeam: {
+			id: string;
+			repo: string;
+			eventId: string;
+			members: {
+				role: string | null;
+				userId: string;
+			}[];
+		} | null;
 	};
 }) => {
 	const isProfileComplete = isProfileCompleteFn(user);
@@ -28,10 +50,12 @@ export const CurrentEvent = ({
 		? registeredTeam.members.some((member) => member.userId === user?.id)
 		: !!user;
 
+	if (!event) {
+		redirect("/");
+	}
 	const {
 		date,
 		imageWhite,
-		location,
 		description,
 		status,
 		title,
