@@ -71,6 +71,7 @@ export const getEvents = async () => {
             title: true,
             date: true,
             image: true,
+            status: true,
             description: true,
             details: true,
             _count: {

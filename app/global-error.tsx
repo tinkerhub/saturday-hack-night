@@ -24,12 +24,10 @@ const GlobalError = ({
 			}}
 		>
 			<div className="text-center">
-				<h1 className="text-4xl font-medium font-['Clash Display'] text-white">
+				<h1 className="text-4xl font-medium  text-white">
 					Something Went Wrong
 				</h1>
-				<h1 className="text-5xl sm:text-8xl font-bold font-['Clash Display'] text-primary">
-					Error
-				</h1>
+				<h1 className="text-5xl sm:text-8xl font-bold  text-primary">Error</h1>
 				<button
 					type="button"
 					className="w-64 h-14 bg-white text-lg font-medium text-black transition-all duration-500 hover:bg-primaru hover:shadow-md hover:shadow-primary/30 active:bg-primary active:ring-2 active:ring-primary"

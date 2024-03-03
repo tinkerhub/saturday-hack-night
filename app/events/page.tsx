@@ -29,12 +29,12 @@ const EventsPage = async () => {
 			)}
 
 			{events && events.length > 0 && (
-				<div className="mt-8 w-full container mx-auto flex flex-col items-center">
+				<div className="mt-8 w-full container  px-4 md:px-0 mx-auto flex flex-col items-center">
 					<h1 className="text-4xl font-bold text-white w-full text-left">
 						Explored Areas 🌟
 					</h1>
 
-					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-12 py-4 lg:py-9 px-4 lg:px-8">
+					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-12 py-4 lg:py-9">
 						{events.map((event) => (
 							<EventCard key={event.id} event={event} />
 						))}

@@ -6,6 +6,7 @@ import Script from "next/script";
 import { Navbar } from "./ui/Navbar";
 import { validateRequest } from "@/utils/lucia";
 import { Footer } from "./ui/Footer";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -41,6 +42,7 @@ export default async function RootLayout({
 			<body>
 				<Navbar user={user} />
 				{children}
+				<Toaster richColors />
 				<Footer />
 			</body>
 		</html>
