@@ -2,12 +2,18 @@ import { validateRequest } from "@/utils/lucia";
 import { CurrentEvent } from "./ui/CurrentEvent";
 import { getCurrentEvent, getEvents } from "@/utils/events";
 import { EventCard } from "./ui/EventCard";
+import { CreateTeamModal } from "./ui/modal/CreateTeamModal";
 
-const EventsPage = async () => {
+type SearchParamProps = {
+	searchParams: Record<string, string> | null | undefined;
+};
+
+const EventsPage = async ({ searchParams }: SearchParamProps) => {
+	const registerModal = searchParams?.register === "true";
+	const updateModal = searchParams?.update === "true";
+
 	const { user } = await validateRequest();
-
 	const currentEvent = await getCurrentEvent(user);
-
 	const events = await getEvents();
 
 	return (
@@ -26,6 +32,14 @@ const EventsPage = async () => {
 					</h1>
 					<CurrentEvent user={user} data={currentEvent} />
 				</div>
+			)}
+
+			{user && currentEvent.event && !currentEvent.team && registerModal && (
+				<CreateTeamModal
+					user={user}
+					isOpen={registerModal && !currentEvent.team && !!user}
+					eventId={currentEvent.event.id}
+				/>
 			)}
 
 			{events && events.length > 0 && (

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@lucia-auth/adapter-prisma": "^4.0.0",
+    "@radix-ui/react-dialog": "^1.0.5",
     "arctic": "^1.2.1",
     "dayjs": "^1.11.10",
     "framer-motion": "^11.0.8",

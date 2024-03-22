@@ -63,6 +63,20 @@ export const CurrentEvent = ({
 		_count: { teams },
 	} = event;
 
+	const url = user
+		? registeredTeam
+			? isEditable
+				? status === "REGISTRATION"
+					? `/events/?update=true&eventId=${event.id}`
+					: `/events/?view=true&eventId=${event.id}`
+				: `/events/?view=true&eventId=${event.id}`
+			: isProfileComplete
+			  ? status === "REGISTRATION"
+					? `/events/?register=true&eventId=${event.id}`
+					: ""
+			  : `/events/?register=true&eventId=${event.id}`
+		: `/events/?register=true&eventId=${event.id}`;
+
 	return (
 		<div className="flex flex-col lg:flex-row w-full items-start gap-4">
 			{/* Modals (you'll likely need to keep these as React components due to state management) */}
@@ -76,15 +90,8 @@ export const CurrentEvent = ({
 					isEditable={isEditable}
 				/>
 			)}
-			{user && isOpenCreateModal && (
-				<CreateTeamModal
-					isOpen={isOpenCreateModal}
-					onClose={onCloseCreateModal}
-					eventId={id}
-				/>
-			)} */}
+			 */}
 
-			{/* Left Card */}
 			<div className="min-w-full lg:min-w-[50%] max-w-[50%] rounded-md bg-white/15 backdrop-blur-md flex flex-col">
 				<div className="flex justify-between items-center p-4">
 					<div className="flex items-center text-white text-sm">
@@ -133,28 +140,33 @@ export const CurrentEvent = ({
 				<p className="text-lg flex-grow-1 text-white mt-0">{description}</p>
 
 				<div className="mt-4 flex gap-3">
-					<button
-						type="button"
-						className={`bg-white hover:bg-primary active:bg-primary active:ring-2 active:ring-primary transition-all font-medium text-sm px-6 py-3 rounded-md ${
-							user && registeredTeam && isEditable && status === "REGISTRATION"
-								? ""
-								: "bg-gray-400 cursor-not-allowed"
-						}`}
-					>
-						{user
-							? registeredTeam
-								? isEditable
-									? status === "REGISTRATION"
-										? "Update Team"
+					<Link href={url}>
+						<button
+							type="button"
+							className={`bg-white hover:bg-primary active:bg-primary active:ring-2 active:ring-primary transition-all font-medium text-sm px-6 py-3 rounded-md ${
+								user &&
+								registeredTeam &&
+								isEditable &&
+								status === "REGISTRATION"
+									? ""
+									: "bg-gray-400 cursor-not-allowed"
+							}`}
+						>
+							{user
+								? registeredTeam
+									? isEditable
+										? status === "REGISTRATION"
+											? "Update Team"
+											: "View Team"
 										: "View Team"
-									: "View Team"
-								: isProfileComplete
-								  ? status === "REGISTRATION"
-										? "Register Team"
-										: "Closed"
-								  : "Register Team"
-							: "Register Team"}
-					</button>
+									: isProfileComplete
+									  ? status === "REGISTRATION"
+											? "Register Team"
+											: "Closed"
+									  : "Register Team"
+								: "Register Team"}
+						</button>
+					</Link>
 
 					<Link href={details} target="_blank">
 						<button
