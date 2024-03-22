@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    scrollbar-width: none;
+    @apply bg-secondary;
+}
+::-webkit-scrollbar {
+    width: '0px';
+    background: transparent;
+    display: none;
+}
+
+* {
+    font-family: 'Clash Display', sans-serif;
+}
