@@ -10,6 +10,7 @@ import {
 } from "@/utils/types";
 import dayjs from "dayjs";
 import { redirect } from "next/navigation";
+import { CreateTeamModal } from "./modal/CreateTeamModal";
 
 export const CurrentEvent = ({
 	user,
@@ -91,6 +92,7 @@ export const CurrentEvent = ({
 				/>
 			)}
 			 */}
+			<CreateTeamModal />
 
 			<div className="min-w-full lg:min-w-[50%] max-w-[50%] rounded-md bg-white/15 backdrop-blur-md flex flex-col">
 				<div className="flex justify-between items-center p-4">

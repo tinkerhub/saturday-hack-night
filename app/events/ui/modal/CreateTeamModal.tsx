@@ -4,17 +4,27 @@ import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 import * as Dialog from "@radix-ui/react-dialog";
 import { User } from "lucia";
+import { useEffect, useState } from "react";
 
-export const CreateTeamModal = async ({
-	isOpen,
-	eventId,
+export const CreateTeamModal = ({
 	user,
 }: {
-	isOpen: boolean;
-	eventId: string;
 	user?: User | null;
 }) => {
 	const router = useRouter();
+
+	const [isOpen, setIsOpen] = useState(false);
+
+	const [eventID, setEventID] = useState<string | null>(null);
+
+	const searchParams = useSearchParams();
+	const eventId = searchParams.get("eventId");
+
+	useEffect(() => {
+		console.log(searchParams);
+		setEventID(searchParams.get("eventId"));
+		setIsOpen(!!searchParams.get("register"));
+	}, [searchParams]);
 
 	const pathName = usePathname();
 	const onOpenChange = () => {
