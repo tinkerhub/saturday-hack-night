@@ -5,6 +5,7 @@ const envSchema = zod.object({
     GITHUB_CLIENT_ID: zod.string(),
     GITHUB_CLIENT_SECRET: zod.string(),
     GITHUB_REDIRECT_URL: zod.string(),
+    NODE_ENV: zod.string(),
 })
 
 export const env = envSchema.parse(process.env);

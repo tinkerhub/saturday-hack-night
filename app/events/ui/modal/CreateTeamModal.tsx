@@ -34,9 +34,9 @@ export const CreateTeamModal = ({
 	return (
 		<Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
 			<Dialog.Portal>
-				<Dialog.Overlay className="fixed inset-0 bg-secondary/50" />
+				<Dialog.Overlay className="fixed transition-all animate-overlayShow ease-in-out inset-0 bg-secondary/50" />
 				<Dialog.Content
-					className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-secondary text-white rounded-lg p-8 min-w-container"
+					className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-secondary text-white animate-contentShow rounded-lg p-8 min-w-container"
 					onCloseAutoFocus={(e) => e.preventDefault()}
 				>
 					<Dialog.Title className="text-3xl font-bold mb-4">
