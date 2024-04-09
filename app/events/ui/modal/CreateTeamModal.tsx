@@ -5,6 +5,7 @@ import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import * as Dialog from "@radix-ui/react-dialog";
 import { User } from "lucia";
 import { useEffect, useState } from "react";
+import { Input } from "@/app/components/Input";
 
 export const CreateTeamModal = ({
 	user,
@@ -49,15 +50,10 @@ export const CreateTeamModal = ({
 					<form>
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 							<div>
-								<label htmlFor="name" className="block font-bold mb-2">
+								<label htmlFor="name" className="block font-semibold mb-2">
 									Team Name
 								</label>
-								<input
-									type="text"
-									id="name"
-									className="w-full px-4 py-2 rounded-md bg-gray-700 text-white"
-									placeholder="Team Name"
-								/>
+								<Input type="text" id="name" placeholder="Team name" />
 								{
 									<p className="text-red-500 mt-2">
 										Team Name should be Alpha Numeric & should not contain any
@@ -66,15 +62,15 @@ export const CreateTeamModal = ({
 								}
 							</div>
 							<div>
-								<label htmlFor="repo" className="block font-bold mb-2">
+								<label htmlFor="repo" className="block font-semibold mb-2">
 									Github Repository
 								</label>
-								<input
+								<Input
 									type="text"
 									id="repo"
-									className="w-full px-4 py-2 rounded-md bg-gray-700 text-white"
 									placeholder="www.github.com/example/exampleRepo"
 								/>
+
 								{<p className="text-red-500 mt-2">Enter a valid repo Url</p>}
 							</div>
 						</div>

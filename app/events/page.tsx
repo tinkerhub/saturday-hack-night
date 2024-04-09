@@ -34,14 +34,6 @@ const EventsPage = async ({ searchParams }: SearchParamProps) => {
 				</div>
 			)}
 
-			{user && currentEvent.event && !currentEvent.team && registerModal && (
-				<CreateTeamModal
-					user={user}
-					isOpen={registerModal && !currentEvent.team && !!user}
-					eventId={currentEvent.event.id}
-				/>
-			)}
-
 			{events && events.length > 0 && (
 				<div className="mt-8 w-full container  px-4 md:px-0 mx-auto flex flex-col items-center">
 					<h1 className="text-4xl font-bold text-white w-full text-left">

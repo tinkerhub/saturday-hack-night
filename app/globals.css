@@ -14,4 +14,10 @@ body {
 
 * {
     font-family: 'Clash Display', sans-serif;
+      @apply appearance-none outline-none;
+
+}
+
+*:focus {
+  @apply appearance-none outline-none;
 }

@@ -21,6 +21,7 @@
     "react": "^18",
     "react-dom": "^18",
     "sonner": "^1.4.3",
+    "tailwind-merge": "^2.2.2",
     "zod": "^3.22.4"
   },
   "devDependencies": {

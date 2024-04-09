@@ -4,10 +4,6 @@ import Image from "next/image";
 import { Calendar } from "lucide-react";
 import { User } from "lucia";
 import { isProfileComplete as isProfileCompleteFn } from "@/utils/user";
-import {
-	CurrentEvent as CurrentEventType,
-	RegisteredTeam,
-} from "@/utils/types";
 import dayjs from "dayjs";
 import { redirect } from "next/navigation";
 import { CreateTeamModal } from "./modal/CreateTeamModal";
@@ -136,7 +132,6 @@ export const CurrentEvent = ({
 				</div>
 			</div>
 
-			{/* Right Content Column */}
 			<div className="w-full flex flex-col h-full items-start pl-0 md:pl-4">
 				<h1 className="text-4xl font-bold text-white">{title}</h1>
 				<p className="text-lg flex-grow-1 text-white mt-0">{description}</p>

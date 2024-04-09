@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { useRef, useState, useCallback, useEffect } from "react";
 import { MobileBar } from "./MobileBar";
+import { ProfileModal } from "./modal/ProfileModal";
 export const Navbar = ({
 	user,
 }: {
@@ -31,8 +32,8 @@ export const Navbar = ({
 
 	return (
 		<div className="fixed w-full h-20 flex items-stretch px-4 md:px-8 z-50 bg-secondary/75 backdrop-blur-md">
+			<ProfileModal user={user} />
 			<div className="flex container w-full mx-auto items-center justify-between">
-				{/* Logo Section */}
 				<Link href="/" className="flex items-center">
 					<Image
 						alt="Saturday HackNight"
@@ -79,9 +80,11 @@ export const Navbar = ({
 								<p className="text-sm font-bold text-white">
 									{user.name || user.githubId}
 								</p>
-								<p className="text-xs text-primary font-medium hover:cursor-pointer hover:underline">
-									view profile
-								</p>
+								<Link href="?profile=true">
+									<p className="text-xs text-primary font-medium hover:cursor-pointer hover:underline">
+										view profile
+									</p>
+								</Link>
 							</div>
 						</div>
 					) : (
