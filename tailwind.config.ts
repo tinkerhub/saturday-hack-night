@@ -36,7 +36,8 @@ const config: Config = {
       },
       colors: {
         primary: '#DBF72C',
-        secondary: '#0C0F17'
+        secondary: '#0C0F17',
+        green: "#32ba7c",
       },
       boxShadow: {
         primary: '0px 2px 4px rgba(255, 255, 255, 0.15)'

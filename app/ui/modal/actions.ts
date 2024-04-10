@@ -21,15 +21,6 @@ export default async function updateProfile(
 	userId: string,
 	formData: FormData,
 ) {
-	await sendEmail(
-		"CreateTeam",
-		{
-			teamID: userId,
-		},
-		"Team Created",
-		"anbarasun123@gmail.com",
-	);
-
 	const validatedFields = schema.safeParse({
 		name: formData.get("namee"),
 		mobile: formData.get("mobile"),
