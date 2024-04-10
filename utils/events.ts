@@ -83,7 +83,5 @@ export const getEvents = async () => {
         }
     })
 
-    console.log(events);
-
     return events;
 };

@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { OAuth2RequestError } from "arctic";
 import { generateId } from "lucia";
 import { db } from "@/utils/db";
-import { GithubOAuthUser } from "@/utils/types";
+import type { GithubOAuthUser } from "@/utils/types";
 
 export async function GET(request: Request): Promise<Response> {
 	const url = new URL(request.url);

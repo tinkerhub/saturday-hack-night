@@ -1,5 +1,5 @@
 "use client";
-import { User } from "lucia";
+import type { User } from "lucia";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
@@ -31,8 +31,8 @@ export const Navbar = ({
 	}, [handleWindowResize]);
 
 	return (
-		<div className="fixed w-full h-20 flex items-stretch px-4 md:px-8 z-50 bg-secondary/75 backdrop-blur-md">
-			<ProfileModal user={user} />
+		<div className="fixed w-full h-20 flex items-stretch px-4 md:px-8 z-30 bg-secondary/75 backdrop-blur-md">
+			{user && <ProfileModal user={user} />}
 			<div className="flex container w-full mx-auto items-center justify-between">
 				<Link href="/" className="flex items-center">
 					<Image
@@ -76,7 +76,7 @@ export const Navbar = ({
 								height={43}
 								className="rounded-full hidden md:block border-2 border-primary"
 							/>
-							<div className="flex flex-col items-end">
+							<div className="flex flex-col">
 								<p className="text-sm font-bold text-white">
 									{user.name || user.githubId}
 								</p>

@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from "react";
+import type { InputHTMLAttributes } from "react";
 import { twMerge } from "tailwind-merge";
 
 export const Input = ({

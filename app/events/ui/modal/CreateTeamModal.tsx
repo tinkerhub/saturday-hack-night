@@ -22,7 +22,6 @@ export const CreateTeamModal = ({
 	const eventId = searchParams.get("eventId");
 
 	useEffect(() => {
-		console.log(searchParams);
 		setEventID(searchParams.get("eventId"));
 		setIsOpen(!!searchParams.get("register"));
 	}, [searchParams]);

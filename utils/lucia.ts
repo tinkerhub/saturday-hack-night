@@ -1,5 +1,5 @@
-import { User as DBUser } from '@prisma/client';
-import { Lucia, Session, User } from "lucia";
+import type { User as DBUser } from '@prisma/client';
+import { Lucia, type Session, type User } from "lucia";
 import { PrismaAdapter } from "@lucia-auth/adapter-prisma";
 import { GitHub } from "arctic";
 import { cache } from "react";
@@ -59,7 +59,9 @@ export const validateRequest = cache(
 					sessionCookie.attributes,
 				);
 			}
-		} catch {}
+		} catch {
+			console.log("Error setting cookie");
+		}
 		return result;
 	},
 );
