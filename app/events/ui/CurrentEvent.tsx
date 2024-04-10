@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Calendar } from "lucide-react";
-import { User } from "lucia";
+import type { User } from "lucia";
 import { isProfileComplete as isProfileCompleteFn } from "@/utils/user";
 import dayjs from "dayjs";
 import { redirect } from "next/navigation";
@@ -68,10 +68,10 @@ export const CurrentEvent = ({
 					: `/events/?view=true&eventId=${event.id}`
 				: `/events/?view=true&eventId=${event.id}`
 			: isProfileComplete
-			  ? status === "REGISTRATION"
+				? status === "REGISTRATION"
 					? `/events/?register=true&eventId=${event.id}`
 					: ""
-			  : `/events/?register=true&eventId=${event.id}`
+				: `/events/?register=true&eventId=${event.id}`
 		: `/events/?register=true&eventId=${event.id}`;
 
 	return (
@@ -88,7 +88,7 @@ export const CurrentEvent = ({
 				/>
 			)}
 			 */}
-			<CreateTeamModal />
+			{user && <CreateTeamModal user={user} />}
 
 			<div className="min-w-full lg:min-w-[50%] max-w-[50%] rounded-md bg-white/15 backdrop-blur-md flex flex-col">
 				<div className="flex justify-between items-center p-4">
@@ -126,8 +126,8 @@ export const CurrentEvent = ({
 						{registeredTeam
 							? "Registered 🎉"
 							: status === "REGISTRATION"
-							  ? "Register Now"
-							  : "Registration Closed"}
+								? "Register Now"
+								: "Registration Closed"}
 					</span>
 				</div>
 			</div>
@@ -157,10 +157,10 @@ export const CurrentEvent = ({
 											: "View Team"
 										: "View Team"
 									: isProfileComplete
-									  ? status === "REGISTRATION"
+										? status === "REGISTRATION"
 											? "Register Team"
 											: "Closed"
-									  : "Register Team"
+										: "Register Team"
 								: "Register Team"}
 						</button>
 					</Link>

@@ -11,12 +11,14 @@
 	"dependencies": {
 		"@lucia-auth/adapter-prisma": "^4.0.1",
 		"@radix-ui/react-dialog": "^1.0.5",
+		"@react-email/components": "0.0.16",
 		"arctic": "^1.5.0",
 		"dayjs": "^1.11.10",
 		"framer-motion": "^11.0.25",
 		"lucia": "^3.1.1",
 		"lucide-react": "^0.366.0",
 		"next": "14.1.4",
+		"nodemailer": "^6.9.13",
 		"oslo": "^1.2.0",
 		"react": "^18",
 		"react-dom": "^18",
@@ -28,6 +30,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "1.6.4",
 		"@types/node": "^20",
+		"@types/nodemailer": "^6.4.14",
 		"@types/react": "^18",
 		"@types/react-dom": "^18",
 		"autoprefixer": "^10.0.1",

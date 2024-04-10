@@ -3,14 +3,40 @@
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 import * as Dialog from "@radix-ui/react-dialog";
-import { User } from "lucia";
-import { useEffect, useState } from "react";
+import type { User } from "lucia";
+import { startTransition, useEffect, useState } from "react";
 import { Input } from "@/app/components/Input";
+import { X } from "lucide-react";
+import { Button } from "@/app/components/Button";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import createTeam from "./actions";
+
+export const schema = z.object({
+	name: z
+		.string({
+			invalid_type_error: "Enter valid Team Name",
+		})
+		.regex(/^[a-z|0-9]+$/gi),
+	repo: z
+		.string({
+			invalid_type_error: "Enter valid Github repo URL",
+		})
+		.regex(/^https:\/\/github.com\/[^/]+\/[^/]+$/g),
+	members: z.array(
+		z.string({
+			invalid_type_error: "Enter valid Github ID",
+		}),
+	),
+});
+
+type FormData = z.infer<typeof schema>;
 
 export const CreateTeamModal = ({
 	user,
 }: {
-	user?: User | null;
+	user: User;
 }) => {
 	const router = useRouter();
 
@@ -31,77 +57,105 @@ export const CreateTeamModal = ({
 		router.push(pathName);
 	};
 
+	const {
+		handleSubmit,
+		register,
+		formState: { errors, isSubmitting, isDirty, isValid },
+	} = useForm<FormData>({
+		resolver: zodResolver(schema),
+	});
+
+	const createTeamWithBindings = createTeam.bind(null, user.id, eventID);
+
+	const onSubmit = handleSubmit((data) => {
+		startTransition(() => {
+			createTeamWithBindings(data);
+		});
+	});
+
 	return (
 		<Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
 			<Dialog.Portal>
 				<Dialog.Overlay className="fixed transition-all animate-overlayShow ease-in-out inset-0 bg-secondary/50" />
 				<Dialog.Content
-					className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-secondary text-white animate-contentShow rounded-lg p-8 min-w-container"
+					className="fixed max-w-[1000px] md:h-auto w-full h-full md:w-5/6 top-1/2 z-50 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-secondary text-white animate-contentShow rounded-lg p-8 min-w-container"
 					onCloseAutoFocus={(e) => e.preventDefault()}
 				>
-					<Dialog.Title className="text-3xl font-bold mb-4">
-						Register Your Team
+					<div className="flex justify-end ">
+						<span className="border-2 rounded-full  border-red-500">
+							<X
+								aria-label="Close Modal"
+								className="cursor-pointer text-red-500"
+								onClick={onOpenChange}
+							/>
+						</span>
+					</div>
+
+					<Dialog.Title className="text-3xl font-bold">
+						<div className="flex justify-between">Register Your Team</div>
 					</Dialog.Title>
-					<Dialog.Description className="text-gray-400 mb-6">
+					<Dialog.Description className="text-white/40 mb-6">
 						you&apos;r are currently logged in as{" "}
 						<span className="text-white">{user?.email}</span>
 					</Dialog.Description>
-					<form>
-						<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-							<div>
-								<label htmlFor="name" className="block font-semibold mb-2">
-									Team Name
-								</label>
-								<Input type="text" id="name" placeholder="Team name" />
-								{
-									<p className="text-red-500 mt-2">
-										Team Name should be Alpha Numeric & should not contain any
-										special characters
-									</p>
-								}
+					<form onSubmit={onSubmit}>
+						<div className="flex flex-col md:flex gap-4">
+							<div className="mt-2 block md:hidden w-full text-xs bg-green/15 text-green p-1 rounded-md">
+								<p>Make sure all the members are registered on the platform</p>
+								<p>Project repo can&apos;t be changed once submitted</p>
+								<p>You can team up with up to 3 people</p>
+								<p>Team should have at least 1 member</p>
 							</div>
-							<div>
-								<label htmlFor="repo" className="block font-semibold mb-2">
-									Github Repository
-								</label>
-								<Input
-									type="text"
-									id="repo"
-									placeholder="www.github.com/example/exampleRepo"
-								/>
+							<div className="flex flex-col w-full gap-4">
+								<div>
+									<label htmlFor="name" className="pb-2">
+										Team Name
+									</label>
+									<Input
+										aria-errormessage="Team Name should be Alpha Numeric & should not contain any
+										special characters"
+										type="text"
+										pattern="[a-z|0-9]"
+										required
+										spellCheck="false"
+										placeholder="Team name"
+										{...register("name")}
+									/>
+								</div>
+								<div>
+									<label htmlFor="repo" className="mb-2">
+										Github Repository
+									</label>
+									<Input
+										type="text"
+										id="repo"
+										placeholder="www.github.com/example/exampleRepo"
+										{...register("repo")}
+									/>
 
-								{<p className="text-red-500 mt-2">Enter a valid repo Url</p>}
+									{<p className="text-red-500 mt-2">Enter a valid repo Url</p>}
+								</div>
+								<div className="mt-4">
+									{/* <Member isEditable loading={loading} /> */}
+									{
+										<p className="text-red-500 mt-2">
+											User not found or team should have at least 1 member
+										</p>
+									}
+								</div>
 							</div>
 						</div>
-						<div className="mt-4">
-							{/* <Member isEditable loading={loading} /> */}
-						</div>
-						{
-							<p className="text-red-500 mt-2">
-								User not found or team should have at least 1 member
-							</p>
-						}
-						<div className="mt-4 text-sm text-gray-400">
-							<p>Make sure all the members are registered on the platform</p>
-							<p>Project repo can&apos;t be changed once submitted</p>
-							<p>You can team up with up to 3 people</p>
-							<p>Team should have at least 1 member</p>
-						</div>
+
 						<div className="mt-6 flex justify-end">
-							<Dialog.Close asChild>
-								<button
-									type="button"
-									className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-2"
-								>
-									Cancel
-								</button>
-							</Dialog.Close>
-							<button
+							<Button
+								disabled={!isDirty || !isValid}
+								loading={isSubmitting}
 								type="submit"
-								className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+								className="w-64 text-secondary bg-white font-semibold py-2 px-4 rounded"
 							>
+								{/* biome-ignore lint/correctness/noConstantCondition: <explanation> */}
 								{true ? "Registering..." : "Register Your Team"}
-							</button>
+							</Button>
 						</div>
 					</form>
 				</Dialog.Content>

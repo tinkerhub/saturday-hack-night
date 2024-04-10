@@ -3,6 +3,7 @@
 import { db } from "@/utils/db";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import { sendEmail } from "@/emails";
 
 const schema = z.object({
 	name: z.string({
@@ -20,6 +21,15 @@ export default async function updateProfile(
 	userId: string,
 	formData: FormData,
 ) {
+	await sendEmail(
+		"CreateTeam",
+		{
+			teamID: userId,
+		},
+		"Team Created",
+		"anbarasun123@gmail.com",
+	);
+
 	const validatedFields = schema.safeParse({
 		name: formData.get("namee"),
 		mobile: formData.get("mobile"),
@@ -27,7 +37,9 @@ export default async function updateProfile(
 	});
 
 	if (!validatedFields.success) {
-		return Object.values(validatedFields.error.errors).map((error) => error.message).join(", \n");
+		return Object.values(validatedFields.error.errors)
+			.map((error) => error.message)
+			.join(", \n");
 	}
 
 	await db.user.update({

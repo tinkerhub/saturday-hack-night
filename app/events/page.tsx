@@ -2,7 +2,6 @@ import { validateRequest } from "@/utils/lucia";
 import { CurrentEvent } from "./ui/CurrentEvent";
 import { getCurrentEvent, getEvents } from "@/utils/events";
 import { EventCard } from "./ui/EventCard";
-import { CreateTeamModal } from "./ui/modal/CreateTeamModal";
 
 type SearchParamProps = {
 	searchParams: Record<string, string> | null | undefined;
