@@ -3,21 +3,31 @@
 import { db } from "@/utils/db";
 import { revalidatePath } from "next/cache";
 import { sendEmail } from "@/emails";
-import { validateRequest, updateProfileSchema } from "@/utils/validateRequest";
+import {
+	validateRequestSchema,
+	updateProfileSchema,
+} from "@/utils/validateRequest";
+import { ZodFormattedError } from "zod";
 
 export default async function updateProfile(
 	userId: string,
 	formData: FormData,
 ) {
-	const data = validateRequest(updateProfileSchema, {
-		name: formData.get("namee"),
-		mobile: formData.get("mobile"),
-		college: formData.get("college"),
-	});
+	const validation = validateRequestSchema(
+		updateProfileSchema,
+		{
+			name: formData.get("name"),
+			mobile: formData.get("mobile"),
+			college: formData.get("college"),
+		},
+		false,
+	);
 
-	if (data instanceof Response) {
-		return data;
+	if (validation instanceof Response || validation.success === false) {
+		return validation;
 	}
+
+	const data = validation.data;
 
 	await db.user.update({
 		where: {

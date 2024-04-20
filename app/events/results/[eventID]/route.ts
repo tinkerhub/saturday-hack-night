@@ -53,7 +53,7 @@ export async function GET(
 	return new Response(
 		JSON.stringify({
 			event,
-			projects
+			projects,
 		}),
 	);
 }

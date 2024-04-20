@@ -90,7 +90,10 @@ export enum TeamMemberRole {
 	MEMBER = "MEMBER",
 }
 
-export type ExtractedTeamType = Pick<Team, "name" | "id" | "projectStatus" | 'repo'> & {
+export type ExtractedTeamType = Pick<
+	Team,
+	"name" | "id" | "projectStatus" | "repo"
+> & {
 	members: {
 		user: Pick<User, "avatar" | "name" | "githubId">;
 	}[];

@@ -1,15 +1,38 @@
-import { z } from "zod";
+import { type ZodFormattedError, z } from "zod";
 
-const validateRequest = <Input>(schema: z.ZodType<Input>, data: unknown) => {
+const validateRequestSchema = <Input>(
+	schema: z.ZodType<Input>,
+	data: unknown,
+	inResponseFormat = true,
+):
+	| {
+			success: false;
+			errors: ZodFormattedError<Input>;
+	  }
+	| {
+			success: true;
+			data: Input;
+	  }
+	| Response => {
 	const response = schema.safeParse(data);
 
 	if (!response.success) {
 		const errors = response.error.format();
-		return new Response(JSON.stringify(errors), {
-			status: 400,
-		});
+
+		if (inResponseFormat) {
+			return new Response(JSON.stringify(errors), {
+				status: 400,
+			});
+		}
+		return {
+			success: false,
+			errors,
+		};
 	}
-	return response.data;
+	return {
+		success: true,
+		data: response.data,
+	};
 };
 
 const getResultsParamsSchema = z.object({
@@ -50,5 +73,5 @@ export {
 	getResultsParamsSchema,
 	updateProfileSchema,
 	createTeamSchema,
-	validateRequest,
+	validateRequestSchema,
 };
