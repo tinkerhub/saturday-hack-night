@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import type { StylesConfig } from "react-select";
 import AsyncSelect from "react-select/async";
 
 const selectStyle = {
@@ -53,7 +54,7 @@ export const AsyncSelectComponent = ({ ...rest }) => {
 	return (
 		<AsyncSelect
 			className="w-full"
-			styles={selectStyle as unknown as any}
+			styles={selectStyle as StylesConfig}
 			{...rest}
 		/>
 	);

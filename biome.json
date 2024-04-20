@@ -10,6 +10,6 @@
 		}
 	},
 	"files": {
-		"ignore": [".next/*", "node_modules/*", "package-lock.json"]
+		"ignore": [".next/*", "node_modules/*", "package-lock.json", "public/*"]
 	}
 }
