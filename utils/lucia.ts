@@ -1,4 +1,4 @@
-import type { User as DBUser } from '@prisma/client';
+import type { User as DBUser } from "@prisma/client";
 import { Lucia, type Session, type User } from "lucia";
 import { PrismaAdapter } from "@lucia-auth/adapter-prisma";
 import { GitHub } from "arctic";
@@ -7,26 +7,29 @@ import { cookies } from "next/headers";
 import { db } from "@/utils/db";
 import { env } from "@/utils/config";
 
-
 const adapter = new PrismaAdapter(db.session, db.user);
 
 export const lucia = new Lucia(adapter, {
 	sessionCookie: {
 		attributes: {
-			secure:env.NODE_ENV === "production",
+			secure: env.NODE_ENV === "production",
 		},
 	},
 	getUserAttributes: (attributes) => {
 		return {
 			...attributes,
-            // Add custom attributes here
+			// Add custom attributes here
 		};
 	},
 });
 
-export const github = new GitHub(env.GITHUB_CLIENT_ID, env.GITHUB_CLIENT_SECRET, {
-    redirectURI: env.GITHUB_REDIRECT_URL,
-});
+export const github = new GitHub(
+	env.GITHUB_CLIENT_ID,
+	env.GITHUB_CLIENT_SECRET,
+	{
+		redirectURI: env.GITHUB_REDIRECT_URL,
+	},
+);
 
 export const validateRequest = cache(
 	async (): Promise<

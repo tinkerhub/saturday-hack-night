@@ -8,9 +8,11 @@ export const Button = ({
 	loading,
 	type = "button" as const,
 	children,
+	wrapperClassName,
 	...rest
 }: ButtonHTMLAttributes<HTMLButtonElement> & {
 	loading?: boolean;
+	wrapperClassName?: string;
 }) => {
 	const { pending } = useFormStatus();
 
@@ -19,12 +21,17 @@ export const Button = ({
 			type={type}
 			disabled={pending || loading}
 			className={twMerge(
-				"w-full h-11 px-4  bg-white/15 hover:shadow-primary focus:text-secondary focus:bg-primary hover:bg-primary duration-500 transition-all hover:text-secondary text-white/50 rounded-[10px]",
+				"w-full h-11 px-4 bg-white/15 hover:shadow-primary focus:text-secondary focus:bg-primary hover:bg-primary duration-500 transition-all hover:text-secondary text-white/50 rounded-[10px]",
 				className,
 			)}
 			{...rest}
 		>
-			<div className="flex items-center justify-center gap-2">
+			<div
+				className={twMerge(
+					"flex items-center justify-center gap-2",
+					wrapperClassName,
+				)}
+			>
 				{pending ||
 					(loading && (
 						// biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>

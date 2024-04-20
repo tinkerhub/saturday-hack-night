@@ -20,8 +20,6 @@ export default async function createTeam(
 
 	schema.safeParse(formData);
 
-    console.log("Creating team");
-
 	const team = await db.$transaction(async (tx) => {
 		const team = await tx.team.create({
 			data: {

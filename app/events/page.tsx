@@ -2,6 +2,7 @@ import { validateRequest } from "@/utils/lucia";
 import { CurrentEvent } from "./ui/CurrentEvent";
 import { getCurrentEvent, getEvents } from "@/utils/events";
 import { EventCard } from "./ui/EventCard";
+import { ProjectModal } from "./ui/modal/ProjectModal";
 
 type SearchParamProps = {
 	searchParams: Record<string, string> | null | undefined;
@@ -10,6 +11,7 @@ type SearchParamProps = {
 const EventsPage = async ({ searchParams }: SearchParamProps) => {
 	const registerModal = searchParams?.register === "true";
 	const updateModal = searchParams?.update === "true";
+	const results = searchParams?.results === "true";
 
 	const { user } = await validateRequest();
 	const currentEvent = await getCurrentEvent(user);
@@ -24,6 +26,7 @@ const EventsPage = async ({ searchParams }: SearchParamProps) => {
 			}}
 			className=" bg-cover bg-center bg-no-repeat"
 		>
+			<ProjectModal />
 			{currentEvent.event && (
 				<div className="w-full container mx-auto pt-24 lg:pt-18 px-4 md:px-0 flex flex-col items-start">
 					<h1 className="text-4xl font-bold text-white py-4">

@@ -1,9 +1,8 @@
-import { CSSProperties, ReactElement, RefAttributes } from "react";
-import { GroupBase } from "react-select";
-import AsyncSelect, { AsyncProps } from "react-select/async";
+import type { CSSProperties } from "react";
+import AsyncSelect from "react-select/async";
 
 const selectStyle = {
-	control: (styles: CSSProperties, state: { isFocused: boolean }) => ({
+	control: (styles: CSSProperties) => ({
 		...styles,
 		":hover": {
 			borderColor: "rgba(255, 255, 255, 0.15)",

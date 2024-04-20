@@ -23,11 +23,11 @@ export async function GET(request: Request): Promise<Response> {
 		const githubUser = await fetchGithubUser(tokens.accessToken);
 
 		const existingAccount = await db.account.findUnique({
-            where: {
-                provider: 'github',
-                providerUserId : githubUser.id.toString()
-            }
-        })
+			where: {
+				provider: "github",
+				providerUserId: githubUser.id.toString(),
+			},
+		});
 
 		if (existingAccount) {
 			const session = await lucia.createSession(existingAccount.userId, {});
@@ -52,26 +52,26 @@ export async function GET(request: Request): Promise<Response> {
 		await db.user.create({
 			data: {
 				id: userId,
-                githubId: githubUser.login,
-                name: githubUser.name,
-                email: githubUser.email,
-                avatar: githubUser.avatar_url,
+				githubId: githubUser.login,
+				name: githubUser.name,
+				email: githubUser.email,
+				avatar: githubUser.avatar_url,
 			},
 		});
 
-        await db.account.create({
-            data: {
-                id: generateId(15),
-                userId,
-                provider: 'github',
-                providerUserId: githubUser.id.toString(),
-                providerAccessToken: tokens.accessToken,
-                providerRefreshToken: '',
-                profileMeta: JSON.stringify(githubUser),
-                createdAt: new Date(),
-                updatedAt: new Date()
-            }
-        })
+		await db.account.create({
+			data: {
+				id: generateId(15),
+				userId,
+				provider: "github",
+				providerUserId: githubUser.id.toString(),
+				providerAccessToken: tokens.accessToken,
+				providerRefreshToken: "",
+				profileMeta: JSON.stringify(githubUser),
+				createdAt: new Date(),
+				updatedAt: new Date(),
+			},
+		});
 
 		const session = await lucia.createSession(userId, {});
 		const sessionCookie = lucia.createSessionCookie(session.id);
@@ -105,5 +105,5 @@ const fetchGithubUser = async (accessToken: string) => {
 			Authorization: `Bearer ${accessToken}`,
 		},
 	});
-    return await response.json() as GithubOAuthUser;
+	return (await response.json()) as GithubOAuthUser;
 };

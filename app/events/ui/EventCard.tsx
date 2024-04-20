@@ -1,9 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import { Event } from "@prisma/client";
-import Image from "next/image";
 import Link from "next/link";
-import { toast } from "sonner";
 import CopyLink from "./CopyLink";
+import { Button } from "@/app/components/Button";
 
 export const EventCard = ({
 	event: {
@@ -45,20 +43,25 @@ export const EventCard = ({
 						{description}
 					</p>
 					<div className="w-full flex gap-2 justify-between rounded-b-md">
-						<button
-							type="button"
-							className="w-full py-2 text-sm rounded-md bg-white hover:bg-primary active:bg-primary active:ring-2 active:ring-primary transition-colors duration-300 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-							disabled={status !== "RESULTS"}
+						<Link
+							className="w-full rounded-md"
+							href={`?eventID=${id}&results=true`}
 						>
-							View Projects
-						</button>
-						<Link className="w-full rounded-md" href={details} target="_blank">
-							<button
+							<Button
 								type="button"
-								className="w-full py-2 rounded-md text-sm bg-white/15 text-white hover:bg-primary hover:text-black active:bg-primary active:ring-2 active:ring-primary transition-colors duration-300"
+								className="w-full bg-white rounded-md text-black hover:shadow-none active:bg-primary active:ring-2 active:ring-primary disabled:opacity-50 disabled:cursor-not-allowed"
+								disabled={status !== "RESULTS"}
+							>
+								View Projects
+							</Button>
+						</Link>
+						<Link className="w-full rounded-md" href={details} target="_blank">
+							<Button
+								type="button"
+								className="text-white w-full rounded-md hover:text-black hover:shadow-none"
 							>
 								More Info
-							</button>
+							</Button>
 						</Link>
 					</div>
 				</div>
