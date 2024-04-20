@@ -29,10 +29,21 @@ const config: Config = {
 						transform: "translate(-50%, -50%) scale(1)",
 					},
 				},
+				'animate-slide-in-right': {
+					'0%': {
+						transform: 'translateX(100%)',
+					},
+					'100%': {
+						transform: 'translateX(0%)',
+					},
+				
+				}
 			},
 			animation: {
 				overlayShow: "overlayShow 300ms cubic-bezier(0.16, 1, 0.3, 1)",
 				contentShow: "contentShow 300ms cubic-bezier(0.16, 1, 0.3, 1)",
+				'slide-in-right': "animate-slide-in-right 500ms cubic-bezier(0.16, 1, 0.3, 1)",
+
 			},
 			colors: {
 				primary: "#DBF72C",

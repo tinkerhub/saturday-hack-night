@@ -37,7 +37,7 @@ export const ProjectModal = () => {
 			<Dialog.Portal>
 				<Dialog.Overlay className="fixed transition-all animate-overlayShow ease-in-out inset-0 bg-secondary/50" />
 				<Dialog.Content
-					className="fixed w-full h-full top-1/2 z-50 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-secondary text-white animate-contentShow rounded-lg min-w-container"
+					className="fixed w-full h-full inset-0 z-50 bg-secondary text-white animate-slide-in-right rounded-lg min-w-container"
 					onCloseAutoFocus={(e) => e.preventDefault()}
 				>
 					<div className="flex absolute top-8 right-8 justify-end">

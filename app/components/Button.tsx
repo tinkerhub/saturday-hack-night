@@ -21,12 +21,12 @@ export const Button = ({
 			type={type}
 			disabled={pending || loading}
 			className={twMerge(
-				"w-full h-11 px-4 bg-white/15 focus:text-secondary focus-visible:text-white hover:bg-primary duration-500 transition-all hover:text-secondary text-white/50 rounded-[10px]",
+				"w-full h-11 px-2 bg-white/15 focus:text-secondary focus-visible:text-white hover:bg-primary duration-500 transition-all hover:text-secondary text-white/50 rounded-[10px]",
 				className,
 			)}
 			{...rest}
 		>
-			<div
+			<span
 				className={twMerge(
 					"flex items-center justify-center gap-2",
 					wrapperClassName,
@@ -58,7 +58,7 @@ export const Button = ({
 					))}
 
 				{children}
-			</div>
+			</span>
 		</button>
 	);
 };
