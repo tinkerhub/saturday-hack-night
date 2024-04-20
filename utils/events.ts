@@ -46,7 +46,6 @@ export const getCurrentEvent = async (user: User | null) => {
 				},
 			},
 		});
-
 		return {
 			event: currentEvent,
 			team: registeredTeam,

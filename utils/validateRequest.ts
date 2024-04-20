@@ -1,4 +1,5 @@
 import { type ZodFormattedError, z } from "zod";
+import { env } from "./config";
 
 const validateRequestSchema = <Input>(
 	schema: z.ZodType<Input>,
@@ -15,6 +16,36 @@ const validateRequestSchema = <Input>(
 	  }
 	| Response => {
 	const response = schema.safeParse(data);
+
+	if (!response.success) {
+		const errors = response.error.format();
+
+		if (inResponseFormat) {
+			return new Response(JSON.stringify(errors), {
+				status: 400,
+			});
+		}
+		return {
+			success: false,
+			errors,
+		};
+	}
+	return {
+		success: true,
+		data: response.data,
+	};
+};
+
+const validateRequestSchemaAsync = async <Input>(
+	schema: z.ZodType<Input>,
+	data: unknown,
+	inResponseFormat = true,
+): Promise<
+	| { success: false; errors: z.ZodFormattedError<Input> }
+	| { success: true; data: Input }
+	| Response
+> => {
+	const response = await schema.safeParseAsync(data);
 
 	if (!response.success) {
 		const errors = response.error.format();
@@ -62,11 +93,22 @@ const createTeamSchema = z.object({
 			invalid_type_error: "Enter valid Github repo URL",
 		})
 		.regex(/^https:\/\/github.com\/[^/]+\/[^/]+$/g),
-	members: z.array(
-		z.string({
-			invalid_type_error: "Enter valid Github ID",
-		}),
-	),
+	members: z
+		.array(
+			z
+				.string({
+					invalid_type_error: "Enter valid Github ID",
+				})
+				.refine(async (value) => {
+					console.log(value);
+					return await fetch(`${env.CLIENT_BASE_URL}/api/users/${value}`).then(
+						(res) => res.ok,
+					);
+				}),
+		)
+		.min(1)
+		.max(3)
+		.nonempty(),
 });
 
 export {
@@ -74,4 +116,5 @@ export {
 	updateProfileSchema,
 	createTeamSchema,
 	validateRequestSchema,
+	validateRequestSchemaAsync,
 };

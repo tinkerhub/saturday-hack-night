@@ -2,16 +2,27 @@ import { db } from "@/utils/db";
 import { EventStatus, ProjectStatus } from "@/utils/types";
 import {
 	getResultsParamsSchema,
-	validateRequest,
+	validateRequestSchema,
 } from "@/utils/validateRequest";
 import type { NextRequest } from "next/server";
 
 export async function GET(
 	_request: NextRequest,
 	{ params }: { params: { eventID: string } },
-): Promise<Response> {
-	const data = validateRequest(getResultsParamsSchema, params);
-	if (data instanceof Response) return data;
+) {
+	const validation = validateRequestSchema(
+		getResultsParamsSchema,
+		params,
+		true,
+	);
+
+	if (validation instanceof Response || !validation.success) {
+		if (validation instanceof Response) {
+			return validation;
+		}
+		return;
+	}
+	const data = validation.data;
 
 	const event = await db.event.findUnique({
 		where: {

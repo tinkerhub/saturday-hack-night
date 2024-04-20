@@ -4,10 +4,13 @@ import { sendEmail } from "@/emails";
 import { db } from "@/utils/db";
 import { revalidatePath } from "next/cache";
 
-import { schema } from "@/app/events/ui/modal/CreateTeamModal";
+import {
+	createTeamSchema,
+	validateRequestSchemaAsync,
+} from "@/utils/validateRequest";
 import type { z } from "zod";
 
-export type FormData = z.infer<typeof schema>;
+export type FormData = z.infer<typeof createTeamSchema>;
 
 export default async function createTeam(
 	userId: string,
@@ -18,13 +21,44 @@ export default async function createTeam(
 		return "Invalid Event ID";
 	}
 
-	schema.safeParse(formData);
+	const validation = await validateRequestSchemaAsync(
+		createTeamSchema,
+		formData,
+		false,
+	);
 
-	const team = await db.$transaction(async (tx) => {
+	if (validation instanceof Response || !validation.success) {
+		if (validation instanceof Response) {
+			return validation;
+		}
+		return;
+	}
+
+	const data = validation.data;
+
+	const admin = await db.user.findUnique({
+		where: {
+			id: userId,
+		},
+	});
+
+	const userIDs = await db.user.findMany({
+		where: {
+			githubId: {
+				in: data.members,
+			},
+		},
+		select: {
+			githubId: true,
+			id: true,
+		},
+	});
+
+	const [team, members] = await db.$transaction(async (tx) => {
 		const team = await tx.team.create({
 			data: {
-				name: formData.name,
-				repo: formData.repo,
+				name: data.name,
+				repo: data.repo,
 				members: {
 					create: {
 						userId: userId,
@@ -40,34 +74,31 @@ export default async function createTeam(
 			},
 		});
 		await tx.invite.createMany({
-			data: formData.members.map((member) => ({
-				userId: member,
+			data: data.members.map((member) => ({
+				userId:
+					userIDs.find(
+						(user) => user.githubId.toLowerCase() === member.toLowerCase(),
+					)?.id || "",
 				teamId: team.id,
 				eventId: eventId,
 				role: "MEMBER",
 			})),
 		});
-		return team;
-	});
 
-	const admin = await db.user.findUnique({
-		where: {
-			id: userId,
-		},
-	});
-
-	const members = await db.invite.findMany({
-		where: {
-			teamId: team.id,
-		},
-		select: {
-			id: true,
-			user: {
-				select: {
-					email: true,
+		const members = await db.invite.findMany({
+			where: {
+				teamId: team.id,
+			},
+			select: {
+				id: true,
+				user: {
+					select: {
+						email: true,
+					},
 				},
 			},
-		},
+		});
+		return [team, members];
 	});
 
 	const mails = [];
@@ -102,5 +133,5 @@ export default async function createTeam(
 	await Promise.all(mails);
 
 	revalidatePath("/events");
-	return "Profile updated successfully";
+	return "Team created successfully! 🎉";
 }

@@ -35,16 +35,16 @@ export const ProjectModal = () => {
 	return (
 		<Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
 			<Dialog.Portal>
-				<Dialog.Overlay className="fixed transition-all animate-overlayShow ease-in-out inset-0 bg-secondary/50" />
+				<Dialog.Overlay className="fixed transition-all animate-overlayShow ease-in-out inset-0 z-40 bg-black/70" />
 				<Dialog.Content
 					className="fixed w-full h-full inset-0 z-50 bg-secondary text-white animate-slide-in-right rounded-lg min-w-container"
 					onCloseAutoFocus={(e) => e.preventDefault()}
 				>
 					<div className="flex absolute top-8 right-8 justify-end">
-						<span className="border-2 rounded-full border-red-500">
+						<span className="border-2 rounded-full border-red">
 							<X
 								aria-label="Close Modal"
-								className="cursor-pointer text-red-500"
+								className="cursor-pointer text-red"
 								onClick={onOpenChange}
 							/>
 						</span>
@@ -80,7 +80,7 @@ export const ProjectModal = () => {
 						)}
 						{error && (
 							<>
-								<X className="text-red-500 h-16 w-16 text-5xl" />
+								<X className="text-red h-16 w-16 text-5xl" />
 								<div className="text-center">
 									<h1 className="text-3xl font-bold">Error</h1>
 									<p className="text-lg">{error.message}</p>

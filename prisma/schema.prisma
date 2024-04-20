@@ -17,7 +17,7 @@ model User {
   mobile   String?   @db.VarChar
   avatar   String   @db.VarChar
 
-  githubId String   @db.VarChar
+  githubId String   @db.VarChar @unique
 
   collegeId String? @db.VarChar
   college College? @relation(fields: [collegeId], references: [id])

@@ -16,6 +16,7 @@ const EventsPage = async ({ searchParams }: SearchParamProps) => {
 
 	const { user } = await validateRequest();
 	const currentEvent = await getCurrentEvent(user);
+
 	const events = await getEvents();
 
 	return (

@@ -57,17 +57,17 @@ export const ProfileModal = ({
 	return (
 		<Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
 			<Dialog.Portal>
-				<Dialog.Overlay className="fixed transition-all animate-overlayShow ease-in-out inset-0 bg-secondary/80" />
+				<Dialog.Overlay className="fixed transition-all animate-overlayShow ease-in-out inset-0 z-40 bg-black/70" />
 				<Dialog.Content
 					className="fixed z-50 max-w-[1000px] md:w-2/3 md:h-auto w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0C0F17] text-white animate-contentShow rounded-lg p-8 min-w-container"
 					onCloseAutoFocus={(e) => e.preventDefault()}
 				>
 					<Dialog.Title className="text-3xl font-bold mb-4">
 						<div className="flex justify-end ">
-							<span className="border-2 rounded-full  border-red-500">
+							<span className="border-2 rounded-full  border-red">
 								<X
 									aria-label="Close Modal"
-									className="cursor-pointer text-red-500"
+									className="cursor-pointer text-red"
 									onClick={onOpenChange}
 								/>
 							</span>

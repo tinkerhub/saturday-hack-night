@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import Image from "next/image";
 import { Calendar } from "lucide-react";
@@ -7,6 +6,7 @@ import { isProfileComplete as isProfileCompleteFn } from "@/utils/user";
 import dayjs from "dayjs";
 import { redirect } from "next/navigation";
 import { CreateTeamModal } from "./modal/CreateTeamModal";
+import { EventStatus, TeamMemberRole } from "@/utils/types";
 
 export const CurrentEvent = ({
 	user,
@@ -28,7 +28,7 @@ export const CurrentEvent = ({
 			date: Date;
 			location: string;
 		} | null;
-		registeredTeam: {
+		team: {
 			id: string;
 			repo: string;
 			eventId: string;
@@ -41,11 +41,12 @@ export const CurrentEvent = ({
 }) => {
 	const isProfileComplete = isProfileCompleteFn(user);
 
-	const { event, registeredTeam } = data;
+	const { event, team } = data;
 
-	const isEditable = registeredTeam
-		? registeredTeam.members.some((member) => member.userId === user?.id)
-		: !!user;
+	const isEditable = team?.members.some(
+		(member) =>
+			member.userId === user?.id && member.role === TeamMemberRole.LEADER,
+	);
 
 	if (!event) {
 		redirect("/");
@@ -61,14 +62,14 @@ export const CurrentEvent = ({
 	} = event;
 
 	const url = user
-		? registeredTeam
+		? team
 			? isEditable
-				? status === "REGISTRATION"
+				? status === EventStatus.REGISTRATION
 					? `/events/?update=true&eventId=${event.id}`
 					: `/events/?view=true&eventId=${event.id}`
 				: `/events/?view=true&eventId=${event.id}`
 			: isProfileComplete
-				? status === "REGISTRATION"
+				? status === EventStatus.REGISTRATION
 					? `/events/?register=true&eventId=${event.id}`
 					: ""
 				: `/events/?register=true&eventId=${event.id}`
@@ -77,9 +78,9 @@ export const CurrentEvent = ({
 	return (
 		<div className="flex flex-col lg:flex-row w-full items-start gap-4">
 			{/* Modals (you'll likely need to keep these as React components due to state management) */}
-			{/* {registeredTeam && isOpenUpdateModal && (
+			{/* {team && isOpenUpdateModal && (
 				<UpdateTeamModal
-					teamId={registeredTeam.teamID}
+					teamId={team.teamID}
 					isOpen={isOpenUpdateModal}
 					onClose={onCloseUpdateModal}
 					image={imageWhite}
@@ -119,13 +120,13 @@ export const CurrentEvent = ({
 
 				<div
 					className={`flex items-center justify-center py-2 rounded-b-md ${
-						registeredTeam ? "bg-primary" : "bg-red-500"
+						team ? "bg-primary" : "bg-red"
 					}`}
 				>
 					<span className="font-medium text-black text-base">
-						{registeredTeam
+						{team
 							? "Registered 🎉"
-							: status === "REGISTRATION"
+							: status === EventStatus.REGISTRATION
 								? "Register Now"
 								: "Registration Closed"}
 					</span>
@@ -142,22 +143,22 @@ export const CurrentEvent = ({
 							type="button"
 							className={`bg-white hover:bg-primary active:bg-primary active:ring-2 active:ring-primary transition-all font-medium text-sm px-6 py-3 rounded-md ${
 								user &&
-								registeredTeam &&
+								team &&
 								isEditable &&
-								status === "REGISTRATION"
+								status === EventStatus.REGISTRATION
 									? ""
 									: "bg-gray-400 cursor-not-allowed"
 							}`}
 						>
 							{user
-								? registeredTeam
+								? team
 									? isEditable
-										? status === "REGISTRATION"
+										? status === EventStatus.REGISTRATION
 											? "Update Team"
 											: "View Team"
 										: "View Team"
 									: isProfileComplete
-										? status === "REGISTRATION"
+										? status === EventStatus.REGISTRATION
 											? "Register Team"
 											: "Closed"
 										: "Register Team"
