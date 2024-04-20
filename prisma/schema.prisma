@@ -70,7 +70,7 @@ model Event {
   details      String       @db.VarChar
   date         DateTime
   location     String       @db.VarChar
-  status       String?      @default("PENDING")
+  status       String?      @default("PENDING") // ACTIVE, PENDING, REGISTRATION, RESULTS
 
   teams        Team[]
   teamMembers  TeamMember[]
@@ -88,7 +88,7 @@ model Team {
   pitchStatus    String?      @default("PENDING") // COMPLETED, PENDING, ABSENT
   projectStatus  String?      @default("PENDING") // COMPLETED, BEST PROJECT, DROPPED, PENDING
   comments       String?      @db.VarChar
-  completionTime String?      @default("PENDING") // ONTIME, LATE, PENDING
+  completionTime String?      @default("PENDING") // ONTIME, DELAYED, PENDING
   invite         Invite[]
   event          Event        @relation(fields: [eventId], references: [id])
   members        TeamMember[]

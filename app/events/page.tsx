@@ -12,6 +12,7 @@ const EventsPage = async ({ searchParams }: SearchParamProps) => {
 	const registerModal = searchParams?.register === "true";
 	const updateModal = searchParams?.update === "true";
 	const results = searchParams?.results === "true";
+	const eventID = searchParams?.eventID;
 
 	const { user } = await validateRequest();
 	const currentEvent = await getCurrentEvent(user);

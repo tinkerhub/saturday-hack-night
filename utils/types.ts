@@ -1,3 +1,5 @@
+import type { Team, Event } from "@prisma/client";
+import type { User } from "lucia";
 export interface GithubOAuthUser {
 	login: string;
 	id: number;
@@ -56,3 +58,46 @@ export interface RegisteredTeam {
 		userId: string;
 	}[];
 }
+
+export enum ProjectStatus {
+	PENDING = "PENDING",
+	COMPLETED = "COMPLETED",
+	DROPPED = "DROPPED",
+	BEST_PROJECT = "BEST PROJECT",
+}
+
+export enum ProjectCompletionTime {
+	ONTIME = "ONTIME",
+	DELAYED = "DELAYED",
+	PENDING = "PENDING",
+}
+
+export enum ProjectPitchStatus {
+	PENDING = "PENDING",
+	COMPLETED = "COMPLETED",
+	ABSENT = "ABSENT",
+}
+
+export enum EventStatus {
+	PENDING = "PENDING",
+	ACTIVE = "ACTIVE",
+	RESULTS = "RESULTS",
+	REGISTRATION = "REGISTRATION",
+}
+
+export enum TeamMemberRole {
+	LEADER = "LEADER",
+	MEMBER = "MEMBER",
+}
+
+type ExtractedTeamType = Pick<Team, "name" | "id"> & {
+	members: {
+		user: Pick<User, "avatar" | "name" | "githubId">;
+	};
+};
+
+export type ProjectResults = {
+	bestProjects: ExtractedTeamType[];
+	completedProjects: ExtractedTeamType[];
+	event: Event;
+};

@@ -8,30 +8,13 @@ import { startTransition, useEffect, useState } from "react";
 import { Input } from "@/app/components/Input";
 import { X } from "lucide-react";
 import { Button } from "@/app/components/Button";
-import { z } from "zod";
+import type { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import createTeam from "./actions";
+import { createTeamSchema } from "@/utils/validateRequest";
 
-export const schema = z.object({
-	name: z
-		.string({
-			invalid_type_error: "Enter valid Team Name",
-		})
-		.regex(/^[a-z|0-9]+$/gi),
-	repo: z
-		.string({
-			invalid_type_error: "Enter valid Github repo URL",
-		})
-		.regex(/^https:\/\/github.com\/[^/]+\/[^/]+$/g),
-	members: z.array(
-		z.string({
-			invalid_type_error: "Enter valid Github ID",
-		}),
-	),
-});
-
-type FormData = z.infer<typeof schema>;
+type FormData = z.infer<typeof createTeamSchema>;
 
 export const CreateTeamModal = ({
 	user,
@@ -62,7 +45,7 @@ export const CreateTeamModal = ({
 		register,
 		formState: { errors, isSubmitting, isDirty, isValid },
 	} = useForm<FormData>({
-		resolver: zodResolver(schema),
+		resolver: zodResolver(createTeamSchema),
 	});
 
 	const createTeamWithBindings = createTeam.bind(null, user.id, eventID);
