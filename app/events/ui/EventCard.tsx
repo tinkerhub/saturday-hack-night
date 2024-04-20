@@ -49,7 +49,7 @@ export const EventCard = ({
 						>
 							<Button
 								type="button"
-								className="w-full bg-white rounded-md text-black hover:shadow-none active:bg-primary active:ring-2 active:ring-primary disabled:opacity-50 disabled:cursor-not-allowed"
+								className="w-full bg-white rounded-md text-black active:bg-primary active:ring-2 active:ring-primary disabled:opacity-50 disabled:cursor-not-allowed"
 								disabled={status !== "RESULTS"}
 							>
 								View Projects
@@ -58,7 +58,7 @@ export const EventCard = ({
 						<Link className="w-full rounded-md" href={details} target="_blank">
 							<Button
 								type="button"
-								className="text-white w-full rounded-md hover:text-black hover:shadow-none"
+								className="text-white w-full rounded-md hover:text-black"
 							>
 								More Info
 							</Button>

@@ -90,14 +90,13 @@ export enum TeamMemberRole {
 	MEMBER = "MEMBER",
 }
 
-type ExtractedTeamType = Pick<Team, "name" | "id"> & {
+export type ExtractedTeamType = Pick<Team, "name" | "id" | "projectStatus" | 'repo'> & {
 	members: {
 		user: Pick<User, "avatar" | "name" | "githubId">;
-	};
+	}[];
 };
 
 export type ProjectResults = {
-	bestProjects: ExtractedTeamType[];
-	completedProjects: ExtractedTeamType[];
+	projects: ExtractedTeamType[];
 	event: Event;
 };

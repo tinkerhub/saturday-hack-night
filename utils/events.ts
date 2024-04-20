@@ -1,6 +1,5 @@
 import type { User } from "lucia";
 import { db } from "./db";
-import { Event as TSEvent, Team } from "@prisma/client";
 
 export const getCurrentEvent = async (user: User | null) => {
 	const currentEvent = await db.event.findFirst({

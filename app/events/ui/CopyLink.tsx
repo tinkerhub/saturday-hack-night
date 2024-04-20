@@ -4,7 +4,9 @@ import { toast } from "sonner";
 
 const CopyLink = ({ id }: { id: string }) => {
 	const copyLink = () => {
-		navigator.clipboard.writeText(`${window.location.href}?eventID=${id}`);
+		navigator.clipboard.writeText(
+			`${window.location.href}?eventID=${id}&results=true`,
+		);
 		toast.success("Copied to clipboard!");
 	};
 

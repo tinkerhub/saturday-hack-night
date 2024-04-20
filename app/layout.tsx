@@ -7,6 +7,7 @@ import { Navbar } from "./ui/Navbar";
 import { validateRequest } from "@/utils/lucia";
 import { Footer } from "./ui/Footer";
 import { Toaster } from "sonner";
+import { SWRProvider } from "@/provider/SwrProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -40,10 +41,12 @@ export default async function RootLayout({
 			</head>
 
 			<body>
-				<Navbar user={user} />
-				{children}
-				<Toaster richColors />
-				<Footer />
+				<SWRProvider>
+					<Navbar user={user} />
+					{children}
+					<Toaster richColors />
+					<Footer />
+				</SWRProvider>
 			</body>
 		</html>
 	);

@@ -23,15 +23,19 @@ export async function GET(
 	if (!event) {
 		return new Response("Event not found", { status: 404 });
 	}
-	
-	const bestProjects = db.team.findMany({
+
+	const projects = await db.team.findMany({
 		where: {
 			eventId: data.eventID,
-			projectStatus: ProjectStatus.BEST_PROJECT,
+			projectStatus: {
+				in: [ProjectStatus.COMPLETED, ProjectStatus.BEST_PROJECT],
+			},
 		},
 		select: {
 			id: true,
 			name: true,
+			projectStatus: true,
+			repo: true,
 			members: {
 				select: {
 					user: {
@@ -45,36 +49,11 @@ export async function GET(
 			},
 		},
 	});
-
-	const completedProjects = db.team.findMany({
-		where: {
-			eventId: data.eventID,
-			projectStatus: ProjectStatus.COMPLETED,
-		},
-		select: {
-			id: true,
-			name: true,
-			members: {
-				select: {
-					user: {
-						select: {
-							name: true,
-							avatar: true,
-							githubId: true,
-						},
-					},
-				},
-			},
-		},
-	});
-
-	const res = await Promise.all([bestProjects, completedProjects]);
 
 	return new Response(
 		JSON.stringify({
-			event: event,
-			bestProjects: res[0],
-			completedProjects: res[1],
+			event,
+			projects
 		}),
 	);
 }

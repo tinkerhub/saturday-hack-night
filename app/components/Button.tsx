@@ -21,7 +21,7 @@ export const Button = ({
 			type={type}
 			disabled={pending || loading}
 			className={twMerge(
-				"w-full h-11 px-4 bg-white/15 hover:shadow-primary focus:text-secondary focus:bg-primary hover:bg-primary duration-500 transition-all hover:text-secondary text-white/50 rounded-[10px]",
+				"w-full h-11 px-4 bg-white/15 focus:text-secondary focus-visible:text-white hover:bg-primary duration-500 transition-all hover:text-secondary text-white/50 rounded-[10px]",
 				className,
 			)}
 			{...rest}
