@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import { redirect } from "next/navigation";
 import { CreateTeamModal } from "./modal/CreateTeamModal";
 import { EventStatus, TeamMemberRole } from "@/utils/types";
+import { UpdateTeamModal } from "./modal/UpdateTeamModal";
 
 export const CurrentEvent = ({
 	user,
@@ -31,8 +32,12 @@ export const CurrentEvent = ({
 		team: {
 			id: string;
 			repo: string;
+			name: string;
 			eventId: string;
 			members: {
+				user: {
+					githubId: string;
+				};
 				role: string | null;
 				userId: string;
 			}[];
@@ -43,10 +48,13 @@ export const CurrentEvent = ({
 
 	const { event, team } = data;
 
-	const isEditable = team?.members.some(
-		(member) =>
-			member.userId === user?.id && member.role === TeamMemberRole.LEADER,
-	);
+	const isEditable =
+		(team?.members.some(
+			(member) =>
+				member.userId === user?.id && member.role === TeamMemberRole.LEADER,
+		) &&
+			event?.status === EventStatus.REGISTRATION) ||
+		false;
 
 	if (!event) {
 		redirect("/");
@@ -66,8 +74,8 @@ export const CurrentEvent = ({
 			? isEditable
 				? status === EventStatus.REGISTRATION
 					? `/events/?update=true&eventId=${event.id}`
-					: `/events/?view=true&eventId=${event.id}`
-				: `/events/?view=true&eventId=${event.id}`
+					: `/events/?update=true&eventId=${event.id}`
+				: `/events/?update=true&eventId=${event.id}`
 			: isProfileComplete
 				? status === EventStatus.REGISTRATION
 					? `/events/?register=true&eventId=${event.id}`
@@ -77,19 +85,12 @@ export const CurrentEvent = ({
 
 	return (
 		<div className="flex flex-col lg:flex-row w-full items-start gap-4">
-			{/* Modals (you'll likely need to keep these as React components due to state management) */}
-			{/* {team && isOpenUpdateModal && (
-				<UpdateTeamModal
-					teamId={team.teamID}
-					isOpen={isOpenUpdateModal}
-					onClose={onCloseUpdateModal}
-					image={imageWhite}
-					eventId={id}
-					isEditable={isEditable}
-				/>
+			{team && user && event && (
+				<UpdateTeamModal user={user} team={team} isEditable={isEditable} />
 			)}
-			 */}
-			{user && <CreateTeamModal user={user} />}
+			{user && event?.status === EventStatus.REGISTRATION && (
+				<CreateTeamModal user={user} />
+			)}
 
 			<div className="min-w-full lg:min-w-[50%] max-w-[50%] rounded-md bg-white/15 backdrop-blur-md flex flex-col">
 				<div className="flex justify-between items-center p-4">
@@ -142,12 +143,7 @@ export const CurrentEvent = ({
 						<button
 							type="button"
 							className={`bg-white hover:bg-primary active:bg-primary active:ring-2 active:ring-primary transition-all font-medium text-sm px-6 py-3 rounded-md ${
-								user &&
-								team &&
-								isEditable &&
-								status === EventStatus.REGISTRATION
-									? ""
-									: "bg-gray-400 cursor-not-allowed"
+								user && team
 							}`}
 						>
 							{user

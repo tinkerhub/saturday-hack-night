@@ -1,10 +1,13 @@
 import type { User } from "lucia";
 import { db } from "./db";
+import { EventStatus } from "./types";
 
 export const getCurrentEvent = async (user: User | null) => {
 	const currentEvent = await db.event.findFirst({
 		where: {
-			status: "REGISTRATION",
+			status: {
+				in: [EventStatus.ACTIVE, EventStatus.REGISTRATION]
+			}
 		},
 		select: {
 			id: true,
@@ -28,10 +31,16 @@ export const getCurrentEvent = async (user: User | null) => {
 		const registeredTeam = await db.team.findFirst({
 			select: {
 				id: true,
+				name: true,
 				eventId: true,
 				members: {
 					select: {
 						userId: true,
+						user: {
+							select: {
+								githubId: true,
+							},
+						},
 						role: true,
 					},
 				},

@@ -5,14 +5,14 @@ import { db } from "@/utils/db";
 import { revalidatePath } from "next/cache";
 
 import {
-	createTeamSchema,
+	updateTeamSchema,
 	validateRequestSchemaAsync,
 } from "@/utils/validateRequest";
 import type { z } from "zod";
 
-export type FormData = z.infer<typeof createTeamSchema>;
+export type FormData = z.infer<typeof updateTeamSchema>;
 
-export default async function createTeam(
+export default async function updateTeam(
 	userId: string,
 	eventId: string | null,
 	formData: FormData,
@@ -22,7 +22,7 @@ export default async function createTeam(
 	}
 
 	const validation = await validateRequestSchemaAsync(
-		createTeamSchema,
+		updateTeamSchema,
 		formData,
 		false,
 	);
@@ -36,29 +36,18 @@ export default async function createTeam(
 
 	const data = validation.data;
 
+    const teamMember = await db.teamMember.findUnique({
+        where: {
+            userId: userId,
+            eventId: eventId
+        }
+    })
+
 	const admin = await db.user.findUnique({
 		where: {
 			id: userId,
-		}
-	})
-
-	if(!admin) {
-		return "User not found!";
-	}
-
-
-	const teamLead = await db.teamMember.findUnique({
-		where: {
-			userId_eventId: {
-				userId: userId,
-				eventId: eventId,
-			},
 		},
 	});
-
-	if (teamLead) {
-		return "You are already in a Team!";
-	}
 
 	const userIDs = await db.user.findMany({
 		where: {
@@ -128,7 +117,7 @@ export default async function createTeam(
 				teamID: team.id,
 			},
 			"Welcome to this week's Saturday Hack Night! 🎉",
-			admin.email,
+			admin?.email || "",
 		),
 	);
 

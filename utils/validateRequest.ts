@@ -1,5 +1,4 @@
 import { type ZodFormattedError, z } from "zod";
-import { env } from "./config";
 
 const validateRequestSchema = <Input>(
 	schema: z.ZodType<Input>,
@@ -100,10 +99,9 @@ const createTeamSchema = z.object({
 					invalid_type_error: "Enter valid Github ID",
 				})
 				.refine(async (value) => {
-					console.log(value);
-					return await fetch(`${env.CLIENT_BASE_URL}/api/users/${value}`).then(
-						(res) => res.ok,
-					);
+					return await fetch(
+						`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${value}`,
+					).then((res) => res.ok);
 				}),
 		)
 		.min(1)
@@ -111,10 +109,35 @@ const createTeamSchema = z.object({
 		.nonempty(),
 });
 
+const updateTeamSchema = z.object({
+	name: z
+		.string({
+			invalid_type_error: "Enter valid Team Name",
+		})
+		.regex(/^[a-z|0-9]+$/gi),
+	repo: z
+		.string({
+			invalid_type_error: "Enter valid Github repo URL",
+		})
+		.regex(/^https:\/\/github.com\/[^/]+\/[^/]+$/g),
+	members: z.array(
+		z
+			.string({
+				invalid_type_error: "Enter valid Github ID",
+			})
+			.refine(async (value) => {
+				return await fetch(
+					`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${value}`,
+				).then((res) => res.ok);
+			}),
+	),
+});
+
 export {
 	getResultsParamsSchema,
 	updateProfileSchema,
 	createTeamSchema,
+	updateTeamSchema,
 	validateRequestSchema,
 	validateRequestSchemaAsync,
 };

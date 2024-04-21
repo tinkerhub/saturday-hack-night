@@ -12,15 +12,31 @@ import type { z } from "zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import createTeam from "./actions";
-import { createTeamSchema } from "@/utils/validateRequest";
+import { updateTeamSchema } from "@/utils/validateRequest";
 import { Member } from "../Member";
 
-type FormData = z.infer<typeof createTeamSchema>;
+type FormData = z.infer<typeof updateTeamSchema>;
 
-export const CreateTeamModal = ({
+export const UpdateTeamModal = ({
 	user,
+	team,
+	isEditable,
 }: {
 	user: User;
+	team: {
+		id: string;
+		name: string;
+		repo: string;
+		eventId: string;
+		members: {
+			role: string | null;
+			userId: string;
+			user: {
+				githubId: string;
+			};
+		}[];
+	};
+	isEditable: boolean;
 }) => {
 	const router = useRouter();
 
@@ -31,25 +47,37 @@ export const CreateTeamModal = ({
 	const searchParams = useSearchParams();
 	const eventId = searchParams.get("eventId");
 
-	useEffect(() => {
-		setEventID(searchParams.get("eventId"));
-		setIsOpen(!!searchParams.get("register"));
-	}, [searchParams]);
-
-	const pathName = usePathname();
-	const onOpenChange = () => {
-		router.push(pathName);
-	};
-
 	const methods = useForm<FormData>({
-		resolver: zodResolver(createTeamSchema),
+		resolver: zodResolver(updateTeamSchema),
 	});
 
 	const {
 		handleSubmit,
 		register,
+		setValue,
 		formState: { errors, isSubmitting, isDirty, isValid },
 	} = methods;
+
+	useEffect(() => {
+		setEventID(searchParams.get("eventId"));
+
+		const isOpen = !!searchParams.get("update") && !!team && !!eventID;
+		setIsOpen(isOpen);
+
+		if (isOpen) {
+			setValue("name", team.name);
+			setValue("repo", team.repo);
+			setValue(
+				"members",
+				team.members.map((member) => member.user.githubId),
+			);
+		}
+	}, [searchParams, eventID, team, setValue]);
+
+	const pathName = usePathname();
+	const onOpenChange = () => {
+		router.push(pathName);
+	};
 
 	const createTeamWithBindings = createTeam.bind(null, user.id, eventID);
 
@@ -61,9 +89,6 @@ export const CreateTeamModal = ({
 		if (isTeamLeadIncluded !== -1) {
 			data.members.splice(isTeamLeadIncluded, 1);
 		}
-		startTransition(() => {
-			createTeamWithBindings(data);
-		});
 	};
 
 	return (
@@ -84,26 +109,27 @@ export const CreateTeamModal = ({
 						</span>
 					</div>
 
-					<Dialog.Title className="text-3xl font-bold">
-						<div className="flex justify-between">Register Your Team</div>
+					<Dialog.Title className="text-4xl font-bold">
+						<div className="flex justify-between"> Team Details</div>
 					</Dialog.Title>
-					<Dialog.Description className="text-white/40 mb-6">
-						you&apos;r are currently logged in as{" "}
-						<span className="text-white">{user?.email}</span>
+					<Dialog.Description className="text-white/40 mb-6 text-xs">
+						<div className="bg-green/15 rounded-md text-green p-1">
+							Your Team Members will appear here once they accept your team
+							invitation
+						</div>
+
+						<div className="bg-red/15 mt-1 rounded-md text-red p-1">
+							Teams should have a leader and atleast 1 member
+						</div>
+						{errors.members && (
+							<div className="bg-red/15 mt-1 rounded-md text-red p-1">
+								{errors.members.message}
+							</div>
+						)}
 					</Dialog.Description>
 					<FormProvider {...methods}>
 						<form onSubmit={handleSubmit(onSubmit)}>
-							<div className="flex flex-col items-center md:flex-row-reverse gap-4 md:gap-8">
-								<div className="w-full text-xs">
-									<div className="mt-2 w-full bg-green/15 text-green p-1 rounded-md">
-										<p>
-											Make sure all the members are registered on the platform
-										</p>
-										<p>Project repo can&apos;t be changed once submitted</p>
-										<p>You can team up with up to 3 people</p>
-										<p>Team should have at least 1 member</p>
-									</div>
-								</div>
+							<div className="flex flex-col items-center md:flex-row gap-4 md:gap-8">
 								<div className="flex flex-col w-full gap-4">
 									<div>
 										<label htmlFor="name" className="pb-2">
@@ -112,16 +138,11 @@ export const CreateTeamModal = ({
 										<Input
 											type="text"
 											required
+											disabled
 											spellCheck="false"
 											placeholder="Team name"
 											{...register("name")}
 										/>
-										{errors.name && (
-											<p className="text-red mt-2">
-												Team Name should be Alpha Numeric & should not contain
-												any special characters
-											</p>
-										)}
 									</div>
 									<div>
 										<label htmlFor="repo" className="mb-2">
@@ -131,14 +152,13 @@ export const CreateTeamModal = ({
 											type="text"
 											id="repo"
 											placeholder="www.github.com/example/exampleRepo"
+											disabled
 											{...register("repo")}
 										/>
-
-										{errors.repo && (
-											<p className="text-red mt-2">Enter a valid repo Url</p>
-										)}
 									</div>
-									<Member isEditable loading={isSubmitting} />
+								</div>
+								<div className="w-full">
+									<Member isEditable={isEditable} loading={isSubmitting} />
 									{errors.members && (
 										<div className="bg-red/15 mt-2 text-red p-1 rounded-md w-full">
 											User not found or team should have at least 1 member
@@ -156,7 +176,7 @@ export const CreateTeamModal = ({
 									type="submit"
 									className="w-64 text-secondary bg-white font-semibold py-2 px-4 rounded"
 								>
-									{isSubmitting ? "Registering..." : "Register Your Team"}
+									{isEditable ? "Update Team" : "Close"}
 								</Button>
 							</div>
 						</form>

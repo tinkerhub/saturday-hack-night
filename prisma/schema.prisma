@@ -101,7 +101,7 @@ model TeamMember {
   id      String  @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   role    String? @default("MEMBER") // LEADER, MEMBER
   teamId  String  @db.Uuid
-  userId  String
+  userId  String  
   eventId String  @db.Uuid
   event   Event   @relation(fields: [eventId], references: [id])
   team    Team    @relation(fields: [teamId], references: [id])
