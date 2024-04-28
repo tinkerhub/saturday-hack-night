@@ -36,12 +36,12 @@ export default async function updateTeam(
 
 	const data = validation.data;
 
-    const teamMember = await db.teamMember.findUnique({
-        where: {
-            userId: userId,
-            eventId: eventId
-        }
-    })
+	const teamMember = await db.teamMember.findUnique({
+		where: {
+			userId: userId,
+			eventId: eventId,
+		},
+	});
 
 	const admin = await db.user.findUnique({
 		where: {

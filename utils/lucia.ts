@@ -10,13 +10,16 @@ import { env } from "@/utils/config";
 const adapter = new PrismaAdapter(db.session, db.user);
 
 export const lucia = new Lucia(adapter, {
-	sessionExpiresIn: new TimeSpan(8, 'd'),
+	sessionExpiresIn: new TimeSpan(8, "d"),
 	sessionCookie: {
 		expires: true,
 		attributes: {
 			secure: env.NODE_ENV === "production",
-			sameSite: 'strict',
-			domain: env.NODE_ENV === "production" ? new URL(env.NEXT_PUBLIC_BASE_URL).hostname : undefined,
+			sameSite: "strict",
+			domain:
+				env.NODE_ENV === "production"
+					? new URL(env.NEXT_PUBLIC_BASE_URL).hostname
+					: undefined,
 		},
 	},
 	getUserAttributes: (attributes) => {
@@ -79,7 +82,6 @@ export const logout = async () => {
 		sessionCookie.name,
 		sessionCookie.value,
 		sessionCookie.attributes,
-	
 	);
 };
 

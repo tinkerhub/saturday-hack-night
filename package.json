@@ -6,7 +6,8 @@
 		"dev": "next dev --turbo",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint"
+		"lint": "biome lint ./",
+		"format": "biome format ./ --write"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^3.3.4",

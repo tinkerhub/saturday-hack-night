@@ -6,8 +6,8 @@ export const getCurrentEvent = async (user: User | null) => {
 	const currentEvent = await db.event.findFirst({
 		where: {
 			status: {
-				in: [EventStatus.ACTIVE, EventStatus.REGISTRATION]
-			}
+				in: [EventStatus.ACTIVE, EventStatus.REGISTRATION],
+			},
 		},
 		select: {
 			id: true,

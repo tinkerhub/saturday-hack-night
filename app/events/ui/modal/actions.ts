@@ -39,13 +39,12 @@ export default async function createTeam(
 	const admin = await db.user.findUnique({
 		where: {
 			id: userId,
-		}
-	})
+		},
+	});
 
-	if(!admin) {
+	if (!admin) {
 		return "User not found!";
 	}
-
 
 	const teamLead = await db.teamMember.findUnique({
 		where: {
