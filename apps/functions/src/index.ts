@@ -3,6 +3,7 @@ import * as functions from "firebase-functions";
 const app = admin.initializeApp();
 const firestore = app.firestore();
 
+
 async function queueMails(
   bulk: FirebaseFirestore.WriteBatch,
   eventID: string,
@@ -16,41 +17,51 @@ async function queueMails(
   const mails = firestore.collection(
     `/events/${eventID}/teams/${teamID}/mails`,
   );
-  const leadUser = await firestore.doc(`users/${lead}`).get();
+  const leadUserDoc = firestore.doc(`users/${lead}`);
+  const leadUser = await leadUserDoc.get();
 
-  if (!isUpdate)
-    bulk.create(mails.doc(lead), {
-      to: [leadUser.get("email")],
-      template: {
-        name: "create",
-        data: {
-          name: leadUser.get("name"),
-          teamName,
-          repo,
-          eventID,
-          teamID,
+  const emailPromises = [];
+
+  if (!isUpdate) {
+    emailPromises.push(
+      bulk.create(mails.doc(lead), {
+        to: [leadUser.get("email")],
+        template: {
+          name: "create",
+          data: {
+            name: leadUser.get("name"),
+            teamName,
+            repo,
+            eventID,
+            teamID,
+          },
         },
-      },
-    });
+      })
+    );
+  }
 
   for (const member of members || []) {
-    // eslint-disable-next-line no-await-in-loop
-    const user = await firestore.doc(`users/${member}`).get();
-    bulk.create(mails.doc(member), {
-      to: [user.get("email")],
-      template: {
-        name: "invite",
-        data: {
-          lead: leadUser.get("name"),
-          name: user.get("name"),
-          teamName,
-          eventID,
-          teamID,
+    const userDoc = firestore.doc(`users/${member}`);
+    emailPromises.push(userDoc.get().then((user) => {
+      return bulk.create(mails.doc(member), {
+        to: [user.get("email")],
+        template: {
+          name: "invite",
+          data: {
+            lead: leadUser.get("name"),
+            name: user.get("name"),
+            teamName,
+            eventID,
+            teamID,
+          },
         },
-      },
-    });
+      });
+    }));
   }
+
+  await Promise.allSettled(emailPromises);
 }
+
 
 export const onNewUser = functions.auth.user().onCreate(async (user) => {
   const parts = user.photoURL?.split("/") as unknown as string;
