@@ -1,0 +1,136 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id       String    @id   @db.VarChar
+  email    String    @unique @db.VarChar
+  name     String   @db.VarChar
+
+  mobile   String?   @db.VarChar
+  avatar   String   @db.VarChar
+
+  githubId String   @db.VarChar @unique
+
+  collegeId String? @db.VarChar
+  college College? @relation(fields: [collegeId], references: [id])
+
+  sessions Session[]
+  accounts Account[]
+  teamMembers TeamMember[]
+  invites Invite[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Session {
+  id        String   @id  @db.VarChar
+  userId    String   @db.VarChar
+  expiresAt DateTime
+  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Account {
+  id String @id
+
+  providerUserId String   @db.VarChar @unique
+  providerAccessToken  String? @db.VarChar
+  providerRefreshToken String? @db.VarChar
+
+  provider String   @db.VarChar
+
+  profileMeta Json @db.Json
+
+  userId String   @db.VarChar
+  user User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([provider, userId])
+}
+
+model Event {
+  id           String       @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title        String       @db.VarChar
+  description  String       @db.VarChar
+  image        String       @db.VarChar
+  imageWhite   String       @db.VarChar
+  details      String       @db.VarChar
+  date         DateTime
+  location     String       @db.VarChar
+  status       String?      @default("PENDING") // ACTIVE, PENDING, REGISTRATION, RESULTS
+
+  teams        Team[]
+  teamMembers  TeamMember[]
+  invites      Invite[]
+
+  created_at   DateTime     @default(now())
+  updated_at   DateTime     @updatedAt
+}
+
+model Team {
+  id             String       @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name           String       @db.VarChar
+  repo           String       @db.VarChar
+  eventId        String       @db.Uuid
+  pitchStatus    String?      @default("PENDING") // COMPLETED, PENDING, ABSENT
+  projectStatus  String?      @default("PENDING") // COMPLETED, BEST PROJECT, DROPPED, PENDING
+  comments       String?      @db.VarChar
+  completionTime String?      @default("PENDING") // ONTIME, DELAYED, PENDING
+  invite         Invite[]
+  event          Event        @relation(fields: [eventId], references: [id])
+  members        TeamMember[]
+
+  created_at     DateTime     @default(now())
+  updated_at     DateTime     @updatedAt
+}
+
+model TeamMember {
+  id      String  @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  role    String? @default("MEMBER") // LEADER, MEMBER
+  teamId  String  @db.Uuid
+  userId  String  
+  eventId String  @db.Uuid
+  event   Event   @relation(fields: [eventId], references: [id])
+  team    Team    @relation(fields: [teamId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+  @@unique([userId, eventId])
+  @@unique([userId, teamId])
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Invite {
+  id      String @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  teamId  String @db.Uuid
+  userId  String
+  eventId String @db.Uuid
+  event   Event  @relation(fields: [eventId], references: [id])
+  team    Team   @relation(fields: [teamId], references: [id])
+  user    User   @relation(fields: [userId], references: [id])
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model College {
+  id     String   @id @unique
+  name   String   @db.VarChar
+  users  User[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}

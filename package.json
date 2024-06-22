@@ -1,23 +1,48 @@
 {
-  "name": "saturday-hacknight",
-  "version": "1.0.0",
-  "description": "Saturday HackNight Platform",
-  "license": "MIT",
-  "scripts": {
-    "build": "turbo run build",
-    "build:web": "turbo run build --filter=web",
-    "build:web-legacy": "turbo run build --filter=web-legacy",
-    "start": "turbo run start",
-    "dev": "turbo run dev"
-  },
-  "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
-  "devDependencies": {
-    "eslint-config-custom": "*",
-    "prettier": "latest",
-    "turbo": "latest"
-  }
+	"name": "saturday-hack-night",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev --turbo",
+		"build": "next build",
+		"start": "next start",
+		"lint": "biome lint ./",
+		"format": "biome format ./ --write"
+	},
+	"dependencies": {
+		"@hookform/resolvers": "^3.3.4",
+		"@lucia-auth/adapter-prisma": "^4.0.1",
+		"@radix-ui/react-dialog": "^1.0.5",
+		"@react-email/components": "0.0.16",
+		"arctic": "^1.5.0",
+		"dayjs": "^1.11.10",
+		"framer-motion": "^11.0.25",
+		"lucia": "^3.1.1",
+		"lucide-react": "^0.366.0",
+		"next": "14.2.2",
+		"nodemailer": "^6.9.13",
+		"oslo": "^1.2.0",
+		"react": "^18",
+		"react-dom": "^18",
+		"react-hook-form": "^7.51.2",
+		"react-select": "^5.8.0",
+		"sonner": "^1.4.41",
+		"swr": "^2.2.5",
+		"tailwind-merge": "^2.2.2",
+		"zod": "^3.22.4"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.7.0",
+		"@types/node": "^20",
+		"@types/nodemailer": "^6.4.14",
+		"@types/react": "^18",
+		"@types/react-dom": "^18",
+		"autoprefixer": "^10.0.1",
+		"eslint": "^8",
+		"eslint-config-next": "14.1.4",
+		"postcss": "^8",
+		"prisma": "^5.12.1",
+		"tailwindcss": "^3.4.3",
+		"typescript": "^5"
+	}
 }
