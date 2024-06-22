@@ -20,7 +20,7 @@ import {
 } from "@chakra-ui/react";
 
 import { FormProvider, useForm } from "react-hook-form";
-import { InferType } from "yup";
+import type { InferType } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Member } from "@app/components";
 import { Toast } from "@app/components/utils";
