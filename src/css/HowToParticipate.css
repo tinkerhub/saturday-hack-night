@@ -1,0 +1,132 @@
+.howToParticipate{
+    min-height: 100vh;
+    width: 80vw;
+  
+    /* width: 100vw; */
+    /* background-color: green; */
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center; */
+    align-items: center;
+    padding-top: 50px;
+    flex-direction: column;
+    margin: auto;
+    margin-bottom: 200px;
+    /* justify-content: center; */
+}
+
+.howToParticipateHeading{
+    color: white;
+    font-family: clashDisplay;
+    font-size: 50px;
+    margin-bottom: 80px;
+    
+
+}
+
+.howToParticipateImageAndText{
+    /* background-color: red; */
+    display: flex;
+    align-items: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* flex-direction: column; */
+
+    
+}
+
+.howToParticipateImageSection{
+    position: relative;
+    /* height: 500px; */
+    width:50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+ 
+    /* background-color: blue; */
+    /* background-color: yellow; */
+    /* width: same-as-height; */
+    /* background-color: red   ; */
+    
+    /* aspect-ratio: 1/1; */
+    /* width: 500px; */
+}
+.howToParticipateImageSection img{
+    /* height: 100%; */
+    width: 90%;
+    /* width: max-content; */
+}
+
+.howToParticipateImageSection p{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% , -50%);
+    font-family: clashdisplay;
+    font-weight: 900;
+    font-size: 45px;
+    width: 80%;
+}
+
+.howToParticipateTextSection{
+    /* background-color: red; */
+    width: 50%;
+    font-family: clashdisplay;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.howToParticipateTextSection *{
+    text-align: left;
+    font-size: 35px;
+    font-family: clashdisplay;
+    width: 50%;
+}
+.howToParticipateTextSection p{
+    width: 90%;
+    margin-bottom: 5px;
+    /* background-color: green ; */
+}
+.howToParticipateTextSection span{
+    width: 90%;
+}
+@media ( max-width : 100vh){
+    .howToParticipate{
+        flex-direction: column;
+        width: 90vw;
+        /* align-items: center; */
+        /* background-color: green; */
+        margin: auto;
+    }
+    .howToParticipateImageAndText{
+        flex-direction: column;
+        /* background-color: red; */
+    }
+    .howToParticipateImageSection{
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .howToParticipateImageSection{
+        width: 100%;
+    }
+    .howToParticipateImageSection p {
+        font-size: 26px;
+    }
+    .howToParticipateTextSection{
+        width: 95%;
+    }
+    .howToParticipateTextSection *{
+        font-size: 23px;
+        /* width: 500px; */
+        /* background-color: green; */
+    }
+    .howToParticipateHeading{
+        font-size: 30px;
+        margin-bottom: 40px;
+    }
+}

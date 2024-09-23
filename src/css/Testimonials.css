@@ -1,0 +1,35 @@
+.testimonialsHeading {
+    color: white;
+    font-size: 50px;
+    /* background-color: red; */
+    text-align: center;
+}
+.testimonialsHeading span{
+    color: #DBF72C;
+}
+.testimonialsSection{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* background-color: green; */
+}
+
+
+@media (max-width : 100vh) {
+
+    body{
+        /* background-color: red; */
+    }
+    
+    .testimonialsHeading{
+        font-size: 30px;
+    }
+    .upperCarousal{
+        /* margin-left: 200px; */
+
+        /* background-color: green; */
+        /* left: 200px; */
+        /* width: 800px; */
+
+    }
+}

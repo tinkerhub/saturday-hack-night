@@ -1,0 +1,54 @@
+.navbar{
+    padding: 3px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: red; */
+    border-radius: 20px;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.181);
+    font-family: "Clash Display";
+    font-weight: 700;
+    /* background-color: red; */
+  }
+
+  body{
+    /* background-color: red; */
+  }
+  
+  .navbar img{
+    margin: 10px;
+  }
+  
+  .navbar span{
+    margin: 20px;
+  }
+
+  .navbar a {
+    /* background-color: red; */
+    text-align: center;
+  }
+  
+  .loginButton{
+    border: 1px solid #CBE52A;
+    padding: 5px 15px;
+    background-color: #353B1E;
+    border-radius: 10px;
+  
+  }
+
+
+@media (max-width : 100vh) {
+
+
+    .navbar{
+        width: 95vw;
+        font-size: 13px;
+        /* background-color: red; */
+    }
+    .navbar span{
+        margin: 10px;
+        text-align: center;
+    }
+    
+}

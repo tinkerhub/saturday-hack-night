@@ -1,0 +1,226 @@
+.eventsPage{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.hero{
+  /* background-color: rgba(255, 255, 255, 0.084); */
+  background-image: linear-gradient( 90deg , rgba(255, 255, 255, 0.148) , rgba(0, 0, 0, 0.279)  );
+  /* opacity: 0.1; */
+  width: 95vw;
+  height: 90vh;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 30px;
+}
+.events_page_blur{
+  position: absolute;
+  transform: translate(-50% , -50%);
+  
+  height: 10px;
+  width: 10px;
+  border-radius: 100%;
+  box-shadow: #CBE52A 0px 0px 1000px 140px;
+  filter: blur(300px);
+  z-index: -20;
+}
+.events_blur1{
+
+  top: 50%;
+  left: 50%;
+
+}
+
+.events_blur2{
+  right:  0%;
+  top: 100vw;
+  display: none;
+  /* background-color: red; */
+  
+}
+
+.events_blur3{
+  left: 0px;
+  /* bottom: 100%; */
+  /* top: 200vh; */
+  bottom: 50vh;
+}
+
+
+.HerotitleSection{
+  /* -webkit-margin-top-collapse: ; */
+  margin-top: 28px;
+  color: #DBF72C;
+  font-weight: 600;
+  font-size: 50px;
+}
+.HerotitleSection span{
+  color: rgb(244, 236, 236);
+  opacity: 0.8;
+  font-family: "Clash Display";
+}
+.HeroBottomSection{
+  display: flex;
+  flex-direction: row;
+  /* background-color: yellow; */
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+/* Hero Section Left */
+
+.HeroLeft{
+  /* background-color: red; */
+  width: 40%;
+  display: flex;
+  width: 30%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Timer Section */
+
+
+
+
+.eventDetails{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.eventTitleLeft{
+  color: white;
+  font-family: "Clash Display";
+  font-size:60px;
+  font-weight: 600;
+}
+.eventDate{
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-family: "Clash Display";
+  font-weight: 200;
+}
+.eventDate img{
+  margin-right: 10px;
+}
+.leftButtons{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.registerButton{
+  padding: 10px 30px;
+  background-color: #3D461C;
+  border: 2px solid #CBE52A;
+  border-radius: 10px;
+  color:#CBE52A;
+  font-weight: 500;
+  font-family: "Clash Display";
+  margin: 5px;
+}
+.infoButton{
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  border: 2px solid #4A4E49;
+  padding: 10px 30px;
+
+}
+
+/* Hero Sectoin Right */
+.HeroRight{
+  width: 70%;
+  /* background-color: green; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.HeroRight p {
+  color: white;
+  font-family: "Clash Display";
+  width: 70%;
+  text-align: center;
+}
+
+.eventCards{
+  /* background-color: red; */
+  margin-top: 20px;
+  display: grid;
+  width: 90vw;
+  grid-gap: 20px;
+  /* width: 80vw; */
+  justify-content: space-around;
+  align-items: center;
+  grid-template-columns: repeat(auto-fit , minmax(330px , 330px));
+  margin-bottom: 100px;
+  
+}
+.eventCardSection{
+  margin-top: 100px;
+}
+.eventCardSectionHeading{
+  color: white;
+  margin: 20px;
+  font-family: "Clash Display";
+  font-weight: 600;
+  /* background-color: red; */
+  width: 80;
+  font-size: 40px;
+}
+
+
+@media(  max-width : 100vh ){
+  .hero{
+    height: max-content;
+    background-image: linear-gradient( 0deg , rgba(255, 255, 255, 0.148) , rgba(0, 0, 0, 0.279)  );
+    width: 90vw;
+    border-radius: 10px;
+  }
+  .HerotitleSection {
+    font-size: 20px;
+    margin-top: 30px;
+  }
+  .HeroBottomSection{
+    flex-direction: column-reverse;
+    align-items: center;
+
+  }
+  .HeroLeft{
+    width: 100%;
+    /* background-color: red; */
+  }
+  .timer{
+    margin-bottom: 20px;
+  }
+  .HeroRight{
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  .eventCardSectionHeading{
+    text-align: center;
+    font-size: 30px;
+  }
+
+  .events_blur2{
+    display: none;
+  }
+  .events_blur3{
+    display: none;
+  }
+}
+
+
+

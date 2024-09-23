@@ -1,0 +1,26 @@
+.bottomImage{
+    width: 100vw;
+    /* background-color: red; */
+    overflow: hidden;
+}
+.bottomImage img{
+    /* width: 100%; */
+    height: 140vh;
+    /* background-color: red; */
+    margin: auto;
+
+}
+
+@media ( max-width : 100vh){
+    .bottomImage  {
+        /* width: 140vw; */
+        /* height: 50vh; */
+        /* background-color: red; */
+    }
+    .bottomImage img{
+        width: 100vw;
+        transform: scale(1.25);
+        height: min-content;
+        /* background-color: green; */
+    }
+}

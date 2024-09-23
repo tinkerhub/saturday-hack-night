@@ -1,0 +1,108 @@
+
+.singleEventCard{
+    height: 450px;
+    width: 330px;
+    background-color: #C3C3C7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 10px;
+    /* background-color: red; */
+    /* padding: 30px; */
+    /* margin: 30px; */
+  }
+  .singleEventTop{
+    height: 50%;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    
+  }
+  .singleEventTop img{  
+    /* background-color: red; */
+    width: 80%;
+  }
+  .singleEventCompletedProjects{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+    background-color: #1E1E2A;
+    /* align-items: center; */
+    color: #c3c3c7;
+    font-family: "Clash Display";
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-weight: 300;
+    /* justify-content: center; */
+    width: max-content;
+    bottom: 10px;
+  
+  }
+  .singleEventBold{
+    font-weight: 600;
+  }
+  .cp_text{
+    /* background-color: green; */
+    width: max-content;
+  }
+  .singleEventCompletedProjects{
+    /* width: 30px; */
+  }
+  .singleEventCompletedProjects img{
+    height: 30px;
+    width: 30px;
+    padding: 4px;
+  }
+  .singleEventBottom{
+    height: 50%;
+    width: 100%;
+    background-color: #191B25;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column; 
+    color: white;
+    font-family: "Clash Display";
+    padding: 20px;
+    
+  }
+  .singleEventTitle{
+    font-size: 30px;
+    font-weight: 600;
+  }
+  
+  .singleEventButtons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    /* background-color: green; */
+  }
+  
+  .singleEventButtons a{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 8px 10px;
+    width: 50%;
+    border-radius: 20px;
+    /* background-color: green; */
+    /* margin: 10px; */
+  }
+  .sinlgeEventsSeeProjects{
+    background-color: black;
+    /* padding: 2px; */
+    margin-right: 10px;
+    /* margin-left: 0px; */
+    
+  }
+  .singleEventMoreInfo{
+    border: 1px solid black;
+    margin-left: 10px;
+    /* margin-right: 0px; */
+  }
