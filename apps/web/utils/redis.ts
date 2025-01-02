@@ -6,7 +6,7 @@ function getRedisConfiguration(): {
   password: string;
 } {
   return {
-    port: 18100,
+    port: 9379,
     host: process.env.REDIS_URL ?? "",
     password: process.env.REDIS_KEY ?? "",
   };
