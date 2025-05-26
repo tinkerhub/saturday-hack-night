@@ -10,9 +10,9 @@ const Home = () => {
   const [showParticles, setShowParticles] = useState(false)
 
   // Parallax effect values
-  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
-  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  // Reduced parallax for smoother experience
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '10%'])
+  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '50%'])
 
   // Generate grid points
   useEffect(() => {
@@ -67,18 +67,23 @@ const Home = () => {
     <div 
       ref={containerRef} 
       className="bg-[#0A0A0F] mx-auto min-h-screen relative overflow-hidden perspective-1000"
+      style={{ backgroundColor: "#0A0A0F" }}
     >
       {/* Enhanced background effect with depth */}
       <motion.div 
         className="absolute inset-0 z-0" 
-        style={{ y: bgY }}
+        style={{ y: bgY, backgroundColor: "#0A0A0F" }}
       >
         {/* Gradient background with enhanced colors */}
-        <div className="absolute inset-0 bg-gradient-radial from-blue-900/10 via-indigo-900/5 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-900/20 via-purple-900/10 to-transparent"></div>
+              <div className="absolute inset-0 bg-[#0A0A0F]"></div>
+      <div className="absolute inset-0 bg-gradient-radial from-blue-900/15 via-indigo-900/10 to-[#0A0A0F]"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-blue-900/20 via-purple-900/10 to-[#0A0A0F]"></div>
+      <div className="absolute inset-0 bg-[#0A0A0F]" style={{ opacity: useTransform(scrollYProgress, [0, 0.1], [0, 0.3]) }}></div>
         
         {/* Animated neon grid lines */}
         <div className="absolute inset-0 grid-pattern opacity-20"></div>
+        
+
         
         {/* Animated aurora effect */}
         <motion.div 
@@ -188,7 +193,6 @@ const Home = () => {
 
         <motion.div 
           className="flex items-center justify-center min-h-screen relative z-20"
-          style={{ opacity }}
         >
           <div className="w-full max-w-[1600px] mx-auto">
             {/* Animated title with staggered reveal */}
@@ -236,7 +240,7 @@ const Home = () => {
               
               {/* Animated subtitle - more subtle */}
               <motion.p
-                className="text-[#FFFFE3] font-clash font-light opacity-5 mt-6 text-xl md:text-2xl"
+                className="text-[#FFFFE3] font-clash font-light mt-6 text-xl md:text-2xl opacity-50"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: words.length * 0.1 + 0.5 }}
@@ -282,19 +286,7 @@ const Home = () => {
           </div>
         </motion.div>
         
-        <motion.div 
-          className="flex flex-col items-center justify-center pb-24"
-          style={{ y: textY }}
-        >
-          <motion.h1 
-            className='text-[#FFFFE3] text-2xl md:text-3xl lg:text-4xl font-bold max-w-[1200px] mx-auto text-center'
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 0.8, y: 0 }}
-            transition={{ duration: 1, delay: 1.5 }}
-          >
-            A bi-weekly, overnight hackathon where curious minds build cool, chaotic projects, learn by doing, and vibe with the community.
-          </motion.h1>
-        </motion.div>
+       
       </div>
       
       {/* Add CSS for the special effects */}
