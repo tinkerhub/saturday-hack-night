@@ -71,9 +71,9 @@ const Home = () => {
     >
       {/* Enhanced background effect with depth */}
       <motion.div 
-        className="absolute inset-0 z-0" 
-        style={{ y: bgY, backgroundColor: "#0A0A0F" }}
-      >
+          className="absolute inset-0 z-0" 
+          style={{ y: bgY, backgroundColor: "#0A0A0F" }}
+        >
         {/* Gradient background with enhanced colors */}
               <div className="absolute inset-0 bg-[#0A0A0F]"></div>
       <div className="absolute inset-0 bg-gradient-radial from-blue-900/15 via-indigo-900/10 to-[#0A0A0F]"></div>
