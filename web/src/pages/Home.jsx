@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import Navbar from '../components/Navbar'
+import letxploreImg from '../assets/images/letxplore.jpg'
+import shnImg from '../assets/images/SHN.jpg'
 
 const Home = () => {
   const containerRef = useRef(null)
   const [gridPoints, setGridPoints] = useState([])
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const { scrollYProgress } = useScroll()
   const [showParticles, setShowParticles] = useState(false)
 
   // Parallax effect values
   // Reduced parallax for smoother experience
   const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '10%'])
-  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '50%'])
 
   // Generate grid points
   useEffect(() => {
@@ -38,30 +38,91 @@ const Home = () => {
     
     generateGrid()
     
-    // Mouse position tracking for effects
-    const handleMouseMove = (e) => {
-      const { clientX, clientY } = e
-      const x = clientX / window.innerWidth
-      const y = clientY / window.innerHeight
-      setMousePos({ x, y })
-    }
-    
     // Show particles after initial load for better performance
     const timer = setTimeout(() => {
       setShowParticles(true)
     }, 500)
     
-    window.addEventListener('mousemove', handleMouseMove)
-    
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
       clearTimeout(timer)
     }
   }, [])
 
-  // Text animation
-  const text = "Recurring hackathon to build, break, and learn by doing"
+  // Text animation setup
+  const [currentText, setCurrentText] = useState('')
+  const [isTyping, setIsTyping] = useState(true)
+  const typewriterText = "Recurring hackathon\nto build\nbreak\nand learn\nby doing"
+  const lines = typewriterText.split("\n")
+  
+  // For staggered word animation (unused but kept for reference)
+  const text = "Recurring hackathon to build break and learn by doing"
   const words = text.split(" ")
+  
+  // Start typewriter animation on mount
+  useEffect(() => {
+    let timeout
+    
+    // Type current line character by character
+    const typeLine = async (line) => {
+      setIsTyping(true)
+      for (let i = 0; i <= line.length; i++) {
+        await new Promise(resolve => {
+          timeout = setTimeout(() => {
+            setCurrentText(line.substring(0, i))
+            resolve()
+          }, 100)
+        })
+      }
+      
+      // Pause at the end of typing
+      await new Promise(resolve => {
+        timeout = setTimeout(resolve, 800)
+      })
+    }
+    
+    // Backspace the current line character by character
+    const backspaceLine = async (line) => {
+      setIsTyping(false)
+      for (let i = line.length; i >= 0; i--) {
+        await new Promise(resolve => {
+          timeout = setTimeout(() => {
+            setCurrentText(line.substring(0, i))
+            resolve()
+          }, 50) // Faster deletion
+        })
+      }
+      
+      // Short pause after deletion
+      await new Promise(resolve => {
+        timeout = setTimeout(resolve, 300)
+      })
+    }
+    
+    const runTypewriter = async () => {
+      // Loop indefinitely through all lines
+      while (true) {
+        for (let i = 0; i < lines.length; i++) {
+          await typeLine(lines[i])
+          
+          // Don't backspace the final line on the last iteration
+          if (i < lines.length - 1) {
+            await backspaceLine(lines[i])
+          } else {
+            // Pause longer on the final line before restarting
+            await new Promise(resolve => {
+              timeout = setTimeout(resolve, 3000)
+            })
+            await backspaceLine(lines[i])
+          }
+        }
+      }
+    }
+    
+    runTypewriter()
+    
+    // Cleanup
+    return () => clearTimeout(timeout)
+  }, [])
 
   return (
     <div 
@@ -76,9 +137,9 @@ const Home = () => {
         >
         {/* Gradient background with enhanced colors */}
               <div className="absolute inset-0 bg-[#0A0A0F]"></div>
-      <div className="absolute inset-0 bg-gradient-radial from-blue-900/15 via-indigo-900/10 to-[#0A0A0F]"></div>
-      <div className="absolute inset-0 bg-gradient-to-b from-blue-900/20 via-purple-900/10 to-[#0A0A0F]"></div>
-      <div className="absolute inset-0 bg-[#0A0A0F]" style={{ opacity: useTransform(scrollYProgress, [0, 0.1], [0, 0.3]) }}></div>
+              <div className="absolute inset-0 bg-gradient-radial from-blue-900/25 via-indigo-900/15 to-[#0A0A0F]"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-900/30 via-purple-900/15 to-[#0A0A0F]"></div>
+        <div className="absolute inset-0 bg-[#0A0A0F]" style={{ opacity: useTransform(scrollYProgress, [0, 0.1], [0, 0.2]) }}></div>
         
         {/* Animated neon grid lines */}
         <div className="absolute inset-0 grid-pattern opacity-20"></div>
@@ -97,41 +158,44 @@ const Home = () => {
           <div className="aurora-beam aurora-3"></div>
         </motion.div>
         
-        {/* Dynamic blobs that follow mouse movement */}
+        {/* Static background elements */}
         <motion.div 
-          className="absolute w-[800px] h-[800px] rounded-full blur-[150px] bg-blue-500/15"
-          style={{ 
-            left: `calc(${mousePos.x * 100}% - 400px)`,
-            top: `calc(${mousePos.y * 50}% - 200px)`,
-            scale: 0.8 + (mousePos.y * 0.4),
-            transition: 'left 2s cubic-bezier(0.2, 0.8, 0.2, 1), top 2s cubic-bezier(0.2, 0.8, 0.2, 1)' 
-          }}
-        />
-        
-        <motion.div 
-          className="absolute w-[600px] h-[600px] rounded-full blur-[120px] bg-purple-500/10"
-          style={{ 
-            right: `calc(${(1-mousePos.x) * 100}% - 300px)`,
-            bottom: `calc(${(1-mousePos.y) * 50}% - 150px)`,
-            scale: 0.7 + ((1-mousePos.x) * 0.5),
-            transition: 'right 2.5s cubic-bezier(0.2, 0.8, 0.2, 1), bottom 2.5s cubic-bezier(0.2, 0.8, 0.2, 1)' 
-          }}
-        />
-        
-        <motion.div 
-          className="absolute w-[500px] h-[500px] rounded-full blur-[100px] bg-cyan-500/5"
+          className="absolute w-[800px] h-[800px] rounded-full blur-[150px] bg-blue-500/25"
           animate={{
-            x: [0, 50, -50, 0],
-            y: [0, -30, 30, 0],
+            scale: [0.9, 1.05, 0.95, 0.9],
+            opacity: [0.25, 0.35, 0.25, 0.25]
           }}
           transition={{
-            duration: 20,
+            duration: 8,
             repeat: Infinity,
-            repeatType: "mirror"
+            repeatType: "mirror",
+            ease: "easeInOut"
           }}
           style={{ 
-            left: '30%', 
-            top: '60%' 
+            left: '30%',
+            top: '40%',
+            zIndex: 5,
+            mixBlendMode: "lighten"
+          }}
+        />
+        
+        <motion.div 
+          className="absolute w-[600px] h-[600px] rounded-full blur-[120px] bg-purple-500/20"
+          animate={{
+            scale: [1, 0.9, 1.1, 1],
+            opacity: [0.2, 0.3, 0.2, 0.2]
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            repeatType: "mirror",
+            ease: "easeInOut"
+          }}
+          style={{ 
+            right: '30%',
+            bottom: '40%',
+            zIndex: 5,
+            mixBlendMode: "lighten"
           }}
         />
       </motion.div>
@@ -197,40 +261,41 @@ const Home = () => {
           <div className="w-full max-w-[1600px] mx-auto">
             {/* Animated title with staggered reveal */}
             <div className="text-center">
+              {/* Typewriter Effect */}
               <motion.div 
-                className="flex flex-wrap justify-center perspective-1000"
+                className="flex flex-col items-center justify-center text-[#FFFFE3] mx-auto w-full max-w-5xl h-[180px]"
+                animate={{ 
+                  y: currentText.length === 0 ? -10 : 0,
+                  opacity: currentText.length === 0 ? 0.8 : 1
+                }}
+                transition={{ 
+                  type: "spring", 
+                  stiffness: 300, 
+                  damping: 30 
+                }}
+              >
+                <motion.h2 
+                  className={`text-[7vw] md:text-[6vw] lg:text-[5vw] font-clash font-bold mb-[-1vw] leading-[1.2] text-center w-full ${isTyping ? 'cursor' : ''}`}
+                  initial={{ opacity: 1 }}
+                  style={{
+                    fontFamily: "monospace",
+                    WebkitTextStroke: "1px rgba(255, 255, 227, 0.2)",
+                    textShadow: "0 0 10px rgba(255, 255, 227, 0.3)"
+                  }}
+                >{currentText}</motion.h2>
+              </motion.div>
+              
+              {/* Original staggered animation - now hidden, just for mobile backup */}
+              <motion.div 
+                className="hidden flex-wrap justify-center perspective-1000"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1 }}
+                animate={{ opacity: 0 }}
               >
                 <AnimatePresence>
                   {words.map((word, i) => (
                     <motion.span
                       key={i}
                       className="text-[6vw] md:text-[5vw] lg:text-[4.5vw] font-clash leading-[1.1] font-bold text-[#FFFFE3] mx-2 inline-block"
-                      initial={{ 
-                        opacity: 0, 
-                        y: 100,
-                        rotateX: 30,
-                        scale: 0.8
-                      }}
-                      animate={{ 
-                        opacity: 1, 
-                        y: 0,
-                        rotateX: 0,
-                        scale: 1
-                      }}
-                      transition={{ 
-                        duration: 0.7, 
-                        delay: i * 0.1,
-                        ease: [0.215, 0.61, 0.355, 1] // Cubic bezier for bouncy effect
-                      }}
-                      whileHover={{ 
-                        scale: 1.05, 
-                        color: '#FFFFE3', 
-                        textShadow: "0 0 15px rgba(255, 255, 227, 0.8)",
-                        transition: { duration: 0.2 }
-                      }}
                     >
                       {word}
                     </motion.span>
@@ -239,18 +304,20 @@ const Home = () => {
               </motion.div>
               
               {/* Animated subtitle - more subtle */}
-              <motion.p
-                className="text-[#FFFFE3] font-clash font-light mt-6 text-xl md:text-2xl opacity-50"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: words.length * 0.1 + 0.5 }}
-              >
-                We don't do lectures. We do late-night builds
-              </motion.p>
+              <div className="fixed-subtitle-container">
+                <motion.p
+                  className="text-[#FFFFE3] font-clash font-light text-xl md:text-2xl opacity-50"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 1, delay: words.length * 0.1 + 0.5 }}
+                >
+                  We don't do lectures. We do late-night builds
+                </motion.p>
+              </div>
               
               {/* Enhanced animated button with glow effect */}
               <motion.button
-                className="relative mt-9 bg-transparent border border-[#FFFFE3]/20 text-[#FFFFE3] px-8 py-3 rounded-full font-bold text-lg overflow-hidden group"
+                className="relative mt-4 bg-transparent border border-[#FFFFE3]/20 text-[#FFFFE3] px-8 py-3 rounded-full font-bold text-lg overflow-hidden group"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ 
@@ -285,12 +352,37 @@ const Home = () => {
             </div>
           </div>
         </motion.div>
-        
+        <div className="flex flex-row justify-center max-w-4xl mx-auto my-12">
+              <img className="w-[300px] z-10 mb-6 rounded-lg shadow-2xl" src={letxploreImg} alt="Let Explore" />
+              <img className="w-[300px] rounded-lg shadow-2xl" src={shnImg} alt="Saturday Hack Night" />
+            </div>
        
       </div>
       
       {/* Add CSS for the special effects */}
       <style jsx="true">{`
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+        
+        .cursor::after {
+          content: '|';
+          margin-left: 4px;
+          animation: blink 1s infinite;
+          display: inline-block;
+        }
+        
+        .fixed-subtitle-container {
+          height: 10px;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          z-index: 30;
+         margin-bottom: 30px;
+        }
         .perspective-1000 {
           perspective: 1000px;
         }
