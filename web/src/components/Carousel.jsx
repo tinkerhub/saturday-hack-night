@@ -9,28 +9,28 @@ import img5 from '../assets/images/carousal/IMG_5921.JPG'
 // Sample slides data
 const defaultSlides = [
   {
-    title: "Welcome to Our Platform",
-    button: "Get Started",
+    title: "Explore New Tech",
+    button: "Register Now",
     src: img4,
   },
   {
-    title: "Discover Amazing Features",
-    button: "Learn More",
+    title: "Meet Tech Wizards",
+    button: "Register Now",
     src: img3,
   },
   {
-    title: "Join Our Community",
-    button: "Sign Up",
+    title: "Late Night Devs",
+    button: "Register Now",
     src: img1
   },
   {
-    title: "Join Our Community",
-    button: "Sign Up",
+    title: "Help Is Here",
+    button: "Register Now",
     src: img2
   },
   {
-    title: "Join Our Community",
-    button: "Sign Up",
+    title: "Build With Homies",
+    button: "Register Now",
     src: img5
   }
 ];
@@ -130,33 +130,16 @@ const Slide = ({ slide, index, current, handleSlideClick }) => {
             current === index ? "opacity-100 visible" : "opacity-0 invisible"
           }`}
         >
-          <h2 className="text-lg md:text-2xl lg:text-4xl font-semibold relative">
+          <h2 className="text-lg md:text-2xl lg:text-4xl font-clash font-medium relative">
             {title}
           </h2>
-          <div className="flex justify-center">
-            <button className="mt-6 px-4 py-2 w-fit mx-auto sm:text-sm text-black bg-white h-12 border border-transparent text-xs flex justify-center items-center rounded-2xl hover:shadow-lg transition duration-200 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
-              {button}
-            </button>
-          </div>
         </article>
       </li>
     </div>
   );
 };
 
-const CarouselControl = ({ type, title, handleClick }) => {
-  return (
-    <button
-      className={`w-10 h-10 flex items-center mx-2 justify-center bg-neutral-200 dark:bg-neutral-800 border-3 border-transparent rounded-full focus:border-[#6D64F7] focus:outline-none hover:-translate-y-0.5 active:translate-y-0.5 transition duration-200 ${
-        type === "previous" ? "rotate-180" : ""
-      }`}
-      title={title}
-      onClick={handleClick}
-    >
-      <IconArrowNarrowRight className="text-neutral-600 dark:text-neutral-200" />
-    </button>
-  );
-};
+
 
 const Carousel = ({ slides = defaultSlides }) => {
   const [current, setCurrent] = useState(0);

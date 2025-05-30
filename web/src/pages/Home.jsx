@@ -4,6 +4,8 @@ import Navbar from '../components/Navbar'
 import letxploreImg from '../assets/images/letxplore.jpg'
 import shnImg from '../assets/images/SHN.jpg'
 import Carousel from '../components/Carousel'
+import LoopText from '../components/LoopText'
+import Register from '../components/Register'
 
 const Home = () => {
   const containerRef = useRef(null)
@@ -133,6 +135,10 @@ const Home = () => {
       className="bg-[#0A0A0F] mx-auto min-h-screen relative overflow-hidden perspective-1000"
       style={{ backgroundColor: "#0A0A0F" }}
     >
+      <Navbar />
+      
+      
+
       {/* Enhanced background effect with depth */}
       <motion.div 
           className="absolute inset-0 z-0" 
@@ -204,8 +210,6 @@ const Home = () => {
       </motion.div>
       
       <div className="max-w-[1920px] mx-auto px-6 md:px-12 xl:px-16 relative z-10">
-        <Navbar />
-        
         <motion.div 
           className="flex items-center justify-center min-h-screen relative z-20"
         >
@@ -307,6 +311,30 @@ const Home = () => {
         {/* Carousel showcase - moved here after landing section */}
         <div className="relative z-20 w-full h-screen">
           <Carousel />
+        </div>
+        <div className="flex w-full h-80 justify-center">
+          <div className="relative w-full max-w-4xl mx-auto px-4">
+            <LoopText interval={3}>
+              <span className="text-6xl font-clash font-medium">
+                <span className="text-white">Wanna Join </span> 
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Saturday HackNight?</span>
+              </span>
+              <span className="text-6xl font-clash font-medium">
+                <span className="text-white">But Saturday HackNight is </span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">Invite Only</span>
+              </span>
+              <span className="text-6xl font-clash font-medium">
+                <span className="text-white">Join the </span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-red-500">online edition </span>
+                <span className="text-white">for Invite</span>
+              </span>
+            </LoopText>
+          </div>
+        </div>
+
+        {/* Register Section */}
+        <div className="relative z-10 w-full">
+          <Register />
         </div>
 
         <motion.div
