@@ -3,12 +3,15 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import Navbar from '../components/Navbar'
 import letxploreImg from '../assets/images/letxplore.jpg'
 import shnImg from '../assets/images/SHN.jpg'
+import Carousel from '../components/Carousel'
 
 const Home = () => {
   const containerRef = useRef(null)
   const [gridPoints, setGridPoints] = useState([])
   const { scrollYProgress } = useScroll()
   const [showParticles, setShowParticles] = useState(false)
+  
+
 
   // Parallax effect values
   // Reduced parallax for smoother experience
@@ -203,58 +206,6 @@ const Home = () => {
       <div className="max-w-[1920px] mx-auto px-6 md:px-12 xl:px-16 relative z-10">
         <Navbar />
         
-        {/* Particle effect overlay */}
-        {showParticles && (
-          <div className="absolute inset-0 z-5 opacity-30 pointer-events-none">
-            <div className="particles-container">
-              {Array.from({ length: 50 }).map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="particle"
-                  initial={{ 
-                    x: Math.random() * 100 + "vw", 
-                    y: Math.random() * 100 + "vh",
-                    scale: Math.random() * 0.5 + 0.5 
-                  }}
-                  animate={{ 
-                    y: [null, Math.random() * 100 + "vh"],
-                    opacity: [0.1, Math.random() * 0.5 + 0.3, 0.1],
-                  }}
-                  transition={{ 
-                    duration: Math.random() * 20 + 20, 
-                    repeat: Infinity,
-                    ease: "linear" 
-                  }}
-                  style={{
-                    width: Math.random() * 3 + 1 + "px",
-                    height: Math.random() * 3 + 1 + "px",
-                    background: `rgba(255, 255, 227, ${Math.random() * 0.3 + 0.1})`,
-                    boxShadow: `0 0 ${Math.random() * 3 + 2}px rgba(255, 255, 227, 0.3)`
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-        )}
-        
-        {/* Static grid points - more subtle */}
-        <div className="absolute inset-0 z-10 opacity-30">
-          {gridPoints.map((point) => (
-            <div
-              key={point.id}
-              className="absolute rounded-full bg-[#FFFFE3]"
-              style={{
-                left: `${point.x}%`,
-                top: `${point.y}%`,
-                width: `2px`,
-                height: `2px`,
-                opacity: 0.1,
-                transform: 'translate(-50%, -50%)',
-              }}
-            />
-          ))}
-        </div>
-
         <motion.div 
           className="flex items-center justify-center min-h-screen relative z-20"
         >
@@ -352,11 +303,196 @@ const Home = () => {
             </div>
           </div>
         </motion.div>
-        <div className="flex flex-row justify-center max-w-4xl mx-auto my-12">
-              <img className="w-[300px] z-10 mb-6 rounded-lg shadow-2xl" src={letxploreImg} alt="Let Explore" />
-              <img className="w-[300px] rounded-lg shadow-2xl" src={shnImg} alt="Saturday Hack Night" />
+
+        {/* Carousel showcase - moved here after landing section */}
+        <div className="relative z-20 w-full h-screen">
+          <Carousel />
+        </div>
+
+        <motion.div
+          className="max-w-4xl mx-auto px-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <h2 className="text-5xl md:text-6xl font-clash font-bold text-[#FFFFE3] mb-4">
+            Join LetXplore
+          </h2>
+          <p className="text-xl md:text-2xl font-clash font-light text-[#FFFFE3]/60 mb-3 max-w-2xl ">
+            Your techy pregame before Saturday HackNight — where learning meets creation
+          </p>
+          
+        </motion.div>
+                  
+        <motion.div 
+          className="flex flex-col md:flex-row flex-wrap justify-center gap-8 mx-auto my-4 p-8 md:p-10 rounded-2xl backdrop-blur-sm bg-[#0A0A0F]/40   shadow-[0_10px_50px_-12px_rgba(0,0,0,0.7)] relative overflow-hidden"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+        >
+          {/* Subtle background glow */}
+          <div className="absolute w-full h-full z-0 overflow-visible">
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#FFFFE3]/5 rounded-full blur-[80px] mix-blend-screen"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#FFFFE3]/5 rounded-full blur-[60px] mix-blend-screen animate-pulse-slow"></div>
+          </div>
+          
+          <div className="absolute inset-0 bg-[#0A0A0F]/30 z-0"></div>
+          
+          <motion.div
+            className="relative group overflow-hidden rounded-xl bg-[#0A0A0F]/90 border border-[#FFFFE3]/10 shadow-[0_4px_30px_rgba(0,0,0,0.5)] z-10"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            whileHover={{ 
+              scale: 1.02, 
+              boxShadow: "0 20px 40px -12px rgba(255, 255, 227, 0.1)",
+              borderColor: "rgba(255, 255, 227, 0.2)"
+            }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-tl from-[#FFFFE3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out mix-blend-overlay"></div>
+            <div className="relative w-[320px] h-[220px] overflow-hidden rounded-t-xl group-hover:shadow-inner group-hover:shadow-[#FFFFE3]/5">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#FFFFE3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 mix-blend-color-burn"></div>
+              <img 
+                className="absolute w-full h-full object-cover object-[center_30%] transition-all duration-700 group-hover:scale-105 group-hover:brightness-110"  
+                src={letxploreImg} 
+                alt="Let Explore" 
+              />
             </div>
+            <div className="absolute bottom-0 left-0 w-full p-4 bg-[#0A0A0F]/70 border-t border-[#FFFFE3]/10">
+              <h3 className="text-[#FFFFE3] font-clash text-lg font-medium tracking-wide">Let Explore</h3>
+              <p className="text-[#FFFFE3]/60 text-sm mt-1 font-light">Interactive learning experience</p>
+              <div className="flex items-center mt-2">
+                <svg className="w-4 h-4 text-[#FFFFE3]/60 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                </svg>
+                <p className="text-[#FFFFE3]/60 text-xs font-medium">Friday, 8:00 PM</p>
+              </div>
+            </div>
+            <motion.div 
+              className="absolute top-0 left-0 w-full h-[1px] bg-[#FFFFE3]/20" 
+              initial={{ scaleX: 0, originX: 0 }}
+              whileHover={{ scaleX: 1 }}
+              transition={{ duration: 0.5 }}
+            />
+          </motion.div>
+          
+          <motion.div
+            className="relative group overflow-hidden rounded-xl bg-[#0A0A0F]/90 border border-[#FFFFE3]/10 shadow-[0_4px_30px_rgba(0,0,0,0.5)] z-10"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+            whileHover={{ 
+              scale: 1.02, 
+              boxShadow: "0 20px 40px -12px rgba(255, 255, 227, 0.1)",
+              borderColor: "rgba(255, 255, 227, 0.2)"
+            }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-tl from-[#FFFFE3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out mix-blend-overlay"></div>
+            <div className="relative w-[320px] h-[220px] overflow-hidden rounded-t-xl group-hover:shadow-inner group-hover:shadow-[#FFFFE3]/5">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#FFFFE3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 mix-blend-color-burn"></div>
+              <img 
+                className="absolute w-full h-full object-cover object-[center_30%] transition-all duration-700 group-hover:scale-105 group-hover:brightness-110"  
+                src={shnImg} 
+                alt="Saturday Hack Night" 
+              />
+            </div>
+            <div className="absolute bottom-0 left-0 w-full p-4 bg-[#0A0A0F]/70 border-t border-[#FFFFE3]/10">
+              <h3 className="text-[#FFFFE3] font-clash text-lg font-medium tracking-wide">Saturday Hack Night</h3>
+              <p className="text-[#FFFFE3]/60 text-sm mt-1 font-light">Building projects that matter</p>
+              <div className="flex items-center mt-2">
+                <svg className="w-4 h-4 text-[#FFFFE3]/60 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                </svg>
+                <p className="text-[#FFFFE3]/60 text-xs font-medium">Saturday, 6:00 PM - 10:00 PM</p>
+              </div>
+            </div>
+            <motion.div 
+              className="absolute top-0 left-0 w-full h-[1px] bg-[#FFFFE3]/20" 
+              initial={{ scaleX: 0, originX: 0 }}
+              whileHover={{ scaleX: 1 }}
+              transition={{ duration: 0.5 }}
+            />
+          </motion.div>
+        </motion.div>
        
+        {/* Benefits Section */}
+        <motion.div 
+          className="max-w-6xl mx-auto my-20 px-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+         
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Benefit 1 */}
+            <motion.div 
+              className="bg-[#0A0A0F]/70 backdrop-blur-sm p-6 rounded-xl border border-[#FFFFE3]/10"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              whileHover={{ y: -5, boxShadow: "0 10px 30px -12px rgba(255, 255, 227, 0.1)" }}
+            >
+              <div className="w-12 h-12 bg-[#FFFFE3]/5 rounded-lg flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-[#FFFFE3]/60" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-clash font-medium text-[#FFFFE3] mb-2">Hands-on Learning</h3>
+              <p className="text-[#FFFFE3]/60 mb-4">Dive into practical coding sessions that prepare you for real-world challenges.</p>
+            </motion.div>
+            
+            {/* Benefit 2 */}
+            <motion.div 
+              className="bg-[#0A0A0F]/70 backdrop-blur-sm p-6 rounded-xl border border-[#FFFFE3]/10"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              whileHover={{ y: -5, boxShadow: "0 10px 30px -12px rgba(255, 255, 227, 0.1)" }}
+            >
+              <div className="w-12 h-12 bg-[#FFFFE3]/5 rounded-lg flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-[#FFFFE3]/60" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-clash font-medium text-[#FFFFE3] mb-2">Community Network</h3>
+              <p className="text-[#FFFFE3]/60 mb-4">Connect with passionate developers and build lasting professional relationships.</p>
+            </motion.div>
+            
+            {/* Benefit 3 */}
+            <motion.div 
+              className="bg-[#0A0A0F]/70 backdrop-blur-sm p-6 rounded-xl border border-[#FFFFE3]/10"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              whileHover={{ y: -5, boxShadow: "0 10px 30px -12px rgba(255, 255, 227, 0.1)" }}
+            >
+              <div className="w-12 h-12 bg-[#FFFFE3]/5 rounded-lg flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-[#FFFFE3]/60" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M6.672 1.911a1 1 0 10-1.932.518l.259.966a1 1 0 001.932-.518l-.26-.966zM2.429 4.74a1 1 0 10-.517 1.932l.966.259a1 1 0 00.517-1.932l-.966-.26zm8.814-.569a1 1 0 00-1.415-1.414l-.707.707a1 1 0 101.415 1.415l.707-.708zm-7.071 7.072l.707-.707A1 1 0 003.465 9.12l-.708.707a1 1 0 001.415 1.415zm3.2-5.171a1 1 0 00-1.3 1.3l4 10a1 1 0 001.823.075l1.38-2.759 3.018 3.02a1 1 0 001.414-1.415l-3.019-3.02 2.76-1.379a1 1 0 00-.076-1.822l-10-4z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-clash font-medium text-[#FFFFE3] mb-2">Project Portfolio</h3>
+              <p className="text-[#FFFFE3]/60 mb-4">Build impressive projects that showcase your skills to potential employers.</p>
+            </motion.div>
+          </div>
+          
+          <motion.div 
+            className="text-center mt-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
+            <motion.button
+              className="px-8 py-3 bg-[#FFFFE3]/10 text-[#FFFFE3] rounded-full font-clash font-medium text-lg relative overflow-hidden group border border-[#FFFFE3]/20"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span className="relative z-10">Register Now</span>
+              <div className="absolute inset-0 bg-[#FFFFE3]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </motion.button>
+          </motion.div>
+        </motion.div>
       </div>
       
       {/* Add CSS for the special effects */}
@@ -371,6 +507,11 @@ const Home = () => {
           margin-left: 4px;
           animation: blink 1s infinite;
           display: inline-block;
+        }
+
+        @keyframes pulse-slow {
+          0%, 100% { opacity: 0.2; transform: scale(0.95); }
+          50% { opacity: 0.5; transform: scale(1.05); }
         }
         
         .fixed-subtitle-container {
