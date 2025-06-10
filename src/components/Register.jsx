@@ -5,7 +5,7 @@ const TABS = [
     label: "REGISTER",
     subheading: (
       <>
-        <span className="font-extrabold uppercase text-[#eaff6b]">REGISTER.</span>
+        <span className="font-extrabold uppercase text-blue-500">REGISTER.</span>
         <span className="font-extrabold uppercase text-white ml-2">CREATE THE REPO AND FORM YOUR TEAM</span>
       </>
     ),
@@ -28,7 +28,7 @@ const TABS = [
     ],
     summary: (
       <>
-        If everyone has received their onboarding email, you are officially registered. <span className="text-[#eaff6b]">Yay!</span>
+        If everyone has received their onboarding email, you are officially registered. <span className="text-blue-500">Yay!</span>
       </>
     )
   },
@@ -36,7 +36,7 @@ const TABS = [
     label: "EXPLORE",
     subheading: (
       <>
-        <span className="font-extrabold uppercase text-[#eaff6b]">EXPLORE.</span>
+        <span className="font-extrabold uppercase text-blue-500">EXPLORE.</span>
         <span className="font-extrabold uppercase text-white ml-2">JOIN THE LETXPLORE SESSION</span>
       </>
     ),
@@ -63,7 +63,7 @@ const TABS = [
     label: "BUILD",
     subheading: (
       <>
-        <span className="font-extrabold uppercase text-[#eaff6b]">BUILD.</span>
+        <span className="font-extrabold uppercase text-blue-500">BUILD.</span>
         <span className="font-extrabold uppercase text-white ml-2">HAVE FUN!!</span>
       </>
     ),
@@ -85,7 +85,7 @@ const TABS = [
       }
     ],
     summary: (
-      <span className="text-[#eaff6b] font-bold text-lg">Happy Coding !</span>
+      <span className="text-blue-500 font-bold text-lg">Happy Coding !</span>
     )
   }
 ];
@@ -165,8 +165,9 @@ const Register = () => {
   const handleResume = () => setIsPaused(false);
 
   return (
-    <section className="w-full py-16 px-2 md:px-0 bg-[#232228]">
-      <div className="max-w-4xl mx-auto border border-dashed border-[#a78bfa]/40 rounded-xl p-6 md:p-10 relative">
+    <section className="w-full mb-16 md:px-0">
+         <h1 className="text-6xl font-clash font-medium translate-x-64 mb-4">Register now for <span className="text-transparent block bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Online HackNights</span></h1>
+      <div className="max-w-4xl mx-auto rounded-xl p-6 md:p-10 relative">
         {/* Tabs Header */}
         <div
           ref={containerRef}
@@ -179,7 +180,7 @@ const Register = () => {
           {/* Yellow lines only between headings, perfectly positioned */}
           <div className="absolute top-1/2 -translate-y-1/2 left-0 w-full h-0 pointer-events-none z-0">
             <div
-              className="absolute h-0.5 bg-[#eaff6b] opacity-60"
+              className="absolute h-0.5 bg-blue-500 opacity-60"
               style={{
                 left: `${linePos.regToExp.left}px`,
                 width: `${linePos.regToExp.width}px`,
@@ -187,7 +188,7 @@ const Register = () => {
               }}
             />
             <div
-              className="absolute h-0.5 bg-[#eaff6b] opacity-60"
+              className="absolute h-0.5 bg-blue-500 opacity-60"
               style={{
                 left: `${linePos.expToBuild.left}px`,
                 width: `${linePos.expToBuild.width}px`,
@@ -233,12 +234,12 @@ const Register = () => {
           <div className="relative flex items-start justify-between mb-8 w-full">
             {/* Single dotted line through number circles */}
             <div className="absolute left-0 right-0 top-6 md:top-7 z-0 flex items-center">
-              <div className="w-full border-t-2 border-dotted border-[#eaff6b] opacity-80" />
+              <div className="w-full border-t-2 border-dotted border-blue-500 opacity-80" />
             </div>
             {tab.steps.map((step) => (
               <div key={step.number} className="flex flex-col items-center z-10 w-1/3 px-2">
-                <div className="w-12 h-12 rounded-full bg-[#232228] border-4 border-[#eaff6b] flex items-center justify-center text-2xl font-extrabold text-[#232228] mb-2 relative">
-                  <span className="absolute inset-0 flex items-center justify-center text-[#eaff6b]">{step.number}</span>
+                <div className="w-12 h-12 rounded-full bg-[#232228] border-4 border-blue-500 flex items-center justify-center text-2xl font-extrabold text-[#232228] mb-2 relative">
+                  <span className="absolute inset-0 flex items-center justify-center text-blue-50">{step.number}</span>
                 </div>
                 <div className="text-center w-full">
                   <div className="text-white font-extrabold text-base md:text-lg mb-1 tracking-wide uppercase">
