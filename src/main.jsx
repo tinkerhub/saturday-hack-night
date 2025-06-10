@@ -3,7 +3,10 @@ import { createRoot } from 'react-dom/client'
 import Home from './pages/Home.jsx'
 import './index.css'
 
-createRoot(document.getElementById('root')).render(
+const root = createRoot(document.getElementById('root'))
+document.documentElement.classList.add('dark')
+
+root.render(
   <StrictMode>
     <Home />
   </StrictMode>,

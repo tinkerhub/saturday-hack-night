@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const Stats = () => {
   return (
-    <div className="bg-background py-24">
+    <div className="py-24">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -18,40 +18,67 @@ const Stats = () => {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="text-6xl md:text-xl lg:text-7xl font-bold text-blue-500 group-hover:text-blue-400 transition-colors">
-              1600+
+            <motion.div 
+              className="absolute -inset-1 rounded-full bg-[#FFFFE3] opacity-0 filter blur-sm"
+              initial={{ opacity: 0 }}
+              whileHover={{ opacity: 0.15 }}
+              transition={{ duration: 0.3 }}
+            />
+            <div className="relative">
+              <h3 className="text-4xl font-bold mb-2 text-white dark:text-slate-900/90">100+</h3>
+              <p className="text-gray-400 dark:text-slate-400">Projects</p>
             </div>
-            <div className="mt-4 text-xl md:text-2xl text-gray-400">Participants</div>
           </motion.div>
+
           <motion.div
             className="group"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="text-6xl md:text-7xl lg:text-7xl font-bold text-blue-500 group-hover:text-blue-400 transition-colors">
-              400+
+            <motion.div 
+              className="absolute -inset-1 rounded-full bg-[#FFFFE3] opacity-0 filter blur-sm"
+              initial={{ opacity: 0 }}
+              whileHover={{ opacity: 0.15 }}
+              transition={{ duration: 0.3 }}
+            />
+            <div className="relative">
+              <h3 className="text-4xl font-bold mb-2 text-white dark:text-slate-900/90">500+</h3>
+              <p className="text-gray-400 dark:text-slate-400">Contributors</p>
             </div>
-            <div className="mt-4 text-xl md:text-2xl text-gray-400">Projects</div>
           </motion.div>
+
           <motion.div
             className="group"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="text-6xl md:text-7xl lg:text-7xl font-bold text-blue-500 group-hover:text-blue-400 transition-colors">
-              45+
+            <motion.div 
+              className="absolute -inset-1 rounded-full bg-[#FFFFE3] opacity-0 filter blur-sm"
+              initial={{ opacity: 0 }}
+              whileHover={{ opacity: 0.15 }}
+              transition={{ duration: 0.3 }}
+            />
+            <div className="relative">
+              <h3 className="text-4xl font-bold mb-2 text-white dark:text-slate-900/90">10+</h3>
+              <p className="text-gray-400 dark:text-slate-400">Countries</p>
             </div>
-            <div className="mt-4 text-xl md:text-2xl text-gray-400">HackNights</div>
           </motion.div>
+
           <motion.div
             className="group"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="text-6xl md:text-7xl lg:text-7xl font-bold text-blue-500 group-hover:text-blue-400 transition-colors">
-              5
+            <motion.div 
+              className="absolute -inset-1 rounded-full bg-[#FFFFE3] opacity-0 filter blur-sm"
+              initial={{ opacity: 0 }}
+              whileHover={{ opacity: 0.15 }}
+              transition={{ duration: 0.3 }}
+            />
+            <div className="relative">
+              <h3 className="text-4xl font-bold mb-2 text-white dark:text-slate-900/90">2025</h3>
+              <p className="text-gray-400 dark:text-slate-400">Founded</p>
             </div>
-            <div className="mt-4 text-xl md:text-2xl text-gray-400">Offline HackNights</div>
           </motion.div>
         </motion.div>
       </div>

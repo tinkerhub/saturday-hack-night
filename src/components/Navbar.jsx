@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { ShimmerButton } from "@/components/magicui/shimmer-button";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false)
@@ -52,23 +53,11 @@ const Navbar = () => {
               transition={{ duration: 0.3 }}
             />
           </motion.div>
-
-          {/* Register Now Button */}
-          <motion.button
-            className="px-6 py-2.5 border-2 border-blue-500 text-blue-500 rounded-full font-medium text-sm hover:border-blue-400 hover:text-blue-400 transition-colors duration-200"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
-          >
-            <span className="relative z-10 font-clash font-medium">Register Now</span>
-            <motion.div 
-              className="absolute -inset-1 rounded-full bg-blue-500 opacity-0 filter blur-sm"
-              initial={{ opacity: 0 }}
-              whileHover={{ opacity: 0.15 }}
-              transition={{ duration: 0.3 }}
-            />
-          </motion.button>
-        
+          <ShimmerButton className="shadow-2xl">
+      <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg">
+        Shimmer Button
+      </span>
+    </ShimmerButton>
         </div>
       </div>
       
