@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import Navbar from '../components/Navbar'
 import Carousel from '../components/Carousel'
-import LoopText from '../components/LoopText'
+import LoopText from '../components/Looptext'
 import Register from '../components/Register'
 import DisplayCards from "../components/Displaycards"
 import Testimonials from "../components/Testimonials";
