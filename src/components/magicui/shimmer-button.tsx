@@ -18,13 +18,13 @@ export const ShimmerButton = React.forwardRef<
 >(
   (
     {
-      shimmerColor = "#ffffff",
+      shimmerColor = "#FFFFE3",
       shimmerSize = "0.05em",
-      shimmerDuration = "3s",
+      shimmerDuration = "2.5s",
       borderRadius = "100px",
-      background = "rgba(0, 0, 0, 1)",
-      className,
-      children,
+      background = "rgba(0, 0, 0, 0.8)",
+      className = "",
+      children = null,
       ...props
     },
     ref,
@@ -42,13 +42,18 @@ export const ShimmerButton = React.forwardRef<
           } as CSSProperties
         }
         className={cn(
-          "group relative z-0 flex cursor-pointer items-center justify-center overflow-hidden whitespace-nowrap border border-white/10 px-6 py-3 text-white [background:var(--bg)] [border-radius:var(--radius)] dark:text-black",
-          "transform-gpu transition-transform duration-300 ease-in-out active:translate-y-px",
+          "group relative z-0 flex cursor-pointer items-center justify-center overflow-hidden whitespace-nowrap border border-white/10 px-6 py-3 text-white [background:var(--bg)] [border-radius:var(--radius)] dark:text-white/90",
+          "transform-gpu transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98] active:translate-y-px",
+          "backdrop-blur-sm border-2 border-white/10 hover:border-white/20",
+          "before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-r before:from-transparent before:via-[#FFFFE3]/20 before:to-transparent before:animate-shimmer-slide",
+          "after:absolute after:inset-0 after:rounded-full after:border after:border-white/10 after:opacity-0 group-hover:after:opacity-100 after:transition-opacity after:duration-300",
           className,
         )}
         ref={ref}
         {...props}
       >
+        <span className="relative z-10">{children}</span>
+      </button>
         {/* spark container */}
         <div
           className={cn(
