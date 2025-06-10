@@ -54,7 +54,7 @@ const Navbar = () => {
             />
           </motion.div>
           <ShimmerButton className="shadow-2xl">
-      <span className="whitespace-pre-wrap font-clash text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg">
+      <span className="whitespace-pre-wrap font-clash p-2 px-4 text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg">
         Register Now
       </span>
     </ShimmerButton>
