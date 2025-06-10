@@ -9,19 +9,60 @@ const FAQ = () => {
   const faqItems = [
     {
       question: "What is Saturday HackNight?",
-      answer: "Saturday HackNight is a community-driven event where developers, designers, and tech enthusiasts come together to learn, build, and network. It's a perfect opportunity to work on exciting projects and collaborate with like-minded individuals."
+      answer: (
+        <>
+          Saturday HackNight is a biweekly community-driven hackathon (held every other Saturday from 6–11 PM IST), where developers, designers, and tech enthusiasts collaborate to build projects around a new API, tool, or framework each edition.
+        </>
+      )
     },
     {
       question: "Who can participate?",
-      answer: "Anyone with an interest in technology can participate! Whether you're a student, professional, or hobbyist, all levels of experience are welcome."
+      answer: (
+        <>
+          Saturday HackNight is specifically designed for beginners who want to explore new technologies. We believe in learning by building, so you'll get hands-on experience while discovering what excites you most in the tech world.
+          No prior experience required – just bring your curiosity and enthusiasm to learn!
+        </>
+      )
     },
     {
-      question: "What should I bring?",
-      answer: "Bring your laptop, charger, and any other tools you might need for your project. We'll provide snacks, drinks, and a great atmosphere for learning and collaborating."
+      question: "Is Saturday HackNight conducted online or offline?",
+      answer: (
+        <>
+          Saturday HackNight follows a cycle of 5 online hackathons, followed by an invite-only offline hackathon held at TinkerSpace Kochi. After the offline event, the cycle repeats with another set of 5 online hackathons. This pattern continues to balance both virtual and in-person collaboration opportunities.
+        </>
+      )
+    },
+    {
+      question: "How can I get an invite to the offline edition of Saturday HackNight?",
+      answer: (
+        <>
+         To receive an invite to the offline hackathon, you must complete and submit a project in at least one of the five online HackNight events in a given cycle. Successful participation in an online edition makes you eligible for the subsequent invite-only offline hackathon held at TinkerSpace Kochi.
+        </>
+      )
     },
     {
       question: "How do I register?",
-      answer: "You can register by clicking the 'Register Now' button on our website. Fill out the registration form and follow the instructions to complete your registration."
+      answer: (
+        <>
+          Registration for Saturday HackNight is quick and easy!
+          <div className='block mt-4'>Method 1: Through the Hub App</div>
+          <ol className='mt-4 list-decimal list-inside'>
+            <li>Open the Hub app and navigate to the landing page</li>
+            <li>Look for 'Study Jams' in the top right corner and click on it</li>
+            <li>You'll see Saturday HackNight listed as an Active event</li>
+            <li>Select 'Saturday HackNight' from the list</li>
+            <li>Click the 'Join Now' button</li>
+          </ol>
+          <div className='mt-4'>That's it! You're now registered for Saturday HackNight</div>
+          <div className='block mt-4'>Method 2: Direct Registration</div>
+          <ol className='mt-4 list-decimal list-inside'>
+            <li>Simply click the 'Register Now' button on our website</li>
+            <li>You'll be automatically redirected to the Hub app's Saturday HackNight page</li>
+            <li>Complete your registration there</li>
+          </ol>
+          <div className='mt-4'>Both methods will get you registered and ready to join our exciting Saturday HackNight sessions. Welcome to the community!</div>
+        </>
+      )
     },
     {
       question: "Is there a registration fee?",
