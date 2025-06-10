@@ -7,9 +7,7 @@ export default function DisplayCards({ cards = [] }) {
     {
       className: "[grid-area:stack] hover:-translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-gradient-to-r before:from-blue-500/20 before:to-transparent before:left-0 before:top-0 before:transition-opacity before:duration-700 hover:before:opacity-0",
       icon: (
-        <svg className="w-4 h-4 text-blue-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 2v20M2 12h20M12 2l7 7-7 7-7-7 7-7z" />
-        </svg>
+        <span className="p-1 font-clash font-bold">1</span>
       ),
       title: "Register",
       description: "Sign up for online edition",
@@ -18,9 +16,7 @@ export default function DisplayCards({ cards = [] }) {
     {
       className: "[grid-area:stack] translate-x-16 translate-y-10 hover:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-gradient-to-r before:from-blue-500/20 before:to-transparent before:left-0 before:top-0 before:transition-opacity before:duration-700 hover:before:opacity-0",
       icon: (
-        <svg className="w-4 h-4 text-blue-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 2v20M2 12h20M12 2l7 7-7 7-7-7 7-7z" />
-        </svg>
+        <span className="p-1 font-clash font-bold">2</span>
       ),
       title: "Build",
       description: "Build something (big or silly)",
@@ -29,9 +25,7 @@ export default function DisplayCards({ cards = [] }) {
     {
       className: "[grid-area:stack] translate-x-32 translate-y-20 hover:translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-gradient-to-r before:from-blue-500/20 before:to-transparent before:left-0 before:top-0 before:transition-opacity before:duration-700 hover:before:opacity-0",
       icon: (
-        <svg className="w-4 h-4 text-blue-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 2v20M2 12h20M12 2l7 7-7 7-7-7 7-7z" />
-        </svg>
+        <span className="p-1 font-clash font-bold">3</span>
       ),
       title: "Get Invited",
       description: "Get invited to the offline edition",
@@ -55,10 +49,10 @@ export default function DisplayCards({ cards = [] }) {
             <span className="relative inline-block rounded-full bg-blue-800 p-1">
               {cardProps.icon}
             </span>
-            <p className="text-lg font-medium text-blue-300">{cardProps.title}</p>
+            <p className="text-lg font-medium font-clash text-blue-300">{cardProps.title}</p>
           </div>
-          <p className="whitespace-nowrap text-lg text-white/80">{cardProps.description}</p>
-          <p className="text-sm text-white/60">{cardProps.date}</p>
+          <p className="whitespace-nowrap font-clash font-medium text-lg text-white/80">{cardProps.description}</p>
+          <p className="font-clash font-medium text-sm text-white/60">{cardProps.date}</p>
         </div>
       ))}
     </div>
