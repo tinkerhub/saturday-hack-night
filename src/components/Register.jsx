@@ -23,7 +23,7 @@ const TABS = [
       {
         number: 3,
         title: "REGISTER YOUR TEAM",
-        desc: "Confirm that all team members, including the lead, have received the onboarding email"
+        desc: "Confirm that all team members, have received the onboarding email"
       }
     ],
     summary: (
@@ -200,7 +200,7 @@ const Register = () => {
           <div className="flex flex-col h-full items-center justify-between">
             <span
               ref={regRef}
-              className={`z-10 text-3xl md:text-4xl font-clash font-bold uppercase tracking-wide px-2 ${
+              className={`z-10 text-3xl md:text-4xl font-clash font-bold uppercase tracking-wide px-2  ${
                 activeTab === 0 ? "text-white" : "text-gray-400"
               }`}
               style={{ letterSpacing: '0.04em' }}

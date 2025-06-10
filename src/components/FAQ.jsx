@@ -32,7 +32,7 @@ const FAQ = () => {
   return (
     <div className="py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold text-white mb-12">Frequently Asked Questions</h2>
+        <h2 className="text-4xl font-clash font-medium text-white mb-12">Frequently Asked Questions</h2>
         
         <div className="space-y-4">
           {faqItems.map((item, index) => (
@@ -45,9 +45,9 @@ const FAQ = () => {
             >
               <button
                 onClick={() => setActiveIndex(activeIndex === index ? null : index)}
-                className="w-full flex items-center justify-between p-6 text-white hover:bg-[#0A0A0F]/40 transition-colors"
+                className="w-full flex items-center font-clash font-medium justify-between p-6 text-white hover:bg-[#0A0A0F]/40 transition-colors"
               >
-                <span className="text-lg font-medium">{item.question}</span>
+                <span className="text-xl font-medium">{item.question}</span>
                 <svg
                   className={`w-6 h-6 transform transition-transform duration-300 ${
                     activeIndex === index ? 'rotate-180' : ''
@@ -68,7 +68,7 @@ const FAQ = () => {
                   transition={{ duration: 0.3 }}
                   className="p-6 text-white/90"
                 >
-                  <p className="text-base leading-relaxed">{item.answer}</p>
+                  <p className="text-lg font-clash font-normal leading-relaxed">{item.answer}</p>
                 </motion.div>
               )}
             </motion.div>
