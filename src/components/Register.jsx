@@ -90,7 +90,7 @@ const TABS = [
   }
 ];
 
-const Register = () => {
+const Register = ({ id }) => {
   const [activeTab, setActiveTab] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const tab = TABS[activeTab];
@@ -165,7 +165,7 @@ const Register = () => {
   const handleResume = () => setIsPaused(false);
 
   return (
-    <section className="w-full mb-16 md:px-0">
+    <section className="w-full mb-16 md:px-0" id={id}>
          <h1 className="text-6xl font-clash font-medium translate-x-64 mb-4">Register now for <span className="text-transparent block bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Online HackNights</span></h1>
       <div className="max-w-6xl mx-auto rounded-xl p-6 md:p-10 flex flex-col md:flex-row relative">
         {/* Tabs Header */}

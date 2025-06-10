@@ -10,6 +10,7 @@ import Stats from "../components/Stats";
 import Timer from "../components/Timer";
 import FAQ from '../components/FAQ';
 import Partners from '../components/Partners';
+import Footer from '../components/Footer';
 
 
 const Home = () => {
@@ -341,7 +342,7 @@ const Home = () => {
         </div>
 
         <div className="relative z-10 w-full">
-          <Register />
+          <Register id="register-section" />
         </div>
         
         <div className="relative z-10 py-24">
@@ -357,11 +358,14 @@ const Home = () => {
         </div>
 
       {/* FAQ Section */}
-      <div className="relative z-10 w-full">
+      <div className="relative z-10 w-full" id="faq-section">
           <FAQ />
         </div>
 
-     
+      {/* Footer Section */}
+      <div className="relative z-10 w-full">
+        <Footer />
+      </div>
 
       
       {/* Add CSS for the special effects */}
