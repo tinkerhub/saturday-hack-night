@@ -5,8 +5,8 @@ const TABS = [
     label: "REGISTER",
     subheading: (
       <>
-        <span className="font-extrabold uppercase text-blue-500">REGISTER.</span>
-        <span className="font-extrabold uppercase text-white ml-2">CREATE THE REPO AND FORM YOUR TEAM</span>
+        <span className="font-clash font-bold uppercase text-blue-500">REGISTER.</span>
+        <span className="font-clash font-medium uppercase text-white ml-2">CREATE THE REPO AND FORM YOUR TEAM</span>
       </>
     ),
     steps: [
@@ -36,8 +36,8 @@ const TABS = [
     label: "EXPLORE",
     subheading: (
       <>
-        <span className="font-extrabold uppercase text-blue-500">EXPLORE.</span>
-        <span className="font-extrabold uppercase text-white ml-2">JOIN THE LETXPLORE SESSION</span>
+        <span className="font-clash font-bold uppercase text-blue-500">EXPLORE.</span>
+        <span className="font-clash font-medium uppercase text-white ml-2">JOIN THE LETXPLORE SESSION</span>
       </>
     ),
     steps: [
@@ -63,8 +63,8 @@ const TABS = [
     label: "BUILD",
     subheading: (
       <>
-        <span className="font-extrabold uppercase text-blue-500">BUILD.</span>
-        <span className="font-extrabold uppercase text-white ml-2">HAVE FUN!!</span>
+        <span className="font-clash font-bold uppercase text-blue-500">BUILD.</span>
+        <span className="font-clash font-medium uppercase text-white ml-2">HAVE FUN!!</span>
       </>
     ),
     steps: [
@@ -125,12 +125,12 @@ const Register = () => {
       const contRect = containerRef.current.getBoundingClientRect();
       setLinePos({
         regToExp: {
-          left: regRect.right - contRect.left + 8, // 8px for padding
-          width: expRect.left - regRect.right - 16 // 16px for spacing
+          top: regRect.bottom - contRect.top + 8, // 8px for padding
+          height: expRect.top - regRect.bottom - 16 // 16px for spacing
         },
         expToBuild: {
-          left: expRect.right - contRect.left + 8,
-          width: buildRect.left - expRect.right - 16
+          top: expRect.bottom - contRect.top + 8,
+          height: buildRect.top - expRect.bottom - 16
         }
       });
     }
@@ -167,85 +167,84 @@ const Register = () => {
   return (
     <section className="w-full mb-16 md:px-0">
          <h1 className="text-6xl font-clash font-medium translate-x-64 mb-4">Register now for <span className="text-transparent block bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Online HackNights</span></h1>
-      <div className="max-w-4xl mx-auto rounded-xl p-6 md:p-10 relative">
+      <div className="max-w-6xl mx-auto rounded-xl p-6 md:p-10 flex flex-col md:flex-row relative">
         {/* Tabs Header */}
         <div
           ref={containerRef}
-          className="flex items-center justify-between mb-8 relative select-none px-2"
+          className="flex flex-col md:my-auto md:mr-12 relative select-none px-2 py-8"
+          style={{ height: 'fit-content' }}
           onMouseEnter={handlePause}
           onMouseLeave={handleResume}
           onTouchStart={handlePause}
           onTouchEnd={handleResume}
         >
-          {/* Yellow lines only between headings, perfectly positioned */}
-          <div className="absolute top-1/2 -translate-y-1/2 left-0 w-full h-0 pointer-events-none z-0">
+            {/* Vertical lines */}
+          <div className="absolute left-1/2 -translate-x-1/2 top-0 h-full w-0 pointer-events-none z-0">
             <div
-              className="absolute h-0.5 bg-blue-500 opacity-60"
+              className="absolute w-0.5 bg-blue-500 opacity-60"
               style={{
-                left: `${linePos.regToExp.left}px`,
-                width: `${linePos.regToExp.width}px`,
-                display: linePos.regToExp.width > 0 ? 'block' : 'none'
+                top: `${linePos.regToExp.top}px`,
+                height: `${linePos.regToExp.height}px`,
+                display: 'block'
               }}
             />
             <div
-              className="absolute h-0.5 bg-blue-500 opacity-60"
+              className="absolute w-0.5 bg-blue-500 opacity-60"
               style={{
-                left: `${linePos.expToBuild.left}px`,
-                width: `${linePos.expToBuild.width}px`,
-                display: linePos.expToBuild.width > 0 ? 'block' : 'none'
+                top: `${linePos.expToBuild.top}px`,
+                height: `${linePos.expToBuild.height}px`,
+                display: 'block'
               }}
             />
           </div>
-          <span
-            ref={regRef}
-            className={`z-10 text-3xl md:text-4xl font-extrabold uppercase tracking-wide px-2 ${
-              activeTab === 0 ? "text-white" : "text-gray-400"
-            }`}
-            style={{ letterSpacing: '0.04em' }}
-          >
-            REGISTER
-          </span>
-          <span
-            ref={expRef}
-            className={`z-10 text-3xl md:text-4xl font-extrabold uppercase tracking-wide px-2 ${
-              activeTab === 1 ? "text-white" : "text-gray-400"
-            }`}
-            style={{ letterSpacing: '0.04em' }}
-          >
-            EXPLORE
-          </span>
-          <span
-            ref={buildRef}
-            className={`z-10 text-3xl md:text-4xl font-extrabold uppercase tracking-wide px-2 ${
-              activeTab === 2 ? "text-white" : "text-gray-400"
-            }`}
-            style={{ letterSpacing: '0.04em' }}
-          >
-            BUILD
-          </span>
+          <div className="flex flex-col h-full items-center justify-between">
+            <span
+              ref={regRef}
+              className={`z-10 text-3xl md:text-4xl font-clash font-bold uppercase tracking-wide px-2 ${
+                activeTab === 0 ? "text-white" : "text-gray-400"
+              }`}
+              style={{ letterSpacing: '0.04em' }}
+            >
+              REGISTER
+            </span>
+            <span
+              ref={expRef}
+              className={`z-10 text-3xl md:text-4xl font-clash font-bold uppercase tracking-wide px-2 mt-24 ${
+                activeTab === 1 ? "text-white" : "text-gray-400"
+              }`}
+              style={{ letterSpacing: '0.04em' }}
+            >
+              EXPLORE
+            </span>
+            <span
+              ref={buildRef}
+              className={`z-10 text-3xl md:text-4xl font-clash font-bold uppercase tracking-wide px-2 mt-24 ${
+                activeTab === 2 ? "text-white" : "text-gray-400"
+              }`}
+              style={{ letterSpacing: '0.04em' }}
+            >
+              BUILD
+            </span>
+          </div>
         </div>
         {/* Glassmorphic Card */}
         <div className="relative z-10 w-full rounded-2xl shadow-xl border border-white/30 bg-white/10 backdrop-blur-md p-8 md:p-12 flex flex-col gap-4">
           {/* Subheading */}
-          <div className="mb-8 text-center text-xl md:text-2xl">
+          <div className="mb-8  font-clash font-light text-center text-xl md:text-2xl">
             {tab.subheading}
           </div>
           {/* Steps */}
-          <div className="relative flex items-start justify-between mb-8 w-full">
-            {/* Single dotted line through number circles */}
-            <div className="absolute left-0 right-0 top-6 md:top-7 z-0 flex items-center">
-              <div className="w-full border-t-2 border-dotted border-blue-500 opacity-80" />
-            </div>
+          <div className="relative flex flex-col gap-8 mb-8 w-full">
             {tab.steps.map((step) => (
-              <div key={step.number} className="flex flex-col items-center z-10 w-1/3 px-2">
-                <div className="w-12 h-12 rounded-full bg-[#232228] border-4 border-blue-500 flex items-center justify-center text-2xl font-extrabold text-[#232228] mb-2 relative">
-                  <span className="absolute inset-0 flex items-center justify-center text-blue-50">{step.number}</span>
+              <div key={step.number} className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-full bg-[#232228] border border-blue-500 flex items-center justify-center text-2xl text-[#232228] relative">
+                  <span className="absolute inset-0 flex items-center font-clash font-thin justify-center text-blue-50">{step.number}</span>
                 </div>
-                <div className="text-center w-full">
-                  <div className="text-white font-extrabold text-base md:text-lg mb-1 tracking-wide uppercase">
+                <div className="space-y-2">
+                  <div className="text-white font-clash font-medium text-base md:text-lg tracking-wide uppercase">
                     {step.title}
                   </div>
-                  <div className="text-white text-sm md:text-base font-medium opacity-80 mt-1">
+                  <div className="text-white font-clash font-medium text-sm md:text-base opacity-80">
                     {step.desc}
                   </div>
                 </div>
@@ -254,7 +253,7 @@ const Register = () => {
           </div>
           {/* Summary */}
           {tab.summary && (
-            <div className="mt-4 text-center text-white text-base md:text-lg font-bold">
+            <div className="mt-4 text-center font-clash font-medium text-white text-base md:text-lg">
               {tab.summary}
             </div>
           )}
