@@ -36,7 +36,7 @@ const Timer = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="text-white">
+      <div className="text-[#FFFFE3]">
         <div className="text-xs font-clash font-medium mb-2">Next Offline HackNight</div>
         <div className="flex justify-center gap-4">
           <div className="flex flex-col items-center">

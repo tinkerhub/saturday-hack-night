@@ -150,13 +150,12 @@ const Home = () => {
       {/* Enhanced background effect with depth */}
       <motion.div 
           className="absolute inset-0 z-0" 
-          style={{ y: bgY, backgroundColor: "#0A0A0F" }}
+          style={{ y: bgY }}
         >
         {/* Timer */}
         <Timer />
 
         {/* Gradient background with enhanced colors */}
-              <div className="absolute inset-0 bg-[#0A0A0F]"></div>
               <div className="absolute inset-0 bg-gradient-radial from-blue-900/25 via-indigo-900/15 to-[#0A0A0F]"></div>
               <div className="absolute inset-0 bg-gradient-to-b from-blue-900/30 via-purple-900/15 to-[#0A0A0F]"></div>
               <div className="absolute inset-0 bg-[#0A0A0F]" style={{ opacity: useTransform(scrollYProgress, [0, 0.1], [0, 0.2]) }}></div>
@@ -321,17 +320,17 @@ const Home = () => {
           <div className="relative w-full max-w-4xl mx-auto px-4">
             <LoopText interval={3}>
               <span className="text-6xl font-clash font-medium">
-                <span className="text-white">Wanna Join </span> 
+                <span className="text-[#FFFFE3]">Wanna Join </span> 
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Saturday HackNight?</span>
               </span>
               <span className="text-6xl font-clash font-medium">
-                <span className="text-white">But Saturday HackNight is </span>
+                <span className="text-[#FFFFE3]">But Saturday HackNight is </span>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">Invite Only</span>
               </span>
               <span className="text-6xl font-clash font-medium">
-                <span className="text-white">Join the </span>
+                <span className="text-[#FFFFE3]">Join the </span>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-red-500">online edition </span>
-                <span className="text-white">for Invite</span>
+                <span className="text-[#FFFFE3]">for Invite</span>
               </span>
             </LoopText>
           </div>
@@ -350,6 +349,10 @@ const Home = () => {
         </div>
 
         <Testimonials />
+      </div>
+
+      <div className="relative z-10 h-screen max-w-7xl translate-x-24 flex items-center justify-center">
+        <h1 className="text-9xl font-clash font-medium text-left">We build, we learn. It's the maker mindset.</h1>
       </div>
 
         {/* Partners Section */}

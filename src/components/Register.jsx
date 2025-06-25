@@ -201,7 +201,7 @@ const Register = ({ id }) => {
             <span
               ref={regRef}
               className={`z-10 text-3xl md:text-4xl font-clash font-bold uppercase tracking-wide px-2  ${
-                activeTab === 0 ? "text-white" : "text-gray-400"
+                activeTab === 0 ? "text-[#FFFFE3]" : "text-gray-400"
               }`}
               style={{ letterSpacing: '0.04em' }}
             >
@@ -210,7 +210,7 @@ const Register = ({ id }) => {
             <span
               ref={expRef}
               className={`z-10 text-3xl md:text-4xl font-clash font-bold uppercase tracking-wide px-2 mt-24 ${
-                activeTab === 1 ? "text-white" : "text-gray-400"
+                activeTab === 1 ? "text-[#FFFFE3]" : "text-gray-400"
               }`}
               style={{ letterSpacing: '0.04em' }}
             >
@@ -219,7 +219,7 @@ const Register = ({ id }) => {
             <span
               ref={buildRef}
               className={`z-10 text-3xl md:text-4xl font-clash font-bold uppercase tracking-wide px-2 mt-24 ${
-                activeTab === 2 ? "text-white" : "text-gray-400"
+                activeTab === 2 ? "text-[#FFFFE3]" : "text-gray-400"
               }`}
               style={{ letterSpacing: '0.04em' }}
             >
@@ -241,10 +241,10 @@ const Register = ({ id }) => {
                   <span className="absolute inset-0 flex items-center font-clash font-thin justify-center text-blue-50">{step.number}</span>
                 </div>
                 <div className="space-y-2">
-                  <div className="text-white font-clash font-medium text-base md:text-lg tracking-wide uppercase">
+                  <div className="text-[#FFFFE3] font-clash font-medium text-base md:text-lg tracking-wide uppercase">
                     {step.title}
                   </div>
-                  <div className="text-white font-clash font-medium text-sm md:text-base opacity-80">
+                  <div className="text-[#FFFFE3] font-clash font-medium text-sm md:text-base opacity-80">
                     {step.desc}
                   </div>
                 </div>
@@ -253,7 +253,7 @@ const Register = ({ id }) => {
           </div>
           {/* Summary */}
           {tab.summary && (
-            <div className="mt-4 text-center font-clash font-medium text-white text-base md:text-lg">
+            <div className="mt-4 text-center font-clash font-medium text-[#FFFFE3] text-base md:text-lg">
               {tab.summary}
             </div>
           )}

@@ -54,16 +54,6 @@ const Footer = () => {
             <h3 className="font-clash font-medium text-[#FFFFE3] text-lg mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#register-section" className="text-[#FFFFE3]/70 hover:text-[#FFFFE3] transition-colors font-clash font-light">
-                  Register
-                </a>
-              </li>
-              <li>
-                <a href="#faq-section" className="text-[#FFFFE3]/70 hover:text-[#FFFFE3] transition-colors font-clash font-light">
-                  FAQ
-                </a>
-              </li>
-              <li>
                 <a href="https://tinkerhub.org" className="text-[#FFFFE3]/70 hover:text-[#FFFFE3] transition-colors font-clash font-light" target="_blank" rel="noopener noreferrer">
                   TinkerHub
                 </a>

@@ -73,7 +73,7 @@ const FAQ = () => {
   return (
     <div className="py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-4xl font-clash font-medium text-white mb-12">Frequently Asked Questions</h2>
+        <h2 className="text-4xl font-clash font-medium text-[#FFFFE3] mb-12">Frequently Asked Questions</h2>
         
         <div className="space-y-4">
           {faqItems.map((item, index) => (
@@ -86,7 +86,7 @@ const FAQ = () => {
             >
               <button
                 onClick={() => setActiveIndex(activeIndex === index ? null : index)}
-                className="w-full flex items-center font-clash font-medium justify-between p-6 text-white hover:bg-[#0A0A0F]/40 transition-colors"
+                className="w-full flex items-center font-clash font-medium justify-between p-6 text-[#FFFFE3] hover:bg-[#0A0A0F]/40 transition-colors"
               >
                 <span className="text-xl font-medium">{item.question}</span>
                 <svg
@@ -107,7 +107,7 @@ const FAQ = () => {
                   animate={{ height: 'auto', opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="p-6 text-white/90"
+                  className="p-6 text-[#FFFFE3]/90"
                 >
                   <p className="text-lg font-clash font-normal leading-relaxed">{item.answer}</p>
                 </motion.div>
