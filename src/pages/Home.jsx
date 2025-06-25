@@ -211,8 +211,12 @@ const Home = () => {
       
       <div className="max-w-[1920px] mx-auto px-6 md:px-12 xl:px-16 relative z-10">
         <motion.div 
-          className="flex items-center justify-center min-h-screen relative z-20"
+          className="flex flex-col justify-between min-h-screen relative z-20"
         >
+          {/* Spacer to push content to center */}
+          <div className="flex-1"></div>
+          
+          {/* Main content centered */}
           <div className="w-full max-w-[1600px] mx-auto">
             {/* Animated title with staggered reveal */}
             <div className="text-center">
@@ -307,9 +311,12 @@ const Home = () => {
             </div>
           </div>
           
-          {/* Timer positioned at bottom of landing section */}
-          <div className="absolute bottom-6 left-4 z-30">
-            <Timer />
+          {/* Spacer to push Timer to bottom */}
+          <div className="flex-1 relative">
+            {/* Timer positioned at bottom */}
+            <div className="absolute bottom-6 left-4 z-30">
+              <Timer />
+            </div>
           </div>
         </motion.div>
 
