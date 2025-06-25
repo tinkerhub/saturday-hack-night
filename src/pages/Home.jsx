@@ -152,9 +152,6 @@ const Home = () => {
           className="absolute inset-0 z-0" 
           style={{ y: bgY }}
         >
-        {/* Timer */}
-        <Timer />
-
         {/* Gradient background with enhanced colors */}
               <div className="absolute inset-0 bg-gradient-radial from-blue-900/25 via-indigo-900/15 to-[#0A0A0F]"></div>
               <div className="absolute inset-0 bg-gradient-to-b from-blue-900/30 via-purple-900/15 to-[#0A0A0F]"></div>
@@ -308,6 +305,11 @@ const Home = () => {
                 />
               </motion.button>
             </div>
+          </div>
+          
+          {/* Timer positioned at bottom of landing section */}
+          <div className="absolute bottom-6 left-4 z-30">
+            <Timer />
           </div>
         </motion.div>
 
