@@ -15,49 +15,11 @@ import Footer from '../components/Footer';
 
 const Home = () => {
   const containerRef = useRef(null)
-  const [gridPoints, setGridPoints] = useState([])
   const { scrollYProgress } = useScroll()
-  const [showParticles, setShowParticles] = useState(false)
-  
-
 
   // Parallax effect values
   // Reduced parallax for smoother experience
   const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '10%'])
-
-  // Generate grid points
-  useEffect(() => {
-    const generateGrid = () => {
-      const points = []
-      const cols = 15
-      const rows = 10
-      
-      for (let i = 0; i < cols; i++) {
-        for (let j = 0; j < rows; j++) {
-          points.push({
-            id: `${i}-${j}`,
-            x: (i * 100) / (cols - 1),
-            y: (j * 100) / (rows - 1),
-            size: 4,
-            opacity: 0.15,
-            highlighted: false
-          })
-        }
-      }
-      setGridPoints(points)
-    }
-    
-    generateGrid()
-    
-    // Show particles after initial load for better performance
-    const timer = setTimeout(() => {
-      setShowParticles(true)
-    }, 500)
-    
-    return () => {
-      clearTimeout(timer)
-    }
-  }, [])
 
   // Text animation setup
   const [currentText, setCurrentText] = useState('')
@@ -135,8 +97,6 @@ const Home = () => {
     return () => clearTimeout(timeout)
   }, [])
 
-;
-
   return (
     <div 
       ref={containerRef} 
@@ -209,10 +169,15 @@ const Home = () => {
         />
       </motion.div>
       
-      <div className="max-w-[1920px] mx-auto px-6 md:px-12 xl:px-16 relative z-10">
+      <div className="max-w-[1920px] mx-auto px-6 xl:px-6 relative z-10">
         <motion.div 
           className="flex flex-col justify-between min-h-screen relative z-20"
         >
+          {/* Timer positioned at top left */}
+          <div className="absolute bottom-6 z-30">
+            <Timer />
+          </div>
+          
           {/* Spacer to push content to center */}
           <div className="flex-1"></div>
           
@@ -311,13 +276,8 @@ const Home = () => {
             </div>
           </div>
           
-          {/* Spacer to push Timer to bottom */}
-          <div className="flex-1 relative">
-            {/* Timer positioned at bottom */}
-            <div className="absolute bottom-6 left-4 z-30">
-              <Timer />
-            </div>
-          </div>
+          {/* Spacer for bottom spacing */}
+          <div className="flex-1"></div>
         </motion.div>
 
         {/* Carousel showcase - moved here after landing section */}
