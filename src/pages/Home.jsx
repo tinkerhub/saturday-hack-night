@@ -174,7 +174,7 @@ const Home = () => {
           className="flex flex-col justify-between min-h-screen relative z-20"
         >
           {/* Timer positioned at top left */}
-          <div className="absolute left-4 bottom-6  z-30">
+          <div className="absolute left-4 bottom-6 py-12 z-30">
             <Timer />
           </div>
           
@@ -323,7 +323,7 @@ const Home = () => {
       </div>
 
       <div className="relative z-10 h-[60vh] sm:h-screen max-w-7xl mx-auto px-4 sm:translate-x-24 flex items-center justify-center">
-        <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-9xl font-clash font-medium text-left">We build, we learn. It's the maker mindset.</h1>
+        <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl xl:text-9xl font-clash font-medium text-center sm:text-left leading-tight sm:leading-none">We build, we learn. It's the maker mindset.</h1>
       </div>
 
         {/* Partners Section */}

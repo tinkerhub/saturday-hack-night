@@ -167,66 +167,112 @@ const Register = ({ id }) => {
   return (
     <section className="w-full mb-16 md:px-0" id={id}>
          <h1 className="text-2xl sm:text-4xl md:text-6xl font-clash font-medium sm:translate-x-64 mb-4 px-4">Register now for <span className="text-transparent block bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Online HackNights</span></h1>
-      <div className="max-w-6xl mx-auto rounded-xl p-4 sm:p-6 md:p-10 flex flex-col md:flex-row relative">
-        {/* Tabs Header */}
-        <div
-          ref={containerRef}
-          className="flex flex-col md:my-auto md:mr-12 relative select-none px-2 py-4 sm:py-8"
-          style={{ height: 'fit-content' }}
-          onMouseEnter={handlePause}
-          onMouseLeave={handleResume}
-          onTouchStart={handlePause}
-          onTouchEnd={handleResume}
-        >
-            {/* Vertical lines */}
-          <div className="absolute left-1/2 -translate-x-1/2 top-0 h-full w-0 pointer-events-none z-0">
-            <div
-              className="absolute w-0.5 bg-blue-500 opacity-60"
-              style={{
-                top: `${linePos.regToExp.top}px`,
-                height: `${linePos.regToExp.height}px`,
-                display: 'block'
-              }}
-            />
-            <div
-              className="absolute w-0.5 bg-blue-500 opacity-60"
-              style={{
-                top: `${linePos.expToBuild.top}px`,
-                height: `${linePos.expToBuild.height}px`,
-                display: 'block'
-              }}
-            />
-          </div>
-          <div className="flex flex-col h-full items-center justify-between">
+      <div className="max-w-6xl mx-auto rounded-xl p-4 sm:p-6 md:p-10 flex flex-col relative">
+        
+        {/* Mobile Tabs Header - Horizontal */}
+        <div className="md:hidden mb-6">
+          <div className="flex justify-center items-center space-x-4 sm:space-x-8 relative">
             <span
-              ref={regRef}
-              className={`z-10 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-clash font-bold uppercase tracking-wide px-2  ${
+              className={`text-lg sm:text-xl font-clash font-bold uppercase tracking-wide px-2 cursor-pointer transition-colors ${
                 activeTab === 0 ? "text-[#FFFFE3]" : "text-gray-400"
               }`}
               style={{ letterSpacing: '0.04em' }}
+              onClick={() => setActiveTab(0)}
             >
               REGISTER
             </span>
+            
+            {/* Horizontal line between REGISTER and EXPLORE */}
+            <div className="w-8 sm:w-12 h-0.5 bg-blue-500 opacity-60"></div>
+            
             <span
-              ref={expRef}
-              className={`z-10 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-clash font-bold uppercase tracking-wide px-2 mt-12 sm:mt-16 md:mt-24 ${
+              className={`text-lg sm:text-xl font-clash font-bold uppercase tracking-wide px-2 cursor-pointer transition-colors ${
                 activeTab === 1 ? "text-[#FFFFE3]" : "text-gray-400"
               }`}
               style={{ letterSpacing: '0.04em' }}
+              onClick={() => setActiveTab(1)}
             >
               EXPLORE
             </span>
+            
+            {/* Horizontal line between EXPLORE and BUILD */}
+            <div className="w-8 sm:w-12 h-0.5 bg-blue-500 opacity-60"></div>
+            
             <span
-              ref={buildRef}
-              className={`z-10 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-clash font-bold uppercase tracking-wide px-2 mt-12 sm:mt-16 md:mt-24 ${
+              className={`text-lg sm:text-xl font-clash font-bold uppercase tracking-wide px-2 cursor-pointer transition-colors ${
                 activeTab === 2 ? "text-[#FFFFE3]" : "text-gray-400"
               }`}
               style={{ letterSpacing: '0.04em' }}
+              onClick={() => setActiveTab(2)}
             >
               BUILD
             </span>
           </div>
         </div>
+
+        {/* Desktop Layout */}
+        <div className="hidden md:flex md:flex-row relative">
+          {/* Tabs Header - Vertical */}
+          <div
+            ref={containerRef}
+            className="flex flex-col my-auto mr-12 relative select-none px-2 py-8"
+            style={{ height: 'fit-content' }}
+            onMouseEnter={handlePause}
+            onMouseLeave={handleResume}
+            onTouchStart={handlePause}
+            onTouchEnd={handleResume}
+          >
+              {/* Vertical lines */}
+            <div className="absolute left-1/2 -translate-x-1/2 top-0 h-full w-0 pointer-events-none z-0">
+              <div
+                className="absolute w-0.5 bg-blue-500 opacity-60"
+                style={{
+                  top: `${linePos.regToExp.top}px`,
+                  height: `${linePos.regToExp.height}px`,
+                  display: 'block'
+                }}
+              />
+              <div
+                className="absolute w-0.5 bg-blue-500 opacity-60"
+                style={{
+                  top: `${linePos.expToBuild.top}px`,
+                  height: `${linePos.expToBuild.height}px`,
+                  display: 'block'
+                }}
+              />
+            </div>
+            <div className="flex flex-col h-full items-center justify-between">
+              <span
+                ref={regRef}
+                className={`z-10 text-3xl lg:text-4xl font-clash font-bold uppercase tracking-wide px-2  ${
+                  activeTab === 0 ? "text-[#FFFFE3]" : "text-gray-400"
+                }`}
+                style={{ letterSpacing: '0.04em' }}
+              >
+                REGISTER
+              </span>
+              <span
+                ref={expRef}
+                className={`z-10 text-3xl lg:text-4xl font-clash font-bold uppercase tracking-wide px-2 mt-24 ${
+                  activeTab === 1 ? "text-[#FFFFE3]" : "text-gray-400"
+                }`}
+                style={{ letterSpacing: '0.04em' }}
+              >
+                EXPLORE
+              </span>
+              <span
+                ref={buildRef}
+                className={`z-10 text-3xl lg:text-4xl font-clash font-bold uppercase tracking-wide px-2 mt-24 ${
+                  activeTab === 2 ? "text-[#FFFFE3]" : "text-gray-400"
+                }`}
+                style={{ letterSpacing: '0.04em' }}
+              >
+                BUILD
+              </span>
+            </div>
+          </div>
+        </div>
+
         {/* Glassmorphic Card */}
         <div className="relative z-10 w-full rounded-2xl shadow-xl border border-white/30 bg-white/10 backdrop-blur-md p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col gap-4">
           {/* Subheading */}

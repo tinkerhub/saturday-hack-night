@@ -5,7 +5,7 @@
 export default function DisplayCards({ cards = [] }) {
   const defaultCards = [
     {
-      className: "[grid-area:stack] hover:-translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-gradient-to-r before:from-blue-500/20 before:to-transparent before:left-0 before:top-0 before:transition-opacity before:duration-700 hover:before:opacity-0",
+      className: "[grid-area:stack] hover:-translate-y-16 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-gradient-to-r before:from-blue-500/20 before:to-transparent before:left-0 before:top-0 before:transition-opacity before:duration-700 hover:before:opacity-0",
       icon: (
         <span className="p-1 font-clash font-bold">1</span>
       ),
@@ -14,7 +14,7 @@ export default function DisplayCards({ cards = [] }) {
       date: "Show up"
     },
     {
-      className: "[grid-area:stack] translate-x-8 sm:translate-x-16 translate-y-5 sm:translate-y-10 hover:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-gradient-to-r before:from-blue-500/20 before:to-transparent before:left-0 before:top-0 before:transition-opacity before:duration-700 hover:before:opacity-0",
+      className: "[grid-area:stack] translate-x-4 sm:translate-x-8 translate-y-5 sm:translate-y-10 hover:-translate-y-12 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-gradient-to-r before:from-blue-500/20 before:to-transparent before:left-0 before:top-0 before:transition-opacity before:duration-700 hover:before:opacity-0",
       icon: (
         <span className="p-1 font-clash font-bold">2</span>
       ),
@@ -23,7 +23,7 @@ export default function DisplayCards({ cards = [] }) {
       date: "Hack"
     },
     {
-      className: "[grid-area:stack] translate-x-16 sm:translate-x-32 translate-y-10 sm:translate-y-20 hover:translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-gradient-to-r before:from-blue-500/20 before:to-transparent before:left-0 before:top-0 before:transition-opacity before:duration-700 hover:before:opacity-0",
+      className: "[grid-area:stack] translate-x-8 sm:translate-x-16 translate-y-10 sm:translate-y-20 hover:-translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-gradient-to-r before:from-blue-500/20 before:to-transparent before:left-0 before:top-0 before:transition-opacity before:duration-700 hover:before:opacity-0",
       icon: (
         <span className="p-1 font-clash font-bold">3</span>
       ),
@@ -36,7 +36,7 @@ export default function DisplayCards({ cards = [] }) {
   const displayCards = cards.length > 0 ? cards : defaultCards;
 
   return (
-    <div className="grid [grid-template-areas:'stack'] place-items-center opacity-100 animate-in fade-in-0 duration-700">
+    <div className="grid [grid-template-areas:'stack'] place-items-center -translate-x-4 opacity-100 animate-in fade-in-0 duration-700">
       {displayCards.map((cardProps, index) => (
         <div
           key={index}
