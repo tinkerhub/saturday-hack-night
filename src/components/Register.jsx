@@ -171,9 +171,9 @@ const Register = ({ id }) => {
         
         {/* Mobile Tabs Header - Horizontal */}
         <div className="md:hidden mb-6">
-          <div className="flex justify-center items-center space-x-4 sm:space-x-8 relative">
+          <div className="flex justify-center items-center space-x-2 sm:space-x-4 relative">
             <span
-              className={`text-lg sm:text-xl font-clash font-bold uppercase tracking-wide px-2 cursor-pointer transition-colors ${
+              className={`text-lg sm:text-xl font-clash font-bold uppercase tracking-wide px-1 sm:px-2 cursor-pointer transition-colors ${
                 activeTab === 0 ? "text-[#FFFFE3]" : "text-gray-400"
               }`}
               style={{ letterSpacing: '0.04em' }}
@@ -183,10 +183,10 @@ const Register = ({ id }) => {
             </span>
             
             {/* Horizontal line between REGISTER and EXPLORE */}
-            <div className="w-8 sm:w-12 h-0.5 bg-blue-500 opacity-60"></div>
+            <div className="w-6 sm:w-8 h-1 bg-blue-500 opacity-80"></div>
             
             <span
-              className={`text-lg sm:text-xl font-clash font-bold uppercase tracking-wide px-2 cursor-pointer transition-colors ${
+              className={`text-lg sm:text-xl font-clash font-bold uppercase tracking-wide px-1 sm:px-2 cursor-pointer transition-colors ${
                 activeTab === 1 ? "text-[#FFFFE3]" : "text-gray-400"
               }`}
               style={{ letterSpacing: '0.04em' }}
@@ -196,10 +196,10 @@ const Register = ({ id }) => {
             </span>
             
             {/* Horizontal line between EXPLORE and BUILD */}
-            <div className="w-8 sm:w-12 h-0.5 bg-blue-500 opacity-60"></div>
+            <div className="w-6 sm:w-8 h-1 bg-blue-500 opacity-80"></div>
             
             <span
-              className={`text-lg sm:text-xl font-clash font-bold uppercase tracking-wide px-2 cursor-pointer transition-colors ${
+              className={`text-lg sm:text-xl font-clash font-bold uppercase tracking-wide px-1 sm:px-2 cursor-pointer transition-colors ${
                 activeTab === 2 ? "text-[#FFFFE3]" : "text-gray-400"
               }`}
               style={{ letterSpacing: '0.04em' }}
@@ -274,7 +274,7 @@ const Register = ({ id }) => {
         </div>
 
         {/* Glassmorphic Card */}
-        <div className="relative z-10 w-full rounded-2xl shadow-xl border border-white/30 bg-white/10 backdrop-blur-md p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col gap-4">
+        <div className="relative z-10 w-full max-w-[95vw] sm:max-w-full rounded-2xl shadow-xl border border-white/30 bg-white/10 backdrop-blur-md p-6 sm:p-6 md:p-8 lg:p-12 flex flex-col gap-4">
           {/* Subheading */}
           <div className="mb-4 sm:mb-6 md:mb-8 font-clash font-light text-center text-base sm:text-lg md:text-xl lg:text-2xl">
             {tab.subheading}

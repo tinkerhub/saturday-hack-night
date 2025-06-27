@@ -179,10 +179,10 @@ const Home = () => {
           </div>
           
           {/* Spacer to push content to center */}
-          <div className="flex-1"></div>
+          <div className="flex-1 "></div>
           
           {/* Main content centered */}
-          <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6">
+          <div className="w-full -translate-y-8 max-w-[1600px] mx-auto px-3 sm:px-6">
             {/* Animated title with staggered reveal */}
             <div className="text-center">
               {/* Typewriter Effect */}
