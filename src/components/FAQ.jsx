@@ -71,26 +71,26 @@ const FAQ = () => {
   ];
 
   return (
-    <div className="py-24 px-4 sm:px-6 lg:px-8">
+    <div className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-4xl font-clash font-medium text-[#FFFFE3] mb-12">Frequently Asked Questions</h2>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-clash font-medium text-[#FFFFE3] mb-6 sm:mb-8 md:mb-12">Frequently Asked Questions</h2>
         
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {faqItems.map((item, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-[#0A0A0F]/30 backdrop-blur-xl rounded-xl border border-[#0A0A0F]/20 overflow-hidden"
+              className="bg-[#0A0A0F]/30 backdrop-blur-xl rounded-lg sm:rounded-xl border border-[#0A0A0F]/20 overflow-hidden"
             >
               <button
                 onClick={() => setActiveIndex(activeIndex === index ? null : index)}
-                className="w-full flex items-center font-clash font-medium justify-between p-6 text-[#FFFFE3] hover:bg-[#0A0A0F]/40 transition-colors"
+                className="w-full flex items-center font-clash font-medium justify-between p-4 sm:p-6 text-[#FFFFE3] hover:bg-[#0A0A0F]/40 transition-colors"
               >
-                <span className="text-xl font-medium">{item.question}</span>
+                <span className="text-base sm:text-lg md:text-xl font-medium text-left pr-4">{item.question}</span>
                 <svg
-                  className={`w-6 h-6 transform transition-transform duration-300 ${
+                  className={`w-5 h-5 sm:w-6 sm:h-6 transform transition-transform duration-300 flex-shrink-0 ${
                     activeIndex === index ? 'rotate-180' : ''
                   }`}
                   fill="none"
@@ -107,9 +107,9 @@ const FAQ = () => {
                   animate={{ height: 'auto', opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="p-6 text-[#FFFFE3]/90"
+                  className="p-4 sm:p-6 text-[#FFFFE3]/90"
                 >
-                  <p className="text-lg font-clash font-normal leading-relaxed">{item.answer}</p>
+                  <p className="text-sm sm:text-base md:text-lg font-clash font-normal leading-relaxed">{item.answer}</p>
                 </motion.div>
               )}
             </motion.div>

@@ -87,7 +87,7 @@ const Slide = ({ slide, index, current, handleSlideClick }) => {
     <div className="[perspective:1200px] [transform-style:preserve-3d]">
       <li
         ref={slideRef}
-        className="flex flex-1 flex-col items-center justify-center relative text-center text-[#FFFFE3] opacity-100 transition-all duration-300 ease-in-out w-[70vmin] h-[70vmin] mx-[4vmin] z-10"
+        className="flex flex-1 flex-col items-center justify-center relative text-center text-[#FFFFE3] opacity-100 transition-all duration-300 ease-in-out w-[80vmin] h-[80vmin] sm:w-[70vmin] sm:h-[70vmin] mx-[2vmin] sm:mx-[4vmin] z-10"
         onClick={() => handleSlideClick(index)}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -126,11 +126,11 @@ const Slide = ({ slide, index, current, handleSlideClick }) => {
         </div>
 
         <article
-          className={`relative p-[4vmin] transition-opacity duration-1000 ease-in-out ${
+          className={`relative p-[3vmin] sm:p-[4vmin] transition-opacity duration-1000 ease-in-out ${
             current === index ? "opacity-100 visible" : "opacity-0 invisible"
           }`}
         >
-          <h2 className="text-lg md:text-2xl lg:text-4xl font-clash font-medium relative">
+          <h2 className="text-base sm:text-lg md:text-2xl lg:text-4xl font-clash font-medium relative">
             {title}
           </h2>
         </article>
@@ -138,8 +138,6 @@ const Slide = ({ slide, index, current, handleSlideClick }) => {
     </div>
   );
 };
-
-
 
 const Carousel = ({ slides = defaultSlides }) => {
   const [current, setCurrent] = useState(0);
@@ -166,13 +164,13 @@ const Carousel = ({ slides = defaultSlides }) => {
 
   return (
     <div
-      className="relative w-[70vmin] h-[70vmin] mx-auto"
+      className="relative w-[80vmin] h-[80vmin] sm:w-[70vmin] sm:h-[70vmin] mx-auto"
       aria-labelledby={`carousel-heading-${id}`}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
       <ul
-        className="absolute flex mx-[-4vmin] transition-transform duration-1000 ease-in-out"
+        className="absolute flex mx-[-2vmin] sm:mx-[-4vmin] transition-transform duration-1000 ease-in-out"
         style={{
           transform: `translateX(-${current * (100 / slides.length)}%)`,
         }}

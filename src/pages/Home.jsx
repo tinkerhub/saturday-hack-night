@@ -129,7 +129,7 @@ const Home = () => {
         
         {/* Static background elements */}
         <motion.div 
-          className="absolute w-[800px] h-[800px] rounded-full blur-[150px] bg-blue-500/25"
+          className="absolute w-[400px] h-[400px] sm:w-[600px] sm:h-[600px] md:w-[800px] md:h-[800px] rounded-full blur-[100px] sm:blur-[120px] md:blur-[150px] bg-blue-500/25"
           animate={{
             scale: [0.9, 1.05, 0.95, 0.9],
             opacity: [0.25, 0.35, 0.25, 0.25]
@@ -141,7 +141,7 @@ const Home = () => {
             ease: "easeInOut"
           }}
           style={{ 
-            left: '30%',
+            left: '20%',
             top: '40%',
             zIndex: 5,
             mixBlendMode: "lighten"
@@ -149,7 +149,7 @@ const Home = () => {
         />
         
         <motion.div 
-          className="absolute w-[600px] h-[600px] rounded-full blur-[120px] bg-purple-500/20"
+          className="absolute w-[300px] h-[300px] sm:w-[450px] sm:h-[450px] md:w-[600px] md:h-[600px] rounded-full blur-[80px] sm:blur-[100px] md:blur-[120px] bg-purple-500/20"
           animate={{
             scale: [1, 0.9, 1.1, 1],
             opacity: [0.2, 0.3, 0.2, 0.2]
@@ -161,7 +161,7 @@ const Home = () => {
             ease: "easeInOut"
           }}
           style={{ 
-            right: '30%',
+            right: '20%',
             bottom: '40%',
             zIndex: 5,
             mixBlendMode: "lighten"
@@ -169,12 +169,12 @@ const Home = () => {
         />
       </motion.div>
       
-      <div className="max-w-[1920px] mx-auto px-6 xl:px-6 relative z-10">
+      <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 relative z-10">
         <motion.div 
           className="flex flex-col justify-between min-h-screen relative z-20"
         >
           {/* Timer positioned at top left */}
-          <div className="absolute bottom-6 z-30">
+          <div className="absolute left-4 bottom-6  z-30">
             <Timer />
           </div>
           
@@ -182,12 +182,12 @@ const Home = () => {
           <div className="flex-1"></div>
           
           {/* Main content centered */}
-          <div className="w-full max-w-[1600px] mx-auto">
+          <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6">
             {/* Animated title with staggered reveal */}
             <div className="text-center">
               {/* Typewriter Effect */}
               <motion.div 
-                className="flex flex-col items-center justify-center text-[#FFFFE3] mx-auto w-full max-w-5xl h-[180px]"
+                className="flex flex-col items-center justify-center text-[#FFFFE3] mx-auto w-full max-w-5xl h-[120px] sm:h-[150px] md:h-[180px]"
                 animate={{ 
                   y: currentText.length === 0 ? -10 : 0,
                   opacity: currentText.length === 0 ? 0.8 : 1
@@ -199,7 +199,7 @@ const Home = () => {
                 }}
               >
                 <motion.h2 
-                  className={`text-[7vw] md:text-[6vw] lg:text-[5vw] font-clash font-bold mb-[-1vw] leading-[1.2] text-center w-full ${isTyping ? 'cursor' : ''}`}
+                  className={`text-[8vw] sm:text-[7vw] md:text-[6vw] lg:text-[5vw] font-clash font-bold mb-[-1vw] leading-[1.1] sm:leading-[1.2] text-center w-full ${isTyping ? 'cursor' : ''}`}
                   initial={{ opacity: 1 }}
                   style={{
                     fontFamily: "monospace",
@@ -230,7 +230,7 @@ const Home = () => {
               {/* Animated subtitle - more subtle */}
               <div className="fixed-subtitle-container">
                 <motion.p
-                  className="text-[#FFFFE3] font-clash font-light text-xl md:text-2xl opacity-50"
+                  className="text-[#FFFFE3] font-clash font-light text-base sm:text-xl md:text-2xl opacity-50 px-4"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 1, delay: words.length * 0.1 + 0.5 }}
@@ -241,7 +241,7 @@ const Home = () => {
               
               {/* Enhanced animated button with glow effect */}
               <motion.button
-                className="relative mt-4 bg-transparent border border-[#FFFFE3]/20 text-[#FFFFE3] px-8 py-3 rounded-full font-bold text-lg overflow-hidden group"
+                className="relative mt-4 sm:mt-6 bg-transparent border border-[#FFFFE3]/20 text-[#FFFFE3] px-6 sm:px-8 py-2 sm:py-3 rounded-full font-bold text-base sm:text-lg overflow-hidden group"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ 
@@ -281,22 +281,22 @@ const Home = () => {
         </motion.div>
 
         {/* Carousel showcase - moved here after landing section */}
-        <div className="relative z-20 w-full h-screen">
+        <div className="relative z-20 w-full h-[60vh] sm:h-screen">
           <Carousel />
         </div>
 
-        <div className="flex w-full h-80 justify-center">
-          <div className="relative w-full max-w-4xl mx-auto px-4">
+        <div className="flex z-20 w-full h-40 justify-center items-center text-center mt-8 pt-8 px-4">
+          <div className="relative w-full max-w-4xl mx-auto">
             <LoopText interval={3}>
-              <span className="text-6xl font-clash font-medium">
+              <span className="text-2xl sm:text-4xl md:text-6xl font-clash font-medium">
                 <span className="text-[#FFFFE3]">Wanna Join </span> 
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Saturday HackNight?</span>
               </span>
-              <span className="text-6xl font-clash font-medium">
+              <span className="text-2xl sm:text-4xl md:text-6xl font-clash font-medium">
                 <span className="text-[#FFFFE3]">But Saturday HackNight is </span>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">Invite Only</span>
               </span>
-              <span className="text-6xl font-clash font-medium">
+              <span className="text-2xl sm:text-4xl md:text-6xl font-clash font-medium">
                 <span className="text-[#FFFFE3]">Join the </span>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-red-500">online edition </span>
                 <span className="text-[#FFFFE3]">for Invite</span>
@@ -305,37 +305,39 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="relative z-10 w-full h-screen translate-y-1/4 ">
+        <div className="relative z-10 w-full h-[60vh] sm:h-screen translate-y-1/4 px-4">
           <DisplayCards />
         </div>
 
-        <div className="relative z-10 w-full">
+        <div className="relative z-10 w-full px-4">
           <Register id="register-section" />
         </div>
         
-        <div className="relative z-10 py-24">
+        <div className="relative z-10 py-12 sm:py-24 px-4">
           <Stats />
         </div>
 
-        <Testimonials />
+        <div className="relative z-10 px-4">
+          <Testimonials />
+        </div>
       </div>
 
-      <div className="relative z-10 h-screen max-w-7xl translate-x-24 flex items-center justify-center">
-        <h1 className="text-9xl font-clash font-medium text-left">We build, we learn. It's the maker mindset.</h1>
+      <div className="relative z-10 h-[60vh] sm:h-screen max-w-7xl mx-auto px-4 sm:translate-x-24 flex items-center justify-center">
+        <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-9xl font-clash font-medium text-left">We build, we learn. It's the maker mindset.</h1>
       </div>
 
         {/* Partners Section */}
-        <div className="relative z-10 w-full py-24">
+        <div className="relative z-10 w-full py-12 sm:py-24 px-4">
           <Partners />
         </div>
 
       {/* FAQ Section */}
-      <div className="relative z-10 w-full" id="faq-section">
+      <div className="relative z-10 w-full px-4" id="faq-section">
           <FAQ />
         </div>
 
       {/* Footer Section */}
-      <div className="relative z-10 w-full">
+      <div className="relative z-10 w-full px-4">
         <Footer />
       </div>
 
@@ -367,7 +369,7 @@ const Home = () => {
           justify-content: center;
           position: relative;
           z-index: 30;
-         margin-bottom: 30px;
+          margin-bottom: 20px;
         }
         .perspective-1000 {
           perspective: 1000px;
@@ -376,15 +378,15 @@ const Home = () => {
         .grid-pattern {
           background-image: linear-gradient(rgba(255, 255, 227, 0.05) 1px, transparent 1px),
                            linear-gradient(90deg, rgba(255, 255, 227, 0.05) 1px, transparent 1px);
-          background-size: 40px 40px;
+          background-size: 20px 20px;
           animation: grid-move 100s linear infinite;
         }
         
         .aurora-beam {
           position: absolute;
           height: 100%;
-          width: 30px;
-          filter: blur(30px);
+          width: 20px;
+          filter: blur(20px);
           opacity: 0.5;
           background: linear-gradient(to bottom, rgba(0, 183, 255, 0.15), rgba(139, 0, 255, 0.05));
           transform: skew(20deg);
@@ -392,7 +394,7 @@ const Home = () => {
         }
         
         .aurora-1 {
-          left: 20%;
+          left: 10%;
           animation-delay: 0s;
         }
         
@@ -403,7 +405,7 @@ const Home = () => {
         }
         
         .aurora-3 {
-          left: 80%;
+          left: 90%;
           animation-delay: 10s;
           background: linear-gradient(to bottom, rgba(0, 255, 179, 0.15), rgba(179, 0, 255, 0.05));
         }
@@ -425,16 +427,16 @@ const Home = () => {
             transform: translateY(0);
           }
           100% {
-            transform: translateY(40px);
+            transform: translateY(20px);
           }
         }
         
         @keyframes aurora {
           0% {
-            transform: skew(20deg) translateX(-100px);
+            transform: skew(20deg) translateX(-50px);
           }
           100% {
-            transform: skew(20deg) translateX(100px);
+            transform: skew(20deg) translateX(50px);
           }
         }
         

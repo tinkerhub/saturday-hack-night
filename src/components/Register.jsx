@@ -166,12 +166,12 @@ const Register = ({ id }) => {
 
   return (
     <section className="w-full mb-16 md:px-0" id={id}>
-         <h1 className="text-6xl font-clash font-medium translate-x-64 mb-4">Register now for <span className="text-transparent block bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Online HackNights</span></h1>
-      <div className="max-w-6xl mx-auto rounded-xl p-6 md:p-10 flex flex-col md:flex-row relative">
+         <h1 className="text-2xl sm:text-4xl md:text-6xl font-clash font-medium sm:translate-x-64 mb-4 px-4">Register now for <span className="text-transparent block bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Online HackNights</span></h1>
+      <div className="max-w-6xl mx-auto rounded-xl p-4 sm:p-6 md:p-10 flex flex-col md:flex-row relative">
         {/* Tabs Header */}
         <div
           ref={containerRef}
-          className="flex flex-col md:my-auto md:mr-12 relative select-none px-2 py-8"
+          className="flex flex-col md:my-auto md:mr-12 relative select-none px-2 py-4 sm:py-8"
           style={{ height: 'fit-content' }}
           onMouseEnter={handlePause}
           onMouseLeave={handleResume}
@@ -200,7 +200,7 @@ const Register = ({ id }) => {
           <div className="flex flex-col h-full items-center justify-between">
             <span
               ref={regRef}
-              className={`z-10 text-3xl md:text-4xl font-clash font-bold uppercase tracking-wide px-2  ${
+              className={`z-10 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-clash font-bold uppercase tracking-wide px-2  ${
                 activeTab === 0 ? "text-[#FFFFE3]" : "text-gray-400"
               }`}
               style={{ letterSpacing: '0.04em' }}
@@ -209,7 +209,7 @@ const Register = ({ id }) => {
             </span>
             <span
               ref={expRef}
-              className={`z-10 text-3xl md:text-4xl font-clash font-bold uppercase tracking-wide px-2 mt-24 ${
+              className={`z-10 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-clash font-bold uppercase tracking-wide px-2 mt-12 sm:mt-16 md:mt-24 ${
                 activeTab === 1 ? "text-[#FFFFE3]" : "text-gray-400"
               }`}
               style={{ letterSpacing: '0.04em' }}
@@ -218,7 +218,7 @@ const Register = ({ id }) => {
             </span>
             <span
               ref={buildRef}
-              className={`z-10 text-3xl md:text-4xl font-clash font-bold uppercase tracking-wide px-2 mt-24 ${
+              className={`z-10 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-clash font-bold uppercase tracking-wide px-2 mt-12 sm:mt-16 md:mt-24 ${
                 activeTab === 2 ? "text-[#FFFFE3]" : "text-gray-400"
               }`}
               style={{ letterSpacing: '0.04em' }}
@@ -228,23 +228,23 @@ const Register = ({ id }) => {
           </div>
         </div>
         {/* Glassmorphic Card */}
-        <div className="relative z-10 w-full rounded-2xl shadow-xl border border-white/30 bg-white/10 backdrop-blur-md p-8 md:p-12 flex flex-col gap-4">
+        <div className="relative z-10 w-full rounded-2xl shadow-xl border border-white/30 bg-white/10 backdrop-blur-md p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col gap-4">
           {/* Subheading */}
-          <div className="mb-8  font-clash font-light text-center text-xl md:text-2xl">
+          <div className="mb-4 sm:mb-6 md:mb-8 font-clash font-light text-center text-base sm:text-lg md:text-xl lg:text-2xl">
             {tab.subheading}
           </div>
           {/* Steps */}
-          <div className="relative flex flex-col gap-8 mb-8 w-full">
+          <div className="relative flex flex-col gap-4 sm:gap-6 md:gap-8 mb-4 sm:mb-6 md:mb-8 w-full">
             {tab.steps.map((step) => (
-              <div key={step.number} className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-[#232228] border border-blue-500 flex items-center justify-center text-2xl text-[#232228] relative">
+              <div key={step.number} className="flex items-start gap-3 sm:gap-4">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-[#232228] border border-blue-500 flex items-center justify-center text-lg sm:text-xl md:text-2xl text-[#232228] relative flex-shrink-0">
                   <span className="absolute inset-0 flex items-center font-clash font-thin justify-center text-blue-50">{step.number}</span>
                 </div>
-                <div className="space-y-2">
-                  <div className="text-[#FFFFE3] font-clash font-medium text-base md:text-lg tracking-wide uppercase">
+                <div className="space-y-1 sm:space-y-2">
+                  <div className="text-[#FFFFE3] font-clash font-medium text-sm sm:text-base md:text-lg tracking-wide uppercase">
                     {step.title}
                   </div>
-                  <div className="text-[#FFFFE3] font-clash font-medium text-sm md:text-base opacity-80">
+                  <div className="text-[#FFFFE3] font-clash font-medium text-xs sm:text-sm md:text-base opacity-80">
                     {step.desc}
                   </div>
                 </div>
@@ -253,7 +253,7 @@ const Register = ({ id }) => {
           </div>
           {/* Summary */}
           {tab.summary && (
-            <div className="mt-4 text-center font-clash font-medium text-[#FFFFE3] text-base md:text-lg">
+            <div className="mt-2 sm:mt-4 text-center font-clash font-medium text-[#FFFFE3] text-sm sm:text-base md:text-lg">
               {tab.summary}
             </div>
           )}

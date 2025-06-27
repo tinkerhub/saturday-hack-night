@@ -35,12 +35,12 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-[#0A0A0F]/30 backdrop-blur-xl border-t border-[#FFFFE3]/10 mt-20">
-      <div className="max-w-6xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="bg-[#0A0A0F]/30 backdrop-blur-xl border-t border-[#FFFFE3]/10 mt-10 sm:mt-16 md:mt-20">
+      <div className="max-w-6xl mx-auto px-4 py-8 sm:py-12 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 sm:gap-8">
           {/* Logo & Description */}
           <div className="col-span-1 md:col-span-2">
-            <h2 className="text-[#FFFFE3] font-clash font-medium text-2xl tracking-tight mb-4">
+            <h2 className="text-[#FFFFE3] font-clash font-medium text-xl sm:text-2xl tracking-tight mb-3 sm:mb-4">
               Saturday HackNight
             </h2>
             <p className="text-[#FFFFE3]/70 font-clash font-light text-sm md:text-base max-w-md">
@@ -51,15 +51,15 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-clash font-medium text-[#FFFFE3] text-lg mb-4">Quick Links</h3>
-            <ul className="space-y-2">
+            <h3 className="font-clash font-medium text-[#FFFFE3] text-base sm:text-lg mb-3 sm:mb-4">Quick Links</h3>
+            <ul className="space-y-1 sm:space-y-2">
               <li>
-                <a href="https://tinkerhub.org" className="text-[#FFFFE3]/70 hover:text-[#FFFFE3] transition-colors font-clash font-light" target="_blank" rel="noopener noreferrer">
+                <a href="https://tinkerhub.org" className="text-[#FFFFE3]/70 hover:text-[#FFFFE3] transition-colors font-clash font-light text-sm sm:text-base" target="_blank" rel="noopener noreferrer">
                   TinkerHub
                 </a>
               </li>
               <li>
-                <a href="https://app.tinkerhub.org" className="text-[#FFFFE3]/70 hover:text-[#FFFFE3] transition-colors font-clash font-light" target="_blank" rel="noopener noreferrer">
+                <a href="https://app.tinkerhub.org" className="text-[#FFFFE3]/70 hover:text-[#FFFFE3] transition-colors font-clash font-light text-sm sm:text-base" target="_blank" rel="noopener noreferrer">
                   Hub App
                 </a>
               </li>
@@ -68,8 +68,8 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h3 className="font-clash font-medium text-[#FFFFE3] text-lg mb-4">Contact Us</h3>
-            <div className="flex space-x-4 mb-4">
+            <h3 className="font-clash font-medium text-[#FFFFE3] text-base sm:text-lg mb-3 sm:mb-4">Contact Us</h3>
+            <div className="flex space-x-3 sm:space-x-4 mb-3 sm:mb-4">
               {socialLinks.map((link, index) => (
                 <motion.a 
                   key={index}
@@ -85,15 +85,15 @@ const Footer = () => {
                 </motion.a>
               ))}
             </div>
-            <p className="text-[#FFFFE3]/70 font-clash font-light">
+            <p className="text-[#FFFFE3]/70 font-clash font-light text-sm sm:text-base">
               Email: <a href="mailto:hello@tinkerhub.org" className="hover:text-[#FFFFE3] transition-colors">hello@tinkerhub.org</a>
             </p>
           </div>
         </div>
 
         {/* Bottom Copyright */}
-        <div className="mt-12 pt-8 border-t border-[#FFFFE3]/10 text-center">
-          <p className="text-[#FFFFE3]/50 text-sm font-clash font-light">
+        <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-[#FFFFE3]/10 text-center">
+          <p className="text-[#FFFFE3]/50 text-xs sm:text-sm font-clash font-light">
             © {currentYear} TinkerHub Foundation. All rights reserved.
           </p>
         </div>

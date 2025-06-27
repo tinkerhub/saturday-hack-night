@@ -66,8 +66,8 @@ const thirdColumn = testimonials.slice(6, 9);
 
 const Testimonials = () => {
   return (
-    <section className="my-20 relative">
-      <div className="container z-10 mx-auto">
+    <section className="my-10 sm:my-16 md:my-20 relative">
+      <div className="container z-10 mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -76,16 +76,16 @@ const Testimonials = () => {
           className="flex flex-col items-center justify-center max-w-[540px] mx-auto"
         >
          
-          <h2 className="text-xl font-clash sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-medium tracking-tighter mt-5">
-          HackNighters’ Hot Takes
+          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-clash font-medium tracking-tighter mt-3 sm:mt-5">
+          HackNighters' Hot Takes
           </h2>
-          <p className="text-center font-clash font-medium mt-5 opacity-75">
+          <p className="text-center font-clash font-medium mt-3 sm:mt-5 text-sm sm:text-base opacity-75">
           Don't take our word for it — take theirs
           </p>
         </motion.div>
-        <div className="flex justify-center gap-6 mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] max-h-[740px] overflow-hidden">
+        <div className="flex justify-center gap-3 sm:gap-4 md:gap-6 mt-6 sm:mt-8 md:mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] max-h-[400px] sm:max-h-[500px] md:max-h-[600px] lg:max-h-[740px] overflow-hidden">
           <TestimonialsColumn testimonials={firstColumn} duration={15} />
-          <TestimonialsColumn testimonials={secondColumn} className="hidden md:block" duration={19} />
+          <TestimonialsColumn testimonials={secondColumn} className="hidden sm:block" duration={19} />
           <TestimonialsColumn testimonials={thirdColumn} className="hidden lg:block" duration={17} />
         </div>
       </div>
