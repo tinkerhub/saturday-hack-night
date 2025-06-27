@@ -25,7 +25,7 @@ const Partners = () => {
                 <img 
                   src={image}
                   alt={`Partner ${index + 1}`}
-                  className="w-20 h-16 translate-y-10 translate-x-8 sm:w-23 sm:h-20 object-contain"
+                  className="w-20 h-16  md:w-32 translate-y-10 translate-x-8 sm:w-23 sm:h-20 object-contain"
                 />
               </div>
             </div>

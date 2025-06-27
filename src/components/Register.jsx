@@ -210,12 +210,12 @@ const Register = ({ id }) => {
           </div>
         </div>
 
-        {/* Desktop Layout */}
-        <div className="hidden md:flex md:flex-row relative">
+        {/* Desktop Layout: Tabs and Card side by side */}
+        <div className="hidden md:flex md:flex-row md:items-center md:justify-center gap-12 relative w-full">
           {/* Tabs Header - Vertical */}
           <div
             ref={containerRef}
-            className="flex flex-col my-auto mr-12 relative select-none px-2 py-8"
+            className="flex flex-col relative select-none px-2 py-8 items-center flex-shrink-0"
             style={{ height: 'fit-content' }}
             onMouseEnter={handlePause}
             onMouseLeave={handleResume}
@@ -271,26 +271,58 @@ const Register = ({ id }) => {
               </span>
             </div>
           </div>
+
+          {/* Glassmorphic Card (desktop column) */}
+          <div className="relative z-10 w-full md:max-w-4xl max-w-xl rounded-2xl shadow-xl border border-white/30 bg-white/10 backdrop-blur-md p-8 lg:p-12 flex flex-col gap-4">
+            {/* Subheading */}
+            <div className="mb-4 sm:mb-6 md:mb-8 font-clash font-light text-center text-base sm:text-lg md:text-xl lg:text-2xl">
+              {tab.subheading}
+            </div>
+            {/* Steps */}
+            <div className="relative flex flex-col gap-4 sm:gap-6 md:gap-8 mb-4 sm:mb-6 md:mb-8 w-full">
+              {tab.steps.map((step) => (
+                <div key={step.number} className="flex items-start gap-3 sm:gap-4">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-[#232228] border border-blue-500 flex items-center justify-center text-lg sm:text-xl md:text-2xl text-[#232228] relative flex-shrink-0">
+                    <span className="absolute inset-0 flex items-center font-clash font-thin justify-center text-blue-50">{step.number}</span>
+                  </div>
+                  <div className="space-y-1 sm:space-y-2">
+                    <div className="text-[#FFFFE3] font-clash font-medium text-sm sm:text-base md:text-lg tracking-wide uppercase">
+                      {step.title}
+                    </div>
+                    <div className="text-[#FFFFE3] font-clash font-medium text-xs sm:text-sm md:text-base opacity-80">
+                      {step.desc}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            {/* Summary */}
+            {tab.summary && (
+              <div className="mt-2 sm:mt-4 text-center font-clash font-medium text-[#FFFFE3] text-sm sm:text-base md:text-lg">
+                {tab.summary}
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* Glassmorphic Card */}
-        <div className="relative z-10 w-full max-w-[95vw] sm:max-w-full rounded-2xl shadow-xl border border-white/30 bg-white/10 backdrop-blur-md p-6 sm:p-6 md:p-8 lg:p-12 flex flex-col gap-4">
+        {/* Glassmorphic Card (mobile view, always visible) */}
+        <div className="md:hidden relative z-10 w-full max-w-[95vw] sm:max-w-full rounded-2xl shadow-xl border border-white/30 bg-white/10 backdrop-blur-md p-6 sm:p-6 flex flex-col gap-4 mt-4">
           {/* Subheading */}
-          <div className="mb-4 sm:mb-6 md:mb-8 font-clash font-light text-center text-base sm:text-lg md:text-xl lg:text-2xl">
+          <div className="mb-4 font-clash font-light text-center text-base sm:text-lg">
             {tab.subheading}
           </div>
           {/* Steps */}
-          <div className="relative flex flex-col gap-4 sm:gap-6 md:gap-8 mb-4 sm:mb-6 md:mb-8 w-full">
+          <div className="relative flex flex-col gap-4 mb-4 w-full">
             {tab.steps.map((step) => (
-              <div key={step.number} className="flex items-start gap-3 sm:gap-4">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-[#232228] border border-blue-500 flex items-center justify-center text-lg sm:text-xl md:text-2xl text-[#232228] relative flex-shrink-0">
+              <div key={step.number} className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-full bg-[#232228] border border-blue-500 flex items-center justify-center text-lg text-[#232228] relative flex-shrink-0">
                   <span className="absolute inset-0 flex items-center font-clash font-thin justify-center text-blue-50">{step.number}</span>
                 </div>
-                <div className="space-y-1 sm:space-y-2">
-                  <div className="text-[#FFFFE3] font-clash font-medium text-sm sm:text-base md:text-lg tracking-wide uppercase">
+                <div className="space-y-1">
+                  <div className="text-[#FFFFE3] font-clash font-medium text-sm tracking-wide uppercase">
                     {step.title}
                   </div>
-                  <div className="text-[#FFFFE3] font-clash font-medium text-xs sm:text-sm md:text-base opacity-80">
+                  <div className="text-[#FFFFE3] font-clash font-medium text-xs opacity-80">
                     {step.desc}
                   </div>
                 </div>
@@ -299,7 +331,7 @@ const Register = ({ id }) => {
           </div>
           {/* Summary */}
           {tab.summary && (
-            <div className="mt-2 sm:mt-4 text-center font-clash font-medium text-[#FFFFE3] text-sm sm:text-base md:text-lg">
+            <div className="mt-2 text-center font-clash font-medium text-[#FFFFE3] text-sm">
               {tab.summary}
             </div>
           )}

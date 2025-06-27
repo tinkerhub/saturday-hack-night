@@ -174,7 +174,7 @@ const Home = () => {
           className="flex flex-col justify-between min-h-screen relative z-20"
         >
           {/* Timer positioned at top left */}
-          <div className="absolute left-4 bottom-6 py-12 z-30">
+          <div className="absolute left-2 md:left-0 bottom-6 md:py-0 py-14 z-30">
             <Timer />
           </div>
           
@@ -182,7 +182,7 @@ const Home = () => {
           <div className="flex-1 "></div>
           
           {/* Main content centered */}
-          <div className="w-full -translate-y-8 max-w-[1600px] mx-auto px-3 sm:px-6">
+          <div className="w-full -translate-y-16 md:-translate-y-0 max-w-[1600px] mx-auto px-3 sm:px-6">
             {/* Animated title with staggered reveal */}
             <div className="text-center">
               {/* Typewriter Effect */}
@@ -323,7 +323,7 @@ const Home = () => {
       </div>
 
       <div className="relative z-10 h-[60vh] sm:h-screen max-w-7xl mx-auto px-4 sm:translate-x-24 flex items-center justify-center">
-        <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl xl:text-9xl font-clash font-medium text-center sm:text-left leading-tight sm:leading-none">We build, we learn. It's the maker mindset.</h1>
+        <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl md:-translate-x-14 xl:text-9xl font-clash font-medium text-center sm:text-left leading-tight sm:leading-none">We build, we learn. It's the maker mindset.</h1>
       </div>
 
         {/* Partners Section */}

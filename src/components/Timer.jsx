@@ -31,7 +31,7 @@ const Timer = () => {
 
   return (
     <motion.div 
-      className="bg-[#0A0A0F]/30 backdrop-blur-2xl rounded-xl sm:rounded-2xl p-2 sm:p-3 md:p-6 md:px-0 border border-[#0A0A0F]/10 shadow-lg shadow-[#0A0A0F]/20"
+      className="bg-[#0A0A0F]/30 backdrop-blur-2xl rounded-xl sm:rounded-2xl lg:-translate-x-6 sm:p-3 md:p-6 md:px-0 border border-[#0A0A0F]/10 shadow-lg shadow-[#0A0A0F]/20"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
