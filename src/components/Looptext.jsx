@@ -23,26 +23,9 @@ const LoopText = ({ children, className = '', interval = 2, onIndexChange }) => 
   }, [items.length, interval, onIndexChange, isHovered]);
 
   const textVariants = {
-    initial: { 
-      y: 20, 
-      opacity: 0
-    },
-    animate: { 
-      y: 0, 
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    },
-    exit: { 
-      y: -20, 
-      opacity: 0,
-      transition: {
-        duration: 0.3,
-        ease: "easeIn"
-      }
-    }
+    initial: { y: 20, opacity: 0 },
+    animate: { y: 0, opacity: 1, transition: { duration: 0.5, ease: "easeOut" } },
+    exit: { y: -20, opacity: 0, transition: { duration: 0.3, ease: "easeIn" } }
   };
 
   return (
@@ -53,16 +36,16 @@ const LoopText = ({ children, className = '', interval = 2, onIndexChange }) => 
     >
       <div className="relative overflow-hidden">
         <AnimatePresence mode="popLayout" initial={false}>
-          <motion.div
+          <motion.span
             key={currentIndex}
             variants={textVariants}
             initial="initial"
             animate="animate"
             exit="exit"
-            className="text-center"
+            className="text-center block"
           >
             {items[currentIndex]}
-          </motion.div>
+          </motion.span>
         </AnimatePresence>
       </div>
     </motion.div>

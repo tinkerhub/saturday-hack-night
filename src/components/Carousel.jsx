@@ -5,33 +5,39 @@ import img2 from '../assets/images/carousal/IMG_5699.JPG'
 import img3 from '../assets/images/carousal/IMG_5821.JPG'
 import img4 from '../assets/images/carousal/IMG_5850.JPG'
 import img5 from '../assets/images/carousal/IMG_5921.JPG'
+import TypewriterText from './TypewriterText';
 
 // Sample slides data
 const defaultSlides = [
   {
-    title: "Explore New Tech",
+    title: "",
     button: "Register Now",
     src: img4,
+    text: "How can I learn current trending tech stacks?"
   },
   {
-    title: "Meet Tech Wizards",
+    title: "",
     button: "Register Now",
     src: img3,
+    text: "How can I connect with Tech leaders and mentors?"
   },
   {
-    title: "Late Night Devs",
+    title: "",
     button: "Register Now",
-    src: img1
+    src: img1,
+    text: "Is there any beginner friendly hackathons?"
   },
   {
-    title: "Help Is Here",
+    title: "",
     button: "Register Now",
-    src: img2
+    src: img2,
+    text: "How can I find cool people in tech?"
   },
   {
-    title: "Build With Homies",
+    title: "",
     button: "Register Now",
-    src: img5
+    src: img5,
+    text: "How to start building projects as a noob?"
   }
 ];
 
@@ -81,7 +87,7 @@ const Slide = ({ slide, index, current, handleSlideClick }) => {
     event.currentTarget.style.opacity = "1";
   };
 
-  const { src, button, title } = slide;
+  const { src, button, title, text } = slide;
 
   return (
     <div className="[perspective:1200px] [transform-style:preserve-3d]">
@@ -133,6 +139,14 @@ const Slide = ({ slide, index, current, handleSlideClick }) => {
           <h2 className="text-base sm:text-lg md:text-2xl lg:text-4xl font-clash font-medium relative">
             {title}
           </h2>
+          {current === index && (
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-32 bg-white/70 backdrop-blur-sm p-4 sm:p-6 rounded-lg text-black w-[600px] h-[100px] flex flex-col items-start justify-between">
+              <TypewriterText text={text} speed={50} />
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 -translate-y-8 px-4 rounded self-end">
+                Ask
+              </button>
+            </div>
+          )}
         </article>
       </li>
     </div>
@@ -149,7 +163,7 @@ const Carousel = ({ slides = defaultSlides }) => {
 
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
-    }, 3000); // Change slide every 3 seconds
+    }, 5000); // Change slide every 5 seconds
 
     return () => clearInterval(interval);
   }, [isPaused, slides.length]);

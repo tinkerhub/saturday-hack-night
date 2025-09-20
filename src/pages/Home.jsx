@@ -1,13 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import React, { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import Navbar from '../components/Navbar'
 import Carousel from '../components/Carousel'
-import LoopText from '../components/Looptext'
-import Register from '../components/Register'
-import DisplayCards from "../components/Displaycards"
+import TechStackScroll from '../components/TechStackScroll'
+import FeatureAccordion from '../components/FeatureAccordion';
 import Testimonials from "../components/Testimonials";
 import Stats from "../components/Stats";
-import Timer from "../components/Timer";
 import FAQ from '../components/FAQ';
 import Partners from '../components/Partners';
 import Footer from '../components/Footer';
@@ -21,81 +19,8 @@ const Home = () => {
   // Reduced parallax for smoother experience
   const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '10%'])
 
-  // Text animation setup
-  const [currentText, setCurrentText] = useState('')
-  const [isTyping, setIsTyping] = useState(true)
-  const typewriterText = "Recurring hackathon\nto build\nbreak\nand learn\nby doing"
-  const lines = typewriterText.split("\n")
   
-  // For staggered word animation (unused but kept for reference)
-  const text = "Recurring hackathon to build break and learn by doing"
-  const words = text.split(" ")
-  
-  // Start typewriter animation on mount
-  useEffect(() => {
-    let timeout
-    
-    // Type current line character by character
-    const typeLine = async (line) => {
-      setIsTyping(true)
-      for (let i = 0; i <= line.length; i++) {
-        await new Promise(resolve => {
-          timeout = setTimeout(() => {
-            setCurrentText(line.substring(0, i))
-            resolve()
-          }, 100)
-        })
-      }
-      
-      // Pause at the end of typing
-      await new Promise(resolve => {
-        timeout = setTimeout(resolve, 800)
-      })
-    }
-    
-    // Backspace the current line character by character
-    const backspaceLine = async (line) => {
-      setIsTyping(false)
-      for (let i = line.length; i >= 0; i--) {
-        await new Promise(resolve => {
-          timeout = setTimeout(() => {
-            setCurrentText(line.substring(0, i))
-            resolve()
-          }, 50) // Faster deletion
-        })
-      }
-      
-      // Short pause after deletion
-      await new Promise(resolve => {
-        timeout = setTimeout(resolve, 300)
-      })
-    }
-    
-    const runTypewriter = async () => {
-      // Loop indefinitely through all lines
-      while (true) {
-        for (let i = 0; i < lines.length; i++) {
-          await typeLine(lines[i])
-          
-          // Don't backspace the final line on the last iteration
-          if (i < lines.length - 1) {
-            await backspaceLine(lines[i])
-          } else {
-            // Pause longer on the final line before restarting
-            await new Promise(resolve => {
-              timeout = setTimeout(resolve, 3000)
-            })
-            await backspaceLine(lines[i])
-          }
-        }
-      }
-    }
-    
-    runTypewriter()
-    
-    // Cleanup
-    return () => clearTimeout(timeout)
-  }, [])
+
 
   return (
     <div 
@@ -171,148 +96,28 @@ const Home = () => {
       
       <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 relative z-10">
         <motion.div 
-          className="flex flex-col justify-between min-h-screen relative z-20"
+          className="flex flex-col justify-center min-h-screen relative z-20"
         >
-          {/* Timer positioned at top left */}
-          <div className="absolute left-2 md:left-0 bottom-6 md:py-0 py-14 z-30">
-            <Timer />
+          {/* Carousel showcase - moved here after landing section */}
+          <div className="relative z-20 w-full flex justify-center my-auto">
+            <Carousel />
           </div>
-          
-          {/* Spacer to push content to center */}
-          <div className="flex-1 "></div>
-          
-          {/* Main content centered */}
-          <div className="w-full -translate-y-16 md:-translate-y-0 max-w-[1600px] mx-auto px-3 sm:px-6">
-            {/* Animated title with staggered reveal */}
-            <div className="text-center">
-              {/* Typewriter Effect */}
-              <motion.div 
-                className="flex flex-col items-center justify-center text-[#FFFFE3] mx-auto w-full max-w-5xl h-[120px] sm:h-[150px] md:h-[180px]"
-                animate={{ 
-                  y: currentText.length === 0 ? -10 : 0,
-                  opacity: currentText.length === 0 ? 0.8 : 1
-                }}
-                transition={{ 
-                  type: "spring", 
-                  stiffness: 300, 
-                  damping: 30 
-                }}
-              >
-                <motion.h2 
-                  className={`text-[8vw] sm:text-[7vw] md:text-[6vw] lg:text-[5vw] font-clash font-bold mb-[-1vw] leading-[1.1] sm:leading-[1.2] text-center w-full ${isTyping ? 'cursor' : ''}`}
-                  initial={{ opacity: 1 }}
-                  style={{
-                    fontFamily: "monospace",
-                    WebkitTextStroke: "1px rgba(255, 255, 227, 0.2)",
-                    textShadow: "0 0 10px rgba(255, 255, 227, 0.3)"
-                  }}
-                >{currentText}</motion.h2>
-              </motion.div>
-              
-              {/* Original staggered animation - now hidden, just for mobile backup */}
-              <motion.div 
-                className="hidden flex-wrap justify-center perspective-1000"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0 }}
-              >
-                <AnimatePresence>
-                  {words.map((word, i) => (
-                    <motion.span
-                      key={i}
-                      className="text-[6vw] md:text-[5vw] lg:text-[4.5vw] font-clash leading-[1.1] font-bold text-[#FFFFE3] mx-2 inline-block"
-                    >
-                      {word}
-                    </motion.span>
-                  ))}
-                </AnimatePresence>
-              </motion.div>
-              
-              {/* Animated subtitle - more subtle */}
-              <div className="fixed-subtitle-container">
-                <motion.p
-                  className="text-[#FFFFE3] font-clash font-light text-base sm:text-xl md:text-2xl opacity-50 px-4"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 1, delay: words.length * 0.1 + 0.5 }}
-                >
-                  We don't do lectures. We do late-night builds
-                </motion.p>
-              </div>
-              
-              {/* Enhanced animated button with glow effect */}
-              <motion.button
-                className="relative mt-4 sm:mt-6 bg-transparent border border-[#FFFFE3]/20 text-[#FFFFE3] px-6 sm:px-8 py-2 sm:py-3 rounded-full font-bold text-base sm:text-lg overflow-hidden group"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ 
-                  type: "spring", 
-                  stiffness: 400, 
-                  damping: 10, 
-                  delay: words.length * 0.1 + 1 
-                }}
-                whileHover={{ 
-                  scale: 1.05,
-                  boxShadow: "0 0 25px rgba(255, 255, 227, 0.3)",
-                  border: "1px solid rgba(255, 255, 227, 0.5)",
-                }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <motion.span 
-                  className="absolute inset-0 bg-gradient-to-r from-[#FFFFE3]/0 via-[#FFFFE3]/10 to-[#FFFFE3]/0"
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: "100%" }}
-                  transition={{ duration: 1, ease: "easeInOut" }}
-                />
-                <span className="relative z-10 font-clash font-medium">Join Us</span>
-                <motion.div 
-                  className="absolute inset-0 -z-10 opacity-0 bg-[#FFFFE3]/10 rounded-full"
-                  whileHover={{ 
-                    opacity: 1,
-                    scale: 1.1
-                  }}
-                  transition={{ duration: 0.3 }}
-                />
-              </motion.button>
-            </div>
-          </div>
-          
-          {/* Spacer for bottom spacing */}
-          <div className="flex-1"></div>
         </motion.div>
 
-        {/* Carousel showcase - moved here after landing section */}
-        <div className="relative z-20 w-full h-[60vh] sm:h-screen">
-          <Carousel />
+
+        <div className="relative z-10 pt-20 px-4">
+          <p className="relative text-left text-3xl sm:text-4xl md:text-5xl text-[#FFFFE3] font-clash font-medium mb-24 pt-32">
+            <span className="absolute -top-4 -left-8 text-gray-500 opacity-50" style={{ fontSize: '14rem' }}>“</span>
+            At HackNight, you find your flow, your people, and your confidence as a developer.
+          </p>
+          <TechStackScroll />
         </div>
 
-        <div className="flex z-20 w-full h-40 justify-center items-center text-center mt-8 pt-8 px-4">
-          <div className="relative w-full max-w-4xl mx-auto">
-            <LoopText interval={3}>
-              <span className="text-2xl sm:text-4xl md:text-6xl font-clash font-medium">
-                <span className="text-[#FFFFE3]">Wanna Join </span> 
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Saturday HackNight?</span>
-              </span>
-              <span className="text-2xl sm:text-4xl md:text-6xl font-clash font-medium">
-                <span className="text-[#FFFFE3]">But Saturday HackNight is </span>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">Invite Only</span>
-              </span>
-              <span className="text-2xl sm:text-4xl md:text-6xl font-clash font-medium">
-                <span className="text-[#FFFFE3]">Join the </span>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-red-500">online edition </span>
-                <span className="text-[#FFFFE3]">for Invite</span>
-              </span>
-            </LoopText>
-          </div>
-        </div>
 
-        <div className="relative z-10 w-full h-[60vh] sm:h-screen translate-y-1/4 px-4">
-          <DisplayCards />
-        </div>
-
-        <div className="relative z-10 w-full px-4">
-          <Register id="register-section" />
-        </div>
         
+        <div className="relative z-10">
+          <FeatureAccordion />
+        </div>
         <div className="relative z-10 py-12 sm:py-24 px-4">
           <Stats />
         </div>
@@ -322,8 +127,16 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="relative z-10 h-[60vh] sm:h-screen max-w-7xl mx-auto px-4 sm:translate-x-24 flex items-center justify-center">
-        <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl md:-translate-x-14 xl:text-9xl font-clash font-medium text-center sm:text-left leading-tight sm:leading-none">We build, we learn. It's the maker mindset.</h1>
+      <div className="relative z-10 h-[60vh] sm:h-screen max-w-7xl mx-auto px-4  flex items-center justify-center">
+        <motion.h1
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          viewport={{ once: true, amount: 0.6 }}
+          className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl xl:text-9xl font-clash font-medium text-center sm:text-left leading-tight sm:leading-none"
+        >
+          We build, we learn. It's the maker mindset.
+        </motion.h1>
       </div>
 
         {/* Partners Section */}
