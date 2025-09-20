@@ -5,58 +5,50 @@ import TestimonialsColumn from "./TestimonialsColumn";
 
 const testimonials = [
   {
-    text: "This ERP revolutionized our operations, streamlining finance and inventory. The cloud-based platform keeps us productive, even remotely.",
-    image: "https://randomuser.me/api/portraits/women/1.jpg",
-    name: "Briana Patton",
-    role: "Operations Manager",
+    text: "Clap Candle is a virtual candle that lights up with a clap and goes out when you blow.",
+    name: "Clap Candle ",
+    role: "",
   },
   {
-    text: "Implementing this ERP was smooth and quick. The customizable, user-friendly interface made team training effortless.",
-    image: "https://randomuser.me/api/portraits/men/2.jpg",
-    name: "Bilal Ahmed",
-    role: "IT Manager",
+    text: "Emoji Mood Mirror will detect your face and show an emoji matching your mood.",
+    name: "Emoji Mood Mirror",
+    role: "",
   },
   {
-    text: "The support team is exceptional, guiding us through setup and providing ongoing assistance, ensuring our satisfaction.",
-    image: "https://randomuser.me/api/portraits/women/3.jpg",
-    name: "Saman Malik",
-    role: "Customer Support Lead",
+    text: "Hacky Pong is Pong game where the paddle moves when you tilt your head.",
+    name: "Hacky Pong ",
+    role: "",
   },
   {
-    text: "This ERP's seamless integration enhanced our business operations and efficiency. Highly recommend for its intuitive interface.",
-    image: "https://randomuser.me/api/portraits/men/4.jpg",
-    name: "Omar Raza",
-    role: "CEO",
+    text: "Memeify will help  Generate random memes from Malayalam movie dialogues.",
+    name: "Memeify",
+    role: "",
   },
   {
-    text: "Its robust features and quick support have transformed our workflow, making us significantly more efficient.",
-    image: "https://randomuser.me/api/portraits/women/5.jpg",
-    name: "Zainab Hussain",
-    role: "Project Manager",
+    text: "Smart Alarm is an Alarm that only stops when you solve a math problem.",
+    name: "Smart Alarm",
+    role: "",
   },
   {
-    text: "The smooth implementation exceeded expectations. It streamlined processes, improving overall business performance.",
-    image: "https://randomuser.me/api/portraits/women/6.jpg",
-    name: "Aliza Khan",
-    role: "Business Analyst",
+    text: "Screen Time Roast Bot roasts you every time you unlock your phone.",
+    name: "Screen Time Roast Bot",
+    role: "",
   },
   {
-    text: "Our business functions improved with a user-friendly design and positive customer feedback.",
-    image: "https://randomuser.me/api/portraits/men/7.jpg",
-    name: "Farhan Siddiqui",
-    role: "Marketing Director",
+    text: "Voice Lamp is a Lamp that changes color based on your voice pitch.",
+    name: "Voice Lamp ",
+    role: "",
   },
   {
-    text: "They delivered a solution that exceeded expectations, understanding our needs and enhancing our operations.",
-    image: "https://randomuser.me/api/portraits/women/8.jpg",
-    name: "Sana Sheikh",
-    role: "Sales Manager",
+    text: "Code Karma Meter shows your “karma score” based on GitHub commits.",
+    name: "Code Karma Meter",
+    role: "",
   },
   {
-    text: "Using this ERP, our online presence and conversions significantly improved, boosting business performance.",
-    image: "https://randomuser.me/api/portraits/men/9.jpg",
-    name: "Hassan Ali",
-    role: "E-commerce Manager",
+    text: "Plant Whisperer is a system that reminds you to water plants when they look sad.",
+    image: "",
+    name: "Plant Whisperer",
+    role: "",
   },
 ];
 
@@ -73,15 +65,12 @@ const Testimonials = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true }}
-          className="flex flex-col items-center justify-center max-w-[540px] mx-auto"
+          className="flex flex-col items-center justify-center mx-auto"
         >
          
           <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-clash font-medium tracking-tighter mt-3 sm:mt-5">
-          HackNighters' Hot Takes
-          </h2>
-          <p className="text-center font-clash font-medium mt-3 sm:mt-5 text-sm sm:text-base opacity-75">
           Don't take our word for it — take theirs
-          </p>
+          </h2>
         </motion.div>
         <div className="flex justify-center gap-3 sm:gap-4 md:gap-6 mt-6 sm:mt-8 md:mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] max-h-[400px] sm:max-h-[500px] md:max-h-[600px] lg:max-h-[740px] overflow-hidden">
           <TestimonialsColumn testimonials={firstColumn} duration={15} />

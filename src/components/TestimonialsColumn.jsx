@@ -27,13 +27,6 @@ export default function TestimonialsColumn({ className = '', testimonials, durat
               >
                 <div className="font-clash font-medium text-sm sm:text-base">{text}</div>
                 <div className="flex items-center gap-2 mt-3 sm:mt-4 md:mt-5">
-                  <img
-                    width={32}
-                    height={32}
-                    src={image}
-                    alt={name}
-                    className="h-8 w-8 sm:h-10 sm:w-10 rounded-full"
-                  />
                   <div className="flex flex-col">
                     <div className="font-medium font-clash tracking-tight leading-4 sm:leading-5 text-sm sm:text-base">{name}</div>
                     <div className="leading-4 sm:leading-5 font-clash opacity-60 tracking-tight text-xs sm:text-sm">{role}</div>

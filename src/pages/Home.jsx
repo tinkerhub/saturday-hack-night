@@ -118,11 +118,11 @@ const Home = () => {
         </div>
 
         <div className="relative z-10 pt-20 ml-10">
-          <p className="relative text-left text-3xl w-3/4 sm:text-4xl md:text-5xl text-[#FFFFE3] font-clash font-medium mb-24 pt-32">
+          <p className="relative text-left text-3xl w-3/4 sm:text-4xl md:text-5xl text-[#FFFFE3] font-clash font-medium mb-2 pt-32">
             <span className="absolute -top-4 -left-8 text-gray-500 opacity-50" style={{ fontSize: '14rem' }}>“</span>
             At HackNight, you find your flow, your people, and your confidence as a developer.
           </p>
-          <div className="text-right text-[#FFFFE3] font-clash text-lg md:text-xl">
+          <div className="text-right -translate-x-14  text-[#FFFFE3] font-clash text-lg md:text-xl">
             <p className="font-medium">bla bla</p>
             <p className="text-sm opacity-80">Founder, Saturday HackNight</p>
           </div>
@@ -150,11 +150,6 @@ const Home = () => {
           We build, we learn. It's the maker mindset.
         </motion.h1>
       </div>
-
-        {/* Partners Section */}
-        <div className="relative z-10 w-full py-12 sm:py-24 px-4">
-          <Partners />
-        </div>
 
       {/* FAQ Section */}
       <div className="relative z-10 w-full px-4" id="faq-section">

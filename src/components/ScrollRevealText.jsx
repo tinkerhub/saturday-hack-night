@@ -56,7 +56,7 @@ export default function ConnectedScrollPage() {
   return (
     <div className="w-screen -translate-x-52 text-white min-h-screen">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <div ref={observerRef} className="relative py-20">
+        <div ref={observerRef} className="relative">
           
           {/* Fixed center line with moving dot */}
           <div className="fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10">

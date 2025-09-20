@@ -140,9 +140,9 @@ const Slide = ({ slide, index, current, handleSlideClick }) => {
             {title}
           </h2>
           {current === index && (
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-32 bg-white/70 backdrop-blur-sm p-4 sm:p-6 rounded-lg text-black w-[600px] h-[100px] flex flex-col items-start justify-between">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-32 bg-white/70 backdrop-blur-sm p-4 sm:p-6 rounded-3xl text-black w-[600px] h-[100px] flex flex-col items-start justify-between">
               <TypewriterText text={text} speed={50} />
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 -translate-y-8 px-4 rounded self-end">
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 -translate-y-11 px-4 rounded-3xl self-end">
                 Ask
               </button>
             </div>
