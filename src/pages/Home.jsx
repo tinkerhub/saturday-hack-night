@@ -117,12 +117,12 @@ const Home = () => {
           <FeatureAccordion />
         </div>
 
-        <div className="relative z-10 pt-20 p">
-          <p className="relative text-left text-3xl sm:text-4xl md:text-5xl text-[#FFFFE3] font-clash font-medium mb-24 pt-32">
+        <div className="relative z-10 pt-20 ml-10">
+          <p className="relative text-left text-3xl w-3/4 sm:text-4xl md:text-5xl text-[#FFFFE3] font-clash font-medium mb-24 pt-32">
             <span className="absolute -top-4 -left-8 text-gray-500 opacity-50" style={{ fontSize: '14rem' }}>“</span>
             At HackNight, you find your flow, your people, and your confidence as a developer.
           </p>
-          <div className="text-right text-[#FFFFE3] font-clash text-lg md:text-xl mt-4">
+          <div className="text-right text-[#FFFFE3] font-clash text-lg md:text-xl">
             <p className="font-medium">bla bla</p>
             <p className="text-sm opacity-80">Founder, Saturday HackNight</p>
           </div>

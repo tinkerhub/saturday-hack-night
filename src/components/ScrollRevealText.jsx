@@ -1,24 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-export default function StickyScrollPage() {
+export default function ConnectedScrollPage() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
   const observerRef = useRef(null);
   const triggerRefs = useRef([]);
 
   const items = [
     {
-      title: "Loudness correction",
-      content: "Ensure that your audio maintains consistent relative loudness across one or many recordings.",
+      title: "Participate & Build",
+      content: "Join our biweekly online HackNights, explore trending tech each week, and complete fun, hands-on projects.",
+      step: "01"
     },
     {
-      title: "Speech isolation",
-      content: "Isolate and boost voices, using neural networks trained to distinguish speech from external noise.",
+      title: "Earn Your Spot", 
+      content: "Complete projects in any of the last 5 online HackNights, and you'll qualify for an exclusive invite.",
+      step: "02"
     },
     {
-      title: "Noise reduction",
-      content:
-        "Eliminate all air conditioners, lawn mowers, noisy neighbors, and other background noises from your recording.",
+      title: "Hack at TinkerSpace",
+      content: "An overnight, invite-only hackathon at TinkerSpace — where Saturday HackNight shows its full potential.",
+      step: "03"
     },
   ];
 
@@ -28,105 +29,103 @@ export default function StickyScrollPage() {
         entries.forEach((entry) => {
           const index = parseInt(entry.target.getAttribute('data-index'));
           
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
             setActiveIndex(index);
           }
         });
       },
       {
-        rootMargin: '-40% 0px -40% 0px',
-        threshold: 0.1,
-      }
-    );
-
-    // Observer for main container visibility
-    const visibilityObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          setIsVisible(entry.isIntersecting);
-        });
-      },
-      {
-        rootMargin: '0px',
-        threshold: 0.1,
+        rootMargin: '-20% 0px -20% 0px',
+        threshold: [0, 0.25, 0.5, 0.75, 1],
       }
     );
 
     const currentTriggerRefs = triggerRefs.current;
-    const currentObserverRef = observerRef.current;
 
-    // Observe trigger elements
     currentTriggerRefs.forEach((ref) => {
       if (ref) observer.observe(ref);
     });
-
-    // Observe main container
-    if (currentObserverRef) {
-      visibilityObserver.observe(currentObserverRef);
-    }
 
     return () => {
       currentTriggerRefs.forEach((ref) => {
         if (ref) observer.unobserve(ref);
       });
-      if (currentObserverRef) {
-        visibilityObserver.unobserve(currentObserverRef);
-      }
     };
   }, []);
 
-  const getGradientClasses = (index) => {
-    const gradients = [
-      "from-purple-100 to-indigo-300",
-      "from-cyan-300 to-sky-400", 
-      "from-amber-300 to-orange-400"
-    ];
-    return gradients[index] || gradients[0];
-  };
-
   return (
-    <div className="w-screen text-white mt-32 mb-32">
-      
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div ref={observerRef} className="relative max-w-4xl mx-auto">
+    <div className="w-screen -translate-x-52 text-white min-h-screen">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div ref={observerRef} className="relative py-20">
+          
+          {/* Fixed center line with moving dot */}
+          <div className="fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10">
+            {/* Vertical line */}
+            <div className="w-px h-96 bg-gradient-to-b from-transparent via-white/30 to-transparent" />
+            
+            {/* Moving dot based on active index */}
+            <div 
+              className="absolute w-4 h-4 bg-white rounded-full shadow-lg transform -translate-x-1/2 transition-all duration-1000 ease-out"
+              style={{
+                top: `${20 + (activeIndex * 40)}%`,
+                boxShadow: '0 0 20px rgba(255, 255, 255, 0.8)'
+              }}
+            />
+            
+            
+          </div>
+
           {/* Text content */}
-          <div className="space-y-4">
+          <div className="space-y-0 relative z-20">
             {items.map((item, index) => (
               <div
                 key={index}
                 ref={(el) => triggerRefs.current[index] = el}
                 data-index={index}
-                className="relative scroll-mt-[50vh] min-h-[50vh] flex items-center"
+                className="relative h-screen flex items-center justify-center"
               >
-                <div
-                  className={`
-                    relative p-8 transition-all duration-500 cursor-pointer text-center
-                    ${activeIndex === index 
-                      ? "text-white transform scale-105" 
-                      : "text-white/20 hover:text-white/40"
-                    }
-                  `}
-                  onClick={() => {
-                    triggerRefs.current[index]?.scrollIntoView({ 
-                      behavior: 'smooth',
-                      block: 'center' 
-                    });
-                  }}
-                >
-                  <div className="font-bold text-2xl sm:text-3xl lg:text-4xl mb-4">
-                    {item.title}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full max-w-6xl">
+                  
+                  {/* Step number - left side */}
+                  <div className="text-center lg:text-right">
+                    <div className={`
+                      inline-block text-8xl lg:text-9xl font-bold transition-all duration-700
+                      ${activeIndex === index 
+                        ? 'text-white opacity-100 transform scale-110' 
+                        : 'text-white/10 opacity-50'
+                      }
+                    `}>
+                      {item.step}
+                    </div>
                   </div>
-                  <div className="text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
-                    {item.content}
+
+                  {/* Content - right side */}
+                  <div className={`
+                    transition-all duration-700 text-center lg:text-left
+                    ${activeIndex === index 
+                      ? 'text-white font-clash opacity-100 transform translate-x-0' 
+                      : 'text-white/20 opacity-50 transform translate-x-4'
+                    }
+                  `}>
+                    <h2 className="font-medium text-3xl lg:text-4xl xl:text-5xl mb-6 leading-tight">
+                      {item.title}
+                    </h2>
+                    <p className="text-lg lg:text-xl leading-relaxed font-light max-w-2xl">
+                      {item.content}
+                    </p>
+                    
+                    
                   </div>
                 </div>
+
+               
               </div>
             ))}
           </div>
+
+         
         </div>
       </div>
-
-     
     </div>
   );
 }
