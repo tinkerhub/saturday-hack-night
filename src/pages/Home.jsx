@@ -5,6 +5,7 @@ import Carousel from '../components/Carousel'
 import TechStackScroll from '../components/TechStackScroll'
 import FeatureAccordion from '../components/FeatureAccordion';
 import Testimonials from "../components/Testimonials";
+import ScrollRevealText from "../components/ScrollRevealText";
 import Stats from "../components/Stats";
 import FAQ from '../components/FAQ';
 import Partners from '../components/Partners';
@@ -96,28 +97,39 @@ const Home = () => {
       
       <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 relative z-10">
         <motion.div 
-          className="flex flex-col justify-center min-h-screen relative z-20"
+          className="flex flex-col justify-center min-h-[70vh] relative z-20"
         >
           {/* Carousel showcase - moved here after landing section */}
-          <div className="relative z-20 w-full flex justify-center my-auto">
+          <div className="relative z-20 w-full flex justify-center mt-36">
             <Carousel />
           </div>
         </motion.div>
 
+        <div className="text-center text-[#FFFFE3] font-clash font-medium text-lg w-3/4 justify-center mx-auto sm:text-xl md:text-2xl mt-20 lg:text-3xl ">
+          Saturday HackNight: a biweekly hackathon to explore tech, build fun projects, and grow together.
+        </div>
+        <div className='mt-20 mb-20'> 
+        <TechStackScroll />
+        </div>
+        
 
-        <div className="relative z-10 pt-20 px-4">
+        <div className="relative z-10">
+          <FeatureAccordion />
+        </div>
+
+        <div className="relative z-10 pt-20 p">
           <p className="relative text-left text-3xl sm:text-4xl md:text-5xl text-[#FFFFE3] font-clash font-medium mb-24 pt-32">
             <span className="absolute -top-4 -left-8 text-gray-500 opacity-50" style={{ fontSize: '14rem' }}>“</span>
             At HackNight, you find your flow, your people, and your confidence as a developer.
           </p>
-          <TechStackScroll />
+          <div className="text-right text-[#FFFFE3] font-clash text-lg md:text-xl mt-4">
+            <p className="font-medium">bla bla</p>
+            <p className="text-sm opacity-80">Founder, Saturday HackNight</p>
+          </div>
         </div>
 
-
+       <ScrollRevealText></ScrollRevealText>
         
-        <div className="relative z-10">
-          <FeatureAccordion />
-        </div>
         <div className="relative z-10 py-12 sm:py-24 px-4">
           <Stats />
         </div>
@@ -267,3 +279,4 @@ const Home = () => {
 }
 
 export default Home
+
