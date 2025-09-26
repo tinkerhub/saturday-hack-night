@@ -1,23 +1,45 @@
 {
-  "name": "saturday-hacknight",
-  "version": "1.0.0",
-  "description": "Saturday HackNight Platform",
-  "license": "MIT",
-  "scripts": {
-    "build": "turbo run build",
-    "build:web": "turbo run build --filter=web",
-    "build:web-legacy": "turbo run build --filter=web-legacy",
-    "start": "turbo run start",
-    "dev": "turbo run dev"
-  },
+  "name": "web",
   "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tabler/icons-react": "^3.33.0",
+    "@tsconfig/recommended": "^1.0.8",
+    "@types/node": "^24.0.0",
+    "class-variance-authority": "^0.7.1",
+    "classnames": "^2.5.1",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.15.0",
+    "lucide-react": "^0.511.0",
+    "ogl": "^1.0.11",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.5.0",
+    "react-use": "^17.6.0",
+    "react-use-measure": "^2.1.7",
+    "tailwind-merge": "^3.3.0",
+    "tailwindcss-animate": "^1.0.7",
+    "typescript": "^5.8.3"
+  },
   "devDependencies": {
-    "eslint-config-custom": "*",
-    "prettier": "latest",
-    "turbo": "latest"
+    "@eslint/js": "^9.25.0",
+    "@types/react": "^19.1.7",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^4.5.2",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.25.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17",
+    "vite": "^6.3.5"
   }
 }
