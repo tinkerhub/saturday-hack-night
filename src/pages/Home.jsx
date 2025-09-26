@@ -145,7 +145,7 @@ const Home = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
           viewport={{ once: true, amount: 0.6 }}
-          className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl xl:text-9xl font-clash font-medium text-center sm:text-left leading-tight sm:leading-none"
+          className="text-5xl sm:text-5xl md:text-5xl lg:text-7xl xl:text-9xl font-clash font-medium text-center sm:text-left leading-tight sm:leading-none"
         >
           We build, we learn. It's the maker mindset.
         </motion.h1>
