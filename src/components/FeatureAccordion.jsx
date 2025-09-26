@@ -44,7 +44,7 @@ const FeatureAccordion = () => {
       {/* Left section: Accordion items */}
       <div className="w-full pb-10 md:w-1/2 space-y-6">
       <div>
-        <h1 className='pl-8 text-[#FFFFE3] font-clash font-medium text-lg justify-center mx-auto sm:text-xl md:text-2xl mb-10 m-20 lg:text-3xl'>
+        <h1 className='pl-8 text-[#FFFFE3] font-clash font-medium text-3xl justify-center mx-auto sm:text-3xl md:text-4xl mb-10 m-20'>
         Learn to Learn:  Changing How You See Hackathons
         </h1>
       </div>
