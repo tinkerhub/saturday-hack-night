@@ -105,7 +105,7 @@ const Home = () => {
           </div>
         </motion.div>
 
-        <div className="text-center text-[#FFFFE3] font-clash font-medium text-lg w-3/4 justify-center mx-auto sm:text-xl md:text-2xl mt-20 lg:text-3xl ">
+        <div className="text-center text-[#FFFFE3] font-clash font-medium text-3xl md:w-3/4 justify-center mx-auto sm:text-xl md:text-2xl mt-20 lg:text-3xl ">
           Saturday HackNight: a biweekly hackathon to explore tech, build fun projects, and grow together.
         </div>
         <div className='mt-20 mb-20'> 
@@ -119,7 +119,7 @@ const Home = () => {
 
         <div className="relative z-10 pt-20 ml-10">
           <p className="relative text-left text-3xl w-3/4 sm:text-4xl md:text-5xl text-[#FFFFE3] font-clash font-medium mb-2 pt-32">
-            <span className="absolute -top-4 -left-8 text-gray-500 opacity-50" style={{ fontSize: '14rem' }}>“</span>
+            <span className="absolute top-24 md:-top-4 md:-left-8 text-gray-500 opacity-50 text-[9rem] md:text-[14rem]" >“</span>
             At HackNight, you find your flow, your people, and your confidence as a developer.
           </p>
           <div className="text-right -translate-x-14  text-[#FFFFE3] font-clash text-lg md:text-xl">

@@ -74,7 +74,7 @@ const FeatureAccordion = () => {
       </div>
 
       {/* Right section: Phone display */}
-      <div className="w-full md:w-1/2 flex justify-center items-center p-4">
+      <div className="hidden kw-full md:w-1/2 md:flex justify-center items-center p-4">
         
           
        
