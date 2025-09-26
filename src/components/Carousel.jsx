@@ -87,7 +87,7 @@ const Slide = ({ slide, index, current, handleSlideClick }) => {
     event.currentTarget.style.opacity = "1";
   };
 
-  const { src, button, title, text } = slide;
+  const { src, title, text } = slide;
 
   return (
     <div className="[perspective:1200px] [transform-style:preserve-3d]">
@@ -123,8 +123,7 @@ const Slide = ({ slide, index, current, handleSlideClick }) => {
             alt={title}
             src={src}
             onLoad={imageLoaded}
-            loading="eager"
-            decoding="sync"
+            loading={current === index ? "eager" : "lazy"}
           />
           {current === index && (
             <div className="absolute inset-0 bg-black/30 transition-all duration-1000" />
