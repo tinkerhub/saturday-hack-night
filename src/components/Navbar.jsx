@@ -30,7 +30,7 @@ const Navbar = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, delay: 0.2 }}
     >
-      <div className={`max-w-xs sm:max-w-md md:max-w-3xl mx-auto backdrop-blur-md rounded-xl ${
+      <div className={`max-w-md sm:max-w-md md:max-w-3xl mx-auto backdrop-blur-md rounded-xl ${
         scrolled 
           ? 'bg-[#FFFFE3]/10 border border-[#FFFFE3]/20 shadow-lg' 
           : 'bg-[#FFFFE3]/5 border border-[#FFFFE3]/10'
