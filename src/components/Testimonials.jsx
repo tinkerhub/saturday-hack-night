@@ -68,7 +68,7 @@ const Testimonials = () => {
           className="flex flex-col items-center justify-center mx-auto"
         >
          
-          <h2 className="text-4xl text-center sm:text-3xl md:text-4xl lg:text-5xl font-clash font-medium tracking-tighter mt-3 sm:mt-5">
+          <h2 className="text-3xl text-center sm:text-3xl md:text-4xl lg:text-5xl font-clash font-medium tracking-tighter mt-3 sm:mt-5">
           Don't take our word for it — take theirs
           </h2>
         </motion.div>
