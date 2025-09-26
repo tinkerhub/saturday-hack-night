@@ -55,18 +55,19 @@ const TechStackScroll = () => {
         ))}
       </div>
       <style jsx="true">{`
-        @keyframes scroll-left {
-          0% {
-            transform: translateX(0%);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-        .animate-scroll-left {
-          animation: scroll-left 60s linear infinite;
-        }
-      `}</style>
+  @keyframes scroll-left {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-scroll-left {
+    animation: scroll-left 60s linear infinite;
+  }
+    @media (max-width: 768px) {
+    .animate-scroll-left {
+      animation: scroll-left 30s linear infinite;
+    }
+  }
+`}</style>
     </div>
   );
 };

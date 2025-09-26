@@ -122,7 +122,7 @@ const Home = () => {
             <span className="absolute top-24 md:-top-4 md:-left-8 text-gray-500 opacity-50 text-[9rem] md:text-[14rem]" >“</span>
             At HackNight, you find your flow, your people, and your confidence as a developer.
           </p>
-          <div className="text-right -translate-x-14  text-[#FFFFE3] font-clash text-lg md:text-xl">
+          <div className="text-right -translate-x-14  text-[#FFFFE3] font-clash mt-8 md:mt-0 text-lg md:text-xl">
             <p className="font-medium">bla bla</p>
             <p className="text-sm opacity-80">Founder, Saturday HackNight</p>
           </div>
