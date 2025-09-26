@@ -100,12 +100,12 @@ const Home = () => {
           className="flex flex-col justify-center min-h-[70vh] relative z-20"
         >
           {/* Carousel showcase - moved here after landing section */}
-          <div className="relative z-20 w-full flex justify-center mt-36">
+          <div className="relative z-20 w-full h-screen flex justify-center mt-36">
             <Carousel />
           </div>
         </motion.div>
 
-        <div className="text-center text-[#FFFFE3] font-clash font-medium text-3xl md:w-3/4 justify-center mx-auto sm:text-xl md:text-2xl mt-20 lg:text-3xl ">
+        <div className="text-center text-[#FFFFE3] font-clash font-medium text-3xl md:w-3/4 justify-center mx-auto sm:text-xl md:text-2xl  lg:text-3xl ">
           Saturday HackNight: a biweekly hackathon to explore tech, build fun projects, and grow together.
         </div>
         <div className='mt-20 mb-20'> 

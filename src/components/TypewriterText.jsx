@@ -28,7 +28,7 @@ const TypewriterText = ({ text, speed = 100, delay = 0 }) => {
   }, [text, speed, delay]);
 
   return (
-    <p className="font-medium text-base sm:text-base md:text-lg lg:text-xl mt-3 min-h-[1.5em]">
+    <p className="font-medium w-3/4 text-base sm:text-base md:text-lg lg:text-xl mt-3 min-h-[1.5em]">
       {displayText}
       <span className="animate-pulse">|</span>
     </p>

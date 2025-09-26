@@ -59,7 +59,7 @@ export default function ConnectedScrollPage() {
         <div ref={observerRef} className="relative">
           
           {/* Fixed center line with moving dot */}
-          <div className="fixed left-1/2 top-1/2  transform md:-translate-x-1/2 -translate-x-52 -translate-y-1/2 pointer-events-none z-10">
+          <div className="fixed left-1/2 top-1/2  transform md:-translate-x-1/2 -translate-x-60 -translate-y-1/2 pointer-events-none z-10">
             {/* Vertical line */}
             <div className="w-px h-96 bg-gradient-to-b from-transparent via-white/30 to-transparent" />
             
@@ -87,7 +87,7 @@ export default function ConnectedScrollPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full max-w-6xl">
                   
                   {/* Step number - left side */}
-                  <div className=" translate-x-20 md:translate-x-0 lg:text-right">
+                  <div className=" translate-x-10 md:translate-x-0 lg:text-right">
                     <div className={`
                       inline-block text-8xl lg:text-9xl font-bold transition-all duration-700
                       ${activeIndex === index 
@@ -101,7 +101,7 @@ export default function ConnectedScrollPage() {
 
                   {/* Content - right side */}
                   <div className={`
-                    transition-all duration-700 translate-x-20 md:translate-x-0 lg:text-left
+                    transition-all duration-700 translate-x-10 md:translate-x-0 lg:text-left
                     ${activeIndex === index 
                       ? 'text-white font-clash opacity-100 transform translate-x-0' 
                       : 'text-white/20 opacity-50 transform translate-x-4'
