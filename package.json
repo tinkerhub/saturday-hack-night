@@ -1,23 +1,27 @@
 {
-  "name": "saturday-hacknight",
-  "version": "1.0.0",
-  "description": "Saturday HackNight Platform",
-  "license": "MIT",
-  "scripts": {
-    "build": "turbo run build",
-    "build:web": "turbo run build --filter=web",
-    "build:web-legacy": "turbo run build --filter=web-legacy",
-    "start": "turbo run start",
-    "dev": "turbo run dev"
-  },
+  "name": "saturday-hack-night",
+  "version": "0.1.0",
   "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.2.1",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.35.1",
+    "lucide-react": "^0.577.0",
+    "next": "16.1.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "tailwind-merge": "^3.5.0",
+    "tailwindcss": "^4.2.1"
+  },
   "devDependencies": {
-    "eslint-config-custom": "*",
-    "prettier": "latest",
-    "turbo": "latest"
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5"
   }
 }

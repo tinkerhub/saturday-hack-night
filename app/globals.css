@@ -1,0 +1,226 @@
+@import "tailwindcss";
+
+@theme {
+  /* Editorial poster palette — flat, off-white, no gradients */
+  --color-background: #f5f4ee;
+  --color-surface: #ffffff;
+  --color-surface-elevated: #ffffff;
+  --color-border: rgba(17, 17, 17, 0.12);
+  --color-ink: #111111;
+  --color-paper: #f5f4ee;
+  --color-green: #91e47a;
+  --color-cyan: #f28ad8;
+  --color-amber: #ffd34e;
+  --color-muted: #5a5650;
+  --color-white: #ffffff;
+
+  --font-sans: "Satoshi", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "Courier New", monospace;
+  --font-display: "Satoshi", var(--font-sans);
+
+  --radius-card: 4px;
+  --radius-button: 6px;
+}
+
+/* Flat poster accents — pink / blue / green / yellow */
+:root {
+  color-scheme: only light;
+  --ink: #111111;
+  --paper: #f5f4ee;
+  --pink: #f28ad8;
+  --blue: #aeeaf5;
+  --green: #91e47a;
+  --yellow: #ffd34e;
+}
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; padding: 0; margin: 0; }
+  html { scroll-behavior: smooth; scrollbar-gutter: stable; }
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    color-scheme: only light;
+  }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background-color: var(--pink); color: #ffffff; }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+  img, video, svg { max-width: 100%; height: auto; }
+  nav ul, nav ol { list-style: none; }
+}
+
+@layer base {
+  :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 2px; }
+  :focus:not(:focus-visible) { outline: none; }
+  a:focus-visible, button:focus-visible, [role="button"]:focus-visible,
+  input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 2px;
+    box-shadow: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important; transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer utilities {
+  .font-mono { font-family: var(--font-mono); }
+  .font-display { font-family: var(--font-display); }
+
+  /* Flat poster card — solid paper, hard black border, no blur, no shadow-glow */
+  .glass-card {
+    background: #ffffff;
+    border: 2px solid var(--ink);
+    border-radius: var(--radius-card);
+  }
+
+  /* Solid flat colors — no gradients anywhere */
+  .text-pink { color: var(--pink); }
+  .text-blue { color: var(--blue); }
+  .text-green-flat { color: var(--green); }
+  .text-yellow { color: var(--yellow); }
+
+  .bg-pink { background-color: var(--pink); }
+  .bg-blue { background-color: var(--blue); }
+  .bg-green-flat { background-color: var(--green); }
+  .bg-yellow { background-color: var(--yellow); }
+
+  /* Legacy gradient-text hooks — flattened to solid ink/pink, kept so old
+     className references don't break while sections are migrated */
+  .gradient-text { color: var(--pink); background: none; -webkit-text-fill-color: currentColor; }
+  .gradient-text-amber { color: var(--blue); background: none; -webkit-text-fill-color: currentColor; }
+  .gradient-text-teal { color: var(--blue); background: none; -webkit-text-fill-color: currentColor; }
+
+  /* Glow effects — fully removed, poster style has no ambient light */
+  .glow-green { box-shadow: none; }
+  .glow-cyan { box-shadow: none; }
+  .glow-amber { box-shadow: none; }
+
+  /* Legacy "neon" hooks — flattened to solid poster colors */
+  .text-neon-green { color: var(--green); }
+  .text-neon-cyan { color: var(--pink); }
+  .text-neon-amber { color: var(--blue); }
+  .text-muted { color: var(--muted); }
+
+  .bg-surface { background-color: var(--color-surface); }
+  .bg-surface-elevated { background-color: var(--color-surface-elevated); }
+  .border-subtle { border-color: var(--color-border); }
+
+  /* Thin square grid — the editorial-poster backdrop, replaces dot-grid */
+  .dot-grid {
+    background-image:
+      linear-gradient(rgba(17,17,17,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(17,17,17,0.08) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  @media (min-width: 768px) {
+    .dot-grid {
+      background-image:
+        linear-gradient(rgba(17,17,17,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(17,17,17,0.06) 1px, transparent 1px);
+    }
+  }
+
+  /* Line grid — same thin square grid, larger spacing */
+  .line-grid {
+    background-image:
+      linear-gradient(rgba(17,17,17,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(17,17,17,0.07) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  /* Subtle visible small white/gray square grid for black/dark surfaces */
+  .dark-grid-bg {
+    background-color: #000000;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .dark-grid-overlay {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Spotlight / ambient glow — removed site-wide, flat paper background only */
+  .spotlight { background: none; }
+  .spotlight-green { background: none; }
+  .spotlight-amber { background: none; }
+
+  /* Hard poster outline + offset shadow, for cards/buttons that want the
+     handcrafted look (no blur, just a crisp black drop) */
+  .outline-ink { border: 2px solid var(--ink); }
+  .shadow-hard { box-shadow: 4px 4px 0 0 var(--ink); }
+  .shadow-hard-sm { box-shadow: 3px 3px 0 0 var(--ink); }
+
+  /* Noise overlay — disabled, flat color fields only */
+  .noise { position: relative; }
+  .noise::after { content: none; }
+
+  /* Touch target */
+  .touch-target { min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; }
+
+  /* Skip link */
+  .skip-link {
+    position: fixed; top: -100%; left: 50%; transform: translateX(-50%);
+    z-index: 9999; background: var(--yellow); color: var(--ink); font-weight: 700;
+    font-size: 0.875rem; padding: 0.75rem 1.5rem; border-radius: 0 0 8px 8px;
+    text-decoration: none; transition: top 0.2s;
+  }
+  .skip-link:focus { top: 0; outline: 3px solid #000; outline-offset: 2px; }
+
+  /* SR only */
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0;
+  }
+
+  /* Line clamp */
+  .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+  /* Marquee animation */
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .marquee-track { display: flex; width: max-content; animation: marquee 25s linear infinite; }
+  .marquee-track:hover { animation-play-state: paused; }
+
+  /* Pulse dot */
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+  }
+  .pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+}
+
+@media (min-width: 768px) {
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--paper); }
+  ::-webkit-scrollbar-thumb { background: var(--ink); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #333333; }
+}
