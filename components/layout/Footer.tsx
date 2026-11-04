@@ -47,7 +47,6 @@ export default function Footer() {
                   { label: "How It Works", href: "/#get-selected" },
                   { label: "Upcoming Nights", href: "/#timeline" },
                   { label: "Past Nights", href: "/archive/" },
-                  { label: "Moments", href: "/moments/" },
                   { label: "Campus Program", href: "/campus/" },
                   { label: "Sticker Pack", href: "/stickers/" },
                 ].map((link) => (
