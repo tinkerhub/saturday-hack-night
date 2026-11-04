@@ -71,9 +71,9 @@ export const upcomingNights: HackNight[] = [
     id: 1,
     slug: "shn-s2-001-beyond-gesture",
     theme: "Beyond Gesture",
-    date: "October 31, 2026",
-    isoDate: "2026-10-31T12:30:00Z", // 6:00 PM IST = 12:30 UTC
-    endIsoDate: "2026-10-31T17:30:00Z", // 11:00 PM IST = 17:30 UTC
+    date: "November 7, 2026",
+    isoDate: "2026-11-07T12:30:00Z", // 6:00 PM IST = 12:30 UTC
+    endIsoDate: "2026-11-07T17:30:00Z", // 11:00 PM IST = 17:30 UTC
     mode: "Online",
     stack: "MediaPipe",
     difficulty: "Beginner",
