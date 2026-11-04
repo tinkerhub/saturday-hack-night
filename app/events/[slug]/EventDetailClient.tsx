@@ -83,7 +83,7 @@ export default function EventDetailClient({ night }: { night: HackNight }) {
           <div className="flex flex-wrap gap-3 sm:gap-4 text-black font-mono font-medium text-xs sm:text-sm mb-8">
             <div className="flex items-center gap-2 bg-[#fff6bf] px-3 py-1.5 rounded-lg border border-black shadow-sm">
               <CalendarDays size={14} className="stroke-[2]" />
-              <span>{night.date} · 6:00 PM IST</span>
+              <span>{night.date === "To be announced" ? "Date to be announced · 6:00 PM IST" : `${night.date} · 6:00 PM IST`}</span>
             </div>
             <div className="flex items-center gap-2 bg-[#e0f4fb] px-3 py-1.5 rounded-lg border border-black shadow-sm">
               <Code2 size={14} className="stroke-[2]" />

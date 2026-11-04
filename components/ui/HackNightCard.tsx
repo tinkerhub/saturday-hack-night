@@ -104,7 +104,7 @@ export default function HackNightCard({ event, index }: HackNightCardProps) {
         {/* Date */}
         <div className="flex items-center gap-2 text-black/80 font-mono font-medium text-xs">
           <CalendarDays size={14} className="stroke-[2]" />
-          <span>{event.date} · 6:00 – 11:00 PM IST</span>
+          <span>{event.date === "To be announced" ? "Date to be announced · 6:00 PM IST" : `${event.date} · 6:00 – 11:00 PM IST`}</span>
         </div>
 
         {/* Stack */}
