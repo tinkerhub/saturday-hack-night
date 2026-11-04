@@ -795,9 +795,6 @@ export const socialShares: SocialShare[] = [
 // and fills any remaining slots (up to MOMENTS_PLACEHOLDER_COUNT) with empty
 // placeholders.
 
-export const MOMENTS_PLACEHOLDER_COUNT = 5;
-export const MOMENTS_HOME_PLACEHOLDER_COUNT = 3;
-
 export const moments: string[] = [
   "/tinkerspace/tinkerspace-kochi.webp",
 ];

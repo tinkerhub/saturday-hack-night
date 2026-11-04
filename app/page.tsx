@@ -10,7 +10,6 @@ import TinkerSpace from "@/components/sections/TinkerSpace";
 import Experience from "@/components/sections/Experience";
 import Community from "@/components/sections/Community";
 import FAQ from "@/components/sections/FAQ";
-import Moments from "@/components/sections/Moments";
 
 export default function Home() {
   return (
@@ -33,7 +32,6 @@ export default function Home() {
       <Experience />
       <Community />
       <FAQ />
-      <Moments />
       <Footer />
     </main>
   );
