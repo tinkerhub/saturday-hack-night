@@ -74,9 +74,20 @@ export default function LiveCountdown() {
 
   return (
     <div className="flex flex-col items-center gap-5">
+            {ready && phase === "live" && (
+        <a
+          href={`/events/${getNextNight().slug}/`}
+          className="inline-flex items-center gap-2.5 font-mono text-sm sm:text-base font-black uppercase tracking-widest text-black bg-[#22c55e] hover:bg-[#16a34a] border-[3px] border-black rounded-xl px-5 py-2 shadow-[3px_3px_0px_0px_#000] hover:-translate-y-0.5 transition-all"
+        >
+          <span className="relative flex h-3 w-3" aria-hidden="true">
+            <span className="absolute inline-flex h-full w-full rounded-full bg-white opacity-75 animate-ping" />
+            <span className="relative inline-flex h-3 w-3 rounded-full bg-white border border-black" />
+          </span>
+          Live now
+        </a>
+      )}
       {ready && (
         <span className="inline-flex items-center gap-2 font-mono text-xs sm:text-sm font-bold uppercase tracking-widest text-black bg-[#f5d6ed] border border-black rounded px-3 py-1 shadow-sm">
-          {phase === "live" && <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" aria-hidden="true" />}
           {PHASE_LABEL[phase]}
         </span>
       )}
