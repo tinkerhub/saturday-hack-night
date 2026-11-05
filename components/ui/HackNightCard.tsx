@@ -70,7 +70,7 @@ export default function HackNightCard({ event, index }: HackNightCardProps) {
             <Lock size={22} strokeWidth={2} />
           </div>
           <p className="font-display text-xl font-bold text-black">Night {nightNum} · Locked</p>
-          <p className="font-mono text-xs font-bold uppercase tracking-wider text-black/70">Cooking</p>
+          <span className="font-mono text-xs font-bold uppercase tracking-wider text-black bg-[#ffd34e] border border-black rounded px-2.5 py-0.5 shadow-sm">Cooking</span>
         </div>
       </motion.div>
     );
@@ -126,21 +126,33 @@ export default function HackNightCard({ event, index }: HackNightCardProps) {
 
         {/* CTAs */}
         <div className="mt-auto pt-4 flex items-center gap-3 border-t border-black/15">
-          <a
-            href={REGISTER_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 text-center font-bold text-sm py-2.5 rounded-lg border-2 border-black bg-black text-white hover:bg-neutral-800 transition-all duration-150 shadow-sm"
-          >
-            Register
-          </a>
-          <a
-            href={`/events/${event.slug}/`}
-            className="flex items-center gap-1 font-mono text-xs font-bold text-black hover:text-[#f5d6ed] transition-colors"
-          >
-            Details
-            <ArrowRight size={13} strokeWidth={2} />
-          </a>
+          {event.id === 1 ? (
+            <>
+              <a
+                href={REGISTER_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 text-center font-bold text-sm py-2.5 rounded-lg border-2 border-black bg-black text-white hover:bg-neutral-800 transition-all duration-150 shadow-sm"
+              >
+                Register
+              </a>
+              <a
+                href={`/events/${event.slug}/`}
+                className="flex items-center gap-1 font-mono text-xs font-bold text-black hover:text-[#f5d6ed] transition-colors"
+              >
+                Details
+                <ArrowRight size={13} strokeWidth={2} />
+              </a>
+            </>
+          ) : (
+            <a
+              href={`/events/${event.slug}/`}
+              className="flex-1 flex items-center justify-center gap-1.5 text-center font-bold text-sm py-2.5 rounded-lg border-2 border-black bg-black text-white hover:bg-neutral-800 transition-all duration-150 shadow-sm"
+            >
+              Details
+              <ArrowRight size={14} strokeWidth={2.5} />
+            </a>
+          )}
         </div>
       </div>
     </motion.div>

@@ -48,8 +48,8 @@ export default function Footer() {
                   { label: "Upcoming Nights", href: "/#timeline" },
                   { label: "Past Nights", href: "/archive/" },
                   { label: "Campus Program", href: "/campus/" },
-                  { label: "Sticker Pack", href: "/stickers/" },
-                ].map((link) => (
+    
+               ].map((link) => (
                   <a
                     key={link.href}
                     href={link.href}
@@ -68,7 +68,7 @@ export default function Footer() {
               </p>
               <div className="flex flex-col gap-2.5">
                 {[
-                  { label: "Discord Community", href: "https://discord.gg/tinkerhub" },
+                
                   { label: "TinkerSpace Kochi", href: "/#tinkerspace" },
                   { label: "Campus Host Guide", href: "/campus/" },
                   { label: "GitHub Repository", href: "https://github.com/appukurian/saturday-hack-night" },

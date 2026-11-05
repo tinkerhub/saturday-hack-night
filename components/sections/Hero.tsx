@@ -3,7 +3,7 @@
 import { motion } from "@/lib/motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import LiveCountdown from "@/components/ui/LiveCountdown";
-import { REGISTER_URL, getNextNight } from "@/lib/data";
+import { getNextNight } from "@/lib/data";
 
 const firstWords = ["STOP", "WATCHING."];
 const secondWords = ["START", "BUILDING."];
@@ -160,15 +160,6 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
         >
-          <a
-            href={REGISTER_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 bg-[#d4f5e0] text-black font-bold text-base px-8 py-3.5 rounded-xl border-2 border-black shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-150"
-          >
-            Join Hack Night
-            <ArrowRight size={18} strokeWidth={2.5} />
-          </a>
           <a
             href="#get-selected"
             className="inline-flex items-center justify-center gap-2 bg-[#fff6bf] text-black font-bold text-base px-8 py-3.5 rounded-xl border-2 border-black shadow-sm hover:bg-neutral-50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-150"

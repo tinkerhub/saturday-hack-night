@@ -96,15 +96,21 @@ export default function EventDetailClient({ night }: { night: HackNight }) {
           </div>
 
           {/* Register CTA */}
-          <a
-            href={REGISTER_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-[#ffd34e] text-black font-bold text-base px-8 py-3.5 rounded-lg border-2 border-black shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-150"
-          >
-            Register for this night
-            <ArrowRight size={17} strokeWidth={2} />
-          </a>
+          {night.id === 1 ? (
+            <a
+              href={REGISTER_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-[#ffd34e] text-black font-bold text-base px-8 py-3.5 rounded-lg border-2 border-black shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-150"
+            >
+              Register for this night
+              <ArrowRight size={17} strokeWidth={2} />
+            </a>
+          ) : (
+            <div className="inline-flex items-center gap-2 bg-[#fff6bf] text-black font-mono font-bold text-sm px-6 py-3 rounded-lg border border-black shadow-sm">
+              Registration opening soon
+            </div>
+          )}
         </motion.div>
 
         {/* About */}
@@ -251,28 +257,30 @@ export default function EventDetailClient({ night }: { night: HackNight }) {
         )}
 
         {/* Bottom CTA */}
-        <motion.div
-          className="rounded-xl border-2 border-black bg-[#fae4f2] text-black p-8 sm:p-10 text-center shadow-sm"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <h3 className="font-display font-bold text-2xl sm:text-3xl mb-2">
-            Ready to build?
-          </h3>
-          <p className="text-black/75 font-normal text-base mb-6 max-w-lg mx-auto">
-            Free to join. No prior experience needed. Build with friends and push to GitHub by midnight.
-          </p>
-          <a
-            href={REGISTER_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-[#d4f5e0] text-black font-bold text-base px-8 py-3.5 rounded-lg border-2 border-black shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-150"
+        {night.id === 1 && (
+          <motion.div
+            className="rounded-xl border-2 border-black bg-[#fae4f2] text-black p-8 sm:p-10 text-center shadow-sm"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
           >
-            Register Now — It&apos;s Free
-            <ArrowRight size={17} strokeWidth={2} />
-          </a>
-        </motion.div>
+            <h3 className="font-display font-bold text-2xl sm:text-3xl mb-2">
+              Ready to build?
+            </h3>
+            <p className="text-black/75 font-normal text-base mb-6 max-w-lg mx-auto">
+              Free to join. No prior experience needed. Build with friends and push to GitHub by midnight.
+            </p>
+            <a
+              href={REGISTER_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-[#d4f5e0] text-black font-bold text-base px-8 py-3.5 rounded-lg border-2 border-black shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-150"
+            >
+              Register Now — It&apos;s Free
+              <ArrowRight size={17} strokeWidth={2} />
+            </a>
+          </motion.div>
+        )}
       </div>
 
       <Footer />
