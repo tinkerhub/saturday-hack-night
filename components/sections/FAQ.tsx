@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "@/lib/motion";
 import { Plus, Minus } from "lucide-react";
-import { faq } from "@/lib/data";
+import { faq, DISCORD_URL } from "@/lib/data";
 
 const litePalettes = [
   "bg-[#fae4f2]",
@@ -117,8 +117,8 @@ export default function FAQ() {
             <span className="text-black font-semibold text-sm sm:text-base">
               Still have questions?
             </span>
-            <a
-              href="https://discord.gg/tinkerhub"
+            <a             
+               href={DISCORD_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 bg-[#f5d6ed] text-black font-mono font-bold text-xs uppercase tracking-wider border border-black rounded-lg shadow-sm hover:opacity-90 transition-opacity"

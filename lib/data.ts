@@ -792,8 +792,9 @@ export const moments: string[] = [
   "/tinkerspace/tinkerspace-kochi.webp",
 ];
 
-export const REGISTER_URL = "https://hub.tinkerhub.org";
-export const DISCORD_URL = "https://discord.gg/tinkerhub";
+export const REGISTER_URL = "https://tinkerhub.org/events/WAQG36Y609/saturday-hack-night";
+export const DISCORD_URL =
+  "https://discord.com/channels/735180366297563257/1257715489547751465";
 export const TINKERSPACE_MAPS_URL =
   "https://maps.google.com/?q=TinkerSpace+Kochi";
 export const STICKERS_URL = "/stickers/";
