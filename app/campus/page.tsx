@@ -112,7 +112,7 @@ export default function CampusPage() {
 
         {/* Hero Section */}
         <header className="mb-14">
-          <p className="font-mono font-bold text-xs uppercase tracking-widest text-[#f5d6ed] mb-4">
+          <p className="font-mono font-bold text-xs uppercase tracking-wider text-black bg-[#f5d6ed] inline-block px-3 py-1 border border-black rounded shadow-sm mb-4">
             Campus Edition
           </p>
           <h1 className="font-display font-bold text-4xl sm:text-6xl lg:text-7xl text-[#111111] tracking-[-0.03em] leading-[0.95] mb-8">
@@ -138,7 +138,7 @@ export default function CampusPage() {
         <div className="py-10 border-y-2 border-black grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
           <div>
             <div className="font-display font-bold text-5xl sm:text-6xl text-[#111111] leading-none mb-2">
-              120<span className="text-[#f5d6ed]">+</span>
+              120<span className="text-[#db2777] font-black">+</span>
             </div>
             <div className="font-mono text-xs uppercase tracking-widest text-[#111111]/70 font-bold">
               Students
@@ -154,7 +154,7 @@ export default function CampusPage() {
           </div>
           <div>
             <div className="font-display font-bold text-5xl sm:text-6xl text-[#111111] leading-none mb-2">
-              24<span className="text-[#d4f5e0]">H</span>
+              24<span className="text-[#16a34a] font-black">H</span>
             </div>
             <div className="font-mono text-xs uppercase tracking-widest text-[#111111]/70 font-bold">
               Final Hackathon
@@ -162,7 +162,7 @@ export default function CampusPage() {
           </div>
           <div>
             <div className="font-display font-bold text-5xl sm:text-6xl text-[#111111] leading-none mb-2">
-              0<span className="text-[#AEEAF5]">₹</span>
+              0<span className="text-[#0284c7] font-black">₹</span>
             </div>
             <div className="font-mono text-xs uppercase tracking-widest text-[#111111]/70 font-bold">
               100% Free
@@ -172,7 +172,7 @@ export default function CampusPage() {
 
         {/* Section: WHAT IS SHN AT CAMPUS? */}
         <section className="mb-16">
-          <p className="font-mono font-bold text-xs uppercase tracking-widest text-[#f5d6ed] mb-2">
+          <p className="font-mono font-bold text-xs uppercase tracking-wider text-black bg-[#f5d6ed] inline-block px-3 py-1 border border-black rounded shadow-sm mb-3">
             01 / Overview
           </p>
           <h2 className="font-display font-bold text-2xl sm:text-4xl text-[#111111] tracking-[-0.02em] leading-tight uppercase mb-6">
@@ -196,7 +196,7 @@ export default function CampusPage() {
 
         {/* Section: WHO CAN PARTICIPATE? */}
         <section className="mb-16">
-          <p className="font-mono font-bold text-xs uppercase tracking-widest text-[#f5d6ed] mb-2">
+          <p className="font-mono font-bold text-xs uppercase tracking-wider text-black bg-[#f5d6ed] inline-block px-3 py-1 border border-black rounded shadow-sm mb-3">
             02 / Eligibility
           </p>
           <h2 className="font-display font-bold text-2xl sm:text-4xl text-[#111111] tracking-[-0.02em] leading-tight uppercase mb-6">
@@ -238,7 +238,7 @@ export default function CampusPage() {
 
         {/* Section: HOW IT WORKS */}
         <section className="mb-16">
-          <p className="font-mono font-bold text-xs uppercase tracking-widest text-[#f5d6ed] mb-2">
+          <p className="font-mono font-bold text-xs uppercase tracking-wider text-black bg-[#f5d6ed] inline-block px-3 py-1 border border-black rounded shadow-sm mb-3">
             03 / Process
           </p>
           <h2 className="font-display font-bold text-2xl sm:text-4xl text-[#111111] tracking-[-0.02em] leading-tight uppercase mb-8">
@@ -270,7 +270,7 @@ export default function CampusPage() {
 
         {/* Section: WHAT YOU NEED TO HOST */}
         <section className="mb-16">
-          <p className="font-mono font-bold text-xs uppercase tracking-widest text-[#f5d6ed] mb-2">
+          <p className="font-mono font-bold text-xs uppercase tracking-wider text-black bg-[#f5d6ed] inline-block px-3 py-1 border border-black rounded shadow-sm mb-3">
             04 / Requirements
           </p>
           <h2 className="font-display font-bold text-2xl sm:text-4xl text-[#111111] tracking-[-0.02em] leading-tight uppercase mb-8">
@@ -305,7 +305,7 @@ export default function CampusPage() {
 
         {/* Section: WHAT HAPPENS AT THE CAMPUS? */}
         <section className="mb-16">
-          <p className="font-mono font-bold text-xs uppercase tracking-widest text-[#f5d6ed] mb-2">
+          <p className="font-mono font-bold text-xs uppercase tracking-wider text-black bg-[#f5d6ed] inline-block px-3 py-1 border border-black rounded shadow-sm mb-3">
             05 / The Flow
           </p>
           <h2 className="font-display font-bold text-2xl sm:text-4xl text-[#111111] tracking-[-0.02em] leading-tight uppercase mb-6">
@@ -358,7 +358,7 @@ export default function CampusPage() {
         <section className="mb-16">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
             <div>
-              <p className="font-mono font-bold text-xs uppercase tracking-widest text-[#f5d6ed] mb-2">
+              <p className="font-mono font-bold text-xs uppercase tracking-wider text-black bg-[#f5d6ed] inline-block px-3 py-1 border border-black rounded shadow-sm mb-3">
                 06 / Archive
               </p>
               <h2 className="font-display font-bold text-2xl sm:text-4xl text-[#111111] tracking-[-0.02em] leading-tight uppercase">
@@ -405,7 +405,7 @@ export default function CampusPage() {
 
         {/* Section: CAMPUS COMMUNITY & TINKERHUB CHAPTER */}
         <section className="mb-16">
-          <p className="font-mono font-bold text-xs uppercase tracking-widest text-[#f5d6ed] mb-2">
+          <p className="font-mono font-bold text-xs uppercase tracking-wider text-black bg-[#f5d6ed] inline-block px-3 py-1 border border-black rounded shadow-sm mb-3">
             07 / Community
           </p>
           <h2 className="font-display font-bold text-2xl sm:text-4xl text-[#111111] tracking-[-0.02em] leading-tight uppercase mb-6">
@@ -430,7 +430,7 @@ export default function CampusPage() {
 
         {/* Section: READY? CTA */}
         <section className="pt-4 pb-12">
-          <p className="font-mono font-bold text-xs uppercase tracking-widest text-[#f5d6ed] mb-3">
+          <p className="font-mono font-bold text-xs uppercase tracking-wider text-black bg-[#f5d6ed] inline-block px-3 py-1 border border-black rounded shadow-sm mb-4">
             08 / Host With Us
           </p>
           <h2 className="font-display font-bold text-3xl sm:text-5xl lg:text-6xl text-[#111111] tracking-[-0.02em] leading-tight uppercase mb-6">
