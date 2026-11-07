@@ -165,18 +165,6 @@ export default function TableOfContents() {
               );
             })}
           </nav>
-
-          {/* Quick Hub Footer */}
-          <div className="mt-6 pt-4 border-t border-black/10">
-            <div className="bg-[#aeeaf5] border border-black rounded-lg p-3 text-xs">
-              <span className="font-mono font-bold block text-black text-[11px] mb-1">
-                ⚡ Saturday Hack Night
-              </span>
-              <p className="text-black/80 text-[11px] leading-tight">
-                Sprint 01: Beyond Gesture. Push your prototype to GitHub before midnight!
-              </p>
-            </div>
-          </div>
         </div>
       </aside>
     </>
