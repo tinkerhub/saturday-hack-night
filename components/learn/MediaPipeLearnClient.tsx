@@ -34,6 +34,8 @@ import {
   Video,
   Film,
   Check,
+  GitFork,
+  HelpCircle,
 } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -51,6 +53,12 @@ import {
   projectIdeas,
   mentorInfo,
   coordinatorsList,
+  MEDIAPIPE_STARTER_REPO,
+  MEDIAPIPE_FORK_URL,
+  starterTemplateGitCommands,
+  MEDIAPIPE_STARTER_REPO_URL,
+  MEDIAPIPE_STARTER_FORK_URL,
+  MEDIAPIPE_STARTER_GIT_CLONE_URL,
 } from "@/lib/mediapipeData";
 import { REGISTER_URL, DISCORD_URL, TINKERSPACE_MAPS_URL } from "@/lib/data";
 
@@ -158,6 +166,142 @@ export default function MediaPipeLearnClient() {
               </div>
             </div>
 
+            {/* Official Starter Template Fork Banner */}
+            <div className="mb-6 p-5 sm:p-6 rounded-2xl border-2 border-black bg-[#d4f5e0] shadow-hard-sm">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="font-mono text-xs font-bold uppercase tracking-wider bg-black text-white px-2.5 py-0.5 rounded flex items-center gap-1.5">
+                    <FolderGit2 size={13} />
+                    Official Starter Template
+                  </span>
+                  <span className="font-mono text-xs font-bold uppercase tracking-wider bg-[#ffd34e] text-black px-2 py-0.5 rounded border border-black shadow-xs">
+                    ⚠️ Fork Required
+                  </span>
+                </div>
+                <span className="font-mono text-xs font-bold text-black/75">
+                  TINKERHUB-SATURDAY-HACKNIGHT / SHN-MEDIAPIPE
+                </span>
+              </div>
+
+              <h2 className="font-display font-bold text-xl sm:text-2xl text-black mb-2">
+                Fork the Starter Template Before You Start Building!
+              </h2>
+
+              <p className="text-xs sm:text-sm text-black/85 font-medium leading-relaxed mb-4">
+                We have provided an official starter template repo with ready-to-run MediaPipe boilerplate and webcam streaming helpers.
+                <strong> Don&apos;t forget: You must fork this repository to your own GitHub account before you start building.</strong>
+              </p>
+
+              {/* Step Highlights */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 mb-5 font-mono text-xs">
+                <div className="bg-white p-3 rounded-lg border-2 border-black shadow-xs">
+                  <div className="font-bold text-black flex items-center gap-1.5 mb-1 text-[11px] uppercase">
+                    <GitFork size={13} className="text-[#f28ad8]" />
+                    1. Fork Before Building
+                  </div>
+                  <p className="text-black/75 text-[11px] font-sans leading-tight">
+                    Hit the Fork button to create your own copy on GitHub before writing any code.
+                  </p>
+                </div>
+                <div className="bg-white p-3 rounded-lg border-2 border-black shadow-xs">
+                  <div className="font-bold text-black flex items-center gap-1.5 mb-1 text-[11px] uppercase">
+                    <Laptop size={13} className="text-[#0088cc]" />
+                    2. Clone &amp; Commit Often
+                  </div>
+                  <p className="text-black/75 text-[11px] font-sans leading-tight">
+                    Clone your fork locally. Commit every change continuously before moving to the next!
+                  </p>
+                </div>
+                <div className="bg-white p-3 rounded-lg border-2 border-black shadow-xs">
+                  <div className="font-bold text-black flex items-center gap-1.5 mb-1 text-[11px] uppercase">
+                    <HelpCircle size={13} className="text-[#e29600]" />
+                    3. Ask Doubts Before
+                  </div>
+                  <p className="text-black/75 text-[11px] font-sans leading-tight">
+                    Stuck or have doubts? Ask mentors on Discord before starting your build!
+                  </p>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+                <a
+                  href={MEDIAPIPE_FORK_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-black text-white hover:bg-black/85 font-mono font-bold text-xs sm:text-sm px-4 sm:px-5 py-2.5 rounded-lg border-2 border-black shadow-hard-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
+                >
+                  <GitFork size={15} />
+                  Fork Repository on GitHub
+                  <ExternalLink size={13} />
+                </a>
+                <a
+                  href={MEDIAPIPE_STARTER_REPO}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-white text-black hover:bg-[#fff6bf] font-mono font-bold text-xs sm:text-sm px-3.5 sm:px-4 py-2.5 rounded-lg border-2 border-black shadow-hard-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
+                >
+                  <Github size={15} />
+                  View Template Repo
+                </a>
+                <a
+                  href={DISCORD_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-[#f5d6ed] text-black hover:bg-[#f28ad8] font-mono font-bold text-xs sm:text-sm px-3.5 sm:px-4 py-2.5 rounded-lg border-2 border-black shadow-hard-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
+                >
+                  <MessageSquare size={14} />
+                  Ask Doubts on Discord
+                </a>
+              </div>
+            </div>
+
+            {/* Official Starter Template Fork Callout */}
+            <div className="mb-4 p-4 sm:p-5 rounded-xl border-2 border-black bg-[#91e47a] shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-lg bg-black text-[#91e47a] flex items-center justify-center shrink-0 border border-black shadow-xs">
+                  <Github size={20} />
+                </div>
+                <div>
+                  <div className="flex flex-wrap items-center gap-2 mb-1">
+                    <span className="font-mono text-[11px] font-bold uppercase tracking-wider bg-black text-white px-2 py-0.5 rounded">
+                      Official Starter Template
+                    </span>
+                    <span className="font-mono text-[11px] font-bold text-black uppercase">
+                      ⚠️ Fork Before Starting
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-black font-bold leading-snug">
+                    Don&apos;t forget to fork the template repository before you start building!
+                  </p>
+                  <p className="text-xs text-black/80 font-medium mt-0.5">
+                    Fork <span className="font-mono font-bold">SHN-MEDIAPIPE</span> to your account, clone locally, and build on it.
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto shrink-0">
+                <a
+                  href={MEDIAPIPE_STARTER_FORK_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 bg-black text-white font-mono font-bold text-xs px-4 py-2.5 rounded-lg border-2 border-black shadow-hard-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all w-full sm:w-auto"
+                >
+                  <FolderGit2 size={14} />
+                  Fork Template
+                  <ExternalLink size={12} />
+                </a>
+                <a
+                  href={MEDIAPIPE_STARTER_REPO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-1.5 bg-white text-black font-mono font-bold text-xs px-3.5 py-2.5 rounded-lg border-2 border-black shadow-hard-sm hover:bg-[#fff6bf] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all w-full sm:w-auto"
+                >
+                  <Github size={14} />
+                  View Repo
+                </a>
+              </div>
+            </div>
+
             {/* Commit History Requirement Alert */}
             <div className="mb-8 p-3.5 rounded-xl border-2 border-black bg-[#ffd34e] shadow-xs flex items-center gap-3">
               <span className="text-lg shrink-0">⚠️</span>
@@ -194,8 +338,24 @@ export default function MediaPipeLearnClient() {
             {/* Quick CTA Buttons */}
             <div className="flex flex-wrap items-center gap-3 mt-8">
               <a
+                href={MEDIAPIPE_FORK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-black text-white font-bold text-sm px-5 py-3 rounded-lg border-2 border-black shadow-hard-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
+              >
+                <GitFork size={15} />
+                Fork Starter Template
+              </a>
+              <a
+                href="#starter-template"
+                className="inline-flex items-center gap-2 bg-[#91e47a] text-black font-bold text-sm px-6 py-3 rounded-lg border-2 border-black shadow-hard-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
+              >
+                <FolderGit2 size={15} />
+                Fork Starter Template
+              </a>
+              <a
                 href="#what-is-mediapipe"
-                className="inline-flex items-center gap-2 bg-[#ffd34e] text-black font-bold text-sm px-6 py-3 rounded-lg border-2 border-black shadow-hard-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
+                className="inline-flex items-center gap-2 bg-[#ffd34e] text-black font-bold text-sm px-5 py-3 rounded-lg border-2 border-black shadow-hard-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
               >
                 Start Learning
                 <ArrowRight size={15} />
@@ -336,13 +496,290 @@ export default function MediaPipeLearnClient() {
             </section>
 
             {/* ──────────────────────────────────────────────────────────── */}
-            {/* 2. Prerequisites */}
+            {/* 2. Starter Template (Fork Required) */}
+            {/* ──────────────────────────────────────────────────────────── */}
+            <section id="starter-template" className="scroll-mt-24">
+              <div className="border-2 border-black rounded-2xl bg-white p-5 sm:p-7 shadow-hard-sm space-y-6">
+                <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b-2 border-black">
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono font-bold text-sm bg-black text-white px-2.5 py-0.5 rounded">
+                      02
+                    </span>
+                    <h2 className="font-display font-bold text-xl sm:text-2xl text-black">
+                      Starter Template (Fork Required)
+                    </h2>
+                  </div>
+                  <span className="font-mono text-xs font-bold bg-[#ffd34e] text-black px-2.5 py-0.5 rounded border border-black shadow-xs">
+                    ⚠️ Mandatory Step
+                  </span>
+                </div>
+
+                <div className="p-4 sm:p-5 rounded-xl border-2 border-black bg-[#d4f5e0]">
+                  <h3 className="font-display font-bold text-base sm:text-lg text-black mb-2 flex items-center gap-2">
+                    <GitFork size={18} className="text-black" />
+                    Don&apos;t Forget: Fork the Repo Before You Start Building!
+                  </h3>
+                  <p className="text-black/85 text-xs sm:text-sm leading-relaxed mb-4">
+                    To make starting easy, TinkerHub provides an official starter repository containing webcam boilerplate, dependencies, and sample MediaPipe scripts.
+                    <strong> You must fork this repository to your own GitHub account</strong> before writing any code!
+                  </p>
+
+                  <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+                    <a
+                      href={MEDIAPIPE_FORK_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 bg-black text-white hover:bg-black/85 font-mono font-bold text-xs sm:text-sm px-4 py-2.5 rounded-lg border-2 border-black shadow-hard-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
+                    >
+                      <GitFork size={14} />
+                      Fork Repository on GitHub
+                      <ExternalLink size={12} />
+                    </a>
+                    <a
+                      href={MEDIAPIPE_STARTER_REPO}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 bg-white text-black hover:bg-[#fff6bf] font-mono font-bold text-xs sm:text-sm px-4 py-2.5 rounded-lg border-2 border-black shadow-hard-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
+                    >
+                      <Github size={14} />
+                      View on GitHub
+                    </a>
+                    <a
+                      href={DISCORD_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 bg-[#f5d6ed] text-black hover:bg-[#f28ad8] font-mono font-bold text-xs sm:text-sm px-4 py-2.5 rounded-lg border-2 border-black shadow-hard-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
+                    >
+                      <MessageSquare size={14} />
+                      Ask Doubts on Discord
+                    </a>
+                  </div>
+                </div>
+
+                {/* Git Clone & Setup Commands */}
+                <div className="space-y-3">
+                  <h3 className="font-display font-bold text-xs sm:text-sm text-black flex items-center gap-1.5">
+                    <Laptop size={15} />
+                    Setup Commands: Fork, Clone &amp; Install
+                  </h3>
+                  <CodeBlock
+                    language="bash"
+                    filename="setup_from_fork.sh"
+                    code={starterTemplateGitCommands}
+                  />
+                </div>
+
+                {/* Important Rules Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                  <div className="p-3.5 rounded-xl border-2 border-black bg-[#fff6bf] flex items-start gap-2.5">
+                    <span className="text-base shrink-0">❓</span>
+                    <div>
+                      <h4 className="font-display font-bold text-xs text-black uppercase mb-0.5">
+                        Ask Doubts Before You Start
+                      </h4>
+                      <p className="text-xs text-black/80 leading-snug">
+                        If you have questions about OpenCV camera setup, virtual environments, or project scope, ask in the Discord channel or reach out to mentors before building!
+                      </p>
+                    </div>
+                  </div>
+                  <div className="p-3.5 rounded-xl border-2 border-black bg-[#ffd34e] flex items-start gap-2.5">
+                    <span className="text-base shrink-0">⚠️</span>
+                    <div>
+                      <h4 className="font-display font-bold text-xs text-black uppercase mb-0.5">
+                        Commit History Requirement
+                      </h4>
+                      <p className="text-xs text-black/80 leading-snug">
+                        Commit every logical step of your work as you build. Commits will be verified during judging to reward active iteration and honest effort.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* ──────────────────────────────────────────────────────────── */}
+            {/* 3. Prerequisites */}
+            {/* ──────────────────────────────────────────────────────────── */}
+            <section id="starter-template" className="scroll-mt-24">
+              <div className="border-2 border-black rounded-2xl bg-white p-5 sm:p-7 shadow-hard-sm space-y-6">
+                {/* Section Header */}
+                <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b-2 border-black">
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono font-bold text-sm bg-black text-white px-2.5 py-0.5 rounded">
+                      02
+                    </span>
+                    <h2 className="font-display font-bold text-xl sm:text-2xl text-black">
+                      Starter Template &amp; Forking Guide
+                    </h2>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <a
+                      href={MEDIAPIPE_STARTER_FORK_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 bg-[#91e47a] text-black font-mono font-bold text-xs px-3.5 py-1.5 rounded-lg border-2 border-black shadow-xs hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 transition-all"
+                    >
+                      <FolderGit2 size={13} />
+                      Fork on GitHub
+                      <ExternalLink size={11} />
+                    </a>
+                    <a
+                      href={DISCORD_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 bg-[#fae4f2] text-black font-mono font-bold text-xs px-3 py-1.5 rounded-lg border-2 border-black shadow-xs hover:bg-[#f28ad8] transition-all"
+                    >
+                      <MessageSquare size={13} />
+                      Ask Doubts
+                    </a>
+                  </div>
+                </div>
+
+                {/* Important Notice Banner */}
+                <div className="p-4 rounded-xl border-2 border-black bg-[#ffd34e] shadow-xs flex items-start gap-3">
+                  <span className="text-2xl shrink-0">🚨</span>
+                  <div>
+                    <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-black mb-1">
+                      Crucial Rule: Fork This Repo Before You Start Building!
+                    </h3>
+                    <p className="text-xs sm:text-sm text-black font-medium leading-relaxed">
+                      Do not start from a blank folder. You <strong>must fork</strong> the official Saturday Hack Night MediaPipe repository before coding. If you have any doubts before or during setup, ask the mentors in Discord right away!
+                    </p>
+                  </div>
+                </div>
+
+                {/* 4 Step Process Cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <div className="p-4 rounded-xl border-2 border-black bg-[#fae4f2] flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="font-mono text-xs font-bold bg-black text-white px-2 py-0.5 rounded">
+                          Step 01
+                        </span>
+                        <FolderGit2 size={16} className="text-black" />
+                      </div>
+                      <h4 className="font-display font-bold text-sm text-black mb-1">
+                        1. Fork the Repository
+                      </h4>
+                      <p className="text-xs text-black/80 font-medium leading-relaxed">
+                        Navigate to the official repo and click the <strong>&ldquo;Fork&rdquo;</strong> button to generate your personal copy under your GitHub account.
+                      </p>
+                    </div>
+                    <a
+                      href={MEDIAPIPE_STARTER_FORK_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-3 inline-flex items-center gap-1.5 font-mono text-xs font-bold text-black hover:underline"
+                    >
+                      Open Fork Page &rarr;
+                    </a>
+                  </div>
+
+                  <div className="p-4 rounded-xl border-2 border-black bg-[#e0f4fb] flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="font-mono text-xs font-bold bg-black text-white px-2 py-0.5 rounded">
+                          Step 02
+                        </span>
+                        <Laptop size={16} className="text-black" />
+                      </div>
+                      <h4 className="font-display font-bold text-sm text-black mb-1">
+                        2. Clone Your Personal Fork
+                      </h4>
+                      <p className="text-xs text-black/80 font-medium leading-relaxed">
+                        Clone <em>your fork</em> (not the upstream repo) to your machine so you have full push access throughout the night.
+                      </p>
+                    </div>
+                    <span className="mt-3 font-mono text-[11px] text-black/70 truncate block">
+                      git clone https://github.com/&lt;your-handle&gt;/SHN-MEDIAPIPE.git
+                    </span>
+                  </div>
+
+                  <div className="p-4 rounded-xl border-2 border-black bg-[#e6f7e2] flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="font-mono text-xs font-bold bg-black text-white px-2 py-0.5 rounded">
+                          Step 03
+                        </span>
+                        <Code2 size={16} className="text-black" />
+                      </div>
+                      <h4 className="font-display font-bold text-sm text-black mb-1">
+                        3. Set Up &amp; Start Building
+                      </h4>
+                      <p className="text-xs text-black/80 font-medium leading-relaxed">
+                        Create a Python virtual environment, install the template packages, test your webcam feed, and start hacking your solution.
+                      </p>
+                    </div>
+                    <span className="mt-3 font-mono text-[11px] text-black/70">
+                      python -m venv venv &amp;&amp; pip install -r requirements.txt
+                    </span>
+                  </div>
+
+                  <div className="p-4 rounded-xl border-2 border-black bg-[#fff6bf] flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="font-mono text-xs font-bold bg-black text-white px-2 py-0.5 rounded">
+                          Step 04
+                        </span>
+                        <CheckCircle2 size={16} className="text-black" />
+                      </div>
+                      <h4 className="font-display font-bold text-sm text-black mb-1">
+                        4. Commit Often &amp; Submit
+                      </h4>
+                      <p className="text-xs text-black/80 font-medium leading-relaxed">
+                        Commit every change before making another move! Push commits to your fork and submit your repo link before midnight on hub.app.
+                      </p>
+                    </div>
+                    <span className="mt-3 font-mono text-[11px] font-bold text-black">
+                      ⚠️ Commit history will be verified!
+                    </span>
+                  </div>
+                </div>
+
+                {/* Step-by-Step Terminal Snippet */}
+                <div>
+                  <h3 className="font-display font-bold text-xs sm:text-sm text-black mb-1 flex items-center gap-1.5">
+                    <Laptop size={15} />
+                    Terminal Commands: Fork, Clone &amp; Run
+                  </h3>
+                  <CodeBlock
+                    language="bash"
+                    filename="terminal-quickstart.sh"
+                    code={`# 1. Clone your personal fork (replace <YOUR_USERNAME> with your GitHub username)
+git clone https://github.com/<YOUR_USERNAME>/SHN-MEDIAPIPE.git
+cd SHN-MEDIAPIPE
+
+# 2. Create and activate a Python virtual environment
+python -m venv venv
+
+# Activate venv:
+# Windows (PowerShell): .\\venv\\Scripts\\Activate.ps1
+# Windows (CMD): .\\venv\\Scripts\\activate.bat
+# macOS / Linux: source venv/bin/activate
+
+# 3. Install dependencies from the starter repo
+pip install -r requirements.txt
+
+# 4. Run the starter code & test your webcam
+python main.py
+
+# 5. Commit frequently before moving to the next feature!
+git add .
+git commit -m "feat: setup hands tracking controller"
+git push origin main`}
+                  />
+                </div>
+              </div>
+            </section>
+
+            {/* ──────────────────────────────────────────────────────────── */}
+            {/* 3. Prerequisites */}
             {/* ──────────────────────────────────────────────────────────── */}
             <section id="prerequisites" className="scroll-mt-24">
               <div className="border-2 border-black rounded-2xl bg-white p-5 sm:p-7 shadow-hard-sm space-y-5">
                 <div className="flex items-center gap-3 pb-3 border-b-2 border-black">
                   <span className="font-mono font-bold text-sm bg-black text-white px-2.5 py-0.5 rounded">
-                    02
+                    03
                   </span>
                   <h2 className="font-display font-bold text-xl sm:text-2xl text-black">
                     Prerequisites
@@ -367,6 +804,33 @@ export default function MediaPipeLearnClient() {
                     <span className="font-mono text-[10px] font-bold uppercase block text-black/70 mb-0.5">Google Colab Option</span>
                     <p className="text-xs text-black/80 font-medium">Zero-install cloud Jupyter notebook option with webcam streaming.</p>
                   </div>
+                </div>
+
+                {/* Starter Template Fork & Clone Instructions */}
+                <div className="p-4 rounded-xl border-2 border-black bg-[#d4f5e0] shadow-xs">
+                  <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                    <h3 className="font-display font-bold text-sm text-black flex items-center gap-1.5">
+                      <GitFork size={15} className="text-black" />
+                      Step 0: Fork &amp; Clone Official Starter Template
+                    </h3>
+                    <a
+                      href={MEDIAPIPE_FORK_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono text-xs font-bold text-black underline flex items-center gap-1 hover:text-black/70"
+                    >
+                      <ExternalLink size={12} />
+                      Fork on GitHub
+                    </a>
+                  </div>
+                  <p className="text-xs text-black/85 mb-3 leading-relaxed">
+                    <strong>Don&apos;t forget:</strong> You must fork the repository to your own GitHub account before you start building. If you have any doubts before you start, reach out to mentors in Discord!
+                  </p>
+                  <CodeBlock
+                    language="bash"
+                    filename="fork_and_clone.sh"
+                    code={starterTemplateGitCommands}
+                  />
                 </div>
 
                 {/* Terminal Setup Snippet */}
@@ -400,13 +864,13 @@ pip install mediapipe opencv-python numpy`}
             </section>
 
             {/* ──────────────────────────────────────────────────────────── */}
-            {/* 3. Documentation */}
+            {/* 4. Documentation */}
             {/* ──────────────────────────────────────────────────────────── */}
             <section id="documentation" className="scroll-mt-24">
               <div className="border-2 border-black rounded-2xl bg-white p-6 sm:p-8 shadow-hard-sm">
                 <div className="flex items-center gap-3 mb-6 pb-4 border-b-2 border-black">
                   <span className="font-mono font-bold text-sm bg-black text-white px-3 py-1 rounded">
-                    03
+                    04
                   </span>
                   <h2 className="font-display font-bold text-2xl sm:text-3xl text-black">
                     Documentation
@@ -477,13 +941,13 @@ pip install mediapipe opencv-python numpy`}
             </section>
 
             {/* ──────────────────────────────────────────────────────────── */}
-            {/* 4. Tutorials */}
+            {/* 5. Tutorials */}
             {/* ──────────────────────────────────────────────────────────── */}
             <section id="tutorials" className="scroll-mt-24">
               <div className="border-2 border-black rounded-2xl bg-white p-6 sm:p-8 shadow-hard-sm">
                 <div className="flex items-center gap-3 mb-6 pb-4 border-b-2 border-black">
                   <span className="font-mono font-bold text-sm bg-black text-white px-3 py-1 rounded">
-                    04
+                    05
                   </span>
                   <h2 className="font-display font-bold text-2xl sm:text-3xl text-black">
                     Tutorials
@@ -584,13 +1048,13 @@ pip install mediapipe opencv-python numpy`}
             </section>
 
             {/* ──────────────────────────────────────────────────────────── */}
-            {/* 5. Project Ideas */}
+            {/* 6. Project Ideas */}
             {/* ──────────────────────────────────────────────────────────── */}
             <section id="project-ideas" className="scroll-mt-24">
               <div className="border-2 border-black rounded-2xl bg-white p-6 sm:p-8 shadow-hard-sm">
                 <div className="flex items-center gap-3 mb-6 pb-4 border-b-2 border-black">
                   <span className="font-mono font-bold text-sm bg-black text-white px-3 py-1 rounded">
-                    05
+                    06
                   </span>
                   <h2 className="font-display font-bold text-2xl sm:text-3xl text-black">
                     Project Ideas
@@ -689,13 +1153,13 @@ pip install mediapipe opencv-python numpy`}
             </section>
 
             {/* ──────────────────────────────────────────────────────────── */}
-            {/* 8. LetXplore */}
+            {/* 7. LetXplore */}
             {/* ──────────────────────────────────────────────────────────── */}
             <section id="letxplore" className="scroll-mt-24">
               <div className="border-2 border-black rounded-2xl bg-white p-6 sm:p-8 shadow-hard-sm">
                 <div className="flex items-center gap-3 mb-6 pb-4 border-b-2 border-black">
                   <span className="font-mono font-bold text-sm bg-black text-white px-3 py-1 rounded">
-                    08
+                    07
                   </span>
                   <h2 className="font-display font-bold text-2xl sm:text-3xl text-black">
                     LetXplore
@@ -739,13 +1203,13 @@ pip install mediapipe opencv-python numpy`}
             </section>
 
             {/* ──────────────────────────────────────────────────────────── */}
-            {/* 9. Mentors */}
+            {/* 8. Mentors */}
             {/* ──────────────────────────────────────────────────────────── */}
             <section id="mentors" className="scroll-mt-24">
               <div className="border-2 border-black rounded-2xl bg-white p-6 sm:p-8 shadow-hard-sm space-y-6">
                 <div className="flex items-center gap-3 pb-4 border-b-2 border-black">
                   <span className="font-mono font-bold text-sm bg-black text-white px-3 py-1 rounded">
-                    09
+                    08
                   </span>
                   <h2 className="font-display font-bold text-2xl sm:text-3xl text-black">
                     Mentors
@@ -823,13 +1287,13 @@ pip install mediapipe opencv-python numpy`}
             </section>
 
             {/* ──────────────────────────────────────────────────────────── */}
-            {/* 10. Contact Us */}
+            {/* 9. Contact Us */}
             {/* ──────────────────────────────────────────────────────────── */}
             <section id="contact-us" className="scroll-mt-24">
               <div className="border-2 border-black rounded-2xl bg-white p-6 sm:p-8 shadow-hard-sm">
                 <div className="flex items-center gap-3 mb-6 pb-4 border-b-2 border-black">
                   <span className="font-mono font-bold text-sm bg-black text-white px-3 py-1 rounded">
-                    10
+                    09
                   </span>
                   <h2 className="font-display font-bold text-2xl sm:text-3xl text-black">
                     Contact Us & Community
