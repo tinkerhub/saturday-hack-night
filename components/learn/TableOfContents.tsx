@@ -11,13 +11,14 @@ export interface NavItem {
 
 export const navSections: NavItem[] = [
   { id: "what-is-mediapipe", number: "01", label: "What is MediaPipe?" },
-  { id: "prerequisites", number: "02", label: "Prerequisites" },
-  { id: "documentation", number: "03", label: "Documentation" },
-  { id: "tutorials", number: "04", label: "Tutorials" },
-  { id: "project-ideas", number: "05", label: "Project Ideas" },
-  { id: "letxplore", number: "08", label: "LetXplore" },
-  { id: "mentors", number: "09", label: "Mentors" },
-  { id: "contact-us", number: "10", label: "Contact Us" },
+  { id: "starter-template", number: "02", label: "Starter Template (Fork)" },
+  { id: "prerequisites", number: "03", label: "Prerequisites" },
+  { id: "documentation", number: "04", label: "Documentation" },
+  { id: "tutorials", number: "05", label: "Tutorials" },
+  { id: "project-ideas", number: "06", label: "Project Ideas" },
+  { id: "letxplore", number: "07", label: "LetXplore" },
+  { id: "mentors", number: "08", label: "Mentors" },
+  { id: "contact-us", number: "09", label: "Contact Us" },
 ];
 
 export default function TableOfContents() {

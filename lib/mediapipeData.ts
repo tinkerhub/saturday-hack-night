@@ -191,7 +191,21 @@ export const mediapipeCapabilities: MediaPipeTaskCapability[] = [
   },
 ];
 
+export const MEDIAPIPE_STARTER_REPO_URL =
+  "https://github.com/TINKERHUB-SATURDAY-HACKNIGHT/SHN-MEDIAPIPE";
+export const MEDIAPIPE_STARTER_FORK_URL =
+  "https://github.com/TINKERHUB-SATURDAY-HACKNIGHT/SHN-MEDIAPIPE/fork";
+export const MEDIAPIPE_STARTER_GIT_CLONE_URL =
+  "https://github.com/TINKERHUB-SATURDAY-HACKNIGHT/SHN-MEDIAPIPE.git";
+
 export const documentationResources: MediaPipeDocItem[] = [
+  {
+    title: "Official SHN MediaPipe Starter Template",
+    category: "Repositories",
+    description: "Official Saturday Hack Night starter repository. Fork this template to your GitHub account before you start coding!",
+    url: MEDIAPIPE_STARTER_REPO_URL,
+    badge: "Fork Template",
+  },
   {
     title: "Google AI Edge: MediaPipe Solutions Guide",
     category: "Official Guides",
