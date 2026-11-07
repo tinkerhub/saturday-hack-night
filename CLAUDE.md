@@ -29,7 +29,7 @@
 - **Submission bar:** Doesn't need to be polished. Meaningful code + README is enough. Effort counts.
 - **Attendance:** Join any single night — no need to attend all 5. Each event is self-contained.
 - **Selection:** TinkerHub team reviews all submissions after each night. Top teams from any night get invited to the offline finale.
-- **Finale:** 24-hour in-person hackathon at TinkerSpace Kochi. Travel stipend and accommodation for outstation participants shared with selected teams individually.
+- **Finale:** Offline in-person hackathon at TinkerSpace Kochi. Travel stipend and accommodation for outstation participants shared with selected teams individually.
 - **Philosophy:** Learn by doing. Explore depth, not breadth. Build something real every time.
 
 ---

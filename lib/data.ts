@@ -80,14 +80,25 @@ export const upcomingNights: HackNight[] = [
     about:
       "Your hands are the interface. MediaPipe tracks hands, faces and body pose straight from a webcam, with no model training needed. This hack night is about going beyond the mouse and keyboard and building something you control with gestures.",
     challenge:
-      "Build a working gesture-controlled project with MediaPipe, such as a touchless game, a hand-controlled slideshow or a gesture-driven drawing app. Push to GitHub by midnight.",
+      "Season 02 Focus: Agriculture & Food — Build anything that solves a problem in this vector using MediaPipe! Push to GitHub by midnight.",
     mentors: [
       {
         name: "Joseph Shibu",
         role: "Mentor",
       },
     ],
-    starterResources: [],
+    starterResources: [
+      {
+        title: "MediaPipe Learning Hub — Complete SHN Guide & Starter Code",
+        url: "/learn/mediapipe/",
+        type: "docs",
+      },
+      {
+        title: "MediaPipe Official Python Solutions Guide",
+        url: "https://ai.google.dev/edge/mediapipe/solutions/guide",
+        type: "docs",
+      },
+    ],
   },
   {
     id: 2,
@@ -705,7 +716,7 @@ export const faq: FaqItem[] = [
   {
     question: "What is TinkerSpace Kochi?",
     answer:
-      "TinkerSpace is TinkerHub's physical maker space in Kochi, Kerala — a lab, community hub, and hackathon venue. The SHN finale is a 24-hour in-person hackathon held there. Selected teams get full access to the space, tools, and mentors for the day.",
+      "TinkerSpace is TinkerHub's physical maker space in Kochi, Kerala — a lab, community hub, and hackathon venue. The SHN finale is an offline in-person hackathon held at TinkerSpace. Selected teams get full access to the space, tools, and mentors for the day.",
   },
 ];
 

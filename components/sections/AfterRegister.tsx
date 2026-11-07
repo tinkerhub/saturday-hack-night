@@ -50,7 +50,7 @@ const steps = [
     time: "Saturday by midnight",
     title: "Push and submit",
     description:
-      "Push to a public GitHub repo and submit via hub.app. A working prototype is enough.",
+      "Push to a public GitHub repo and submit via hub.app. Commit every change before making another move — commit history will be verified!",
     icon: Github,
     color: "#f5d6ed",
     cardBg: "bg-[#fae4f2]",
@@ -70,7 +70,7 @@ const steps = [
     time: "After all 5 nights",
     title: "Finale invitations sent",
     description:
-      "Top teams receive direct invitations to the 24-hour offline hackathon at TinkerSpace Kochi.",
+      "Top teams receive direct invitations to the offline finale hackathon at TinkerSpace Kochi.",
     icon: Trophy,
     color: "#d4f5e0",
     cardBg: "bg-[#e6f7e2]",

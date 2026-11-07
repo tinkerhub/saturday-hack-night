@@ -137,8 +137,12 @@ export default function HackNightCard({ event, index }: HackNightCardProps) {
                 Register
               </a>
               <a
-                href={`/events/${event.slug}/`}
-                className="flex items-center gap-1 font-mono text-xs font-bold text-black hover:text-[#f5d6ed] transition-colors"
+                href={
+                  event.stack.includes("MediaPipe") || event.slug === "shn-s2-001-beyond-gesture"
+                    ? "/learn/mediapipe/"
+                    : `/events/${event.slug}/`
+                }
+                className="flex items-center gap-1 font-mono text-xs font-bold text-black hover:text-[#f28ad8] transition-colors"
               >
                 Details
                 <ArrowRight size={13} strokeWidth={2} />
