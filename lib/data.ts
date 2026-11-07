@@ -89,6 +89,11 @@ export const upcomingNights: HackNight[] = [
     ],
     starterResources: [
       {
+        title: "Official MediaPipe Starter Template (Fork on GitHub)",
+        url: "https://github.com/TINKERHUB-SATURDAY-HACKNIGHT/SHN-MEDIAPIPE",
+        type: "repo",
+      },
+      {
         title: "MediaPipe Learning Hub — Complete SHN Guide & Starter Code",
         url: "/learn/mediapipe/",
         type: "docs",

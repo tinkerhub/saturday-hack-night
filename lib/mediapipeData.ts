@@ -30,6 +30,30 @@ export interface MediaPipeProjectIdea {
   starterGuide?: string;
 }
 
+export const MEDIAPIPE_STARTER_REPO = "https://github.com/TINKERHUB-SATURDAY-HACKNIGHT/SHN-MEDIAPIPE";
+export const MEDIAPIPE_FORK_URL = "https://github.com/TINKERHUB-SATURDAY-HACKNIGHT/SHN-MEDIAPIPE/fork";
+export const MEDIAPIPE_STARTER_REPO_URL = MEDIAPIPE_STARTER_REPO;
+export const MEDIAPIPE_STARTER_FORK_URL = MEDIAPIPE_FORK_URL;
+export const MEDIAPIPE_STARTER_GIT_CLONE_URL = "https://github.com/TINKERHUB-SATURDAY-HACKNIGHT/SHN-MEDIAPIPE.git";
+
+export const starterTemplateGitCommands = `# Step 1: Fork the repository on GitHub
+# 👉 https://github.com/TINKERHUB-SATURDAY-HACKNIGHT/SHN-MEDIAPIPE/fork
+
+# Step 2: Clone YOUR fork locally (replace with your GitHub username)
+git clone https://github.com/<YOUR-USERNAME>/SHN-MEDIAPIPE.git
+cd SHN-MEDIAPIPE
+
+# Step 3: Create and activate a clean virtual environment
+python -m venv venv
+# On Windows PowerShell: .\\venv\\Scripts\\Activate.ps1
+# On macOS / Linux: source venv/bin/activate
+
+# Step 4: Install dependencies
+pip install -r requirements.txt
+
+# Step 5: Test run the webcam script
+python main.py`;
+
 export interface MediaPipeTaskCapability {
   domain: "Vision" | "Audio" | "Text";
   name: string;
@@ -191,19 +215,12 @@ export const mediapipeCapabilities: MediaPipeTaskCapability[] = [
   },
 ];
 
-export const MEDIAPIPE_STARTER_REPO_URL =
-  "https://github.com/TINKERHUB-SATURDAY-HACKNIGHT/SHN-MEDIAPIPE";
-export const MEDIAPIPE_STARTER_FORK_URL =
-  "https://github.com/TINKERHUB-SATURDAY-HACKNIGHT/SHN-MEDIAPIPE/fork";
-export const MEDIAPIPE_STARTER_GIT_CLONE_URL =
-  "https://github.com/TINKERHUB-SATURDAY-HACKNIGHT/SHN-MEDIAPIPE.git";
-
 export const documentationResources: MediaPipeDocItem[] = [
   {
-    title: "Official SHN MediaPipe Starter Template",
+    title: "Official SHN MediaPipe Starter Template (GitHub)",
     category: "Repositories",
-    description: "Official Saturday Hack Night starter repository. Fork this template to your GitHub account before you start coding!",
-    url: MEDIAPIPE_STARTER_REPO_URL,
+    description: "Official GitHub starter template for Sprint 01. Don't forget to fork this repository to your account before starting to build your hack night project!",
+    url: "https://github.com/TINKERHUB-SATURDAY-HACKNIGHT/SHN-MEDIAPIPE",
     badge: "Fork Template",
   },
   {

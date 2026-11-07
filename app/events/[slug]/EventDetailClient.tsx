@@ -152,6 +152,25 @@ export default function EventDetailClient({ night }: { night: HackNight }) {
               ⚠️ Commit every change before making another move — commit history will be verified!
             </div>
           </div>
+
+          {night.id === 1 && (
+            <div className="mt-4 pt-4 border-t border-black/15 flex flex-wrap items-center justify-between gap-3 bg-white/70 p-3 rounded-lg border border-black/30">
+              <div className="text-xs text-black font-medium">
+                <span className="font-mono font-bold bg-black text-white px-2 py-0.5 rounded mr-2">
+                  TEMPLATE
+                </span>
+                <strong>Fork the official starter repo</strong> before starting your build. Ask mentors if you have any doubts!
+              </div>
+              <a
+                href="https://github.com/TINKERHUB-SATURDAY-HACKNIGHT/SHN-MEDIAPIPE/fork"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-xs font-bold text-black bg-[#d4f5e0] hover:bg-black hover:text-white px-3 py-1.5 rounded border border-black shadow-xs transition-colors inline-flex items-center gap-1.5"
+              >
+                Fork on GitHub →
+              </a>
+            </div>
+          )}
         </motion.div>
 
         {/* Mentors */}
