@@ -129,7 +129,7 @@ export default function CampusPage() {
             <p className="font-sans font-medium text-base sm:text-lg text-[#111111]/80 leading-relaxed">
               Your campus builders compete in the same event, build on the same
               theme, and submit to the same pool. Top teams — from anywhere —
-              get invited to TinkerSpace Kochi for the 24-hour finale.
+              get invited to TinkerSpace Kochi for the offline finale hackathon.
             </p>
           </div>
         </header>

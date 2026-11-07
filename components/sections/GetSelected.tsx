@@ -22,14 +22,14 @@ const steps = [
     icon: Code2,
     step: "03",
     title: "Ship & Push Code",
-    description: "Build something real, push code to GitHub before midnight, and submit your project proof.",
+    description: "Build something real. Don't forget to commit every change before making another move — commit history will be verified! Push to GitHub before midnight.",
     bg: "bg-[#d4f5e0]",
   },
   {
     icon: Trophy,
     step: "04",
     title: "Get Invited to Finale",
-    description: "Top teams from the 5 online build sprints get direct invitations to the 24-hour in-person hackathon at TinkerSpace Kochi.",
+    description: "Top teams from the 5 online build sprints get direct invitations to the offline in-person hackathon at TinkerSpace Kochi.",
     bg: "bg-[#fff6bf]",
   },
 ];

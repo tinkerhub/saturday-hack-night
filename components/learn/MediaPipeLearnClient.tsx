@@ -146,7 +146,7 @@ export default function MediaPipeLearnClient() {
             </p>
 
             {/* Season 02 Theme Vector Callout */}
-            <div className="mb-8 p-4 rounded-xl border-2 border-black bg-[#fff6bf] shadow-xs flex items-start gap-3">
+            <div className="mb-4 p-4 rounded-xl border-2 border-black bg-[#fff6bf] shadow-xs flex items-start gap-3">
               <span className="text-xl shrink-0">🌾</span>
               <div>
                 <span className="font-mono text-xs font-bold uppercase tracking-wider text-black block mb-0.5">
@@ -154,6 +154,19 @@ export default function MediaPipeLearnClient() {
                 </span>
                 <p className="text-xs sm:text-sm text-black/85 font-medium leading-relaxed">
                   Build anything that solves a problem in this vector using MediaPipe! From touchless crop inspection and produce quality grading to hands-free farm machinery controls and kitchen hygiene solutions.
+                </p>
+              </div>
+            </div>
+
+            {/* Commit History Requirement Alert */}
+            <div className="mb-8 p-3.5 rounded-xl border-2 border-black bg-[#ffd34e] shadow-xs flex items-center gap-3">
+              <span className="text-lg shrink-0">⚠️</span>
+              <div>
+                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-black block">
+                  Mandatory Submission Rule
+                </span>
+                <p className="text-xs text-black font-semibold leading-snug">
+                  Don&apos;t forget to commit every change before making another move — commit history will be verified during project evaluation!
                 </p>
               </div>
             </div>
@@ -201,215 +214,122 @@ export default function MediaPipeLearnClient() {
         {/* Content Layout with Responsive Sticky Table of Contents */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Main Content Area */}
-          <div className="lg:col-span-8 space-y-16">
+          <div className="lg:col-span-8 space-y-8">
             {/* ──────────────────────────────────────────────────────────── */}
             {/* 1. What is MediaPipe? */}
             {/* ──────────────────────────────────────────────────────────── */}
             <section id="what-is-mediapipe" className="scroll-mt-24">
-              <div className="border-2 border-black rounded-2xl bg-white p-6 sm:p-8 shadow-hard-sm">
+              <div className="border-2 border-black rounded-2xl bg-white p-5 sm:p-7 shadow-hard-sm space-y-6">
                 {/* Section Header */}
-                <div className="flex items-center gap-3 mb-6 pb-4 border-b-2 border-black">
-                  <span className="font-mono font-bold text-sm bg-black text-white px-3 py-1 rounded">
+                <div className="flex items-center gap-3 pb-3 border-b-2 border-black">
+                  <span className="font-mono font-bold text-sm bg-black text-white px-2.5 py-0.5 rounded">
                     01
                   </span>
-                  <h2 className="font-display font-bold text-2xl sm:text-3xl text-black">
+                  <h2 className="font-display font-bold text-xl sm:text-2xl text-black">
                     What is MediaPipe?
                   </h2>
                 </div>
 
-                {/* Subsections */}
-                <div className="space-y-8">
-                  {/* Introduction */}
-                  <div>
-                    <h3 className="font-display font-bold text-lg sm:text-xl text-black mb-2 flex items-center gap-2">
-                      <Zap size={18} className="text-[#f28ad8] stroke-[2.5]" />
-                      Introduction to MediaPipe
-                    </h3>
-                    <p className="text-black/80 text-sm sm:text-base leading-relaxed mb-4">
-                      <strong>MediaPipe</strong> is Google’s open-source, cross-platform framework
-                      for deploying multimodal machine learning pipelines. Designed specifically for
-                      edge devices, it empowers builders to run real-time perceptual computing
-                      models—including hand gesture tracking, 468-point face meshes, and full-body
-                      motion estimation—directly inside consumer laptops, smartphones, and web
-                      browsers.
-                    </p>
-                    <p className="text-black/80 text-sm sm:text-base leading-relaxed">
-                      Unlike cloud-based AI APIs that require sending high-bandwidth video streams
-                      over the internet, MediaPipe executes inferences locally on CPU or GPU with
-                      microsecond latency and 100% data privacy.
-                    </p>
-                  </div>
+                {/* Introduction & Architecture Core Pillars */}
+                <div>
+                  <p className="text-black/80 text-xs sm:text-sm leading-relaxed mb-4">
+                    <strong>MediaPipe</strong> is Google’s open-source framework for deploying multimodal machine learning pipelines directly onto edge devices (laptops, phones, browsers) at 30+ FPS without cloud GPUs.
+                  </p>
 
-                  {/* Understanding Computer Vision */}
-                  <div className="p-5 rounded-xl border-2 border-black bg-[#aeeaf5]">
-                    <h3 className="font-display font-bold text-lg sm:text-xl text-black mb-2 flex items-center gap-2">
-                      <Eye size={18} className="text-black stroke-[2.5]" />
-                      Understanding Computer Vision
-                    </h3>
-                    <p className="text-black/85 text-sm sm:text-base leading-relaxed mb-3">
-                      Computer vision is the branch of computer science focused on enabling
-                      software to gain high-level semantic understanding from digital images or
-                      video frames. To a computer, a video is simply a continuous stream of numerical
-                      matrices containing red, green, and blue (RGB) pixel values.
-                    </p>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono text-xs pt-2">
-                      <div className="bg-white p-3 rounded-lg border border-black shadow-xs">
-                        <span className="font-bold text-black block mb-1">1. Pixels to Features</span>
-                        <span className="text-black/70">
-                          Raw sensor frames are analyzed for contrast edges, color gradients, and
-                          spatial textures.
-                        </span>
-                      </div>
-                      <div className="bg-white p-3 rounded-lg border border-black shadow-xs">
-                        <span className="font-bold text-black block mb-1">2. Keypoint Regression</span>
-                        <span className="text-black/70">
-                          Neural networks predict normalized 2D/3D coordinate vectors `(x, y, z)` for
-                          joints and landmarks.
-                        </span>
-                      </div>
-                      <div className="bg-white p-3 rounded-lg border border-black shadow-xs">
-                        <span className="font-bold text-black block mb-1">3. Semantic Actions</span>
-                        <span className="text-black/70">
-                          Your code maps geometrical relationships (e.g., finger pinch, open palm) to
-                          real-world triggers.
-                        </span>
-                      </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono text-xs">
+                    <div className="bg-[#f5f4ee] p-3 rounded-lg border-2 border-black shadow-xs">
+                      <span className="font-bold text-black block mb-1 text-[11px] uppercase">⚡ On-Device Edge ML</span>
+                      <p className="text-black/75 text-[11px] leading-tight font-sans">
+                        Zero cloud latency. Executes directly on local CPU/GPU for instant reaction speeds.
+                      </p>
+                    </div>
+                    <div className="bg-[#f5f4ee] p-3 rounded-lg border-2 border-black shadow-xs">
+                      <span className="font-bold text-black block mb-1 text-[11px] uppercase">🎯 2-Stage Tracking</span>
+                      <p className="text-black/75 text-[11px] leading-tight font-sans">
+                        Detects bounding ROI once, then tracks 3D keypoints across subsequent video frames.
+                      </p>
+                    </div>
+                    <div className="bg-[#f5f4ee] p-3 rounded-lg border-2 border-black shadow-xs">
+                      <span className="font-bold text-black block mb-1 text-[11px] uppercase">🛠 Tasks API</span>
+                      <p className="text-black/75 text-[11px] leading-tight font-sans">
+                        Simple high-level Python &amp; JS classes for hands, faces, gestures, and poses.
+                      </p>
                     </div>
                   </div>
+                </div>
 
-                  {/* How MediaPipe Works */}
-                  <div>
-                    <h3 className="font-display font-bold text-lg sm:text-xl text-black mb-2 flex items-center gap-2">
-                      <Layers size={18} className="text-[#91e47a] stroke-[2.5]" />
-                      How MediaPipe Works
+                {/* Understanding Computer Vision Strip */}
+                <div className="p-3.5 rounded-xl border-2 border-black bg-[#aeeaf5]">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <Eye size={16} className="text-black stroke-[2.5]" />
+                    <h3 className="font-display font-bold text-sm text-black">
+                      How Computer Vision Works in MediaPipe
                     </h3>
-                    <p className="text-black/80 text-sm sm:text-base leading-relaxed mb-4">
-                      Under the hood, MediaPipe is structured as a <strong>graph-based dataflow
-                      pipeline</strong>. Time-series perception data flows through the system as
-                      timestamped <strong>Packets</strong> over connected <strong>Streams</strong>:
-                    </p>
-                    <div className="bg-[#f5f4ee] border-2 border-black rounded-xl p-5 space-y-3 font-sans">
-                      <div className="flex items-start gap-3">
-                        <div className="w-6 h-6 rounded bg-black text-white font-mono text-xs flex items-center justify-center shrink-0 mt-0.5 font-bold">
-                          A
-                        </div>
-                        <div>
-                          <strong className="text-black font-semibold text-sm">
-                            Calculators (Modular Nodes):
-                          </strong>{" "}
-                          <span className="text-black/75 text-sm">
-                            Each step in the pipeline—such as video capture, image cropping, neural
-                            inference, and coordinate normalization—is an isolated, highly optimized C++
-                            calculator node.
-                          </span>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <div className="w-6 h-6 rounded bg-black text-white font-mono text-xs flex items-center justify-center shrink-0 mt-0.5 font-bold">
-                          B
-                        </div>
-                        <div>
-                          <strong className="text-black font-semibold text-sm">
-                            Two-Stage Detection & Tracking:
-                          </strong>{" "}
-                          <span className="text-black/75 text-sm">
-                            Instead of running heavy full-frame neural detection every frame,
-                            MediaPipe detects the hand or face once, calculates a tight region of
-                            interest (ROI), and simply tracks landmarks across subsequent frames. If
-                            tracking is lost, it re-invokes the detector automatically.
-                          </span>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <div className="w-6 h-6 rounded bg-black text-white font-mono text-xs flex items-center justify-center shrink-0 mt-0.5 font-bold">
-                          C
-                        </div>
-                        <div>
-                          <strong className="text-black font-semibold text-sm">
-                            Modern MediaPipe Tasks API:
-                          </strong>{" "}
-                          <span className="text-black/75 text-sm">
-                            The newest generation abstracts the complex graph setup into simple,
-                            idiomatic Python and JavaScript classes like `HandLandmarker` and
-                            `GestureRecognizer`, letting you build prototypes in under an hour.
-                          </span>
-                        </div>
-                      </div>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 font-mono text-[11px]">
+                    <div className="bg-white px-2.5 py-1.5 rounded border border-black">
+                      <strong>1. Pixels:</strong> Matrix of RGB color frames
+                    </div>
+                    <div className="bg-white px-2.5 py-1.5 rounded border border-black">
+                      <strong>2. Landmarks:</strong> Normalized (x, y, z) coordinates
+                    </div>
+                    <div className="bg-white px-2.5 py-1.5 rounded border border-black">
+                      <strong>3. Actions:</strong> Angle, pinch, or gesture triggers
                     </div>
                   </div>
+                </div>
 
-                  {/* Real-World Applications */}
-                  <div>
-                    <h3 className="font-display font-bold text-lg sm:text-xl text-black mb-3 flex items-center gap-2">
-                      <Activity size={18} className="text-[#ffd34e] stroke-[2.5]" />
-                      Real-World Applications
-                    </h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {realWorldApps.map((app) => (
-                        <div
-                          key={app.title}
-                          className={`p-4 rounded-xl border-2 border-black ${app.color} shadow-xs`}
-                        >
-                          <span className="font-mono text-[10px] uppercase font-bold text-black/70 block mb-1">
+                {/* Real-World Applications */}
+                <div>
+                  <h3 className="font-display font-bold text-sm sm:text-base text-black mb-2 flex items-center gap-2">
+                    <Activity size={16} className="text-[#ffd34e] stroke-[2.5]" />
+                    Real-World Applications
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    {realWorldApps.map((app) => (
+                      <div
+                        key={app.title}
+                        className={`p-3 rounded-lg border-2 border-black ${app.color} shadow-xs flex flex-col justify-between`}
+                      >
+                        <div>
+                          <span className="font-mono text-[9px] uppercase font-bold text-black/70 block mb-0.5">
                             {app.tag}
                           </span>
-                          <h4 className="font-display font-bold text-base text-black mb-1">
+                          <h4 className="font-display font-bold text-xs text-black mb-1">
                             {app.title}
                           </h4>
-                          <p className="text-xs text-black/75 leading-relaxed">{app.desc}</p>
+                          <p className="text-[11px] text-black/75 leading-tight">{app.desc}</p>
                         </div>
-                      ))}
-                    </div>
+                      </div>
+                    ))}
                   </div>
+                </div>
 
-                  {/* MediaPipe Tasks and Capabilities Table */}
-                  <div>
-                    <h3 className="font-display font-bold text-lg sm:text-xl text-black mb-3 flex items-center gap-2">
-                      <Cpu size={18} className="text-black stroke-[2.5]" />
-                      MediaPipe Tasks and Its Capabilities
-                    </h3>
-                    <p className="text-black/80 text-sm leading-relaxed mb-4">
-                      The MediaPipe suite includes specialized task modules categorized across
-                      vision, audio, and text domains:
-                    </p>
-                    <div className="overflow-x-auto border-2 border-black rounded-xl bg-white shadow-xs">
-                      <table className="w-full text-left border-collapse text-xs">
-                        <thead>
-                          <tr className="bg-[#f5f4ee] border-b-2 border-black font-mono uppercase text-black font-bold">
-                            <th className="py-3 px-4">Task Name</th>
-                            <th className="py-3 px-4">Domain</th>
-                            <th className="py-3 px-4">Key Specification</th>
-                            <th className="py-3 px-4">Common Use Cases</th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-black/10 font-sans">
-                          {mediapipeCapabilities.map((cap) => (
-                            <tr key={cap.name} className="hover:bg-[#fff6bf]/40 transition-colors">
-                              <td className="py-3 px-4 font-bold text-black font-mono">
-                                {cap.name}
-                              </td>
-                              <td className="py-3 px-4">
-                                <span
-                                  className={`px-2 py-0.5 rounded font-mono text-[10px] font-bold border border-black ${
-                                    cap.domain === "Vision"
-                                      ? "bg-[#aeeaf5]"
-                                      : cap.domain === "Audio"
-                                      ? "bg-[#ffd34e]"
-                                      : "bg-[#f28ad8]"
-                                  }`}
-                                >
-                                  {cap.domain}
-                                </span>
-                              </td>
-                              <td className="py-3 px-4 font-mono text-[11px] text-black/80">
-                                {cap.keyMetric}
-                              </td>
-                              <td className="py-3 px-4 text-black/75">{cap.sampleUse}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
+                {/* MediaPipe Tasks and Capabilities Grid (Compact) */}
+                <div>
+                  <h3 className="font-display font-bold text-sm sm:text-base text-black mb-2 flex items-center gap-2">
+                    <Cpu size={16} className="text-black stroke-[2.5]" />
+                    MediaPipe Tasks &amp; Capabilities
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 font-mono text-xs">
+                    {mediapipeCapabilities.map((cap) => (
+                      <div
+                        key={cap.name}
+                        className="p-2.5 rounded-lg border border-black bg-[#f5f4ee] flex items-center justify-between gap-2"
+                      >
+                        <div className="min-w-0">
+                          <span className="font-bold text-black block truncate text-[11px]">
+                            {cap.name}
+                          </span>
+                          <span className="text-[10px] text-black/60 truncate block font-sans">
+                            {cap.sampleUse}
+                          </span>
+                        </div>
+                        <span className="shrink-0 text-[10px] bg-black text-white px-2 py-0.5 rounded font-mono font-bold">
+                          {cap.keyMetric}
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -419,114 +339,62 @@ export default function MediaPipeLearnClient() {
             {/* 2. Prerequisites */}
             {/* ──────────────────────────────────────────────────────────── */}
             <section id="prerequisites" className="scroll-mt-24">
-              <div className="border-2 border-black rounded-2xl bg-white p-6 sm:p-8 shadow-hard-sm">
-                <div className="flex items-center gap-3 mb-6 pb-4 border-b-2 border-black">
-                  <span className="font-mono font-bold text-sm bg-black text-white px-3 py-1 rounded">
+              <div className="border-2 border-black rounded-2xl bg-white p-5 sm:p-7 shadow-hard-sm space-y-5">
+                <div className="flex items-center gap-3 pb-3 border-b-2 border-black">
+                  <span className="font-mono font-bold text-sm bg-black text-white px-2.5 py-0.5 rounded">
                     02
                   </span>
-                  <h2 className="font-display font-bold text-2xl sm:text-3xl text-black">
+                  <h2 className="font-display font-bold text-xl sm:text-2xl text-black">
                     Prerequisites
                   </h2>
                 </div>
 
-                <div className="space-y-6">
-                  <p className="text-black/80 text-sm sm:text-base leading-relaxed">
-                    You don't need a PhD in Machine Learning to build a winning Saturday Hack Night
-                    prototype! Here is what you need before writing your first script:
-                  </p>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {/* Basic Python Knowledge */}
-                    <div className="p-4 rounded-xl border-2 border-black bg-[#fae4f2]">
-                      <div className="flex items-center gap-2 mb-2 font-display font-bold text-base text-black">
-                        <CheckCircle2 size={16} className="text-black stroke-[2.5]" />
-                        Basic Python Knowledge
-                      </div>
-                      <p className="text-xs text-black/80 leading-relaxed">
-                        Familiarity with Python 3.9 through 3.12, defining functions, working with
-                        loops (`while cap.isOpened()`), list indexing, and object-oriented methods.
-                      </p>
-                    </div>
-
-                    {/* Understanding Computer Vision */}
-                    <div className="p-4 rounded-xl border-2 border-black bg-[#e0f4fb]">
-                      <div className="flex items-center gap-2 mb-2 font-display font-bold text-base text-black">
-                        <CheckCircle2 size={16} className="text-black stroke-[2.5]" />
-                        Computer Vision Basics
-                      </div>
-                      <p className="text-xs text-black/80 leading-relaxed">
-                        Understanding normalized coordinates: MediaPipe outputs `x` and `y` between
-                        `0.0` and `1.0`. To obtain pixel positions, multiply: `px = int(landmark.x *
-                        frame_width)`. Remember OpenCV reads in BGR format!
-                      </p>
-                    </div>
-
-                    {/* Python Installation */}
-                    <div className="p-4 rounded-xl border-2 border-black bg-[#e6f7e2]">
-                      <div className="flex items-center gap-2 mb-2 font-display font-bold text-base text-black">
-                        <CheckCircle2 size={16} className="text-black stroke-[2.5]" />
-                        Clean Virtual Environment
-                      </div>
-                      <p className="text-xs text-black/80 leading-relaxed">
-                        Always isolate your dependencies using `python -m venv venv`. Avoid version
-                        conflicts between OpenCV and MediaPipe.
-                      </p>
-                    </div>
-
-                    {/* Google Colab */}
-                    <div className="p-4 rounded-xl border-2 border-black bg-[#fff6bf]">
-                      <div className="flex items-center gap-2 mb-2 font-display font-bold text-base text-black">
-                        <CheckCircle2 size={16} className="text-black stroke-[2.5]" />
-                        Google Colab Option
-                      </div>
-                      <p className="text-xs text-black/80 leading-relaxed">
-                        Zero local setup needed! You can test MediaPipe on video clips or live
-                        JavaScript WebRTC streams directly in free cloud Jupyter notebooks.
-                      </p>
-                    </div>
+                {/* Compact 2x2 Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  <div className="p-3 rounded-lg border-2 border-black bg-[#fae4f2]">
+                    <span className="font-mono text-[10px] font-bold uppercase block text-black/70 mb-0.5">Python Basics</span>
+                    <p className="text-xs text-black/80 font-medium">Python 3.9–3.12, functions, while loops, and virtual environments.</p>
                   </div>
+                  <div className="p-3 rounded-lg border-2 border-black bg-[#e0f4fb]">
+                    <span className="font-mono text-[10px] font-bold uppercase block text-black/70 mb-0.5">Computer Vision</span>
+                    <p className="text-xs text-black/80 font-medium">Normalized coordinates `(0.0 - 1.0)` and OpenCV BGR color format.</p>
+                  </div>
+                  <div className="p-3 rounded-lg border-2 border-black bg-[#e6f7e2]">
+                    <span className="font-mono text-[10px] font-bold uppercase block text-black/70 mb-0.5">Clean Setup</span>
+                    <p className="text-xs text-black/80 font-medium">Isolate packages using `python -m venv venv` to avoid library conflicts.</p>
+                  </div>
+                  <div className="p-3 rounded-lg border-2 border-black bg-[#fff6bf]">
+                    <span className="font-mono text-[10px] font-bold uppercase block text-black/70 mb-0.5">Google Colab Option</span>
+                    <p className="text-xs text-black/80 font-medium">Zero-install cloud Jupyter notebook option with webcam streaming.</p>
+                  </div>
+                </div>
 
-                  {/* Environment Setup Code Snippet */}
-                  <div className="mt-6">
-                    <h3 className="font-display font-bold text-base sm:text-lg text-black mb-2 flex items-center gap-2">
-                      <Laptop size={17} />
-                      Terminal Setup: Virtual Environment & Pip Install
-                    </h3>
-                    <CodeBlock
-                      language="bash"
-                      filename="terminal_setup.sh"
-                      code={`# Create a clean Python environment
-python -m venv venv
-
-# Activate the virtual environment
-# On macOS / Linux:
-source venv/bin/activate
-# On Windows PowerShell:
-.\\venv\\Scripts\\Activate.ps1
-
-# Install MediaPipe, OpenCV, and NumPy
-pip install --upgrade pip
+                {/* Terminal Setup Snippet */}
+                <div>
+                  <h3 className="font-display font-bold text-xs sm:text-sm text-black mb-1 flex items-center gap-1.5">
+                    <Laptop size={15} />
+                    Terminal Setup: Pip Install
+                  </h3>
+                  <CodeBlock
+                    language="bash"
+                    filename="setup.sh"
+                    code={`python -m venv venv
+# Windows: .\\venv\\Scripts\\Activate.ps1 | Mac/Linux: source venv/bin/activate
 pip install mediapipe opencv-python numpy`}
-                    />
-                  </div>
+                  />
+                </div>
 
-                  {/* NumPy Fundamentals */}
-                  <div className="mt-6">
-                    <h3 className="font-display font-bold text-base sm:text-lg text-black mb-2 flex items-center gap-2">
-                      <Code2 size={17} className="text-[#f28ad8]" />
-                      NumPy Fundamentals for Gesture Triggers
-                    </h3>
-                    <p className="text-black/80 text-xs sm:text-sm leading-relaxed mb-3">
-                      In gesture recognition, you frequently measure the distance between two
-                      fingertips (like index and thumb for a pinch trigger). Use NumPy's vector
-                      norm:
-                    </p>
-                    <CodeBlock
-                      language="python"
-                      filename="euclidean_distance.py"
-                      code={distanceCalculationCode}
-                    />
-                  </div>
+                {/* Distance Math Snippet */}
+                <div>
+                  <h3 className="font-display font-bold text-xs sm:text-sm text-black mb-1 flex items-center gap-1.5">
+                    <Code2 size={15} className="text-[#f28ad8]" />
+                    Euclidean Distance Trigger Math (NumPy)
+                  </h3>
+                  <CodeBlock
+                    language="python"
+                    filename="distance_trigger.py"
+                    code={distanceCalculationCode}
+                  />
                 </div>
               </div>
             </section>
@@ -1035,8 +903,8 @@ pip install mediapipe opencv-python numpy`}
                       TinkerSpace Kochi
                     </h3>
                     <p className="text-xs text-black/75 leading-relaxed">
-                      Visit TinkerHub's flagship maker space in Kalamassery, Kochi. Venue for the
-                      end-of-season 24-hour grand finale!
+                      Visit TinkerHub&apos;s flagship maker space in Kalamassery, Kochi. Venue for the
+                      end-of-season offline grand finale!
                     </p>
                   </a>
 

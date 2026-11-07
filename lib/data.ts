@@ -716,7 +716,7 @@ export const faq: FaqItem[] = [
   {
     question: "What is TinkerSpace Kochi?",
     answer:
-      "TinkerSpace is TinkerHub's physical maker space in Kochi, Kerala — a lab, community hub, and hackathon venue. The SHN finale is a 24-hour in-person hackathon held there. Selected teams get full access to the space, tools, and mentors for the day.",
+      "TinkerSpace is TinkerHub's physical maker space in Kochi, Kerala — a lab, community hub, and hackathon venue. The SHN finale is an offline in-person hackathon held at TinkerSpace. Selected teams get full access to the space, tools, and mentors for the day.",
   },
 ];
 

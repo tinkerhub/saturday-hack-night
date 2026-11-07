@@ -24,7 +24,7 @@ export default function TinkerSpace() {
           <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold text-black tracking-tight leading-tight mb-4">
             TinkerSpace:{" "}
             <span className="inline-block bg-[#f5d6ed] text-black px-3 py-0.5 border border-black rounded-lg mt-1 sm:mt-0">
-              The Final 24-Hour Build
+              The Offline Finale Build
             </span>
           </h2>
 
@@ -69,7 +69,7 @@ export default function TinkerSpace() {
                   TinkerSpace • Maker Lab &amp; Finale Venue
                 </span>
                 <span className="font-mono text-xs font-semibold bg-[#aeeaf5] text-black px-2.5 py-0.5 border border-black/40 rounded">
-                  24 Hours In Person
+                  In-Person Hackathon
                 </span>
               </div>
             </div>
@@ -91,16 +91,16 @@ export default function TinkerSpace() {
                   The Finale Experience
                 </span>
                 <h3 className="font-display text-xl sm:text-2xl font-bold text-black mb-2 leading-snug">
-                  Overnight Sprint in Kochi
+                  In-Person Sprint in Kochi
                 </h3>
                 <p className="text-black/80 font-normal text-sm sm:text-base leading-relaxed">
-                  The SHN finale is a 24-hour hackathon held at TinkerSpace — selected teams arrive in the evening, hack through the night, and present in the morning.
+                  The SHN finale is an offline hackathon held at TinkerSpace Kochi — selected teams arrive, hack together, and present their prototypes to mentors and the community.
                 </p>
               </div>
 
               <div className="mt-6 pt-3 border-t border-black/15 flex items-center gap-2 font-mono text-xs font-semibold text-black/70">
                 <Clock size={15} strokeWidth={2} />
-                <span>24-Hour Non-Stop Build</span>
+                <span>Offline Non-Stop Build</span>
               </div>
             </motion.div>
 

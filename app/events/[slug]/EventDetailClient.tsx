@@ -144,8 +144,13 @@ export default function EventDetailClient({ night }: { night: HackNight }) {
           <p className="text-black font-semibold text-lg sm:text-xl leading-relaxed mb-4">
             {night.challenge}
           </p>
-          <div className="font-mono text-xs font-semibold text-black/80 bg-[#fff6bf] inline-block px-3 py-1 border border-black/20 rounded">
-            Push to public GitHub · Submit before midnight · Solo or team of 2
+          <div className="flex flex-wrap gap-2 items-center">
+            <div className="font-mono text-xs font-semibold text-black/80 bg-[#fff6bf] inline-block px-3 py-1 border border-black/20 rounded">
+              Push to public GitHub · Submit before midnight · Solo or team of 2
+            </div>
+            <div className="font-mono text-xs font-bold text-black bg-[#ffd34e] inline-block px-3 py-1 border border-black rounded shadow-xs">
+              ⚠️ Commit every change before making another move — commit history will be verified!
+            </div>
           </div>
         </motion.div>
 
