@@ -5,14 +5,17 @@ import { getNextNight, getNightEnd } from "@/lib/data";
 
 interface TimeLeft { days: number; hours: number; minutes: number; seconds: number; }
 
-type Phase = "upcoming" | "live" | "ended";
+type Phase = "upcoming" | "live" | "ended" | "tba";
 
 const ZERO: TimeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0 };
 
-// Works out, from the real clock, whether the night hasn't started, is live, or is over
+// Works out, from the real clock, whether the night hasn't started, is live, is over, or dates are TBA
 function getState(): { phase: Phase; timeLeft: TimeLeft } {
-  const now = Date.now();
   const night = getNextNight();
+  if (!night || night.date === "To be announced" || night.date.toLowerCase().includes("announced")) {
+    return { phase: "tba", timeLeft: ZERO };
+  }
+  const now = Date.now();
   const start = new Date(night.isoDate).getTime();
   const end = getNightEnd(night).getTime();
   if (now < start) return { phase: "upcoming", timeLeft: getTimeLeft(start - now) };
@@ -51,6 +54,7 @@ const PHASE_LABEL: Record<Phase, string> = {
   upcoming: "Starts in",
   live: "Live now",
   ended: "This hack night has ended",
+  tba: "Date to be announced soon",
 };
 
 export default function LiveCountdown() {

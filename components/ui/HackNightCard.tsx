@@ -87,9 +87,16 @@ export default function HackNightCard({ event, index }: HackNightCardProps) {
       <div className="p-6 flex flex-col gap-4 flex-1">
         {/* Top row */}
         <div className="flex items-center justify-between border-b border-black/15 pb-3">
-          <span className={`font-mono text-xs px-2.5 py-1 rounded font-bold uppercase tracking-wider border border-black ${palette.badgeBg} ${palette.badgeText}`}>
-            {event.difficulty}
-          </span>
+          <div className="flex items-center gap-1.5">
+            <span className={`font-mono text-xs px-2.5 py-1 rounded font-bold uppercase tracking-wider border border-black ${palette.badgeBg} ${palette.badgeText}`}>
+              {event.difficulty}
+            </span>
+            {event.ended && (
+              <span className="font-mono text-xs px-2.5 py-1 rounded font-bold uppercase tracking-wider border border-black bg-black text-white shadow-xs">
+                Ended
+              </span>
+            )}
+          </div>
           <span className="font-mono text-xs font-bold text-black/60 uppercase">Night {nightNum}{event.mode ? ` · ${event.mode}` : ""}</span>
         </div>
 
@@ -126,7 +133,24 @@ export default function HackNightCard({ event, index }: HackNightCardProps) {
 
         {/* CTAs */}
         <div className="mt-auto pt-4 flex items-center gap-3 border-t border-black/15">
-          {event.id === 1 ? (
+          {event.ended ? (
+            <>
+              <span className="flex-1 text-center font-bold font-mono text-xs sm:text-sm py-2.5 rounded-lg border-2 border-black/25 bg-black/10 text-black/60 cursor-not-allowed select-none">
+                Ended
+              </span>
+              <a
+                href={
+                  event.stack.includes("MediaPipe") || event.slug === "shn-s2-001-beyond-gesture"
+                    ? "/learn/mediapipe/"
+                    : `/events/${event.slug}/`
+                }
+                className="flex items-center gap-1 font-mono text-xs font-bold text-black hover:text-[#f28ad8] transition-colors"
+              >
+                Details
+                <ArrowRight size={13} strokeWidth={2} />
+              </a>
+            </>
+          ) : event.id === 1 ? (
             <>
               <a
                 href={REGISTER_URL}

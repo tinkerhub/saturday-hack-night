@@ -71,9 +71,15 @@ export default function EventDetailClient({ night }: { night: HackNight }) {
             >
               {night.difficulty}
             </span>
-            <span className="font-mono text-xs font-semibold bg-[#e0f4fb] text-black px-3 py-1 rounded border border-black/40">
-              Free · Solo or team of 2
-            </span>
+            {night.ended ? (
+              <span className="font-mono text-xs font-bold bg-neutral-900 text-white px-3 py-1 rounded border border-black shadow-sm uppercase tracking-wider">
+                Ended
+              </span>
+            ) : (
+              <span className="font-mono text-xs font-semibold bg-[#e0f4fb] text-black px-3 py-1 rounded border border-black/40">
+                Free · Solo or team of 2
+              </span>
+            )}
           </div>
 
           <SectionHeading accent="pink" as="h1" className="mb-6">
@@ -96,7 +102,11 @@ export default function EventDetailClient({ night }: { night: HackNight }) {
           </div>
 
           {/* Register CTA */}
-          {night.id === 1 ? (
+          {night.ended ? (
+            <div className="inline-flex items-center gap-2 bg-black/10 text-black/75 font-mono font-bold text-sm px-6 py-3.5 rounded-lg border-2 border-black/30">
+              This Hack Night has Ended · Submissions Closed
+            </div>
+          ) : night.id === 1 ? (
             <a
               href={REGISTER_URL}
               target="_blank"
@@ -281,7 +291,7 @@ export default function EventDetailClient({ night }: { night: HackNight }) {
         )}
 
         {/* Bottom CTA */}
-        {night.id === 1 && (
+        {night.id === 1 && !night.ended && (
           <motion.div
             className="rounded-xl border-2 border-black bg-[#fae4f2] text-black p-8 sm:p-10 text-center shadow-sm"
             initial={{ opacity: 0, y: 16 }}
@@ -301,6 +311,28 @@ export default function EventDetailClient({ night }: { night: HackNight }) {
               className="inline-flex items-center gap-2 bg-[#d4f5e0] text-black font-bold text-base px-8 py-3.5 rounded-lg border-2 border-black shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-150"
             >
               Register Now — It&apos;s Free
+              <ArrowRight size={17} strokeWidth={2} />
+            </a>
+          </motion.div>
+        )}
+        {night.id === 1 && night.ended && (
+          <motion.div
+            className="rounded-xl border-2 border-black bg-[#f5f4ee] text-black p-8 sm:p-10 text-center shadow-sm"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h3 className="font-display font-bold text-2xl sm:text-3xl mb-2">
+              Sprint 01 Has Concluded
+            </h3>
+            <p className="text-black/75 font-normal text-base mb-6 max-w-lg mx-auto">
+              This hack night has ended, but all MediaPipe tutorials, starter templates, and project ideas remain open for exploration.
+            </p>
+            <a
+              href="/learn/mediapipe/"
+              className="inline-flex items-center gap-2 bg-[#ffd34e] text-black font-bold text-base px-8 py-3.5 rounded-lg border-2 border-black shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-150"
+            >
+              Explore MediaPipe Learning Hub
               <ArrowRight size={17} strokeWidth={2} />
             </a>
           </motion.div>

@@ -133,7 +133,7 @@ export default function Hero() {
               <h2 className="text-xl sm:text-2xl font-bold text-black">{nextNight.theme}</h2>
             </div>
             <span className="bg-[#d4f5e0] text-black font-mono text-xs font-bold px-3 py-1 border border-black rounded-lg">
-              {nextNight.date} · 6 – 11 PM
+              {nextNight.date === "To be announced" ? "Date to be announced · 6 – 11 PM" : `${nextNight.date} · 6 – 11 PM`}
             </span>
           </div>
 
