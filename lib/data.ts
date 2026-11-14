@@ -30,6 +30,7 @@ export interface HackNight {
   endIsoDate?: string; // end time; defaults to start + 5 hours
   mode?: string; // e.g. "Online"
   locked?: boolean; // locked nights are shown but cannot be opened
+  ended?: boolean; // concluded nights
   stack: string;
   difficulty: "Beginner" | "Intermediate" | "Advanced";
   about: string;
@@ -75,6 +76,7 @@ export const upcomingNights: HackNight[] = [
     isoDate: "2026-11-07T12:30:00Z", // 6:00 PM IST = 12:30 UTC
     endIsoDate: "2026-11-07T17:30:00Z", // 11:00 PM IST = 17:30 UTC
     mode: "Online",
+    ended: true,
     stack: "MediaPipe",
     difficulty: "Beginner",
     about:
@@ -109,7 +111,7 @@ export const upcomingNights: HackNight[] = [
     id: 2,
     slug: "shn-s2-002-llm-apis-generative-ai",
     theme: "LLM APIs / Generative AI",
-    date: "November 14, 2026",
+    date: "To be announced",
     isoDate: "2026-11-14T12:30:00Z", // 6:00 PM IST = 12:30 UTC
     endIsoDate: "2026-11-14T17:30:00Z", // 11:00 PM IST = 17:30 UTC
     mode: "Online",
@@ -294,9 +296,9 @@ export function getNightEnd(n: HackNight): Date {
 // The current or next night (stays the same while the night is live, until it ends)
 export function getNextNight(): HackNight {
   const now = Date.now();
-  const open = upcomingNights.filter((n) => !n.locked);
-  const next = open.find((n) => getNightEnd(n).getTime() > now);
-  return next ?? open[open.length - 1];
+  const open = upcomingNights.filter((n) => !n.locked && !n.ended);
+  const next = open.find((n) => n.date !== "To be announced" && getNightEnd(n).getTime() > now);
+  return next ?? open[0] ?? upcomingNights[upcomingNights.length - 1];
 }
 
 export function getNextNightDate(): Date {
