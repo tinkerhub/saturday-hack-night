@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Caveat } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import MotionProvider from "@/components/MotionProvider";
 import GridBackdrop from "@/components/ui/GridBackdrop";
 import "./globals.css";
@@ -19,12 +20,12 @@ const jetbrainsMono = JetBrains_Mono({
   preload: false, // only used for code/data elements, defer it
 });
 
-const caveat = Caveat({
-  subsets: ["latin"],
+const caveat = localFont({
+  src: "./fonts/Caveat-Variable-latin.woff2",
   variable: "--font-caveat",
   display: "swap",
-  weight: ["500", "600", "700"],
-  preload: false, // only used for small handwritten annotations
+  weight: "500 700",
+  preload: false,
 });
 
 export const metadata: Metadata = {

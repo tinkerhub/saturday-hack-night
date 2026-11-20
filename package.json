@@ -4,13 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.2.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.35.1",
+    "googleapis": "^190.0.0",
     "lucide-react": "^0.577.0",
     "next": "16.1.6",
     "react": "19.2.3",

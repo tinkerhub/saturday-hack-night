@@ -16,10 +16,6 @@ export default async function EventPage({ params }: PageProps) {
   const night = upcomingNights.find((n) => n.slug === slug);
   if (!night || night.locked) notFound();
 
-  if (night.slug === "shn-s2-001-beyond-gesture" || night.stack === "MediaPipe") {
-    return <MediaPipeLearnClient />;
-  }
-
   return <EventDetailClient night={night} />;
 }
 

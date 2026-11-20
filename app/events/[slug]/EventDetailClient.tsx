@@ -14,6 +14,7 @@ import {
   Link as LinkIcon,
   ArrowRight,
   Target,
+  Sparkles,
 } from "lucide-react";
 import type { HackNight, Resource } from "@/lib/data";
 import { REGISTER_URL } from "@/lib/data";
@@ -21,6 +22,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import GridBackdrop from "@/components/ui/GridBackdrop";
+import ProjectBentoGrid from "@/components/ui/ProjectBentoGrid";
 
 const difficultyConfig = {
   Beginner: { bg: "bg-[#d4f5e0]", text: "text-black" },
@@ -43,7 +45,7 @@ export default function EventDetailClient({ night }: { night: HackNight }) {
       <GridBackdrop />
       <Navbar />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 pt-28 sm:pt-36 pb-20">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pt-28 sm:pt-36 pb-20">
         {/* Back Link */}
         <div className="mb-8">
           <a
@@ -51,18 +53,18 @@ export default function EventDetailClient({ night }: { night: HackNight }) {
             className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider font-semibold text-[#111111]/70 hover:text-black hover:underline transition-colors"
           >
             <ArrowLeft size={14} strokeWidth={2} />
-            Back to All Upcoming Nights
+            Back to Timeline
           </a>
         </div>
 
         {/* Hero */}
         <motion.div
-          className="mb-14"
+          className="mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="flex flex-wrap items-center gap-3 mb-4">
+          <div className="flex flex-wrap items-center gap-2.5 mb-4">
             <span className="font-mono text-xs font-bold uppercase tracking-wider bg-black text-white px-3 py-1 rounded border border-black shadow-sm">
               SHN #{String(night.id).padStart(2, "0")}
             </span>
@@ -71,25 +73,21 @@ export default function EventDetailClient({ night }: { night: HackNight }) {
             >
               {night.difficulty}
             </span>
-            {night.ended ? (
+            {night.ended && (
               <span className="font-mono text-xs font-bold bg-neutral-900 text-white px-3 py-1 rounded border border-black shadow-sm uppercase tracking-wider">
-                Ended
-              </span>
-            ) : (
-              <span className="font-mono text-xs font-semibold bg-[#e0f4fb] text-black px-3 py-1 rounded border border-black/40">
-                Free · Solo or team of 2
+                Ended · Submissions Evaluated
               </span>
             )}
           </div>
 
-          <SectionHeading accent="pink" as="h1" className="mb-6">
+          <SectionHeading accent="pink" as="h1" className="mb-5">
             {night.theme}
           </SectionHeading>
 
-          <div className="flex flex-wrap gap-3 sm:gap-4 text-black font-mono font-medium text-xs sm:text-sm mb-8">
+          <div className="flex flex-wrap gap-3 text-black font-mono font-medium text-xs sm:text-sm mb-6">
             <div className="flex items-center gap-2 bg-[#fff6bf] px-3 py-1.5 rounded-lg border border-black shadow-sm">
               <CalendarDays size={14} className="stroke-[2]" />
-              <span>{night.date === "To be announced" ? "Date to be announced · 6:00 PM IST" : `${night.date} · 6:00 PM IST`}</span>
+              <span>{night.date} · 6:00 PM IST</span>
             </div>
             <div className="flex items-center gap-2 bg-[#e0f4fb] px-3 py-1.5 rounded-lg border border-black shadow-sm">
               <Code2 size={14} className="stroke-[2]" />
@@ -100,87 +98,71 @@ export default function EventDetailClient({ night }: { night: HackNight }) {
               <span>Solo or team of 2</span>
             </div>
           </div>
-
-          {/* Register CTA */}
-          {night.ended ? (
-            <div className="inline-flex items-center gap-2 bg-black/10 text-black/75 font-mono font-bold text-sm px-6 py-3.5 rounded-lg border-2 border-black/30">
-              This Hack Night has Ended · Submissions Closed
-            </div>
-          ) : night.id === 1 ? (
-            <a
-              href={REGISTER_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#ffd34e] text-black font-bold text-base px-8 py-3.5 rounded-lg border-2 border-black shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-150"
-            >
-              Register for this night
-              <ArrowRight size={17} strokeWidth={2} />
-            </a>
-          ) : (
-            <div className="inline-flex items-center gap-2 bg-[#fff6bf] text-black font-mono font-bold text-sm px-6 py-3 rounded-lg border border-black shadow-sm">
-              Registration opening soon
-            </div>
-          )}
         </motion.div>
 
-        {/* About */}
-        <motion.div
-          className="mb-12 p-6 sm:p-7 bg-[#fae4f2] rounded-xl border-2 border-black shadow-sm"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="font-display font-bold text-xl sm:text-2xl text-black mb-2">
-            About This Theme
-          </h2>
-          <p className="text-black/80 font-normal leading-relaxed text-base sm:text-lg">
-            {night.about}
-          </p>
-        </motion.div>
-
-        {/* The Challenge */}
-        <motion.div
-          className="mb-14 rounded-xl border-2 border-black bg-[#fff6bf] p-6 sm:p-7 shadow-sm border-l-4 border-l-[#ffd34e]"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <div className="flex items-center gap-2 mb-3">
-            <Target size={16} className="text-black stroke-[2.5]" />
-            <h2 className="font-bold text-black text-xs uppercase tracking-wider font-mono">
-              The Challenge
-            </h2>
-          </div>
-          <p className="text-black font-semibold text-lg sm:text-xl leading-relaxed mb-4">
-            {night.challenge}
-          </p>
-          <div className="flex flex-wrap gap-2 items-center">
-            <div className="font-mono text-xs font-semibold text-black/80 bg-[#fff6bf] inline-block px-3 py-1 border border-black/20 rounded">
-              Push to public GitHub · Submit before midnight · Solo or team of 2
+        {/* Concise About & Challenge grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-14">
+          {/* About */}
+          <motion.div
+            className="p-6 bg-[#fae4f2] rounded-xl border-2 border-black shadow-sm flex flex-col justify-between"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div>
+              <h2 className="font-display font-bold text-lg sm:text-xl text-black mb-2">
+                About The Theme
+              </h2>
+              <p className="text-black/80 font-normal leading-relaxed text-sm sm:text-base">
+                {night.about}
+              </p>
             </div>
-            <div className="font-mono text-xs font-bold text-black bg-[#ffd34e] inline-block px-3 py-1 border border-black rounded shadow-xs">
-              ⚠️ Commit every change before making another move — commit history will be verified!
-            </div>
-          </div>
+          </motion.div>
 
-          {night.id === 1 && (
-            <div className="mt-4 pt-4 border-t border-black/15 flex flex-wrap items-center justify-between gap-3 bg-white/70 p-3 rounded-lg border border-black/30">
-              <div className="text-xs text-black font-medium">
-                <span className="font-mono font-bold bg-black text-white px-2 py-0.5 rounded mr-2">
-                  TEMPLATE
-                </span>
-                <strong>Fork the official starter repo</strong> before starting your build. Ask mentors if you have any doubts!
+          {/* The Challenge */}
+          <motion.div
+            className="p-6 bg-[#fff6bf] rounded-xl border-2 border-black shadow-sm flex flex-col justify-between border-l-4 border-l-[#ffd34e]"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <Target size={15} className="text-black stroke-[2.5]" />
+                <h2 className="font-bold text-black text-xs uppercase tracking-wider font-mono">
+                  The Challenge
+                </h2>
               </div>
-              <a
-                href="https://github.com/TINKERHUB-SATURDAY-HACKNIGHT/SHN-MEDIAPIPE/fork"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-mono text-xs font-bold text-black bg-[#d4f5e0] hover:bg-black hover:text-white px-3 py-1.5 rounded border border-black shadow-xs transition-colors inline-flex items-center gap-1.5"
-              >
-                Fork on GitHub →
-              </a>
+              <p className="text-black font-semibold text-sm sm:text-base leading-relaxed mb-4">
+                {night.challenge}
+              </p>
             </div>
-          )}
+            <div className="font-mono text-[11px] font-semibold text-black/80 bg-white/80 p-2.5 border border-black/20 rounded">
+              Push working prototype to public GitHub · Solo or team of 2
+            </div>
+          </motion.div>
+        </div>
+
+        {/* ─── LIVE FEATURED PROJECTS FROM GOOGLE SHEETS ─── */}
+        <motion.div
+          className="mb-16"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+            <div>
+              <h2 className="font-display font-bold text-2xl sm:text-3xl text-black">
+                Featured Projects
+              </h2>
+              <p className="text-black/75 text-sm sm:text-base mt-1 font-normal max-w-xl">
+                Standout community submissions from Night 01.
+              </p>
+            </div>
+          </div>
+
+          {/* Live Bento Grid from Google Sheets API */}
+          <ProjectBentoGrid />
         </motion.div>
 
         {/* Mentors */}
@@ -191,7 +173,7 @@ export default function EventDetailClient({ night }: { night: HackNight }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-display font-bold text-xl sm:text-2xl text-black mb-5">
+            <h2 className="font-display font-bold text-xl sm:text-2xl text-black mb-4">
               Mentors for this Night
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -207,55 +189,29 @@ export default function EventDetailClient({ night }: { night: HackNight }) {
                     <div className="font-display font-bold text-black text-base">
                       {mentor.name}
                     </div>
-                    <div className="text-xs font-mono font-medium text-black/60 mb-2">
+                    <div className="text-xs font-mono font-medium text-black/60">
                       {mentor.role}
-                    </div>
-                    <div className="flex items-center gap-3">
-                      {mentor.github && (
-                        <a
-                          href={`https://github.com/${mentor.github}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-black/60 hover:text-black transition-colors"
-                        >
-                          <Github size={12} />
-                          {mentor.github}
-                        </a>
-                      )}
-                      {mentor.twitter && (
-                        <a
-                          href={`https://twitter.com/${mentor.twitter}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-black/60 hover:text-[#f5d6ed] transition-colors"
-                        >
-                          <Twitter size={12} />@{mentor.twitter}
-                        </a>
-                      )}
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-            <p className="font-mono text-xs font-medium text-black/60 mt-3">
-              Mentors are active in the SHN Discord throughout the night to help unblock you.
-            </p>
           </motion.div>
         )}
 
-        {/* Starter Resources */}
+        {/* Starter Resources & Learning Hub Link */}
         {night.starterResources.length > 0 && (
           <motion.div
-            className="mb-16"
+            className="mb-14"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
             <h2 className="font-display font-bold text-xl sm:text-2xl text-black mb-1">
-              Start Here
+              Resources & Starter Guides
             </h2>
-            <p className="text-black/70 font-normal text-sm mb-5">
-              Not familiar with the stack? These resources will get you up to speed before Saturday.
+            <p className="text-black/70 font-normal text-sm mb-4">
+              Templates and starter resources curated for this sprint.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {night.starterResources.map((resource: Resource) => {
@@ -290,59 +246,32 @@ export default function EventDetailClient({ night }: { night: HackNight }) {
           </motion.div>
         )}
 
-        {/* Bottom CTA */}
-        {night.id === 1 && !night.ended && (
-          <motion.div
-            className="rounded-xl border-2 border-black bg-[#fae4f2] text-black p-8 sm:p-10 text-center shadow-sm"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h3 className="font-display font-bold text-2xl sm:text-3xl mb-2">
-              Ready to build?
+        {/* Bottom Hub link */}
+        <motion.div
+          className="rounded-xl border-2 border-black bg-[#fae4f2] text-black p-7 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <div>
+            <h3 className="font-display font-bold text-xl sm:text-2xl mb-1">
+              Looking for Full MediaPipe Tutorials?
             </h3>
-            <p className="text-black/75 font-normal text-base mb-6 max-w-lg mx-auto">
-              Free to join. No prior experience needed. Build with friends and push to GitHub by midnight.
+            <p className="text-black/75 font-normal text-sm max-w-lg">
+              Check out the step-by-step OpenCV code walkthroughs, landmark guides, and comprehensive documentation in our dedicated learning hub.
             </p>
-            <a
-              href={REGISTER_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#d4f5e0] text-black font-bold text-base px-8 py-3.5 rounded-lg border-2 border-black shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-150"
-            >
-              Register Now — It&apos;s Free
-              <ArrowRight size={17} strokeWidth={2} />
-            </a>
-          </motion.div>
-        )}
-        {night.id === 1 && night.ended && (
-          <motion.div
-            className="rounded-xl border-2 border-black bg-[#f5f4ee] text-black p-8 sm:p-10 text-center shadow-sm"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          </div>
+          <a
+            href="/learn/mediapipe/"
+            className="inline-flex items-center gap-2 bg-[#ffd34e] text-black font-bold text-sm px-6 py-3 rounded-lg border-2 border-black shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all shrink-0"
           >
-            <h3 className="font-display font-bold text-2xl sm:text-3xl mb-2">
-              Sprint 01 Has Concluded
-            </h3>
-            <p className="text-black/75 font-normal text-base mb-6 max-w-lg mx-auto">
-              This hack night has ended, but all MediaPipe tutorials, starter templates, and project ideas remain open for exploration.
-            </p>
-            <a
-              href="/learn/mediapipe/"
-              className="inline-flex items-center gap-2 bg-[#ffd34e] text-black font-bold text-base px-8 py-3.5 rounded-lg border-2 border-black shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-150"
-            >
-              Explore MediaPipe Learning Hub
-              <ArrowRight size={17} strokeWidth={2} />
-            </a>
-          </motion.div>
-        )}
+            Open MediaPipe Hub
+            <ArrowRight size={15} strokeWidth={2} />
+          </a>
+        </motion.div>
       </div>
 
       <Footer />
     </main>
   );
 }
-
-
-

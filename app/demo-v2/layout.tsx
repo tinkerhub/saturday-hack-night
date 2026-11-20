@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Caveat } from "next/font/google";
+import localFont from "next/font/local";
 
-const caveat = Caveat({
-  subsets: ["latin"],
+const caveat = localFont({
+  src: "../fonts/Caveat-Variable-latin.woff2",
   variable: "--font-caveat",
   display: "swap",
-  weight: ["500", "600", "700"],
+  weight: "500 700",
 });
 
 export const metadata: Metadata = {
