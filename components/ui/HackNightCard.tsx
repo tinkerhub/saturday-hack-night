@@ -139,11 +139,7 @@ export default function HackNightCard({ event, index }: HackNightCardProps) {
                 Ended
               </span>
               <a
-                href={
-                  event.stack.includes("MediaPipe") || event.slug === "shn-s2-001-beyond-gesture"
-                    ? "/learn/mediapipe/"
-                    : `/events/${event.slug}/`
-                }
+                href={`/events/${event.slug}/`}
                 className="flex items-center gap-1 font-mono text-xs font-bold text-black hover:text-[#f28ad8] transition-colors"
               >
                 Details
@@ -161,11 +157,7 @@ export default function HackNightCard({ event, index }: HackNightCardProps) {
                 Register
               </a>
               <a
-                href={
-                  event.stack.includes("MediaPipe") || event.slug === "shn-s2-001-beyond-gesture"
-                    ? "/learn/mediapipe/"
-                    : `/events/${event.slug}/`
-                }
+                href={`/events/${event.slug}/`}
                 className="flex items-center gap-1 font-mono text-xs font-bold text-black hover:text-[#f28ad8] transition-colors"
               >
                 Details

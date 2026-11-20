@@ -7,6 +7,7 @@ import GetSelected from "@/components/sections/GetSelected";
 import Timeline from "@/components/sections/Timeline";
 import AfterRegister from "@/components/sections/AfterRegister";
 import TinkerSpace from "@/components/sections/TinkerSpace";
+import FeaturedProjects from "@/components/sections/FeaturedProjects";
 import Experience from "@/components/sections/Experience";
 import Community from "@/components/sections/Community";
 import FAQ from "@/components/sections/FAQ";
@@ -29,6 +30,7 @@ export default function Home() {
       <AfterRegister />
       <Timeline />
       <TinkerSpace />
+      <FeaturedProjects />
       <Experience />
       <Community />
       <FAQ />
